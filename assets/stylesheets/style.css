@@ -1,0 +1,14 @@
+Button {
+    -fx-text-fill: white;
+    -fx-background-radius:45;
+    -fx-background-color: linear-gradient(#454545 0%, #757575 100%);
+}
+
+Button:hover {
+    -fx-background-color: linear-gradient(blue 0%, red 100%);
+}
+
+#custom-button {
+    -fx-font: bold italic 20pt "Arial";
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
