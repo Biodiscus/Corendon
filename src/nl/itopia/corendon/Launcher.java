@@ -14,7 +14,7 @@ public class Launcher extends Application {
     public static final String VERSION = "0.1";
     public static final String TITLE = "Corendon";
 
-    public static final int WIDTH = 500;
+    public static final int WIDTH = 1000;
     public static final int HEIGHT = WIDTH / 16 * 9;
 
     public MVC mvcEngine;
