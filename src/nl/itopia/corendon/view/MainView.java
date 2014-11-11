@@ -64,10 +64,10 @@ public class MainView extends View {
         VBox info_pane = new VBox();
         header_info_pane.getChildren().add(info_pane);
 
-        user_label = new Label("User: 1337213321");
+        user_label = new Label("User: 69");
         info_pane.getChildren().add(user_label);
 
-        welcome_label = new Label("Welkom terug: Wies Keuter");
+        welcome_label = new Label("Welkom terug: Erik Schouten");
         info_pane.getChildren().add(welcome_label);
 
         help_button = new Button("?");
