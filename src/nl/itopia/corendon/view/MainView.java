@@ -17,6 +17,9 @@ import nl.itopia.corendon.mvc.View;
  * © 2014, Biodiscus.net Robin
  */
 public class MainView extends View {
+    
+    public static final int USERID = 1337;
+    public static final String USERNAME = "Wies Kueter";
     public Label welcome_label, user_label;
     public Button help_button;
     public Button summary, baggage, log;
@@ -64,10 +67,10 @@ public class MainView extends View {
         VBox info_pane = new VBox();
         header_info_pane.getChildren().add(info_pane);
 
-        user_label = new Label("User: 69");
+        user_label = new Label("User: "+ USERID);
         info_pane.getChildren().add(user_label);
 
-        welcome_label = new Label("Welkom terug: Erik Schouten");
+        welcome_label = new Label("Welkom terug: "+ USERNAME);
         info_pane.getChildren().add(welcome_label);
 
         help_button = new Button("?");
