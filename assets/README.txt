@@ -1,0 +1,1 @@
+This folder is for every asset or file that is needed to compile the program.

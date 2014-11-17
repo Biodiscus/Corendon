@@ -1,0 +1,1 @@
+This folder is for files that are not needed to compile the project. Example: a SQL file.
