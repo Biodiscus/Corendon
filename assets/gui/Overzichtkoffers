@@ -45,13 +45,13 @@
                <children>
                   <TableView prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="colName" prefWidth="135.0" text="Brand" />
-                        <TableColumn prefWidth="85.0" text="Dimensions" />
-                        <TableColumn prefWidth="83.0" text="Color" />
-                        <TableColumn prefWidth="105.0" text="Airport" />
-                        <TableColumn prefWidth="119.0" text="Status" />
-                        <TableColumn prefWidth="170.0" text="Description" />
+                      <TableColumn id="ID" prefWidth="75.0" text="ID" />
+                      <TableColumn id="Brand" fx:id="colName" prefWidth="135.0" text="Brand" />
+                        <TableColumn id="Dimensions" prefWidth="85.0" text="Dimensions" />
+                        <TableColumn id="Color" prefWidth="83.0" text="Color" />
+                        <TableColumn id="Airport" prefWidth="105.0" text="Airport" />
+                        <TableColumn id="Status" prefWidth="119.0" text="Status" />
+                        <TableColumn id="Description" prefWidth="170.0" text="Description" />
                     </columns>
                   </TableView>
                </children>
