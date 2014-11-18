@@ -14,6 +14,13 @@ public class Airport {
     private int id;
     private int code;
     private String name;
+    
+    public Airport(int id, int code, String name) {
+        this.id = id;
+        this.code = code;
+        this.name = name;
+    }
+    
     private String getName() {
         return name;
     }
