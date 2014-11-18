@@ -1,6 +1,7 @@
 package nl.itopia.corendon.controller;
 
-import nl.itopia.corendon.model.MainModel;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.mvc.View;
 import nl.itopia.corendon.view.MainView;
@@ -9,12 +10,17 @@ import nl.itopia.corendon.view.MainView;
  * © 2014, Biodiscus.net Robin
  */
 public class MainController extends Controller {
-    private MainView view;
-    private MainModel model;
+
+    @FXML private Button test_button;
 
     public MainController(int width, int height) {
-        view = new MainView(width, height);
-        model = MainModel.getDefault();
+//        view = new MainView(width, height);
+        registerFXML("gui/TestGUI.fxml");
+    }
+
+    @Override
+    public void initialize() {
+        System.out.println(test_button);
     }
 
     @Override
