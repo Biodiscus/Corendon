@@ -18,6 +18,7 @@ public class MainController extends Controller {
         registerFXML("gui/TestGUI.fxml");
 
         EmployeeModel model = EmployeeModel.getDefault();
+        System.out.println("Test");
     }
 
     @Override
