@@ -1,11 +1,15 @@
 package nl.itopia.corendon;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.itopia.corendon.controller.MainController;
 import nl.itopia.corendon.mvc.MVC;
 import nl.itopia.corendon.utils.Log;
+import nl.itopia.corendon.data.*;
 
 /**
  * © 2014, Biodiscus.net Robin
@@ -20,6 +24,9 @@ public class Launcher extends Application {
     public MVC mvcEngine;
 
     private Scene scene;
+    
+    /** database manager */
+    private Dbmanager dbManager; 
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -34,6 +41,12 @@ public class Launcher extends Application {
             stage.setScene(scene);
 
             Log.display("Changing view");
+            
+            // create and initialize the connectivity
+            
+            dbManager = new Dbmanager();
+            dbManager.openConnection();
+            Log.display("Database ready!");
         });
         mvcEngine.setController(new MainController(WIDTH, HEIGHT));
 
