@@ -37,7 +37,7 @@ public class Baggage {
         this.brandName = brand;
     }
    
-    //check whether baggage x is equal to baggage y
+    //check whether baggage x is equal to baggage 
     @Override
     public boolean equals(Object obj) {
         boolean value;
