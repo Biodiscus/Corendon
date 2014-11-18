@@ -9,14 +9,33 @@ package nl.itopia.corendon.model;
  *
  * @author Erik
  */
-public class Employee {
+public class Employeeo {
     int id;
-    String username;
-    String contactDetails;
-    String notes;
-    Role role;
-    Airport airport;
-    int createDate;
-    int lastOnline;
+    private String username;
+    private String password;
+    private String salt;
+    private String contactDetails;
+    private String notes;
+    private Role role;
+    private Airport airport;
+    private int createDate;
+    private int lastOnline;
+    
+
+    
+    /*private getContactDetails() : String
+
++ getNotes() : String
+
++ getRole() : Role
+
++ getAirport() : Airport
+
++ getCreateDate() : int
+
++ getLastOnline() : int
+
++ getID() : int*/
+    
     
 }

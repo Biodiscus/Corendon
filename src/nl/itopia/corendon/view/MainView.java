@@ -2,12 +2,13 @@ package nl.itopia.corendon.view;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
+import javafx.scene.control.Button; 
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.View;
 
 /**
@@ -25,7 +26,9 @@ public class MainView extends View {
     private BorderPane border;
     public MainView(int width, int height) {
         super(width, height);
-
+        
+        EmployeeModel model = EmployeeModel.getDefault();
+        
         border = new BorderPane();
         addComponent(border);
 

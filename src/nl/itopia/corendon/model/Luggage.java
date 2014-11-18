@@ -14,7 +14,7 @@ public class Luggage {
     int id;
     Color color;
     Status status;
-    Employee employee;
+    Employeeo employee;
     Customer customer;
     Airport airport;
     String dimensions;
