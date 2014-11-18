@@ -1,23 +1,24 @@
 package nl.itopia.corendon.mvc;
 
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import nl.itopia.corendon.utils.IO;
+import nl.itopia.corendon.utils.Log;
+
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * © Biodiscus.net 2014, Robin
  */
 public class View extends Pane {
-    private int width, height;
+    public Pane fxmlPane;
+
+    public View() {}
 
     public View(int width, int height) {
-        this.width = width;
-        this.height = height;
-
         setWidth(width);
         setHeight(height);
-    }
-
-    public final void addComponent(Node node) {
-        getChildren().add(node);
     }
 }

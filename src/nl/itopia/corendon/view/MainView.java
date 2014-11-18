@@ -1,5 +1,6 @@
 package nl.itopia.corendon.view;
 
+<<<<<<< HEAD
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button; 
@@ -9,23 +10,24 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nl.itopia.corendon.model.EmployeeModel;
+=======
+>>>>>>> 23986103af67ff2a4965699f635db15ae833ecc0
 import nl.itopia.corendon.mvc.View;
 
 /**
- * Look at this: http://docs.oracle.com/javafx/2/layout/builtin_layouts.htm
- *
- *
  * © 2014, Biodiscus.net Robin
  */
 public class MainView extends View {
+<<<<<<< HEAD
     public Label welcome_label, user_label;
     public Button help_button;
     public Button summary, baggage, log;
+=======
+>>>>>>> 23986103af67ff2a4965699f635db15ae833ecc0
 
-    private HBox header_pane;
-    private BorderPane border;
     public MainView(int width, int height) {
         super(width, height);
+<<<<<<< HEAD
         
         EmployeeModel model = EmployeeModel.getDefault();
         
@@ -113,6 +115,10 @@ public class MainView extends View {
         // </editor-fold>
 
         // </editor-fold>
+=======
+
+//        setFXML("gui/TestGUI.fxml");
+>>>>>>> 23986103af67ff2a4965699f635db15ae833ecc0
     }
 }
 // <editor-fold desc="">

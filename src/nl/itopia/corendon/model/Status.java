@@ -10,24 +10,22 @@ package nl.itopia.corendon.model;
  *
  * @author igor
  */
-public class Airport {
+public class Status {
     private int id;
-    private int code;
     private String name;
     
-    public Airport(int id, int code, String name) {
+    /*
+    private String hex;
+    Status(int id, String hex){
         this.id = id;
-        this.code = code;
-        this.name = name;
+        this.hex = hex;
     }
+    */
     
-    private String getName() {
+    public String getName() {
         return name;
     }
-    private int getCode() {
-        return code;
-    }
-    private int getID() {
+    public int getID() {
         return id;
     }
 }

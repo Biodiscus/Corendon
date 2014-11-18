@@ -3,31 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.itopia.corendon.model;
 
 /**
  *
- * @author igor
+ * @author Erik
  */
-public class Airport {
+public class Action {
     private int id;
-    private int code;
     private String name;
     
-    public Airport(int id, int code, String name) {
+    public Action(int id, String name) {
         this.id = id;
-        this.code = code;
         this.name = name;
     }
     
-    private String getName() {
+    public String getName() {
         return name;
     }
-    private int getCode() {
-        return code;
-    }
-    private int getID() {
+    public int getID() {
         return id;
     }
 }

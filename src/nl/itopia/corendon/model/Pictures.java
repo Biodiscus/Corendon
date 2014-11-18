@@ -9,13 +9,6 @@ package nl.itopia.corendon.model;
  *
  * @author Erik
  */
-public class Role {
-    private int id;
-    private String name;
-    public String getName() {
-        return name;
-    }
-    public int getID() {
-        return id;
-    }
+public class Pictures {
+    
 }

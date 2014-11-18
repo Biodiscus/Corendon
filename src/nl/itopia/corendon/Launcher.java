@@ -43,7 +43,6 @@ public class Launcher extends Application {
             Log.display("Changing view");
             
             // create and initialize the connectivity
-            
             dbManager = new Dbmanager();
             dbManager.openConnection();
             Log.display("Database ready!");
