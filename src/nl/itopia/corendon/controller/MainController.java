@@ -1,29 +1,31 @@
 package nl.itopia.corendon.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.mvc.View;
+import nl.itopia.corendon.utils.Log;
 
 /**
  * © 2014, Biodiscus.net Robin
  */
 public class MainController extends Controller {
 
-    @FXML private Button test_button;
+    @FXML public Button test_button;
 
     public MainController(int width, int height) {
-//        view = new MainView(width, height);
         registerFXML("gui/TestGUI.fxml");
 
         EmployeeModel model = EmployeeModel.getDefault();
-        System.out.println("Test");
+        model.getEmployee(0);
+
+        test_button.setOnAction(this::handle);
     }
 
-    @Override
-    public void initialize() {
-        System.out.println(test_button);
+    public void handle(ActionEvent e) {
+        Log.display("Button clicked", e);
     }
 
     @Override

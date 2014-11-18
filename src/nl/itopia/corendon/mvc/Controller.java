@@ -1,6 +1,8 @@
 package nl.itopia.corendon.mvc;
 
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.Pane;
+import nl.itopia.corendon.controller.MainController;
 import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Log;
 
@@ -16,9 +18,6 @@ public abstract class Controller {
 
     public Controller() {}
 
-    // Called when JavaFX loaded
-    public void initialize() {}
-
     public void registerFXML(String path) {
         registerFXML(path, new View());
     }
@@ -28,7 +27,10 @@ public abstract class Controller {
 
         URL url = IO.get(path);
         try {
-            view.fxmlPane = FXMLLoader.load(url);
+            view.fxmlPane = new Pane();
+            FXMLLoader loader = new FXMLLoader(url);
+            loader.setController(this);
+            view.fxmlPane = loader.load();
             view.getChildren().add(view.fxmlPane);
         } catch (IOException e) {
             Log.display("IOEXCEPTION", e.getMessage());
