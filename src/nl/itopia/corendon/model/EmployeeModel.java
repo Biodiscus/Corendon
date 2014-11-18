@@ -24,15 +24,18 @@ public class EmployeeModel {
         ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
         
         try {
-            employee.username = (String)result.getObject("username");
-            int role_id = result.getInt("role_id");
-            employee.role = RoleModel.getDefault().getRole(role_id);
+            if(result.next()) {
+                employee.username = (String)result.getObject("username");
+                employee.password = (String)result.getObject("password");
+                employee.salt = (String)result.getObject("salt");
+//                int role_id = result.getInt("role_id");
+//                employee.role = RoleModel.getDefault().getRole(role_id);
+//                String a = employee.role.getName();
 
-            String a = employee.role.getName();
-
-//            employee.role = (String)result.getObject("username");
+                Log.display("Employee", employee.username, employee.password, employee.salt);
+            }
         } catch (SQLException e) {
-            Log.display("SQLEXCEPTION", e.getMessage());
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
         
         return employee;

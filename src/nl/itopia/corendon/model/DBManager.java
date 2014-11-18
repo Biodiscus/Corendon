@@ -42,9 +42,9 @@ public class DBManager {
             String url = "jdbc:mysql://"+dbHost+"/"+dbName;
             connection = DriverManager.getConnection(url, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
-            System.err.println(JDBC_EXCEPTION + e);
-        } catch (java.sql.SQLException e) {
-            System.err.println(SQL_EXCEPTION + e);
+            Log.display(JDBC_EXCEPTION, e.getMessage());
+        } catch (SQLException e) {
+            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
     }
 
@@ -54,8 +54,8 @@ public class DBManager {
     public void closeConnection() {
         try {
             connection.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
+        } catch (SQLException e) {
+            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
     }
 
@@ -67,8 +67,8 @@ public class DBManager {
         try {
             Statement statement = connection.createStatement();
             statement.executeQuery(query);
-        } catch (java.sql.SQLException e) {
-            System.err.println(SQL_EXCEPTION + e);
+        } catch (SQLException e) {
+            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
     }
 
@@ -82,8 +82,8 @@ public class DBManager {
             Log.display("Connection", connection);
             Statement statement = connection.createStatement();
             result = statement.executeQuery(query);
-        } catch (java.sql.SQLException e) {
-            System.err.println(SQL_EXCEPTION + e);
+        } catch (SQLException e) {
+            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
         return result;
     }
@@ -98,8 +98,8 @@ public class DBManager {
             Statement statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             result = statement.getGeneratedKeys();
-        } catch (java.sql.SQLException e) {
-            System.err.println(SQL_EXCEPTION + e);
+        } catch (SQLException e) {
+            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
         return result;
     }    
