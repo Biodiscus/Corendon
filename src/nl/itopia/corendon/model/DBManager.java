@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package nl.itopia.corendon.model;
+import nl.itopia.corendon.utils.Log;
+
 import java.sql.*;
 /**
  *
@@ -34,11 +36,11 @@ public class DBManager {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
+            Log.display("Establishing connection", dbHost, dbName, dbUser, dbPass);
+
             /** Open connection */
-            connection = DriverManager.getConnection("jdbc:mysql://" + dbHost, dbUser, dbPass);
-            
-            /* set database */
-            connection.setSchema(dbName);
+            String url = "jdbc:mysql://"+dbHost+"/"+dbName;
+            connection = DriverManager.getConnection(url, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             System.err.println(JDBC_EXCEPTION + e);
         } catch (java.sql.SQLException e) {
@@ -77,6 +79,7 @@ public class DBManager {
     public ResultSet doQuery(String query) {
         ResultSet result = null;
         try {
+            Log.display("Connection", connection);
             Statement statement = connection.createStatement();
             result = statement.executeQuery(query);
         } catch (java.sql.SQLException e) {
