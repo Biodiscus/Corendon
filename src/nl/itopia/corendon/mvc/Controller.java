@@ -30,6 +30,7 @@ public abstract class Controller {
         try {
             view.fxmlPane = FXMLLoader.load(url);
             view.getChildren().add(view.fxmlPane);
+            initialize();
         } catch (IOException e) {
             Log.display("IOEXCEPTION", e.getMessage());
         }
