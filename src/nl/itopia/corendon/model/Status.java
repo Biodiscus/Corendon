@@ -11,10 +11,21 @@ package nl.itopia.corendon.model;
  * @author igor
  */
 public class Status {
-    int id;
-    String hex;
+    private int id;
+    private String name;
+    
+    /*
+    private String hex;
     Status(int id, String hex){
         this.id = id;
         this.hex = hex;
+    }
+    */
+    
+    public String getName() {
+        return name;
+    }
+    public int getID() {
+        return id;
     }
 }

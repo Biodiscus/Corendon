@@ -11,5 +11,13 @@ package nl.itopia.corendon.model;
  * @author igor
  */
 public class Country {
+    private int id;
+    private String name;
     
+    public String getName() {
+        return name;
+    }
+    public int getID() {
+        return id;
+    }
 }

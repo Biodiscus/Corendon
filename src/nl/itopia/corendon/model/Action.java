@@ -3,19 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package nl.itopia.corendon.model;
 
 /**
  *
- * @author igor
+ * @author Erik
  */
-public class Color {
+public class Action {
     private int id;
-    private String hex;
-
-    public String getHex() {
-        return hex;
+    private String name;
+    
+    public String getName() {
+        return name;
     }
     public int getID() {
         return id;

@@ -11,5 +11,16 @@ package nl.itopia.corendon.model;
  * @author igor
  */
 public class Airport {
-    
+    private int id;
+    private int code;
+    private String name;
+    private String getName() {
+        return name;
+    }
+    private int getCode() {
+        return code;
+    }
+    private int getID() {
+        return id;
+    }
 }
