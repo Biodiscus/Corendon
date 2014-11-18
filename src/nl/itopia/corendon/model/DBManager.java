@@ -79,7 +79,6 @@ public class DBManager {
     public ResultSet doQuery(String query) {
         ResultSet result = null;
         try {
-            Log.display("Connection", connection);
             Statement statement = connection.createStatement();
             result = statement.executeQuery(query);
         } catch (SQLException e) {
