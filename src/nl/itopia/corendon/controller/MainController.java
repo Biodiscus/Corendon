@@ -2,9 +2,9 @@ package nl.itopia.corendon.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.mvc.View;
-import nl.itopia.corendon.view.MainView;
 
 /**
  * © 2014, Biodiscus.net Robin
@@ -16,6 +16,8 @@ public class MainController extends Controller {
     public MainController(int width, int height) {
 //        view = new MainView(width, height);
         registerFXML("gui/TestGUI.fxml");
+
+        EmployeeModel model = EmployeeModel.getDefault();
     }
 
     @Override

@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.itopia.corendon.controller.MainController;
-import nl.itopia.corendon.data.DBManager;
+import nl.itopia.corendon.model.DBManager;
 import nl.itopia.corendon.mvc.MVC;
 import nl.itopia.corendon.utils.Log;
 
@@ -40,7 +40,7 @@ public class Launcher extends Application {
             Log.display("Changing view");
             
             // create and initialize the connectivity
-            dbManager = new DBManager();
+            dbManager = DBManager.getDefault();
             dbManager.openConnection();
             Log.display("Database ready!");
         });

@@ -13,7 +13,7 @@ public class LogAction {
     private int id;
     private int date;
     private Action action;
-    private nl.itopia.corendon.model.Employee employee;
+    private Employee employee;
     private Luggage luggage;
     
     public int getDate() {
@@ -22,7 +22,7 @@ public class LogAction {
     public Action getAction() {
         return action;
     }
-    public nl.itopia.corendon.model.Employee getEmployee() {
+    public Employee getEmployee() {
         return employee;
     }
     public Luggage getLuggage() {

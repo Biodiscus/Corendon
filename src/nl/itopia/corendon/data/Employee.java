@@ -15,6 +15,10 @@ public class Employee {
     public Airport airport;
     public int createDate;
     public int lastOnline;
+
+    public Employee(int id) {
+        this.id = id;
+    }
     
     public int getID() {
         return id;

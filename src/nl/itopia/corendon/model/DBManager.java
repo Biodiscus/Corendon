@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.itopia.corendon.data;
+package nl.itopia.corendon.model;
 import java.sql.*;
 /**
  *
  * @author Jeroentje
  */
 public class DBManager {
+    private static final DBManager manager = new DBManager();
+
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
     public static final String SQL_EXCEPTION = "SQL Exception: ";
     public Connection connection;
@@ -18,7 +20,13 @@ public class DBManager {
     private static final String dbName = "sql458254";
     private static final String dbUser = "sql458254";
     private static final String dbPass = "kR5!eE6!";    
-    
+
+    private DBManager() {}
+
+    public static DBManager getDefault() {
+        return manager;
+    }
+
     /**
      * Open database connection
      */
