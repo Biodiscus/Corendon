@@ -13,16 +13,16 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="330.0">
          <children>
-            <ImageView fitHeight="146.0" fitWidth="186.0" layoutX="72.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField id="username" focusTraversable="false" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" />
-            <PasswordField id="password" focusTraversable="false" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" />
+            <ImageView id="logo" fitHeight="146.0" fitWidth="186.0" layoutX="72.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField id="usernameField" focusTraversable="false" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" />
+            <PasswordField id="passwordField" focusTraversable="false" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" />
             <Button id="loginButton" layoutX="7.0" layoutY="292.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="158.0" text="Log in" />
             <Text layoutX="173.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="158.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button id="forgottenPassword" layoutX="198.0" layoutY="314.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="74.0" text="click here" />
+            <Button id="forgottenPasswordbutton" layoutX="198.0" layoutY="314.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="74.0" text="click here" />
          </children>
       </AnchorPane>
    </children>
