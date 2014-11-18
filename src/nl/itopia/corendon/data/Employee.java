@@ -1,8 +1,5 @@
 package nl.itopia.corendon.data;
 
-import nl.itopia.corendon.model.Airport;
-import nl.itopia.corendon.model.Role;
-
 /**
  *
  * @author wieskueter.com

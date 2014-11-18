@@ -9,7 +9,7 @@ import java.sql.*;
  *
  * @author Jeroentje
  */
-public class Dbmanager {
+public class DBManager {
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
     public static final String SQL_EXCEPTION = "SQL Exception: ";
     public Connection connection;

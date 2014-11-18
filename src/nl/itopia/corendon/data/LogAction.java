@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.itopia.corendon.model;
+package nl.itopia.corendon.data;
 
 /**
  *
@@ -13,7 +13,7 @@ public class LogAction {
     private int id;
     private int date;
     private Action action;
-    private Employee employee;
+    private nl.itopia.corendon.model.Employee employee;
     private Luggage luggage;
     
     public int getDate() {
@@ -22,7 +22,7 @@ public class LogAction {
     public Action getAction() {
         return action;
     }
-    public Employee getEmployee() {
+    public nl.itopia.corendon.model.Employee getEmployee() {
         return employee;
     }
     public Luggage getLuggage() {

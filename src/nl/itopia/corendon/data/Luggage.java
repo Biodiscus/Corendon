@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package nl.itopia.corendon.model;
+package nl.itopia.corendon.data;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ public class Luggage {
     int id;
     Color color;
     Status status;
-    Employeeo employee;
+    nl.itopia.corendon.model.Employee employee;
     Customer customer;
     Airport airport;
     String dimensions;
@@ -35,7 +35,7 @@ public class Luggage {
     private int id;
     private Color color;
     private Status status;
-    private Employee employee;
+    private nl.itopia.corendon.model.Employee employee;
     private Customer customer;
     private Airport airport;
     private String dimensions;
@@ -96,11 +96,11 @@ public class Luggage {
         return brand;
     }
     
-    public void setEmployee(Employee employee){
+    public void setEmployee(nl.itopia.corendon.model.Employee employee){
         this.employee = employee;
     }
     
-    public Employee getEmployee(){
+    public nl.itopia.corendon.model.Employee getEmployee(){
         return employee;
     }
     

@@ -4,23 +4,23 @@
  * and open the template in the editor.
  */
 
-package nl.itopia.corendon.model;
+package nl.itopia.corendon.data;
 
 /**
  *
  * @author igor
  */
-public class Color {
+public class Brand {
     private int id;
-    private String hex;
-
-    public Color(int id, String hex) {
+    private String name;
+    
+    public Brand(int id, String name) {
         this.id = id;
-        this.hex = hex;
+        this.name = name;
     }
     
-    public String getHex() {
-        return hex;
+    public String getName() {
+        return name;
     }
     public int getID() {
         return id;

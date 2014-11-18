@@ -3,22 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-package nl.itopia.corendon.model;
+package nl.itopia.corendon.data;
 
 /**
  *
- * @author igor
+ * @author Erik
  */
-public class Brand {
+public class Role {
     private int id;
     private String name;
-    
-    public Brand(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-    
     public String getName() {
         return name;
     }
