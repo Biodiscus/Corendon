@@ -21,29 +21,29 @@ public class Customer {
     private String email;
     private String phone;
     
-    public void setFirstName(String a) {
-        firstName = a;
+    public void setFirstName(String value) {
+        firstName = value;
     }
-    public void setLastName(String a) {
-        lastName = a;
+    public void setLastName(String value) {
+        lastName = value;
     }
-    public void setAddress(String a) {
-        address = a;
+    public void setAddress(String value) {
+        address = value;
     }
-    public void setZipcode(String a) {
-        zipcode = a;
+    public void setZipcode(String value) {
+        zipcode = value;
     }
-    public void setState(String a) {
-        state = a;
+    public void setState(String value) {
+        state = value;
     }
-    public void setCountry(Country a) {
-        country = a;
+    public void setCountry(Country value) {
+        country = value;
     }
-    public void setEmail(String a) {
-        email = a;
+    public void setEmail(String value) {
+        email = value;
     }
-    public void setPhone(String a) {
-        phone = a;
+    public void setPhone(String value) {
+        phone = value;
     }
     public String getFirstName() {
         return firstName;
