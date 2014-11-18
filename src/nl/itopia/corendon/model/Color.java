@@ -11,10 +11,13 @@ package nl.itopia.corendon.model;
  * @author igor
  */
 public class Color {
-    int id;
-    String hex;
-    Color(int id, String hex){
-        this.id = id;
-        this.hex = hex;
+    private int id;
+    private String hex;
+
+    public String getHex() {
+        return hex;
+    }
+    public int getID() {
+        return id;
     }
 }
