@@ -4,7 +4,9 @@
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/j2se-project/3">
             <name>Corendon</name>
-            <source-roots/>
+            <source-roots>
+                <root id="src.dir"/>
+            </source-roots>
             <test-roots/>
         </data>
     </configuration>
