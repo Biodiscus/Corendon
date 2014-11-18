@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0">
+         <children>
+            <Line endX="1220.0" layoutX="115.0" layoutY="133.0" startX="-100.0" />
+            <Text layoutX="938.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text layoutX="938.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ComboBox id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Button id="lineDiagrambutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
+            <Label id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button id="barDiagrambutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
+            <Button id="overviewbutton" layoutX="43.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Overview" />
+            <Button id="logfilesbutton" layoutX="185.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Logfiles" />
+            <Button id="Helpbutton" layoutX="1287.0" layoutY="39.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+            <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <DatePicker id="datepicker1" layoutX="896.0" layoutY="235.0" />
+            <Text layoutX="1066.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="until" textAlignment="CENTER" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <DatePicker id="datepicker2" layoutX="1146.0" layoutY="233.0" />
+            <CheckBox id="foundLuggagecheckbox" layoutX="900.0" layoutY="295.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="248.0" text="Found luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <CheckBox id="lostLuggagecheckbox" layoutX="900.0" layoutY="335.0" mnemonicParsing="false" text="Lost luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <CheckBox id="resolvedLuggagecheckbox" layoutX="900.0" layoutY="375.0" mnemonicParsing="false" text="Resolved luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <Button id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <LineChart id="lineDiagram" animated="false" layoutX="363.0" layoutY="207.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </LineChart>
+         </children>
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+      </AnchorPane>
+   </children>
+</StackPane>
