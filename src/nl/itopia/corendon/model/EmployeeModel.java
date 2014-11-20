@@ -24,20 +24,32 @@ public class EmployeeModel {
         ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
         
         try {
-            employee.username = (String)result.getObject("username");
-            int role_id = result.getInt("role_id");
-            employee.role = RoleModel.getDefault().getRole(role_id);
-
-            String a = employee.role.getName();
-
-//            employee.role = (String)result.getObject("username");
+            if(result.next()) {
+                employee = resultToEmployee(result);
+            }
         } catch (SQLException e) {
-            Log.display("SQLEXCEPTION", e.getMessage());
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
         
         return employee;
+
     }
-    
+
+    private Employee resultToEmployee(ResultSet result) throws SQLException{
+        Employee employee = new Employee(result.getInt("id"));
+        // TODO: role, airport
+        employee.username = result.getString("username");
+        employee.password = result.getString("password");
+        employee.salt = result.getString("salt");
+        employee.contactDetails = result.getString("contact_details");
+        employee.notes = result.getString("notes");
+        employee.createDate = result.getInt("create_date");
+        employee.createDate = result.getInt("last_online");
+
+
+        return employee;
+    }
+
     public Employee getEmployees()
     {
         return null;

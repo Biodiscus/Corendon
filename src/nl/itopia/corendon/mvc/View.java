@@ -1,13 +1,6 @@
 package nl.itopia.corendon.mvc;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-import nl.itopia.corendon.utils.IO;
-import nl.itopia.corendon.utils.Log;
-
-import java.io.IOException;
-import java.net.URL;
 
 /**
  * © Biodiscus.net 2014, Robin

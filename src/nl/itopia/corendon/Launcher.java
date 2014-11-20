@@ -29,6 +29,11 @@ public class Launcher extends Application {
     public void start(Stage stage) throws Exception {
         stage.setTitle(TITLE + ", V"+VERSION);
 
+        // create and initialize the connectivity
+        dbManager = DBManager.getDefault();
+        dbManager.openConnection();
+        Log.display("Database initialized");
+
         mvcEngine = new MVC((e)->{
             scene = new Scene(e, e.getWidth(), e.getHeight());
 
@@ -38,11 +43,6 @@ public class Launcher extends Application {
             stage.setScene(scene);
 
             Log.display("Changing view");
-            
-            // create and initialize the connectivity
-            dbManager = DBManager.getDefault();
-            dbManager.openConnection();
-            Log.display("Database ready!");
         });
         mvcEngine.setController(new MainController(WIDTH, HEIGHT));
 
