@@ -11,23 +11,15 @@ package nl.itopia.corendon.data;
  */
 public class LogAction {
     private int id;
-    private int date;
-    private Action action;
-    private Employee employee;
-    private Luggage luggage;
+    public int date;
+    public Action action;
+    public Employee employee;
+    public Luggage luggage;
+
+    public LogAction(int id) {
+        this.id = id;
+    }
     
-    public int getDate() {
-        return date;
-    }
-    public Action getAction() {
-        return action;
-    }
-    public Employee getEmployee() {
-        return employee;
-    }
-    public Luggage getLuggage() {
-        return luggage;
-    }
     public int getID() {
         return id;
     }

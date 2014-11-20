@@ -50,7 +50,7 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-            <Button fx:fx:id="test_button" layoutX="272.0" layoutY="173.0" mnemonicParsing="false" text="Ik haat haat" />
+            <Button fx:id="test_button" layoutX="272.0" layoutY="173.0" mnemonicParsing="false" text="Ik haat haat" />
       </children>
     </AnchorPane>
   </children>

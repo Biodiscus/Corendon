@@ -11,64 +11,20 @@ package nl.itopia.corendon.data;
  */
 public class Customer {
     private int id;
-    private String name;
-    private String firstName;
-    private String lastName;
-    private String address;
-    private String zipcode;
-    private String state;
-    private Country country;
-    private String email;
-    private String phone;
-    
-    public void setFirstName(String value) {
-        firstName = value;
+    public String name;
+    public String firstName;
+    public String lastName;
+    public String address;
+    public String zipcode;
+    public String state;
+    public Country country;
+    public String email;
+    public String phone;
+
+    public Customer(int id) {
+        this.id = id;
     }
-    public void setLastName(String value) {
-        lastName = value;
-    }
-    public void setAddress(String value) {
-        address = value;
-    }
-    public void setZipcode(String value) {
-        zipcode = value;
-    }
-    public void setState(String value) {
-        state = value;
-    }
-    public void setCountry(Country value) {
-        country = value;
-    }
-    public void setEmail(String value) {
-        email = value;
-    }
-    public void setPhone(String value) {
-        phone = value;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    public String getLastName() {
-        return lastName;
-    }
-    public String getAddress() {
-        return address;
-    }
-    public String getZipcode() {
-        return zipcode;
-    }
-    public String getState() {
-        return state;
-    }
-    public Country getCountry() {
-        return country;
-    }
-    public String getEmail() {
-        return email;
-    }
-    public String getPhone() {
-        return phone;
-    }
+
     public int getID() {
         return id;
     }

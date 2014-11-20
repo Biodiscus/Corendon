@@ -13,15 +13,12 @@ package nl.itopia.corendon.data;
 public class Status {
     private int id;
     private String name;
-    
-    /*
-    private String hex;
-    Status(int id, String hex){
+
+    public Status(int id, String name) {
         this.id = id;
-        this.hex = hex;
+        this.name = name;
     }
-    */
-    
+
     public String getName() {
         return name;
     }
