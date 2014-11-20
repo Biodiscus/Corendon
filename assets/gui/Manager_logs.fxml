@@ -27,25 +27,25 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <ComboBox id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button id="luggageButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Luggage" />
-            <Label id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
+            <ComboBox fx:id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Button fx:id="luggageButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Luggage" />
+            <Label fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button id="usersButton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Users" />
-            <Button id="overviewbutton" layoutX="43.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Overview" />
-            <Button id="logfilesbutton" layoutX="185.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Logfiles" />
-            <Button id="Helpbutton" layoutX="1287.0" layoutY="39.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
-            <Button id="filterButton" layoutX="110.0" layoutY="603.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter">
+            <Button fx:id="usersButton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Users" />
+            <Button fx:id="overviewbutton" layoutX="43.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Overview" />
+            <Button fx:id="logfilesbutton" layoutX="185.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Logfiles" />
+            <Button fx:id="Helpbutton" layoutX="1287.0" layoutY="39.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+            <Button fx:id="filterButton" layoutX="110.0" layoutY="603.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
-            <Button id="actionsButton" layoutX="44.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Actions" />
-            <Button id="loginsButton" layoutX="44.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Logins" />
-            <Button id="alleventsButton" layoutX="44.0" layoutY="353.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="All events" />
+            <Button fx:id="actionsButton" layoutX="44.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Actions" />
+            <Button fx:id="loginsButton" layoutX="44.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Logins" />
+            <Button fx:id="alleventsButton" layoutX="44.0" layoutY="353.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="All events" />
             <Text layoutX="43.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="120.19921875">
                <font>
                   <Font size="15.0" />
@@ -58,18 +58,18 @@
                </font>
             </Text>
             <DatePicker layoutX="44.0" layoutY="524.0" prefHeight="25.0" prefWidth="283.0" />
-            <Button id="printgegevensButton" layoutX="1164.0" layoutY="160.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" text="Print gegevens">
+            <Button fx:id="printgegevensButton" layoutX="1164.0" layoutY="160.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" text="Print gegevens">
                <font>
                   <Font size="19.0" />
                </font>
             </Button>
             <TableView layoutX="374.0" layoutY="219.0" prefHeight="433.0" prefWidth="953.0">
               <columns>
-                <TableColumn id="IDCollum" prefWidth="75.0" text="ID" />
-                <TableColumn id="userCollum" prefWidth="191.66668701171875" text="User" />
-                  <TableColumn id="userIDcollum" prefWidth="186.33331298828125" text="User ID" />
-                  <TableColumn id="actionCollum" prefWidth="260.33331298828125" text="Action" />
-                  <TableColumn id="dateCollum" minWidth="0.0" prefWidth="221.666748046875" text="Date" />
+                <TableColumn fx:id="IDCollum" prefWidth="75.0" text="ID" />
+                <TableColumn fx:id="userCollum" prefWidth="191.66668701171875" text="User" />
+                  <TableColumn fx:id="userIDcollum" prefWidth="186.33331298828125" text="User ID" />
+                  <TableColumn fx:id="actionCollum" prefWidth="260.33331298828125" text="Action" />
+                  <TableColumn fx:id="dateCollum" minWidth="0.0" prefWidth="221.666748046875" text="Date" />
               </columns>
             </TableView>
          </children>

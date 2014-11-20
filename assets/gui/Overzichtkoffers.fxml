@@ -27,35 +27,35 @@
                   <Font size="18.0" />
                </font>
             </Text>
-            <ComboBox id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button id="foundLuggagebutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
-            <Button id="lostLuggagebutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
-            <Button id="turnedinLuggagebutton" layoutX="43.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
-            <Button id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search luggage" />
-            <Button id="addLuggagebutton" layoutX="43.0" layoutY="504.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
-            <Button id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
-            <Button id="deleteLuggagebutton" layoutX="43.0" layoutY="590.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
-            <Label id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
+            <ComboBox fx:id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
+            <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
+            <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
+            <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search luggage" />
+            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="504.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
+            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
+            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="590.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
+            <Label fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
             <AnchorPane layoutX="430.0" layoutY="181.0" prefHeight="457.0" prefWidth="773.0">
                <children>
-                  <TableView id="luggageInfo" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="luggageInfo" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn id="ID" prefWidth="75.0" text="ID" />
-                      <TableColumn id="Brand" fx:id="colName" prefWidth="135.0" text="Brand" />
-                        <TableColumn id="Dimensions" prefWidth="85.0" text="Dimensions" />
-                        <TableColumn id="Color" prefWidth="83.0" text="Color" />
-                        <TableColumn id="Airport" prefWidth="105.0" text="Airport" />
-                        <TableColumn id="Status" prefWidth="119.0" text="Status" />
-                        <TableColumn id="Description" prefWidth="170.0" text="Description" />
+                      <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="Brand" fx:fx:id="colName" prefWidth="135.0" text="Brand" />
+                        <TableColumn fx:id="Dimensions" prefWidth="85.0" text="Dimensions" />
+                        <TableColumn fx:id="Color" prefWidth="83.0" text="Color" />
+                        <TableColumn fx:id="Airport" prefWidth="105.0" text="Airport" />
+                        <TableColumn fx:id="Status" prefWidth="119.0" text="Status" />
+                        <TableColumn fx:id="Description" prefWidth="170.0" text="Description" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <Button id="helpButton" layoutX="1287.0" layoutY="38.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+            <Button fx:id="helpButton" layoutX="1287.0" layoutY="38.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
