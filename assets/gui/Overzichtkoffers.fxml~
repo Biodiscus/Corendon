@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0">
+         <children>
+            <Line endX="1220.0" layoutX="115.0" layoutY="133.0" startX="-100.0" />
+            <Text layoutX="938.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text layoutX="938.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
+            <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
+            <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
+            <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search luggage" />
+            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="504.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
+            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
+            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="590.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
+            <Label fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <AnchorPane layoutX="430.0" layoutY="181.0" prefHeight="457.0" prefWidth="773.0">
+               <children>
+                  <TableView fx:id="luggageInfo" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                      <TableColumn fx:id="Brand" fx:fx:id="colName" prefWidth="135.0" text="Brand" />
+                        <TableColumn fx:id="Dimensions" prefWidth="85.0" text="Dimensions" />
+                        <TableColumn fx:id="Color" prefWidth="83.0" text="Color" />
+                        <TableColumn fx:id="Airport" prefWidth="105.0" text="Airport" />
+                        <TableColumn fx:id="Status" prefWidth="119.0" text="Status" />
+                        <TableColumn fx:id="Notes" prefWidth="170.0" text="Notes" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+            <Button fx:id="helpButton" layoutX="1287.0" layoutY="38.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+         </children>
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+      </AnchorPane>
+   </children>
+</StackPane>
