@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="650.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" layoutY="-2.0" prefHeight="33.0" prefWidth="1126.0" style="-fx-border-color: black; -fx-background-color: CCCACA;" text="Add Luggage">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="117.0" text="Found on:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="foundonAirportdropdown" layoutX="157.0" layoutY="80.0" prefHeight="33.0" prefWidth="388.0" />
+            <Button fx:id="exitButton" alignment="CENTER" layoutX="1090.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Label layoutX="40.0" layoutY="138.0" prefHeight="59.0" prefWidth="117.0" text="Label:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="labelInputfield" layoutX="157.0" layoutY="151.0" prefHeight="33.0" prefWidth="388.0" promptText="Label" />
+            <Label layoutX="40.0" layoutY="200.0" prefHeight="59.0" prefWidth="117.0" text="Color:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="colerDropdown" layoutX="157.0" layoutY="213.0" prefHeight="33.0" prefWidth="388.0" />
+            <TextField fx:id="fileInputfield" layoutX="157.0" layoutY="275.0" prefHeight="33.0" prefWidth="388.0" promptText="File..." />
+            <Label layoutX="40.0" layoutY="262.0" prefHeight="59.0" prefWidth="117.0" text="Picture:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="browseButton" layoutX="421.0" layoutY="275.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="81.0" text="Browse" />
+            <Label layoutX="40.0" layoutY="321.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="brandInputfield" layoutX="157.0" layoutY="334.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />
+            <TextField fx:id="heightInputfield" layoutX="157.0" layoutY="388.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
+            <Label layoutX="40.0" layoutY="375.0" prefHeight="59.0" prefWidth="117.0" text="Dimensions:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="434.0" prefHeight="59.0" prefWidth="117.0" text="Weight:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="weightInputfield" layoutX="157.0" layoutY="447.0" prefHeight="33.0" prefWidth="388.0" promptText="Weight" />
+            <TextField fx:id="notesInputfield" alignment="TOP_LEFT" layoutX="157.0" layoutY="493.0" prefHeight="127.0" prefWidth="388.0" promptText="Notes" />
+            <Label layoutX="40.0" layoutY="480.0" prefHeight="59.0" prefWidth="117.0" text="Notes:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="addButton" layoutX="502.0" layoutY="275.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="45.0" text="Add" />
+            <ImageView fx:id="pictureFrame1" fitHeight="210.0" fitWidth="200.0" layoutX="619.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame2" fitHeight="210.0" fitWidth="200.0" layoutX="854.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame4" fitHeight="210.0" fitWidth="200.0" layoutX="854.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame3" fitHeight="210.0" fitWidth="200.0" layoutX="619.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="addButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Add" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <TextField fx:id="widthInputfield" layoutX="295.0" layoutY="388.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
+            <TextField fx:id="depthInputfield" layoutX="436.0" layoutY="388.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
+            <Label layoutX="275.0" layoutY="391.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="416.0" layoutY="391.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
