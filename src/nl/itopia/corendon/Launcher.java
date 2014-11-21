@@ -13,6 +13,7 @@ import nl.itopia.corendon.utils.Log;
  * © 2014, Biodiscus.net Robin
  */
 public class Launcher extends Application {
+    
     public static final String VERSION = "0.101";
     public static final String TITLE = "Corendon";
 
@@ -45,10 +46,9 @@ public class Launcher extends Application {
 
             Log.display("Changing view");
         });
-//        mvcEngine.setController(new MainController(WIDTH, HEIGHT));
+        //mvcEngine.setController(new MainController(WIDTH, HEIGHT));
         mvcEngine.setController(new LoginController());
-
-
+        
         stage.show();
     }
 

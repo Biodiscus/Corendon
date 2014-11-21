@@ -82,7 +82,7 @@ public class EmployeeModel {
         if(checkPassword(employee))
         {
             /* user exists and password is corect. Return the full employee */
-            String employeeIdQuery  = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
+            String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
             ResultSet result = dbmanager.doQuery(employeeIdQuery);
             int employeeId = 0;
             try {
