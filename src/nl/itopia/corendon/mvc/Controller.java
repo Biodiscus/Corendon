@@ -32,7 +32,6 @@ public abstract class Controller {
             loader.setController(this);
             view.fxmlPane = loader.load();
             view.getChildren().add(view.fxmlPane);
-            initialize();
         } catch (IOException e) {
             Log.display("IOEXCEPTION", e.getMessage());
         }

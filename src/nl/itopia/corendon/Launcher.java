@@ -4,7 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.itopia.corendon.controller.MainController;
-import nl.itopia.corendon.model.DBManager;
+import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.mvc.MVC;
 import nl.itopia.corendon.utils.Log;
 
@@ -23,14 +23,14 @@ public class Launcher extends Application {
     private Scene scene;
     
     /** database manager */
-    private DBManager dbManager;
+    private DatabaseManager dbManager;
 
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle(TITLE + ", V"+VERSION);
 
         // create and initialize the connectivity
-        dbManager = DBManager.getDefault();
+        dbManager = DatabaseManager.getDefault();
         dbManager.openConnection();
         Log.display("Database initialized");
 

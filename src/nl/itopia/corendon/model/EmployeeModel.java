@@ -12,7 +12,7 @@ import nl.itopia.corendon.utils.Log;
  */
 
 public class EmployeeModel {
-    private final DBManager dbmanager = DBManager.getDefault();
+    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final EmployeeModel _default = new EmployeeModel();
     
     private EmployeeModel() { 
@@ -20,19 +20,19 @@ public class EmployeeModel {
     
     public Employee getEmployee(int id) {
         Employee employee = new Employee(id);
-        
-        ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
-        
+
         try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
+
             if(result.next()) {
                 employee = resultToEmployee(result);
             }
+
+            return employee;
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
         }
-        
-        return employee;
-
     }
 
     private Employee resultToEmployee(ResultSet result) throws SQLException{

@@ -20,14 +20,14 @@ public class Airport {
         this.code = code;
         this.name = name;
     }
-    
-    private String getName() {
+
+    public String getName() {
         return name;
     }
-    private int getCode() {
+    public int getCode() {
         return code;
     }
-    private int getID() {
+    public int getID() {
         return id;
     }
 }

@@ -3,7 +3,7 @@ package nl.itopia.corendon.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import nl.itopia.corendon.data.Luggage;
+import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -24,8 +24,27 @@ public class MainController extends Controller {
 //        model.getEmployee(0);
 
         LuggageModel luggageModel = LuggageModel.getDefault();
-        Luggage luggage = luggageModel.getLuggage(3);
-        Log.display(luggage, luggage.color, luggage.employee);
+
+        Luggage luggage = new Luggage(3);
+        luggage.color = new Color(1, "#fff");
+        luggage.status = new Status(1, "NOPE");
+        luggage.employee = new Employee(0);
+        luggage.customer = new Customer(2);
+        luggage.airport = new Airport(1, 1, "Ver weggistan");
+        luggage.dimensions = "20x20x10 cm";
+//        luggage.label = "2222-3333-4444-5555";
+        luggage.label = "4444-3333-4444-5555";
+        luggage.notes = "Geen note";
+        luggage.weight = "200KG";
+        luggage.brand = new Brand(1, "Brnad");
+        luggage.foundDate = 1416508718;
+        luggage.createDate = 1416508718;
+        luggage.returnDate = 0;
+//        luggageModel.addLuggage(luggage);
+        luggageModel.editLuggage(luggage);
+
+//        Luggage luggage = luggageModel.getLuggage(3);
+//        Log.display(luggage, luggage.color, luggage.employee);
 
         test_button.setOnAction(this::handle);
     }
