@@ -16,7 +16,7 @@ import nl.itopia.corendon.utils.Log;
  */
 
 public class EmployeeModel {
-    private final DBManager dbmanager = DBManager.getDefault();
+    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final EmployeeModel _default = new EmployeeModel();
     
     private EmployeeModel() { 
@@ -30,19 +30,19 @@ public class EmployeeModel {
      */    
     public Employee getEmployee(int id) {
         Employee employee = new Employee(id);
-        
-        ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
-        
+
         try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE id = "+ id);
+
             if(result.next()) {
                 employee = resultToEmployee(result);
             }
+
+            return employee;
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
         }
-        
-        return employee;
-
     }
     
     /**
@@ -82,10 +82,11 @@ public class EmployeeModel {
         if(checkPassword(employee))
         {
             /* user exists and password is corect. Return the full employee */
-            String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
-            ResultSet result = dbmanager.doQuery(employeeIdQuery);
+            String employeeIdQuery  = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
+            
             int employeeId = 0;
             try {
+                ResultSet result = dbmanager.doQuery(employeeIdQuery);
                 if(result.next()) {
                     employeeId = Integer.parseInt(result.getString("id"));
                 }
@@ -114,10 +115,11 @@ public class EmployeeModel {
             employee.password = finalPass;
             
             String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
-            ResultSet result = dbmanager.doQuery(passwordQuery);
+
             int numRecords  = 0;
             
             try {
+                ResultSet result = dbmanager.doQuery(passwordQuery);
                 if(result.next()) {
                     String userCount = result.getString("usercounter");
                     numRecords = Integer.parseInt(userCount);
@@ -136,10 +138,11 @@ public class EmployeeModel {
        private boolean userExists(Employee employee){
         
         String checkUser = "SELECT COUNT(*) AS usercounter FROM employee WHERE username = '" + employee.username + "'";
-        ResultSet result = dbmanager.doQuery(checkUser);
+
         int numRecords  = 0;
         
         try {
+            ResultSet result = dbmanager.doQuery(checkUser);
             if(result.next()) {
                 String userCount = result.getString(1);
                 numRecords = Integer.parseInt(userCount);
@@ -155,10 +158,11 @@ public class EmployeeModel {
     private String getSalt(Employee employee)
     {
         String saltQuery = "SELECT salt FROM employee WHERE username = '" + employee.username + "'";
-        ResultSet result = dbmanager.doQuery(saltQuery);
+
         String salt  = "";
         
         try {
+            ResultSet result = dbmanager.doQuery(saltQuery);
            if(result.next()) {
                 salt = result.getString(1);
             }
