@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="650.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" layoutX="-2.0" layoutY="-2.0" prefHeight="33.0" prefWidth="1130.0" style="-fx-border-color: black; -fx-background-color: CCCACA;" text="Found luggage">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="exitButton" alignment="CENTER" layoutX="1090.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Button fx:id="printButton" layoutX="804.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Print" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <Button fx:id="backButton" layoutX="28.0" layoutY="41.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Back" />
+            <Label fx:id="showdateToday" layoutX="664.0" layoutY="70.0" prefHeight="25.0" prefWidth="223.0" />
+            <Label layoutX="664.0" layoutY="92.0" prefHeight="25.0" prefWidth="223.0" text="Infomation employee:">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="664.0" layoutY="120.0" prefHeight="25.0" prefWidth="38.0" text="Name:" />
+            <Label layoutX="664.0" layoutY="145.0" prefHeight="25.0" prefWidth="38.0" text="ID:" />
+            <Label fx:id="shownameEmployee" layoutX="747.0" layoutY="120.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label fx:id="shownameID" layoutX="747.0" layoutY="145.0" prefHeight="25.0" prefWidth="330.0" />
+            <ImageView fx:id="pictureFrame1" fitHeight="150.0" fitWidth="200.0" layoutX="664.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame2" fitHeight="150.0" fitWidth="200.0" layoutX="887.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame4" fitHeight="150.0" fitWidth="200.0" layoutX="887.0" layoutY="369.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="pictureFrame3" fitHeight="150.0" fitWidth="200.0" layoutX="664.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true" />
+            <Label layoutX="28.0" layoutY="92.0" prefHeight="25.0" prefWidth="223.0" text="Infomation owner:">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="shownameOwner" layoutX="140.0" layoutY="118.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="28.0" layoutY="120.0" prefHeight="25.0" prefWidth="38.0" text="Name:" />
+            <Label layoutX="28.0" layoutY="150.0" prefHeight="25.0" prefWidth="54.0" text="Address:" />
+            <Label fx:id="showaddressOwner" layoutX="140.0" layoutY="150.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label fx:id="showzipcodeOwner" layoutX="140.0" layoutY="180.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="28.0" layoutY="180.0" prefHeight="25.0" prefWidth="54.0" text="Zipcode:" />
+            <Label layoutX="28.0" layoutY="210.0" prefHeight="25.0" prefWidth="38.0" text="State:" />
+            <Label fx:id="showstateOwner" layoutX="140.0" layoutY="210.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label fx:id="showcountryOwner" layoutX="140.0" layoutY="240.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="28.0" layoutY="240.0" prefHeight="25.0" prefWidth="54.0" text="Country" />
+            <Label layoutX="28.0" layoutY="275.0" prefHeight="25.0" prefWidth="223.0" text="Infomation luggage:">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="29.0" layoutY="310.0" prefHeight="25.0" prefWidth="97.0" text="Found on airport:" />
+            <Label fx:id="showFoundonairport" layoutX="140.0" layoutY="310.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label fx:id="showLabel" layoutX="140.0" layoutY="340.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="29.0" layoutY="340.0" prefHeight="25.0" prefWidth="38.0" text="Label:" />
+            <Label layoutX="29.0" layoutY="370.0" prefHeight="25.0" prefWidth="38.0" text="Color" />
+            <Label fx:id="showColor" layoutX="140.0" layoutY="370.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label fx:id="showBrand" layoutX="140.0" layoutY="400.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="28.0" layoutY="400.0" prefHeight="25.0" prefWidth="38.0" text="Brand:" />
+            <Label fx:id="showHeight" layoutX="140.0" layoutY="430.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="29.0" layoutY="430.0" prefHeight="25.0" prefWidth="79.0" text="Dimensions:" />
+            <Label layoutX="29.0" layoutY="460.0" prefHeight="25.0" prefWidth="54.0" text="Weight:" />
+            <Label fx:id="showWeight" layoutX="140.0" layoutY="460.0" prefHeight="25.0" prefWidth="330.0" />
+            <Label layoutX="29.0" layoutY="490.0" prefHeight="25.0" prefWidth="38.0" text="Notes:" />
+            <Label fx:id="showNotes" layoutX="140.0" layoutY="490.0" prefHeight="115.0" prefWidth="330.0" />
+            <Label fx:id="showWidth" layoutX="266.0" layoutY="430.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label fx:id="showDepth" layoutX="391.0" layoutY="430.0" prefHeight="25.0" prefWidth="79.0" />
+            <Label layoutX="237.0" layoutY="434.0" text="X" />
+            <Label layoutX="364.0" layoutY="436.0" text="X" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

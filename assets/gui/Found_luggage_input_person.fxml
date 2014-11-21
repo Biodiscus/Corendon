@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="650.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" layoutX="-2.0" layoutY="-2.0" prefHeight="33.0" prefWidth="1130.0" style="-fx-border-color: black; -fx-background-color: CCCACA;" text="Found luggage">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button fx:id="exitButton" alignment="CENTER" layoutX="1090.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Button fx:id="printdetailsButton" layoutX="804.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Print" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <Label layoutX="25.0" layoutY="119.0" text="First name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="174.0" text="Last name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="229.0" text="Address">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="284.0" text="Zipcode:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="394.0" text="Country:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="339.0" text="State:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="25.0" layoutY="449.0" text="E-mail:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="23.0" layoutY="509.0" text="Phone:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="firstnameInputfield" layoutX="146.0" layoutY="119.0" prefHeight="33.0" prefWidth="388.0" promptText="First name" />
+            <TextField fx:id="lastnameInputfield" layoutX="146.0" layoutY="171.0" prefHeight="33.0" prefWidth="388.0" promptText="Last name" />
+            <TextField fx:id="addressInputfield" layoutX="146.0" layoutY="226.0" prefHeight="33.0" prefWidth="388.0" promptText="Address" />
+            <TextField fx:id="zipcodeInputfield" layoutX="146.0" layoutY="281.0" prefHeight="33.0" prefWidth="388.0" promptText="Zipcode" />
+            <TextField fx:id="stateInputfield" layoutX="146.0" layoutY="336.0" prefHeight="33.0" prefWidth="388.0" promptText="State" />
+            <TextField fx:id="countyInputfield" layoutX="146.0" layoutY="391.0" prefHeight="33.0" prefWidth="388.0" promptText="Country" />
+            <TextField fx:id="emailInputfield" layoutX="146.0" layoutY="446.0" prefHeight="33.0" prefWidth="388.0" promptText="E-mail" />
+            <TextField fx:id="phoneInputfield" layoutX="146.0" layoutY="506.0" prefHeight="33.0" prefWidth="388.0" promptText="Phone" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
