@@ -18,10 +18,14 @@ public class Brand {
         this.id = id;
         this.name = name;
     }
+    public Brand(){
+        
+    }
     
     public String getName() {
         return name;
     }
+
     public int getID() {
         return id;
     }
