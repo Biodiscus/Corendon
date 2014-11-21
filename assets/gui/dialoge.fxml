@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="230.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="500.0">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" layoutX="-5.0" layoutY="-1.0" prefHeight="27.0" prefWidth="506.0" style="-fx-background-color: gray; -fx-border-color: black;" text="Are you sure?">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="yesButton" layoutX="139.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Yes" />
+            <Button fx:id="noButton" layoutX="256.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="No" />
+            <Label layoutX="105.0" layoutY="65.0" prefHeight="87.0" prefWidth="288.0" text="Are you sure you want to proceed with your selected action?" wrapText="true">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>
