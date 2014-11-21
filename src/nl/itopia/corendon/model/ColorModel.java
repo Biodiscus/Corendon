@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * © 2014, Biodiscus.net Robin
  */
 public class ColorModel {
-    private final DBManager dbmanager = DBManager.getDefault();
+    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final ColorModel _default = new ColorModel();
 
     private ColorModel() {}
@@ -18,9 +18,8 @@ public class ColorModel {
     public Color getColor(int id) {
         Color color = null;
 
-        ResultSet result = dbmanager.doQuery("SELECT * FROM color WHERE id = "+ id);
-
         try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM color WHERE id = "+ id);
             if(result.next()) {
                 color = resultToColor(result);
             }

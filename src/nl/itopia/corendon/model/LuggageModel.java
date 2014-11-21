@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * © 2014, Biodiscus.net Robin
  */
 public class LuggageModel {
-    private final DBManager dbmanager = DBManager.getDefault();
+    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final LuggageModel _default = new LuggageModel();
 
     private EmployeeModel employeeModel;
@@ -21,20 +21,73 @@ public class LuggageModel {
         colorModel = ColorModel.getDefault();
     }
 
-    public Luggage getLuggage(int id) {
-        Luggage luggage = new Luggage(id);
+    public void addLuggage(Luggage luggage) {
+        int color_id = luggage.color.getID();
+        int status_id = luggage.status.getID();
+        int employee_id = luggage.employee.getID();
+        int client_id = luggage.customer.getID(); // TODO: In the database this is called client instead of customer
+        int airport_id = luggage.airport.getID();
+        int brand_id = luggage.brand.getID();
 
-        ResultSet result = dbmanager.doQuery("SELECT * FROM luggage WHERE id = "+ id);
+
+        String query = "INSERT INTO luggage " +
+                "(color_id, status_id, employee_id, client_id, airport_id, dimensions, label, notes, weight, brand_id, found_date, return_date, create_date) " +
+                "VALUES" +
+                "('%d', '%d', '%d', '%d', '%d', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d')";
+
+        String finalQuery = String.format(
+                query, color_id, status_id, employee_id, client_id, airport_id, luggage.dimensions, luggage.label,
+                luggage.notes, luggage.weight, brand_id, luggage.foundDate, luggage.returnDate, luggage.createDate
+        );
 
         try {
-            if(result.next()) {
-                luggage = resultToLuggage(result);
-            }
+            dbmanager.insertQuery(finalQuery);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
+    }
 
-        return luggage;
+    public void editLuggage(Luggage luggage) {
+        int color_id = luggage.color.getID();
+        int status_id = luggage.status.getID();
+        int employee_id = luggage.employee.getID();
+        int client_id = luggage.customer.getID();
+        int airport_id = luggage.airport.getID();
+        int brand_id = luggage.brand.getID();
+
+        String query = "UPDATE luggage " +
+                "SET color_id='%d', status_id='%d', employee_id='%d', client_id='%d', airport_id='%d', dimensions='%s', " +
+                "label='%s', notes='%s', weight='%s', brand_id='%d', found_date='%d', return_date='%d', create_date='%d'" +
+                "WHERE id='%d'";
+
+        String finalQuery = String.format(
+                query, color_id, status_id, employee_id, client_id, airport_id, luggage.dimensions, luggage.label,
+                luggage.notes, luggage.weight, brand_id, luggage.foundDate, luggage.returnDate, luggage.createDate, luggage.getID()
+        );
+        Log.display(finalQuery);
+
+        try {
+            dbmanager.updateQuery(finalQuery);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
+
+    public Luggage getLuggage(int id) {
+        Luggage luggage = new Luggage(id);
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM luggage WHERE id = "+ id);
+
+            if(result.next()) {
+                luggage = resultToLuggage(result);
+            }
+
+            return luggage;
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
+        }
     }
 
     private Luggage resultToLuggage(ResultSet result) throws SQLException{

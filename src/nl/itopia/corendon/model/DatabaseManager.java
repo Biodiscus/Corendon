@@ -11,8 +11,8 @@ import java.sql.*;
  *
  * @author Jeroentje
  */
-public class DBManager {
-    private static final DBManager manager = new DBManager();
+public class DatabaseManager {
+    private static final DatabaseManager manager = new DatabaseManager();
 
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
     public static final String SQL_EXCEPTION = "SQL Exception: ";
@@ -23,9 +23,9 @@ public class DBManager {
     private static final String dbUser = "sql458254";
     private static final String dbPass = "kR5!eE6!";    
 
-    private DBManager() {}
+    private DatabaseManager() {}
 
-    public static DBManager getDefault() {
+    public static DatabaseManager getDefault() {
         return manager;
     }
 
@@ -41,6 +41,7 @@ public class DBManager {
             /** Open connection */
             String url = "jdbc:mysql://"+dbHost+"/"+dbName;
             connection = DriverManager.getConnection(url, dbUser, dbPass);
+            Log.display(connection);
         } catch (ClassNotFoundException e) {
             Log.display(JDBC_EXCEPTION, e.getMessage());
         } catch (SQLException e) {
@@ -76,30 +77,36 @@ public class DBManager {
      * Executes a query with result.
      * @param query, the SQL query
      */
-    public ResultSet doQuery(String query) {
+    public ResultSet doQuery(String query) throws SQLException {
         ResultSet result = null;
-        try {
-            Statement statement = connection.createStatement();
-            result = statement.executeQuery(query);
-        } catch (SQLException e) {
-            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
-        }
+        Statement statement = connection.createStatement();
+        result = statement.executeQuery(query);
+
         return result;
     }
-    
+    /**
+     * Executes a query with result. TODO: Correct javadocs
+     * @param query, the SQL query
+     */
+    public boolean updateQuery(String query) throws SQLException {
+        boolean result;
+        Statement statement = connection.createStatement();
+        result = statement.execute(query);
+
+        return result;
+    }
+
     /**
      * Executes a query with result.
      * @param query, the SQL query
      */
-    public ResultSet insertQuery(String query) {
+    public ResultSet insertQuery(String query) throws SQLException {
         ResultSet result = null;
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
-            result = statement.getGeneratedKeys();
-        } catch (SQLException e) {
-            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
-        }
+
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+        result = statement.getGeneratedKeys();
+
         return result;
     }    
 }

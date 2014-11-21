@@ -9,6 +9,7 @@ public class Pictures {
     private String path;
 
     public Pictures(int id, String path) {
-
+        this.id = id;
+        this.path = path;
     }
 }
