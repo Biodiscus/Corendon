@@ -109,9 +109,8 @@ public class EmployeeModel {
         if(userExists(employee))
         {
             /* user exists, convert plain password to sha256 and attach it to the model */
-            String hashedPass = sha256(employee.password);
             String salt = getSalt(employee);
-            String finalPass =  sha256(salt + hashedPass);
+            String finalPass =  sha256(employee.password + salt);
             employee.password = finalPass;
             
             String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
@@ -135,7 +134,8 @@ public class EmployeeModel {
             return false;
         }
     }
-       private boolean userExists(Employee employee){
+    
+    private boolean userExists(Employee employee){
         
         String checkUser = "SELECT COUNT(*) AS usercounter FROM employee WHERE username = '" + employee.username + "'";
 
@@ -155,8 +155,8 @@ public class EmployeeModel {
         return numRecords == 1;
     }
     
-    private String getSalt(Employee employee)
-    {
+    private String getSalt(Employee employee){
+        
         String saltQuery = "SELECT salt FROM employee WHERE username = '" + employee.username + "'";
 
         String salt  = "";
@@ -173,8 +173,8 @@ public class EmployeeModel {
         return salt;
     }
     
-    private byte[] generateSalt()
-    {
+    private byte[] generateSalt(){
+        
         final Random r = new SecureRandom();
         byte[] salt = new byte[32];
         r.nextBytes(salt);
