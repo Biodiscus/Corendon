@@ -9,7 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import nl.itopia.corendon.data.Employee;
-import nl.itopia.corendon.model.DBManager;
+import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.mvc.View;
 import nl.itopia.corendon.utils.Log;
@@ -21,7 +21,7 @@ import nl.itopia.corendon.utils.Log;
 public class AdministratorController extends Controller {
     //private AdministratorView view;
     private Employee employee;
-    private DBManager dbManager;
+    private DatabaseManager dbManager;
     
     @FXML public Button test_button;
 
