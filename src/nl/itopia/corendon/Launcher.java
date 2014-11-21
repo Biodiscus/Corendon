@@ -3,6 +3,7 @@ package nl.itopia.corendon;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.controller.MainController;
 import nl.itopia.corendon.model.DBManager;
 import nl.itopia.corendon.mvc.MVC;
@@ -44,7 +45,8 @@ public class Launcher extends Application {
 
             Log.display("Changing view");
         });
-        mvcEngine.setController(new MainController(WIDTH, HEIGHT));
+//        mvcEngine.setController(new MainController(WIDTH, HEIGHT));
+        mvcEngine.setController(new LoginController());
 
 
         stage.show();
