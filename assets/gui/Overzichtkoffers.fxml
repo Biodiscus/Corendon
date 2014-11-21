@@ -50,7 +50,7 @@
                         <TableColumn fx:id="Color" prefWidth="83.0" text="Color" />
                         <TableColumn fx:id="Airport" prefWidth="105.0" text="Airport" />
                         <TableColumn fx:id="Status" prefWidth="119.0" text="Status" />
-                        <TableColumn fx:id="Description" prefWidth="170.0" text="Description" />
+                        <TableColumn fx:id="Notes" prefWidth="170.0" text="Notes" />
                     </columns>
                   </TableView>
                </children>
