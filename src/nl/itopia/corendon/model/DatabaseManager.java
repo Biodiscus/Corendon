@@ -41,6 +41,7 @@ public class DatabaseManager {
             /** Open connection */
             String url = "jdbc:mysql://"+dbHost+"/"+dbName;
             connection = DriverManager.getConnection(url, dbUser, dbPass);
+            Log.display(connection);
         } catch (ClassNotFoundException e) {
             Log.display(JDBC_EXCEPTION, e.getMessage());
         } catch (SQLException e) {

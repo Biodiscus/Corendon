@@ -1,14 +1,18 @@
 package nl.itopia.corendon.model;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Random;
 
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.utils.Log;
 
 /**
  *
- * @author wieskueter.com
+ * @author wieskueter.com & Jeroentje
  */
 
 public class EmployeeModel {
@@ -18,6 +22,12 @@ public class EmployeeModel {
     private EmployeeModel() { 
     }
     
+    /**
+     * Get the employee based on Id
+     *
+     * @param id    a {@code int} Id
+     * @return     Get the full object of employee
+     */    
     public Employee getEmployee(int id) {
         Employee employee = new Employee(id);
 
@@ -34,7 +44,13 @@ public class EmployeeModel {
             return null;
         }
     }
-
+    
+    /**
+     * parse a resultset to a Employee Object
+     *
+     * @param result    a {@code ResultSet} ResultSet
+     * @return     Get the full object of employee
+     */ 
     private Employee resultToEmployee(ResultSet result) throws SQLException{
         Employee employee = new Employee(result.getInt("id"));
         // TODO: role, airport
@@ -49,13 +65,138 @@ public class EmployeeModel {
 
         return employee;
     }
-
-    public Employee getEmployees()
+    
+    /**
+     * get all employees
+     *
+     * @return     Arraylist of all employees
+     */ 
+    public Employee[] getEmployees()
     {
         return null;
     }
     
+    public Employee login(Employee employee)
+    {
+        
+        if(checkPassword(employee))
+        {
+            /* user exists and password is corect. Return the full employee */
+            String employeeIdQuery  = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
+            ResultSet result = dbmanager.doQuery(employeeIdQuery);
+            int employeeId = 0;
+            try {
+                if(result.next()) {
+                    employeeId = Integer.parseInt(result.getString("id"));
+                }
+
+            } catch (SQLException e) {
+                Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            }
+            
+            return getEmployee(employeeId);
+        }else{
+            /* password is incorect or the user doesn't exists return null */ 
+            /* @TODO Clean the employee object up */
+            return null;
+        }
+
+    }
+    
+    private boolean checkPassword(Employee employee)
+    {
+        if(userExists(employee))
+        {
+            /* user exists, convert plain password to sha256 and attach it to the model */
+            String hashedPass = sha256(employee.password);
+            String salt = getSalt(employee);
+            String finalPass =  sha256(salt + hashedPass);
+            employee.password = finalPass;
+            
+            String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
+            ResultSet result = dbmanager.doQuery(passwordQuery);
+            int numRecords  = 0;
+            
+            try {
+                if(result.next()) {
+                    String userCount = result.getString("usercounter");
+                    numRecords = Integer.parseInt(userCount);
+                }
+
+            } catch (SQLException e) {
+                Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            }
+            
+            return numRecords == 1;
+        }else{
+            /* user doesn't exists */
+            return false;
+        }
+    }
+       private boolean userExists(Employee employee){
+        
+        String checkUser = "SELECT COUNT(*) AS usercounter FROM employee WHERE username = '" + employee.username + "'";
+        ResultSet result = dbmanager.doQuery(checkUser);
+        int numRecords  = 0;
+        
+        try {
+            if(result.next()) {
+                String userCount = result.getString(1);
+                numRecords = Integer.parseInt(userCount);
+            }
+
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return numRecords == 1;
+    }
+    
+    private String getSalt(Employee employee)
+    {
+        String saltQuery = "SELECT salt FROM employee WHERE username = '" + employee.username + "'";
+        ResultSet result = dbmanager.doQuery(saltQuery);
+        String salt  = "";
+        
+        try {
+           if(result.next()) {
+                salt = result.getString(1);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return salt;
+    }
+    
+    private byte[] generateSalt()
+    {
+        final Random r = new SecureRandom();
+        byte[] salt = new byte[32];
+        r.nextBytes(salt);
+        
+        return salt;
+    }
+    
+    private String sha256(String value) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+           throw new RuntimeException(ex);
+        }
+    }    
+    
     public static EmployeeModel getDefault() {
         return _default;
-    }
+    }       
 }
