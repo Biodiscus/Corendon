@@ -31,17 +31,19 @@ public class LoginController extends Controller {
     @FXML
     private void loginButtonAction(ActionEvent event) {
      // Button was clicked, do something...
-     String userName = usernameField.getText();
-     String password = passwordField.getText();
-     
-     if(userName.isEmpty() || password.isEmpty())
-     {
-         /* ERROR, username and or password is empty */
-         Log.display("Error, the required fields are empty!");
-     }else{
-         /* User credentials are filled in, create a employee object and check */
-         login(userName,password);
-     }
+//     String userName = usernameField.getText();
+//     String password = passwordField.getText();
+//
+//     if(userName.isEmpty() || password.isEmpty())
+//     {
+//         /* ERROR, username and or password is empty */
+//         Log.display("Error, the required fields are empty!");
+//     }else{
+//         /* User credentials are filled in, create a employee object and check */
+//         login(userName,password);
+//     }
+
+        changeController(new MainController(1000, 100));
      
     }
     

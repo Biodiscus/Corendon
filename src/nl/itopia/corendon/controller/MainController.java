@@ -41,7 +41,7 @@ public class MainController extends Controller {
         luggage.createDate = 1416508718;
         luggage.returnDate = 0;
 //        luggageModel.addLuggage(luggage);
-        luggageModel.editLuggage(luggage);
+//        luggageModel.editLuggage(luggage);
 
 //        Luggage luggage = luggageModel.getLuggage(3);
 //        Log.display(luggage, luggage.color, luggage.employee);
@@ -50,7 +50,7 @@ public class MainController extends Controller {
     }
 
     public void handle(ActionEvent e) {
-        Log.display("Button clicked", e);
+
     }
 
     @Override
