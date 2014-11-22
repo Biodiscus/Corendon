@@ -10,10 +10,13 @@ import java.sql.SQLException;
  * © 2014, Biodiscus.net Robin
  */
 public class CustomerModel {
-    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final CustomerModel _default = new CustomerModel();
+    private final DatabaseManager dbmanager = DatabaseManager.getDefault();
+    private final CountryModel countryModel;
 
-    private CustomerModel() {}
+    private CustomerModel() {
+        countryModel = CountryModel.getDefault();
+    }
 
     public Customer getCustomer(int id) {
         Customer customer = null;
@@ -32,14 +35,15 @@ public class CustomerModel {
 
     private Customer resultToCustomer(ResultSet result) throws SQLException {
         int id = result.getInt("id");
+        int countryID = result.getInt("country_id");
+
         Customer customer = new Customer(id);
         customer.firstName = result.getString("first_name");
         customer.lastName = result.getString("last_name");
         customer.address = result.getString("address");
         customer.zipcode = result.getString("zip_code");
         customer.state = result.getString("state");
-        //todo countryobject
-        //customer.countryID = result.getInt("country_id");
+        customer.country = countryModel.getCountry(countryID);
         customer.email = result.getString("email");
         customer.phone = result.getString("phone");
 

@@ -1,4 +1,4 @@
-package nl.itopia.corendon.controller;
+package nl.itopia.corendon.controller.employee;
 
 import java.util.ArrayList;
 import java.util.List;

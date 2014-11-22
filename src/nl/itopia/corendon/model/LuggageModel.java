@@ -18,11 +18,16 @@ public class LuggageModel {
     private ColorModel colorModel;
     private BrandModel brandModel;
     private CustomerModel customerModel;
+    private AirportModel airportModel;
+    private StatusModel statusModel;
 
     private LuggageModel() {
         employeeModel = EmployeeModel.getDefault();
         colorModel = ColorModel.getDefault();
         brandModel = BrandModel.getDefault();
+        customerModel = CustomerModel.getDefault();
+        airportModel = AirportModel.getDefault();
+        statusModel = StatusModel.getDefault();
     }
 
     public void addLuggage(Luggage luggage) {
@@ -99,22 +104,24 @@ public class LuggageModel {
         // TODO: status, airport, customer (IN CUSTOMER CLASS NOG GEEN LINK NAAR COUNTRY)
 
         int colorID = result.getInt("color_id");
-        luggage.color = colorModel.getColor(colorID);
-        int brandID = result.getInt("brand_id");
-        luggage.brand = brandModel.getBrand(brandID);
-        int customerID = result.getInt("cusomter_id");
-        luggage.customer = customerModel.getCustomer(customerID);
-        
-
-        // TODO: Hier is een wachtwoord + salt opvragen van een employee inderdaad een beetje nutteloos
+        int statusID = result.getInt("status_id");
         int employeeID = result.getInt("employee_id");
-        luggage.employee = employeeModel.getEmployee(employeeID);
+        int customerID = result.getInt("client_id");
+        int airportID = result.getInt("airport_id");
+        int brandID = result.getInt("brand_id");
 
-
+        luggage.brand = brandModel.getBrand(brandID);
+        luggage.customer = customerModel.getCustomer(customerID);
+        luggage.color = colorModel.getColor(colorID);
+        luggage.status = statusModel.getStatus(statusID);
+        luggage.employee = employeeModel.getEmployee(employeeID); // TODO: Hier is een wachtwoord + salt opvragen van een employee inderdaad een beetje nutteloos
+        luggage.customer = customerModel.getCustomer(customerID);
+        luggage.airport = airportModel.getAirport(airportID);
         luggage.dimensions = result.getString("dimensions");
         luggage.label = result.getString("label");
         luggage.notes = result.getString("notes");
         luggage.weight = result.getString("weight");
+        luggage.brand = brandModel.getBrand(brandID);
 
         luggage.foundDate = result.getInt("found_date");
         luggage.returnDate = result.getInt("return_date");
