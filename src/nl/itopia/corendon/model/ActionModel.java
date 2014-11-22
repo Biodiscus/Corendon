@@ -1,37 +1,38 @@
 package nl.itopia.corendon.model;
 
-import nl.itopia.corendon.data.Role;
+import nl.itopia.corendon.data.Action;
+import nl.itopia.corendon.data.Airport;
 import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * © 2014, Biodiscus.net robin
+ * © 2014, Biodiscus.net Robin
  */
-public class RoleModel {
-    private static final RoleModel _default = new RoleModel();
+public class ActionModel {
+    private static final ActionModel _default = new ActionModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
-    private RoleModel() {}
+    private ActionModel() {}
 
-    public Role getRole(int id) {
-        Role role = null;
+    public Action getAction(int id) {
+        Action action = null;
 
         try {
-            ResultSet result = dbmanager.doQuery("SELECT * FROM role WHERE id = "+ id);
+            ResultSet result = dbmanager.doQuery("SELECT * FROM action WHERE id = "+ id);
             if(result.next()) {
                 String name = result.getString("name");
-                role = new Role(id, name);
+                action = new Action(id, name);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
 
-        return role;
+        return action;
     }
 
-    public static RoleModel getDefault() {
+    public static ActionModel getDefault() {
         return _default;
     }
 }

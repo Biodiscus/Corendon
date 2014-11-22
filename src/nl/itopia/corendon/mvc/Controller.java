@@ -2,10 +2,8 @@ package nl.itopia.corendon.mvc;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
-import nl.itopia.corendon.controller.MainController;
 import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Log;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -43,6 +41,16 @@ public abstract class Controller {
 
     public final void changeController(Controller controller) {
         mvc.setController(controller);
+    }
+
+
+    public final void addController(Controller controller) {
+        getView().getChildren().add(controller.getView());
+    }
+
+    public final void removeController(Controller controller) {
+        Pane parent = (Pane)controller.getView().getParent();
+        parent.getChildren().remove(controller.getView());
     }
 
     public View getView() {

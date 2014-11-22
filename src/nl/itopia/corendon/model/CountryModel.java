@@ -1,37 +1,37 @@
 package nl.itopia.corendon.model;
 
-import nl.itopia.corendon.data.Role;
+import nl.itopia.corendon.data.Country;
 import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * © 2014, Biodiscus.net robin
+ * © 2014, Biodiscus.net Robin
  */
-public class RoleModel {
-    private static final RoleModel _default = new RoleModel();
+public class CountryModel {
+    private static final CountryModel _default = new CountryModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
-    private RoleModel() {}
+    private CountryModel() {}
 
-    public Role getRole(int id) {
-        Role role = null;
+    public Country getCountry(int id) {
+        Country country = null;
 
         try {
-            ResultSet result = dbmanager.doQuery("SELECT * FROM role WHERE id = "+ id);
+            ResultSet result = dbmanager.doQuery("SELECT * FROM country WHERE id = "+ id);
             if(result.next()) {
                 String name = result.getString("name");
-                role = new Role(id, name);
+                country = new Country(id, name);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
 
-        return role;
+        return country;
     }
 
-    public static RoleModel getDefault() {
+    public static CountryModel getDefault() {
         return _default;
     }
 }

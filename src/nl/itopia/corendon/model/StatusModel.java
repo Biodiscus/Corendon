@@ -1,37 +1,36 @@
 package nl.itopia.corendon.model;
 
-import nl.itopia.corendon.data.Role;
+import nl.itopia.corendon.data.Status;
 import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * © 2014, Biodiscus.net robin
+ * © 2014, Biodiscus.net Robin
  */
-public class RoleModel {
-    private static final RoleModel _default = new RoleModel();
+public class StatusModel {
+    private static final StatusModel _default = new StatusModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
-    private RoleModel() {}
+    private StatusModel() {}
 
-    public Role getRole(int id) {
-        Role role = null;
-
+    public Status getStatus(int id) {
+        Status status = null;
         try {
-            ResultSet result = dbmanager.doQuery("SELECT * FROM role WHERE id = "+ id);
+            ResultSet result = dbmanager.doQuery("SELECT * FROM status WHERE id = "+ id);
             if(result.next()) {
                 String name = result.getString("name");
-                role = new Role(id, name);
+                status = new Status(id, name);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
 
-        return role;
+        return status;
     }
 
-    public static RoleModel getDefault() {
+    public static StatusModel getDefault() {
         return _default;
     }
 }
