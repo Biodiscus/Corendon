@@ -1,6 +1,9 @@
 package nl.itopia.corendon.controller;
 
-import nl.itopia.corendon.model.EmployeeModel;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import nl.itopia.corendon.mvc.Controller;
 
 /**
@@ -9,34 +12,40 @@ import nl.itopia.corendon.mvc.Controller;
  */
 public class EmployeeController extends Controller {
     
+    @FXML private TextField usernameInputfield;
+    @FXML private Button addButton;
+    
     public EmployeeController()
     {
         // Set view
-        registerFXML("gui/Inlogscherm.fxml");
+        registerFXML("gui/add_user.fxml");
         
         System.out.println("Employee Controller");
         
         // Trigger button to create new employee
-        //createEmployee.setOnAction(this::createNewEmployee);
+        addButton.setOnAction(this::createNewEmployee);
     }
     
-    public void createNewEmployee()
+    public void createNewEmployee(ActionEvent event)
     {
-        //String userName = usernameField.getText();
-        //String name = nameField.getText();
-        //String password = passwordField.getText();
-        //String repeatPassword = repeatPasswordField.getText();
-        //int role = roleField.getInt();
-        //String employeeSince = employeeSinceField.getText();
-        //String notes = notesField.getText();
+        System.out.println("Creating new employee...");
+        String userName = usernameInputfield.getText();
         
+        //String name = nameInputfield.getText();
+        //String password = passwordInputfield.getText();
+        //String repeatPassword = repeatpasswordInputfield.getText();
+        //int role = roleDropdownmenu.getInt();
+        //String employeeSince = employeeSinceField.getText();
+        //String notes = notesInputfield.getText();
+        
+        System.out.println(userName);
         /**
          * Check if username already exists
          * Generate random password
          * 
          */
         
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.createEmployee();
+        //EmployeeModel employeemodel = EmployeeModel.getDefault();
+        //employeemodel.createEmployee();
     }
 }
