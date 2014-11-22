@@ -1,5 +1,7 @@
 package nl.itopia.corendon.data;
 
+import nl.itopia.corendon.utils.Log;
+
 import java.util.List;
 
 /**
@@ -29,5 +31,19 @@ public class Luggage {
 
     public int getID() {
         return id;
+    }
+
+
+    /**
+     * Array pos 1: width
+     * Array pos 2: height
+     * Array pos 3: depth
+     * Array pos 4: in what format is it
+     *
+     * @return  the dimensions given in an array
+     */
+    public String[] getDimensions() {
+        // Split the dimmension on a 'x' or on a whitespace ' '
+        return dimensions.split("[x/ ]");
     }
 }
