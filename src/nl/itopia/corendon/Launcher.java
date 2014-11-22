@@ -29,6 +29,8 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        stage.setWidth(WIDTH);
+        stage.setHeight(HEIGHT);
         stage.setTitle(TITLE + ", V"+VERSION);
 
         // create and initialize the connectivity
@@ -38,7 +40,6 @@ public class Launcher extends Application {
 
         mvcEngine = new MVC((e)->{
             scene = new Scene(e, e.getWidth(), e.getHeight());
-
             scene.getStylesheets().clear();
             scene.getStylesheets().add("stylesheets/style.css");
 

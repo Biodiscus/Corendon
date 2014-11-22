@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="650.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" layoutX="-5.0" layoutY="-2.0" prefHeight="33.0" prefWidth="1131.0" style="-fx-border-color: black; -fx-background-color: CCCACA;" text="Search luggage">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Found on airport:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="foundonAirportdropdown" layoutX="184.0" layoutY="81.0" prefHeight="33.0" prefWidth="388.0" />
+            <Button fx:id="exitButton" alignment="CENTER" layoutX="1090.0" layoutY="2.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="28.0" text="X" />
+            <Label layoutX="40.0" layoutY="138.0" prefHeight="59.0" prefWidth="117.0" text="Label:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="labelInputfield" layoutX="184.0" layoutY="152.0" prefHeight="33.0" prefWidth="388.0" promptText="Label" />
+            <Label layoutX="40.0" layoutY="200.0" prefHeight="59.0" prefWidth="117.0" text="Color:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="colerDropdown" layoutX="184.0" layoutY="214.0" prefHeight="33.0" prefWidth="388.0" />
+            <Label layoutX="40.0" layoutY="259.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="brandInputfield" layoutX="184.0" layoutY="273.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />
+            <TextField fx:id="heightInputfield" layoutX="184.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
+            <Label layoutX="40.0" layoutY="313.0" prefHeight="59.0" prefWidth="117.0" text="Dimensions:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="372.0" prefHeight="59.0" prefWidth="117.0" text="Weight:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="weightInputfield" layoutX="184.0" layoutY="386.0" prefHeight="33.0" prefWidth="388.0" promptText="Weight" />
+            <TextField fx:id="notesInputfield" alignment="TOP_LEFT" layoutX="184.0" layoutY="432.0" prefHeight="127.0" prefWidth="388.0" promptText="Notes" />
+            <Label layoutX="40.0" layoutY="418.0" prefHeight="59.0" prefWidth="117.0" text="Notes:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="searchButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Search" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <TextField fx:id="widthInputfield" layoutX="322.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
+            <TextField fx:id="depthInputfield" layoutX="463.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
+            <Label layoutX="302.0" layoutY="330.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="443.0" layoutY="330.0" text="X">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="649.0" layoutY="85.0" text="In the period from:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="datepicker1" layoutX="649.0" layoutY="126.0" />
+            <Label layoutX="834.0" layoutY="126.0" prefHeight="26.0" prefWidth="43.0" text="until">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <DatePicker fx:id="datepicker2" layoutX="877.0" layoutY="126.0" />
+            <CheckBox fx:id="foundluggageCheckbox" layoutX="670.0" layoutY="377.0" mnemonicParsing="false" text="Found koffers">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="lostluggageCheckbox" layoutX="670.0" layoutY="408.0" mnemonicParsing="false" text="Lost koffers">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="resolvedluggageCheckbox" layoutX="670.0" layoutY="440.0" mnemonicParsing="false" text="Resolved luggage">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

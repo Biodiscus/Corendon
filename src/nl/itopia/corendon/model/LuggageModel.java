@@ -132,8 +132,7 @@ public class LuggageModel {
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
                 int id = result.getInt("id");
-                Luggage luggage = new Luggage(id);
-                luggage = getLuggage(id);
+                Luggage luggage = getLuggage(id);
                 luggageList.add(luggage);
             }
         } catch (SQLException e) {
