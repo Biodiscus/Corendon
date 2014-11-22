@@ -15,7 +15,7 @@ import nl.itopia.corendon.utils.Log;
 
 /**
  *
- * @author Jeroentje
+ * @author Jeroentje & Wies
  */
 public class LoginController extends Controller {
     
@@ -92,6 +92,7 @@ public class LoginController extends Controller {
     private void resetPassword(ActionEvent event)
     {
         // Show login reset screen
+        changeController(new InfoController());
         System.out.println("Show login reset screen");
     }
 }

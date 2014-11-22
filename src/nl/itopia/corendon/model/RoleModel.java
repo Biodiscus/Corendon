@@ -22,7 +22,7 @@ public class RoleModel {
             ResultSet result = dbmanager.doQuery("SELECT * FROM role WHERE id = "+ id);
             if(result.next()) {
                 String name = result.getString("name");
-                role = new Role(id, name);
+                //role = new Role(id, name);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());

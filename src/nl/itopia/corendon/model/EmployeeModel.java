@@ -16,6 +16,7 @@ import nl.itopia.corendon.utils.Log;
  */
 
 public class EmployeeModel {
+    
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final EmployeeModel _default = new EmployeeModel();
     
@@ -51,7 +52,8 @@ public class EmployeeModel {
      * @param result    a {@code ResultSet} ResultSet
      * @return     Get the full object of employee
      */ 
-    private Employee resultToEmployee(ResultSet result) throws SQLException{
+    private Employee resultToEmployee(ResultSet result) throws SQLException {
+        
         Employee employee = new Employee(result.getInt("id"));
         // TODO: role, airport
         employee.username = result.getString("username");
@@ -62,14 +64,13 @@ public class EmployeeModel {
         employee.createDate = result.getInt("create_date");
         employee.createDate = result.getInt("last_online");
 
-
         return employee;
     }
     
     /**
      * get all employees
      *
-     * @return     Arraylist of all employees
+     * @return Arraylist of all employees
      */ 
     public Employee[] getEmployees()
     {
@@ -78,7 +79,6 @@ public class EmployeeModel {
     
     public Employee login(Employee employee)
     {
-        
         if(checkPassword(employee))
         {
             /* user exists and password is corect. Return the full employee */
@@ -110,7 +110,7 @@ public class EmployeeModel {
         {
             /* user exists, convert plain password to sha256 and attach it to the model */
             String salt = getSalt(employee);
-            String finalPass =  sha256(employee.password + salt);
+            String finalPass = sha256(employee.password + salt);
             employee.password = finalPass;
             
             String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
@@ -202,5 +202,20 @@ public class EmployeeModel {
     
     public static EmployeeModel getDefault() {
         return _default;
-    }       
+    }
+    
+    public static void createEmpoyee()
+    {
+        /*employee.username = result.getString("username");
+        employee.password = result.getString("password");
+        employee.salt = result.getString("salt");
+        employee.contactDetails = result.getString("contact_details");
+        employee.notes = result.getString("notes");
+        employee.createDate = result.getInt("create_date");
+        employee.createDate = result.getInt("last_online");*/
+    }
+
+    public void createEmployee() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

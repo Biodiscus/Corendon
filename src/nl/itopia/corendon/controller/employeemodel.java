@@ -6,17 +6,10 @@
 
 package nl.itopia.corendon.controller;
 
-import nl.itopia.corendon.mvc.Controller;
-
 /**
  *
  * @author wieskueter.com
  */
-public class InfoController extends Controller{
+class employeemodel {
     
-    
-    public InfoController()
-    {
-        System.out.println("This is the info controller");
-    }
 }
