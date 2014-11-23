@@ -64,8 +64,8 @@ public class LoginController extends Controller {
             /* SCHERMEN */
             Log.display("Logged in as: " + employee.username);
             employeemodel.currentEmployee = employee;
-            //redirectEmployee(employee);
-//            changeController(new EmployeeController());
+            // redirectEmployee(employee);
+            // changeController(new EmployeeController());
             changeController(new AddLuggageController());
         } else {
             Log.display("Error, account does not exist or entered data is incorrect.");
@@ -94,7 +94,6 @@ public class LoginController extends Controller {
     {
         // Show login reset screen
         //changeController(new InfoController());
-        changeController(new EmployeeController());
-        System.out.println("Show login reset screen");
+        changeController(new AdministratorController());
     }
 }

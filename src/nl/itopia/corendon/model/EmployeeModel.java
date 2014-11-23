@@ -84,7 +84,7 @@ public class EmployeeModel {
         if(checkPassword(employee))
         {
             /* user exists and password is corect. Return the full employee */
-            String employeeIdQuery  = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
+            String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
             
             int employeeId = 0;
             try {
@@ -200,24 +200,31 @@ public class EmployeeModel {
         } catch(Exception ex){
            throw new RuntimeException(ex);
         }
-    }    
-    
+    }
+   
     public static EmployeeModel getDefault() {
         return _default;
     }
-    
-    public static void createEmpoyee()
-    {
-        /*employee.username = result.getString("username");
-        employee.password = result.getString("password");
+
+    public void createEmployee(String username) {
+        
+        /*employee.password = result.getString("password");
         employee.salt = result.getString("salt");
         employee.contactDetails = result.getString("contact_details");
         employee.notes = result.getString("notes");
         employee.createDate = result.getInt("create_date");
         employee.createDate = result.getInt("last_online");*/
-    }
+        
+        System.out.println("Create new Employee"+ username);
+        
+        String createQuery = "INSERT into employee (username, password, salt, contactDetails, notes) VALUES ("+ username +")";
 
-    public void createEmployee() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        /*try {
+            ResultSet result = dbmanager.doQuery(createQuery);
+
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }*/      
     }
+    
 }
