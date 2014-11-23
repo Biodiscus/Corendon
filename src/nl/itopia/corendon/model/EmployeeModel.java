@@ -206,7 +206,7 @@ public class EmployeeModel {
         return _default;
     }
 
-    public void createEmployee(String username) {
+    public void createEmployee(String username, String password) {
         
         /*employee.password = result.getString("password");
         employee.salt = result.getString("salt");
@@ -217,14 +217,13 @@ public class EmployeeModel {
         
         System.out.println("Create new Employee"+ username);
         
-        String createQuery = "INSERT into employee (username, password, salt, contactDetails, notes) VALUES ("+ username +")";
-
-        /*try {
-            ResultSet result = dbmanager.doQuery(createQuery);
-
+        String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', 1, 1)";
+        
+        try{
+            dbmanager.insertQuery(createQuery);
+            
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
-        }*/      
+        }
     }
-    
 }

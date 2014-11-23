@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.itopia.corendon.controller;
 
 import java.util.List;
@@ -35,48 +30,20 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>usernametable;
     @FXML private TableColumn <Employee,String>userLoginIDtable;
     
-    @FXML private TextField usernameInputfield;
-    @FXML private TextField nameInputfield;
-    @FXML private TextField passwordInputfield;
-    @FXML private TextField repeatpasswordInputfield;
-    
-    @FXML private Button addButton;
+    @FXML private Button adduserButton;
     
     public AdministratorController() {
         
         registerFXML("gui/Overview_administrator.fxml");
-        System.out.println("Administrator overview - gui/Overview_administrator.fxml");
+        
+        adduserButton.setOnAction(this::createNewEmployee);
     }
     
     public void createNewEmployee(ActionEvent event)
     {
-        // Set view
-        //registerFXML("gui/add_user.fxml");
-        
-        System.out.println("Employee Controller");
-        
-        // Trigger button to create new employee
-        addButton.setOnAction(this::createNewEmployee);
-        
-        System.out.println("Creating new employee...");
-        
-        String userName = usernameInputfield.getText();
-        String name = nameInputfield.getText();
-        String password = passwordInputfield.getText();
-        String repeatPassword = repeatpasswordInputfield.getText();
-        //int role = roleDropdownmenu.getInt();
-        //String employeeSince = employeeSinceField.getText();
-        //String notes = notesInputfield.getText();
-        
-        System.out.println("EmployeeController.createNewEmployee....");
-        /**
-         * Check if username already exists
-         * Generate random password
-         * 
-         */
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.createEmployee(name);
+        addController(new CreateUserController());
     }
+    
     void initializeTable(){
         //Create columns and set their datatype
         

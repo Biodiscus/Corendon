@@ -75,18 +75,19 @@ public class LoginController extends Controller {
     private void redirectEmployee(Employee employee) {
         /* rollen zijn nog niet volledig geimplementeerd dus dit werkt nog niet goed */
 
+        System.out.println("Redirect Employee");
         switch (employee.role.getName()) {
             case "Administrator":
-                /* laad beheerder scherm */
-                break;
+                changeController(new AdministratorController());
+            break;
             case "Employee":
-                /* laad medewerker scherm */
-                break;
+                // Show employee screen
+            break;
             case "Manager":
-                /* laad manager scherm */
-                break;
+                // Show manager screen
+            break;
             default: 
-                 /* fall back scherm */
+                // Show default screen
         }
     }
     

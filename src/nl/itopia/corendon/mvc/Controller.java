@@ -6,6 +6,8 @@ import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Log;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 
 /**
  * © Biodiscus.net 2014, Robin
@@ -68,5 +70,26 @@ public abstract class Controller {
 
     public View getView() {
         return view;
+    }
+    
+    
+    
+    // Functions shared throughout the entire framework
+    public String sha256(String value) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            StringBuffer hexString = new StringBuffer();
+
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch(Exception ex){
+           throw new RuntimeException(ex);
+        }
     }
 }
