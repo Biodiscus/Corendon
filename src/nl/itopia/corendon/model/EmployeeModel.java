@@ -6,16 +6,16 @@ import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Random;
-
 import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
 
 /**
  *
  * @author wieskueter.com & Jeroentje
  */
-
 public class EmployeeModel {
+    
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final EmployeeModel _default = new EmployeeModel();
 
@@ -28,8 +28,8 @@ public class EmployeeModel {
     /**
      * Get the employee based on Id
      *
-     * @param id    a {@code int} Id
-     * @return     Get the full object of employee
+     * @param id a {@code int} Id
+     * @return Get the full object of employee
      */    
     public Employee getEmployee(int id) {
         Employee employee = new Employee(id);
@@ -98,12 +98,11 @@ public class EmployeeModel {
             }
             
             return getEmployee(employeeId);
-        }else{
+        } else {
             /* password is incorect or the user doesn't exists return null */ 
             /* @TODO Clean the employee object up */
             return null;
         }
-
     }
     
     private boolean checkPassword(Employee employee)
@@ -112,7 +111,7 @@ public class EmployeeModel {
         {
             /* user exists, convert plain password to sha256 and attach it to the model */
             String salt = getSalt(employee);
-            String finalPass = sha256(employee.password + salt);
+            String finalPass = Hashing.sha256(employee.password + salt);
             employee.password = finalPass;
             
             String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
@@ -141,7 +140,7 @@ public class EmployeeModel {
         
         String checkUser = "SELECT COUNT(*) AS usercounter FROM employee WHERE username = '" + employee.username + "'";
 
-        int numRecords  = 0;
+        int numRecords = 0;
         
         try {
             ResultSet result = dbmanager.doQuery(checkUser);
@@ -183,39 +182,23 @@ public class EmployeeModel {
         
         return salt;
     }
-    
-    private String sha256(String value) {
-        try{
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(value.getBytes(StandardCharsets.UTF_8));
-            StringBuffer hexString = new StringBuffer();
-
-            for (int i = 0; i < hash.length; i++) {
-                String hex = Integer.toHexString(0xff & hash[i]);
-                if(hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-        } catch(Exception ex){
-           throw new RuntimeException(ex);
-        }
-    }
    
     public static EmployeeModel getDefault() {
         return _default;
     }
+    
+    public int UsernameExists(String username)
+    {   
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT int FROM employee WHERE username = '"+ username +"'");
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return 0;
+    }
 
     public void createEmployee(String username, String password) {
-        
-        /*employee.password = result.getString("password");
-        employee.salt = result.getString("salt");
-        employee.contactDetails = result.getString("contact_details");
-        employee.notes = result.getString("notes");
-        employee.createDate = result.getInt("create_date");
-        employee.createDate = result.getInt("last_online");*/
-        
-        System.out.println("Create new Employee"+ username);
         
         String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', 1, 1)";
         
