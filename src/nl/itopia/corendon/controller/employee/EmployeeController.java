@@ -11,6 +11,8 @@ import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *  AUTHOR: IGOR
@@ -20,7 +22,7 @@ public class EmployeeController extends Controller {
     @FXML private TableView<Luggage> luggageInfo;
     //@FXML private TableColumn ID; ID LATEN ZIEN IN OVERVIEW?? ONGEBRUIKELIJK
     
-    @FXML private TableColumn<Luggage,String> Brand;
+    @FXML private TableColumn <Luggage,String> Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
     @FXML private TableColumn <Luggage,String>Airport;
@@ -71,7 +73,8 @@ public class EmployeeController extends Controller {
         //MAAK LIST VAN LUGGAGE OBJECTS EN VUL DE KOLOMMEN
         LuggageModel luggageModel = LuggageModel.getDefault(); 
         List<Luggage> luggageList = luggageModel.getAllLuggage();
-        luggageInfo.getItems().setAll(luggageList);
+        ObservableList<Luggage> luggageObservableList = FXCollections.observableList(luggageList);
+        luggageInfo.getItems().setAll(luggageObservableList);
         
     }
 }
