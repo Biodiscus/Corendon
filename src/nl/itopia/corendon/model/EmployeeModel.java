@@ -16,10 +16,12 @@ import nl.itopia.corendon.utils.Log;
  */
 
 public class EmployeeModel {
-    
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final EmployeeModel _default = new EmployeeModel();
-    
+
+    // The current employee that is logged in
+    public Employee currentEmployee;
+
     private EmployeeModel() { 
     }
     
