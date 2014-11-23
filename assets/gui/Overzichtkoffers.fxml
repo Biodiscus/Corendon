@@ -45,7 +45,8 @@
                   <TableView fx:id="luggageInfo" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-                      <TableColumn fx:id="Brand" fx:fx:id="colName" prefWidth="135.0" text="Brand" />
+                      <!--<TableColumn fx:id="Brand" fx:id="colName" prefWidth="135.0" text="Brand" />-->
+                        <TableColumn fx:id="Brand" prefWidth="135.0" text="Brand" />
                         <TableColumn fx:id="Dimensions" prefWidth="85.0" text="Dimensions" />
                         <TableColumn fx:id="Color" prefWidth="83.0" text="Color" />
                         <TableColumn fx:id="Airport" prefWidth="105.0" text="Airport" />

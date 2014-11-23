@@ -1,44 +1,62 @@
 package nl.itopia.corendon.controller.employee;
 
-import java.util.ArrayList;
-import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.Luggage;
-import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
+
+import java.util.List;
 
 /**
  *  AUTHOR: IGOR
  *  BEVAT ALLEEN FUNCTIONALITEIT VOOR TABLE VAN KOFFERS
  */
 public class EmployeeController extends Controller {
-    @FXML private TableView <Luggage>luggageInfo;
+    @FXML private TableView<Luggage> luggageInfo;
     //@FXML private TableColumn ID; ID LATEN ZIEN IN OVERVIEW?? ONGEBRUIKELIJK
     
-    @FXML private TableColumn <Luggage,String>Brand;
+    @FXML private TableColumn<Luggage,String> Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
     @FXML private TableColumn <Luggage,String>Airport;
     @FXML private TableColumn <Luggage,String>Status;
     @FXML private TableColumn <Luggage,String>Notes;
-    
+
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton;
     
     
     public EmployeeController(){
         registerFXML("gui/Overzichtkoffers.fxml");  
         //Log.display(luggageInfo); ???
+
+        addLuggagebutton.setOnAction(this::addHandler);
+        editLuggagebutton.setOnAction(this::editHandler);
+        deleteLuggagebutton.setOnAction(this::deleteHandler);
     }
+
+    private void addHandler(ActionEvent e) {
+        addController(new AddLuggageController());
+
+        // Update our table with the new data
+    }
+
+    private void editHandler(ActionEvent e) {
+        int id = 5; // Check the table for the current selected item
+        addController(new EditLuggageController(id));
+    }
+
+    private void deleteHandler(ActionEvent e) {
+        int id = 5; // Check the table for the current selected item
+        // Show dialog with text: Do you really want to delete this luggage?
+    }
+
     
-    void initializeTable(){
+    public void initializeTable(){
         //Create columns and set their datatype
         
         //FF ALLEEN DE PRIMITIEVE DATATYPES OM TE TESTEN

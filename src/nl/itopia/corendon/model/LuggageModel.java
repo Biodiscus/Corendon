@@ -146,7 +146,7 @@ public class LuggageModel {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
         return luggageList;
-    }   
+    }
 
     public static LuggageModel getDefault() {
         return _default;

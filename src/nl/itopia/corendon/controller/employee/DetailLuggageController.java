@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -12,12 +13,14 @@ import nl.itopia.corendon.mvc.Controller;
  * © 2014, Biodiscus.net Robin
  */
 public class DetailLuggageController extends Controller {
-    private LuggageModel luggageModel;
 
     @FXML private Label showFoundonairport, showLabel, showColor, showBrand, showWeight,
                         showHeight, showNotes, showWidth, showDepth;
 
     @FXML private Button printdetailsButton, cancelButton, markasfoundButton, editButton, deleteButton;
+
+    private Luggage currentLuggage;
+
 
     public DetailLuggageController(int luggageID) {
         this(LuggageModel.getDefault().getLuggage(luggageID));
@@ -25,8 +28,7 @@ public class DetailLuggageController extends Controller {
 
     public DetailLuggageController(Luggage luggage) {
         registerFXML("gui/show_details_luggage.fxml");
-
-        luggageModel = LuggageModel.getDefault(); // TODO: Is this one needed?
+        currentLuggage = luggage;
 
         showFoundonairport.setText(luggage.airport.getName());
         showLabel.setText(luggage.label);
@@ -60,7 +62,10 @@ public class DetailLuggageController extends Controller {
     }
 
     protected void editHandler(ActionEvent e) {
-        // Edit Controller
+        // Set the edit controller
+        Pane parent = (Pane)getView().getParent();
+        addController(new EditLuggageController(currentLuggage), parent);
+        removeController(this);
     }
 
     protected void cancelHandler(ActionEvent e) {
