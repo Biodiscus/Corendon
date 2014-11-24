@@ -52,6 +52,7 @@ com_crashlytics_export_strings.xml
 # Created by https://www.gitignore.io
 
 ### NetBeans ###
+nbproject/
 nbproject/private/
 build/
 nbbuild/
@@ -59,3 +60,4 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+nbproject/project.properties
