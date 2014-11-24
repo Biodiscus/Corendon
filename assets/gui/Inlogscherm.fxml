@@ -10,15 +10,16 @@
 <?import javafx.scene.layout.*?>
 
 <!--<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
-<StackPane prefWidth="1500" prefHeight="843.75" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+
+<StackPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="330.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="330.0" style="-fx-background-color: white;">
          <children>
             <ImageView fx:id="logo" fitHeight="146.0" fitWidth="186.0" layoutX="72.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="usernameField" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" />
             <PasswordField fx:id="passwordField" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" />
-            <Button fx:id="loginButton" layoutX="7.0" layoutY="292.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="158.0" text="Log in"/>
-            <Text layoutX="173.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="158.0" >
+            <Button fx:id="loginButton" layoutX="7.0" layoutY="292.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="158.0" text="Log in" />
+            <Text layoutX="173.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="158.0">
                <font>
                   <Font size="13.0" />
                </font>
