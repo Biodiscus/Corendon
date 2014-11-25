@@ -51,7 +51,7 @@ public class EmployeeModel {
     }
     
     /**
-     * parse a resultset to a Employee Object
+     * parse a resultset to an Employee Object
      *
      * @param result    a {@code ResultSet} ResultSet
      * @return     Get the full object of employee
