@@ -11,20 +11,43 @@
 
 <!--<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
 
-<StackPane prefHeight="843.75" prefWidth="1500" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="330.0" style="-fx-background-color: white;">
+      <AnchorPane prefHeight="250.0" prefWidth="500.0">
          <children>
-            <ImageView fx:id="logo" fitHeight="146.0" fitWidth="186.0" layoutX="72.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="usernameField" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" />
-            <PasswordField fx:id="passwordField" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" />
-            <Button fx:id="loginButton" layoutX="7.0" layoutY="292.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="158.0" text="Log in" />
+            <ImageView fx:id="logo" fitHeight="115.0" fitWidth="362.0" layoutX="-1.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="16.0">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label layoutX="302.0" prefHeight="111.0" prefWidth="1203.0" style="-fx-background-color: #9C0C0C;" />
+         </children>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+      </AnchorPane>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="318.0">
+         <children>
+            <TextField fx:id="usernameField" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" promptText="Username" />
+            <PasswordField fx:id="passwordField" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" promptText="Password" />
+            <Button fx:id="loginButton" layoutX="7.0" layoutY="294.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="53.0" prefWidth="158.0" style="-fx-background-color: #53AF36; -fx-: white;" text="Login" textFill="WHITE">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Button>
             <Text layoutX="173.0" layoutY="306.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="158.0">
                <font>
                   <Font size="13.0" />
                </font>
             </Text>
-            <Button fx:id="forgottenPasswordbutton" layoutX="198.0" layoutY="314.0" mnemonicParsing="false" prefHeight="15.0" prefWidth="74.0" text="click here" />
+            <Button fx:id="forgottenPasswordbutton" layoutX="198.0" layoutY="314.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="74.0" style="-fx-background-color: #53AF36;" text="click here" textFill="WHITE">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>
