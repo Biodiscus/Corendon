@@ -14,18 +14,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<StackPane prefHeight="650.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0" style="-fx-background-color: #FEDFA2;" StackPane.alignment="CENTER">
          <opaqueInsets>
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Label alignment="CENTER" layoutX="-5.0" layoutY="-2.0" prefHeight="33.0" prefWidth="1131.0" style="-fx-border-color: black; -fx-background-color: CCCACA;" text="Search luggage">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
             <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Found on airport:">
                <font>
                   <Font size="17.0" />
@@ -69,15 +64,10 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="searchButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Search" />
-            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <Button fx:id="searchButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Search" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
             <TextField fx:id="widthInputfield" layoutX="322.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
             <TextField fx:id="depthInputfield" layoutX="463.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
-            <Label layoutX="302.0" layoutY="330.0" text="X">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Label>
             <Label layoutX="443.0" layoutY="330.0" text="X">
                <font>
                   <Font size="16.0" />
@@ -110,6 +100,19 @@
                   <Font size="15.0" />
                </font>
             </CheckBox>
+            <Label alignment="CENTER" prefHeight="59.0" prefWidth="1126.0" style="-fx-background-color: #9C0C0C;" text="Search luggage" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo1" fitHeight="59.0" fitWidth="280.0" layoutX="20.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
