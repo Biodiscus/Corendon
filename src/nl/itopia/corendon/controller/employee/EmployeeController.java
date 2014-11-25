@@ -29,7 +29,7 @@ public class EmployeeController extends Controller {
     @FXML private TableColumn <Luggage,String>Status;
     @FXML private TableColumn <Luggage,String>Notes;
 
-    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton;
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton;
     
     
     public EmployeeController(){
@@ -39,12 +39,17 @@ public class EmployeeController extends Controller {
         addLuggagebutton.setOnAction(this::addHandler);
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
+        searchLuggagebutton.setOnAction(this::searchHandler);
     }
 
     private void addHandler(ActionEvent e) {
         addController(new AddLuggageController());
 
         // Update our table with the new data
+    }
+    
+    private void searchHandler(ActionEvent e) {
+        addController(new SearchLuggageController());
     }
 
     private void editHandler(ActionEvent e) {

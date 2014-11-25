@@ -78,16 +78,13 @@ public class LoginController extends Controller {
                 changeController(new AdministratorController());
             break;
             case "Employee":
-                // Show employee screen
-                changeController(new AdministratorController());
+                changeController(new EmployeeController());
             break;
             case "Manager":
                 // Show manager screen
-                changeController(new AdministratorController());
             break;
             default: 
                 // Show default screen
-                changeController(new AdministratorController());
         }
     }
     

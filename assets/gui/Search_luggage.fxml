@@ -44,7 +44,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="colerDropdown" layoutX="184.0" layoutY="214.0" prefHeight="33.0" prefWidth="388.0" />
+            <ChoiceBox fx:id="colorDropdown" layoutX="184.0" layoutY="214.0" prefHeight="33.0" prefWidth="388.0" />
             <Label layoutX="40.0" layoutY="259.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
                <font>
                   <Font size="17.0" />
@@ -83,18 +83,18 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Label layoutX="649.0" layoutY="85.0" text="In the period from:">
+            <Label layoutX="618.0" layoutY="86.0" text="In the period from:">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <DatePicker fx:id="datepicker1" layoutX="649.0" layoutY="126.0" />
-            <Label layoutX="834.0" layoutY="126.0" prefHeight="26.0" prefWidth="43.0" text="until">
+            <DatePicker fx:id="datepicker1" layoutX="618.0" layoutY="127.0" />
+            <Label layoutX="834.0" layoutY="126.0" prefHeight="26.0" prefWidth="38.0" text="until">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <DatePicker fx:id="datepicker2" layoutX="877.0" layoutY="126.0" />
+            <DatePicker fx:id="datepicker2" layoutX="910.0" layoutY="127.0" />
             <CheckBox fx:id="foundluggageCheckbox" layoutX="670.0" layoutY="377.0" mnemonicParsing="false" text="Found koffers">
                <font>
                   <Font size="15.0" />
