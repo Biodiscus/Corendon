@@ -51,7 +51,7 @@ public class EmployeeModel {
     }
     
     /**
-     * parse a resultset to a Employee Object
+     * parse a resultset to an Employee Object
      *
      * @param result    a {@code ResultSet} ResultSet
      * @return     Get the full object of employee
@@ -217,9 +217,16 @@ public class EmployeeModel {
         return 0;
     }
 
-    public void createEmployee(String username, String password) {
+    /**
+     * Insert new employee to the database
+     * 
+     * @param username
+     * @param password
+     * @param userRole 
+     */
+    public void createEmployee(String username, String password, int userRole) {
         
-        String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', 1, 1)";
+        String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', '"+ userRole +"', 1)";
         
         try{
             dbmanager.insertQuery(createQuery);

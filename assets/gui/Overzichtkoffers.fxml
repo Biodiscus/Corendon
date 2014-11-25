@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -14,35 +15,48 @@
 
 <StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
          <children>
-            <Line endX="1220.0" layoutX="115.0" layoutY="133.0" startX="-100.0" />
-            <Text layoutX="938.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+            <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9C0C0C;" />
+            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="8.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Text layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                <font>
                   <Font size="19.0" />
                </font>
             </Text>
-            <Text layoutX="938.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+            <Text layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <ComboBox fx:id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
-            <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
-            <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="267.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
-            <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search luggage" />
-            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="504.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
-            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
-            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="590.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
-            <Label fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
+            <ComboBox fx:id="dropdownMenu" layoutX="1069.0" layoutY="61.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="175.5" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text=" Found luggage" textFill="WHITE" />
+            <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text=" Lost luggage" textFill="WHITE" />
+            <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Turned in luggage" textFill="WHITE" />
+            <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Search luggage" textFill="WHITE" />
+            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="502.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Add luggage" textFill="WHITE" />
+            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Edit luggage" textFill="WHITE" />
+            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="592.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Delete luggage" textFill="WHITE" />
+            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="430.0" layoutY="181.0" prefHeight="457.0" prefWidth="773.0">
+            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <Button fx:id="logoutButon" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <AnchorPane layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="789.0">
                <children>
-                  <TableView fx:id="luggageInfo" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView fx:id="luggageInfo" prefHeight="466.0" prefWidth="791.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
                       <!--<TableColumn fx:id="Brand" fx:id="colName" prefWidth="135.0" text="Brand" />-->
@@ -51,12 +65,11 @@
                         <TableColumn fx:id="Color" prefWidth="83.0" text="Color" />
                         <TableColumn fx:id="Airport" prefWidth="105.0" text="Airport" />
                         <TableColumn fx:id="Status" prefWidth="119.0" text="Status" />
-                        <TableColumn fx:id="Notes" prefWidth="170.0" text="Notes" />
+                        <TableColumn fx:id="Notes" prefWidth="172.0" text="Notes" />
                     </columns>
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="helpButton" layoutX="1287.0" layoutY="38.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />

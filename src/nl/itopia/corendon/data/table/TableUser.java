@@ -9,6 +9,7 @@ public class TableUser {
 //    private final SimpleStringProperty userID;
     private final SimpleStringProperty firstName;
     private final SimpleStringProperty lastName;
+    
 //    private final SimpleStringProperty userName;
     private final SimpleStringProperty telephoneNumber;
 

@@ -5,6 +5,8 @@ import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -64,4 +66,44 @@ public class RoleModel {
         /* return the full role */
         return role;
     }
+    
+    /**
+     * Parse a resultset to a Role Object
+     *
+     * @param result a {@code ResultSet} ResultSet
+     * @return full roles object
+     */ 
+    private Role resultToEmployee(ResultSet result) throws SQLException {
+        
+        RoleModel rolemodel = RoleModel.getDefault();
+        
+        Role role = new Role(result.getInt("id"), result.getString("name"));
+        role.id = result.getInt("id");
+        role.name = result.getString("name");
+        
+        return role;
+    }
+    
+    public List<Role> getRoles()
+    {
+        List<Role> roleList = new ArrayList<Role>();
+        
+        try{
+            ResultSet result = dbmanager.doQuery("SELECT * FROM roles");
+            
+            while (result.next()) {
+                int id = result.getInt("id");
+                String name = result.getString("name");
+                Role roles = resultToEmployee(result);
+                roleList.add(roles);
+            }
+            
+         } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return roleList;
+    }
+    
+    
 }
