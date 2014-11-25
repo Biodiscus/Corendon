@@ -62,20 +62,17 @@ public class LoginController extends Controller {
 
         if(employee != null) {
             /* SCHERMEN */
-            Log.display("Logged in as: " + employee.username);
+            Log.display("Logged in as: " + employee.username + " ROLE: " + employee.role.getName());
             employeemodel.currentEmployee = employee;
-            // redirectEmployee(employee);
-            // changeController(new EmployeeController());
-            changeController(new AddLuggageController());
+            redirectEmployee(employee);
         } else {
             Log.display("Error, account does not exist or entered data is incorrect.");
         }
     }
 
     private void redirectEmployee(Employee employee) {
-        /* rollen zijn nog niet volledig geimplementeerd dus dit werkt nog niet goed */
+        /* User is logged in, redirect user to the right controller by role name */
 
-        System.out.println("Redirect Employee");
         switch (employee.role.getName()) {
             case "Administrator":
                 changeController(new AdministratorController());
