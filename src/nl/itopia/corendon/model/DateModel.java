@@ -28,8 +28,7 @@ public class DateModel {
     }
 
     public String getTimestampDate(long timestamp) {
-        String day = formatDate("E yyyy.MM.dd 'at' hh:mm:ss a zzz", timestamp);
-        return formatDate("yyyy.MM.dd", timestamp);
+        return formatDate("dd.MM.yyyy", timestamp);
     }
 
     public int getTimestampDay(long timestamp) {
