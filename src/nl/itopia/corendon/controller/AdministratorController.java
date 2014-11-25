@@ -1,13 +1,18 @@
 package nl.itopia.corendon.controller;
 
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArray;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.table.TableUser;
 //import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
@@ -26,9 +31,14 @@ public class AdministratorController extends Controller {
     private Employee employee;
     private DatabaseManager dbManager;
     
+    public final ObservableList<TableUser> data;
+    
+    public final List<Employee> employeeList;
+    @FXML private TableView userTable;
+    
     @FXML private TableColumn <Employee,String>userIDtable;
-    @FXML private TableColumn <Employee,String>usernametable;
-    @FXML private TableColumn <Employee,String>userLoginIDtable;
+    @FXML private TableColumn <Employee,String>nameTable;
+    @FXML private TableColumn <Employee,String>usernameTable;
     
     @FXML private Button adduserButton;
     
@@ -37,7 +47,42 @@ public class AdministratorController extends Controller {
         registerFXML("gui/Overview_administrator.fxml");
         
         adduserButton.setOnAction(this::createNewEmployee);
+        
+        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
+        nameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
+        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephoneNumber"));
+        
+        employeeList = EmployeeModel.getDefault().getEmployees();
+        
+//        for(int i = 0; i < employeeList.size(); i++) {
+//            Employee a = employeeList.get(i);
+//            Log.display(a.firstName, a.lastName, a.username);
+//        }
+        
+        data = FXCollections.observableArrayList();
+        
+        for(Employee employee : employeeList){
+            String name = employee.firstName + " " + employee.lastName;
+            
+            TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username);
+            
+            data.add(user);
+        }
+        
+        
+        
+        
+//        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
+//                new TableUser("Robin", "de Jong", "06-12345678"),
+//                new TableUser("Jeroen", "Groot", "06-12345678"),
+//                new TableUser("Stefan", "de Groot", "06-12345678"),
+//                new TableUser("Erik", "Schouten", "06-12345678"),
+//                new TableUser("Igor", "Willems", "06-12345678")
+//        );
+        
+        userTable.setItems(data);
     }
+    
     
     public void createNewEmployee(ActionEvent event)
     {
@@ -47,9 +92,7 @@ public class AdministratorController extends Controller {
     void initializeTable(){
         //Create columns and set their datatype
         
-        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("ID"));
-        usernametable.setCellValueFactory(new PropertyValueFactory<Employee, String>("Username"));
-        userLoginIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("Login ID"));
+        
         
         //MAAK LIST VAN LUGGAGE OBJECTS EN VUL DE KOLOMMEN
         //LuggageModel luggageModel = LuggageModel.getDefault(); 
