@@ -16,7 +16,7 @@
       <AnchorPane prefHeight="250.0" prefWidth="500.0" StackPane.alignment="TOP_LEFT">
          <children>
             <Label prefHeight="111.0" prefWidth="2053.0" style="-fx-background-color: #9C0C0C;" />
-            <ImageView fx:id="logo" fitHeight="102.0" fitWidth="266.0" layoutX="55.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0" AnchorPane.bottomAnchor="637.6535415649414" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="1184.0" AnchorPane.topAnchor="34.0">
+            <ImageView fx:id="logo" fitHeight="102.0" fitWidth="266.0" layoutX="54.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0" AnchorPane.bottomAnchor="983.0629920959473" AnchorPane.leftAnchor="54.0" AnchorPane.rightAnchor="1733.0" AnchorPane.topAnchor="54.0">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
                </image>
@@ -49,6 +49,9 @@
                </font>
             </Button>
          </children>
+         <StackPane.margin>
+            <Insets />
+         </StackPane.margin>
       </AnchorPane>
    </children>
 </StackPane>
