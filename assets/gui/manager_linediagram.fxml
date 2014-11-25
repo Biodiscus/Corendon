@@ -50,26 +50,27 @@
                </font>
             </Text>
             <DatePicker fx:id="datepicker2" layoutX="1146.0" layoutY="233.0" />
-            <CheckBox fx:id="foundLuggagecheckbox" layoutX="900.0" layoutY="295.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="248.0" text="Found luggage">
+            <CheckBox fx:id="foundLuggagecheckbox" layoutX="900.0" layoutY="295.0" selected="true" mnemonicParsing="false" prefHeight="17.0" prefWidth="248.0" text="Found luggage">
                <font>
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="lostLuggagecheckbox" layoutX="900.0" layoutY="335.0" mnemonicParsing="false" text="Lost luggage">
+            <CheckBox fx:id="lostLuggagecheckbox" layoutX="900.0" layoutY="335.0" selected="true" mnemonicParsing="false" text="Lost luggage">
                <font>
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <CheckBox fx:id="resolvedLuggagecheckbox" layoutX="900.0" layoutY="375.0" mnemonicParsing="false" text="Resolved luggage">
+            <CheckBox fx:id="resolvedLuggagecheckbox" layoutX="900.0" layoutY="375.0" selected="true" mnemonicParsing="false" text="Resolved luggage">
                <font>
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
+            <!--<Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">-->
+            <!--<Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">-->
+               <!--<font>-->
+                  <!--<Font size="19.0" />-->
+               <!--</font>-->
+            <!--</Button>-->
             <LineChart fx:id="lineDiagram" animated="false" layoutX="363.0" layoutY="207.0">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />

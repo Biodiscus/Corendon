@@ -63,11 +63,10 @@ public abstract class Controller {
         } else {
             // Add a shadow on the view
             Scene scene = root.getScene();
-//            controller.getView().getChildren().add(new DialogBackground(scene));
+
             DialogBackground dialogBackground = new DialogBackground(scene);
             // Set the dialog background so the method removeController can remove the view
             controller.getView().dialogBackground = dialogBackground;
-
 
             ObservableList<Node> nodeList = root.getChildren();
             nodeList.add(dialogBackground);
@@ -80,10 +79,9 @@ public abstract class Controller {
         // TODO: When the root in addController is null, it should do something else.
         if(parent != null) {
             View view = controller.getView();
-            // When the dialog background is not null, delete it from the view
             if(view.dialogBackground != null) {
                 Pane dialogParent = (Pane) view.dialogBackground.getParent();
-                dialogParent.getChildren().remove(view.dialogBackground);
+                dialogParent.getChildren().remove(dialogParent);
             }
 
             parent.getChildren().remove(view);
