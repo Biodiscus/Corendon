@@ -11,9 +11,9 @@
 
 <!--<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
 
-<StackPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="578.0" prefWidth="1305.0" StackPane.alignment="CENTER">
+      <AnchorPane prefHeight="768.0" prefWidth="1366.0">
          <children>
             <TextField fx:id="usernameField" layoutX="873.0" layoutY="416.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" promptText="Username" />
             <Button fx:id="forgottenPasswordbutton" layoutX="1064.0" layoutY="547.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="74.0" style="-fx-background-color: #53AF36;" text="click here" textFill="WHITE">
@@ -32,7 +32,7 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <Label prefHeight="111.0" prefWidth="1919.0" style="-fx-background-color: #9C0C0C;" />
+            <Label prefHeight="111.0" prefWidth="1920.0" style="-fx-background-color: #9C0C0C;" />
             <ImageView fx:id="logo" fitHeight="113.0" fitWidth="340.0" layoutX="218.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
