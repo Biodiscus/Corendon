@@ -61,6 +61,36 @@ public class AirportModel {
     public static AirportModel getDefault() {
         return _default;
     }
+    
+    public Airport getAirportByEmployeeId(int EmployeeId) {
+        /* airport query */
+        String airportQuery = "SELECT airport.id, airport.name, airport.code FROM employee\n" +
+                                "INNER JOIN airport ON airport.id = employee.airports_id\n" +
+                                "WHERE employee.id = " + EmployeeId;
+        
+        /* create role object so we can manipulate it later on */
+        Airport airport = null;
+        
+        try {
+            /* try to run the sql query */
+            ResultSet result = dbmanager.doQuery(airportQuery);
+            if(result.next()) {
+                /* ok, there is a record. Get the field values */
+                int airportId = result.getInt("id");
+                String airportName = result.getString("name");
+                int airportCode = result.getInt("code");
+                
+                /* make a new airport object and send the field values to the constructor */
+                airport = new Airport(airportId,airportCode,airportName);
+                
+            }
+        } catch (SQLException e) {
+           Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        /* return the full airport */
+        return airport;
+    }
 
 
 }

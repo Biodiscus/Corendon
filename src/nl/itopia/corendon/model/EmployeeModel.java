@@ -58,8 +58,10 @@ public class EmployeeModel {
      */ 
     private Employee resultToEmployee(ResultSet result) throws SQLException {
         
+        RoleModel rolemodel = RoleModel.getDefault();
+        AirportModel airportmodel = AirportModel.getDefault();
+        
         Employee employee = new Employee(result.getInt("id"));
-        // TODO: role, airport
         employee.username = result.getString("username");
         employee.password = result.getString("password");
         employee.firstName = result.getString("first_name");
@@ -69,7 +71,9 @@ public class EmployeeModel {
         employee.notes = result.getString("notes");
         employee.createDate = result.getInt("create_date");
         employee.createDate = result.getInt("last_online");
-
+        employee.role = rolemodel.getRoleByEmployeeId(employee.getID());
+        employee.airport = airportmodel.getAirportByEmployeeId(employee.getID());
+        
         return employee;
     }
     
