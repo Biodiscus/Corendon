@@ -1,4 +1,4 @@
-package nl.itopia.corendon.controller;
+package nl.itopia.corendon.controller.administrator;
 
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -11,6 +11,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import nl.itopia.corendon.controller.administrator.CreateUserController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
 //import nl.itopia.corendon.data.Luggage;
