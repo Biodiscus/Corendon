@@ -11,11 +11,12 @@
 
 <!--<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">-->
 
-<StackPane prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane prefHeight="1080.0" prefWidth="1920.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane prefHeight="250.0" prefWidth="500.0">
+      <AnchorPane prefHeight="250.0" prefWidth="500.0" StackPane.alignment="TOP_LEFT">
          <children>
-            <ImageView fx:id="logo" fitHeight="115.0" fitWidth="362.0" layoutX="-1.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="16.0">
+            <Label prefHeight="111.0" prefWidth="2053.0" style="-fx-background-color: #9C0C0C;" />
+            <ImageView fx:id="logo" fitHeight="102.0" fitWidth="266.0" layoutX="55.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true" translateY="-20.0" AnchorPane.bottomAnchor="637.6535415649414" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="1184.0" AnchorPane.topAnchor="34.0">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
                </image>
@@ -23,13 +24,12 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Label layoutX="302.0" prefHeight="111.0" prefWidth="1203.0" style="-fx-background-color: #9C0C0C;" />
          </children>
          <rotationAxis>
             <Point3D />
          </rotationAxis>
       </AnchorPane>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="318.0">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="318.0" StackPane.alignment="CENTER">
          <children>
             <TextField fx:id="usernameField" layoutX="7.0" layoutY="183.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" promptText="Username" />
             <PasswordField fx:id="passwordField" layoutX="7.0" layoutY="234.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" promptText="Password" />
