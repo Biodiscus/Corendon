@@ -1,9 +1,14 @@
 package nl.itopia.corendon.mvc;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Log;
+import nl.itopia.corendon.view.DialogBackground;
+
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -56,7 +61,17 @@ public abstract class Controller {
         if(root == null) {
             changeController(controller);
         } else {
-            root.getChildren().add(controller.getView());
+            // Add a shadow on the view
+            Scene scene = root.getScene();
+//            controller.getView().getChildren().add(new DialogBackground(scene));
+            DialogBackground dialogBackground = new DialogBackground(scene);
+            // Set the dialog background so the method removeController can remove the view
+            controller.getView().dialogBackground = dialogBackground;
+
+
+            ObservableList<Node> nodeList = root.getChildren();
+            nodeList.add(dialogBackground);
+            nodeList.add(controller.getView());
         }
     }
 
@@ -64,7 +79,14 @@ public abstract class Controller {
         Pane parent = (Pane)controller.getView().getParent();
         // TODO: When the root in addController is null, it should do something else.
         if(parent != null) {
-            parent.getChildren().remove(controller.getView());
+            View view = controller.getView();
+            // When the dialog background is not null, delete it from the view
+            if(view.dialogBackground != null) {
+                Pane dialogParent = (Pane) view.dialogBackground.getParent();
+                dialogParent.getChildren().remove(view.dialogBackground);
+            }
+
+            parent.getChildren().remove(view);
         }
     }
 
