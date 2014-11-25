@@ -78,7 +78,7 @@ public class LoginController extends Controller {
                 changeController(new AdministratorController());
             break;
             case "Employee":
-                // Show employee screen
+                changeController(new EmployeeController());
             break;
             case "Manager":
                 // Show manager screen
