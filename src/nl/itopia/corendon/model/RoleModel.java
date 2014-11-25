@@ -35,12 +35,12 @@ public class RoleModel {
         return _default;
     }
     
-    public Role getRoleByUserId(int userId) {
+    public Role getRoleByEmployeeId(int employeeId) {
         
         /* Role query */
         String roleQuery = "SELECT roles.id, roles.name FROM employee\n" +
                         "INNER JOIN roles ON roles.id = employee.role_id\n" +
-                        "WHERE employee.id = " + userId;
+                        "WHERE employee.id = " + employeeId;
         
         /* create role object so we can manipulate it later on */
         Role role = null;
