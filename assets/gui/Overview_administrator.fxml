@@ -43,8 +43,8 @@
                   <TableView id="luggageInfo" fx:id="userTable" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
                       <TableColumn id="ID" fx:id="userIDtable" prefWidth="75.0" text="ID" />
-                        <TableColumn id="ID" fx:id="usernametable" prefWidth="273.0" text="Name" />
-                        <TableColumn id="ID" fx:id="userLoginIDtable" minWidth="0.0" prefWidth="410.0" text="Login ID" />
+                        <TableColumn id="ID" fx:id="nameTable" prefWidth="273.0" text="Name" />
+                        <TableColumn id="ID" fx:id="usernameTable" minWidth="0.0" prefWidth="410.0" text="Username" />
                     </columns>
                   </TableView>
                </children>
