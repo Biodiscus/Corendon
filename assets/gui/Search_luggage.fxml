@@ -44,7 +44,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="colerDropdown" layoutX="184.0" layoutY="214.0" prefHeight="33.0" prefWidth="388.0" />
+            <ChoiceBox fx:id="colorDropdown" layoutX="184.0" layoutY="214.0" prefHeight="33.0" prefWidth="388.0" />
             <Label layoutX="40.0" layoutY="259.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
                <font>
                   <Font size="17.0" />
