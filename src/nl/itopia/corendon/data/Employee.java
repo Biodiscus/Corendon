@@ -8,6 +8,8 @@ public class Employee {
     private int id;
     public String username;
     public String password;
+    public String firstName;
+    public String lastName;
     public String salt;
     public String contactDetails;
     public String notes;

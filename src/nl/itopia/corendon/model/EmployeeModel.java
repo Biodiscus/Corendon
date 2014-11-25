@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.utils.Hashing;
@@ -60,6 +62,8 @@ public class EmployeeModel {
         // TODO: role, airport
         employee.username = result.getString("username");
         employee.password = result.getString("password");
+        employee.firstName = result.getString("first_name");
+        employee.lastName = result.getString("last_name");
         employee.salt = result.getString("salt");
         employee.contactDetails = result.getString("contact_details");
         employee.notes = result.getString("notes");
@@ -74,9 +78,20 @@ public class EmployeeModel {
      *
      * @return Arraylist of all employees
      */ 
-    public Employee[] getEmployees()
-    {
-        return null;
+    public List<Employee> getEmployees() {
+        List<Employee> employeeList = new ArrayList<Employee>();
+        try {
+            String sql = "SELECT * FROM employee";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                int id = result.getInt("id");
+                Employee employee = resultToEmployee(result);
+                employeeList.add(employee);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return employeeList;
     }
     
     public Employee login(Employee employee)
