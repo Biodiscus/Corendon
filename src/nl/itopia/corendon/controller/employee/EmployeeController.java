@@ -13,16 +13,18 @@ import nl.itopia.corendon.mvc.Controller;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import nl.itopia.corendon.data.table.TableLuggage;
 
 /**
  *  AUTHOR: IGOR
  *  BEVAT ALLEEN FUNCTIONALITEIT VOOR TABLE VAN KOFFERS
  */
 public class EmployeeController extends Controller {
-    @FXML private TableView<Luggage> luggageInfo;
-    //@FXML private TableColumn ID; ID LATEN ZIEN IN OVERVIEW?? ONGEBRUIKELIJK
+    @FXML private TableView luggageInfo;
+    public final ObservableList<TableLuggage> data;
     
-    @FXML private TableColumn <Luggage,String> Brand;
+    public final List<Luggage> luggageList;    
+    @FXML private TableColumn <Luggage,String>Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
     @FXML private TableColumn <Luggage,String>Airport;
@@ -34,13 +36,39 @@ public class EmployeeController extends Controller {
     
     public EmployeeController(){
         registerFXML("gui/Overzichtkoffers.fxml");  
-        //Log.display(luggageInfo); ???
 
+        //Create buttons
         addLuggagebutton.setOnAction(this::addHandler);
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
         searchLuggagebutton.setOnAction(this::searchHandler);
-    }
+        
+        
+        
+        
+        //Create columns and set their datatype for building the Luggage Table
+        Brand.setCellValueFactory(new PropertyValueFactory<Luggage, String>("brand"));
+        Dimensions.setCellValueFactory(new PropertyValueFactory<Luggage, String>("dimensions"));
+        Color.setCellValueFactory(new PropertyValueFactory<Luggage, String>("color"));
+        Airport.setCellValueFactory(new PropertyValueFactory<Luggage, String>("airport"));
+        Status.setCellValueFactory(new PropertyValueFactory<Luggage, String>("status"));
+        Notes.setCellValueFactory(new PropertyValueFactory<Luggage, String>("notes"));
+        
+        luggageList = LuggageModel.getDefault().getLuggage();
+        data = FXCollections.observableArrayList();
+        
+        
+        for(Luggage luggage : luggageList){
+            TableLuggage luggageTabel = new TableLuggage(luggage.brand.getName(),
+                    luggage.dimensions, luggage.color.getHex(), luggage.airport.getName(),
+                    luggage.status.getName(), luggage.notes);
+            
+            data.add(luggageTabel);
+        }
+        
+        luggageInfo.setItems(data);
+    }        
+
 
     private void addHandler(ActionEvent e) {
         addController(new AddLuggageController());
@@ -60,26 +88,5 @@ public class EmployeeController extends Controller {
     private void deleteHandler(ActionEvent e) {
         int id = 5; // Check the table for the current selected item
         // Show dialog with text: Do you really want to delete this luggage?
-    }
-
-    
-    public void initializeTable(){
-        //Create columns and set their datatype
-        
-        //FF ALLEEN DE PRIMITIEVE DATATYPES OM TE TESTEN
-        //Brand.setCellValueFactory(new PropertyValueFactory<Luggage, String>("Brand"));
-        Dimensions.setCellValueFactory(new PropertyValueFactory<Luggage, String>("dimensions"));
-        //Color.setCellValueFactory(new PropertyValueFactory<Luggage, String>("Color"));
-        //Airport.setCellValueFactory(new PropertyValueFactory<Luggage, String>("Airport"));
-        //Status.setCellValueFactory(new PropertyValueFactory<Luggage, String>("Status"));
-        Notes.setCellValueFactory(new PropertyValueFactory<Luggage, String>("notes"));
-        
-        
-        //MAAK LIST VAN LUGGAGE OBJECTS EN VUL DE KOLOMMEN
-        LuggageModel luggageModel = LuggageModel.getDefault(); 
-        List<Luggage> luggageList = luggageModel.getAllLuggage();
-        ObservableList<Luggage> luggageObservableList = FXCollections.observableList(luggageList);
-        luggageInfo.getItems().setAll(luggageObservableList);
-        
     }
 }
