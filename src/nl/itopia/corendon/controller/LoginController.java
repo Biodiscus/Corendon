@@ -4,8 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import nl.itopia.corendon.controller.employee.AddLuggageController;
+import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.controller.employee.EmployeeController;
+import nl.itopia.corendon.controller.manager.ManagerController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -81,7 +82,7 @@ public class LoginController extends Controller {
                 changeController(new EmployeeController());
             break;
             case "Manager":
-                // Show manager screen
+                changeController(new ManagerController());
             break;
             default: 
                 // Show default screen
