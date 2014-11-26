@@ -102,9 +102,10 @@ public class EmployeeModel {
     {
         if(checkPassword(employee))
         {
+            Log.display("Password correct");
             /* user exists and password is corect. Return the full employee */
             String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
-            
+
             int employeeId = 0;
             try {
                 ResultSet result = dbmanager.doQuery(employeeIdQuery);
@@ -132,6 +133,8 @@ public class EmployeeModel {
             String salt = getSalt(employee);
             String finalPass = Hashing.sha256(employee.password + salt);
             employee.password = finalPass;
+
+            Log.display(employee.password);
             
             String passwordQuery = "SELECT COUNT(*) as usercounter FROM employee WHERE username = '" + employee.username + "' AND password = '" + finalPass + "'";
 
@@ -192,21 +195,12 @@ public class EmployeeModel {
         
         return salt;
     }
-    
-    private byte[] generateSalt(){
-        
-        final Random r = new SecureRandom();
-        byte[] salt = new byte[32];
-        r.nextBytes(salt);
-        
-        return salt;
-    }
    
     public static EmployeeModel getDefault() {
         return _default;
     }
     
-    public int UsernameExists(String username)
+    public int usernameExists(String username)
     {   
         try {
             ResultSet result = dbmanager.doQuery("SELECT int FROM employee WHERE username = '"+ username +"'");
@@ -225,7 +219,7 @@ public class EmployeeModel {
      * @param userRole 
      */
     public void createEmployee(String username, String password, int userRole) {
-        
+//        String query = "INSERT INTO ";
         String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', '"+ userRole +"', 1)";
         
         try{
@@ -234,5 +228,27 @@ public class EmployeeModel {
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
+    }
+
+    public void createEmployee(Employee employee) {
+        int role_id = employee.role.getID();
+        int airport_id = employee.airport.getID();
+
+        String query = "INSERT INTO employee " +
+                "(username, password, salt, first_name, last_name, role_id, contact_details, notes, create_date, airports_id)"+
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%d')";
+Log.display(employee.salt);
+        String finalQuery = String.format(
+                query, employee.username, employee.password, employee.salt, employee.firstName, employee.lastName,
+                role_id, employee.contactDetails, employee.notes, employee.createDate, airport_id
+        );
+
+        try {
+            Log.display(finalQuery);
+            dbmanager.insertQuery(finalQuery);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
     }
 }

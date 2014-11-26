@@ -15,8 +15,8 @@ public class Employee {
     public String notes;
     public Role role;
     public Airport airport;
-    public int createDate;
-    public int lastOnline;
+    public long createDate;
+    public long lastOnline;
 
     public Employee(int id) {
         this.id = id;

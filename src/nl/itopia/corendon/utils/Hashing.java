@@ -8,12 +8,29 @@ package nl.itopia.corendon.utils;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.security.SecureRandom;
+import java.util.Base64;
+import java.util.Random;
 
 /**
  *
  * @author wieskueter.com
  */
 public class Hashing {
+
+    public static String generateSaltString() {
+        byte[] salt = generateSalt();
+        return Base64.getEncoder().encodeToString(salt);
+    }
+
+    public static byte[] generateSalt(){
+
+        final Random r = new SecureRandom();
+        byte[] salt = new byte[32];
+        r.nextBytes(salt);
+
+        return salt;
+    }
 
     public static String sha256(String value) {
         
