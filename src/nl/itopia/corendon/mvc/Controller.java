@@ -21,6 +21,8 @@ public abstract class Controller {
     private MVC mvc;
     protected View view;
 
+    private ControllerDelete controllerDeleteHandler;
+
     public Controller() {}
 
     public void registerFXML(String path) {
@@ -87,9 +89,26 @@ public abstract class Controller {
 
             parent.getChildren().remove(view);
         }
+
+        if(controllerDeleteHandler != null) {
+            controllerDeleteHandler.action(destroyReturn());
+        }
+    }
+
+    public void setControllerDeleteHandler(ControllerDelete handler) {
+        this.controllerDeleteHandler = handler;
+    }
+
+    // Override this function to give the destroy handler an object to return
+    protected Object destroyReturn() {
+        return null;
     }
 
     public View getView() {
         return view;
+    }
+
+    public interface ControllerDelete {
+        public void action(Object object);
     }
 }
