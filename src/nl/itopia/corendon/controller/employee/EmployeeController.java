@@ -17,7 +17,7 @@ import nl.itopia.corendon.data.table.TableLuggage;
 
 /**
  *  AUTHOR: IGOR
- *  BEVAT ALLEEN FUNCTIONALITEIT VOOR TABLE VAN KOFFERS
+ *  
  */
 public class EmployeeController extends Controller {
     @FXML private TableView luggageInfo;
@@ -57,11 +57,10 @@ public class EmployeeController extends Controller {
         luggageList = LuggageModel.getDefault().getAllLuggage();
         data = FXCollections.observableArrayList();
         
-        
         for(Luggage luggage : luggageList){
-            TableLuggage luggageTabel = new TableLuggage(luggage.brand.getName(),
-                    luggage.dimensions, luggage.color.getHex(), luggage.airport.getName(),
-                    luggage.status.getName(), luggage.notes);
+            TableLuggage luggageTabel = new TableLuggage(luggage.dimensions,luggage.notes,
+                    luggage.airport.getName(),luggage.brand.getName(),luggage.color.getHex(),
+                    luggage.status.getName());
             
             data.add(luggageTabel);
         }
