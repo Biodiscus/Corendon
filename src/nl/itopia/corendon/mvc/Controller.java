@@ -79,9 +79,10 @@ public abstract class Controller {
         // TODO: When the root in addController is null, it should do something else.
         if(parent != null) {
             View view = controller.getView();
+
             if(view.dialogBackground != null) {
                 Pane dialogParent = (Pane) view.dialogBackground.getParent();
-                dialogParent.getChildren().remove(dialogParent);
+                dialogParent.getChildren().remove(view.dialogBackground);
             }
 
             parent.getChildren().remove(view);
