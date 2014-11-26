@@ -54,7 +54,7 @@ public class EmployeeController extends Controller {
         Status.setCellValueFactory(new PropertyValueFactory<Luggage, String>("status"));
         Notes.setCellValueFactory(new PropertyValueFactory<Luggage, String>("notes"));
         
-        luggageList = LuggageModel.getDefault().getLuggage();
+        luggageList = LuggageModel.getDefault().getAllLuggage();
         data = FXCollections.observableArrayList();
         
         
