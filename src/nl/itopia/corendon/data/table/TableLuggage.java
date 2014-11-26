@@ -48,7 +48,7 @@ public class TableLuggage {
         this.airport.set(airport);
     }    
 
-    public String getbrand() {
+    public String getBrand() {
         return brand.get();
     }
 
