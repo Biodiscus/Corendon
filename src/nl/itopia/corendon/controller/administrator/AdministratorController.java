@@ -28,9 +28,9 @@ public class AdministratorController extends Controller {
     private Employee employee;
     private DatabaseManager dbManager;
     
-    public final ObservableList<TableUser> data;
+    public final ObservableList<TableUser> data = FXCollections.observableArrayList();;
     
-    public final List<Employee> employeeList;
+    public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();;
     @FXML private TableView userTable;
     
     @FXML private TableColumn <Employee,String>userIDtable;
@@ -46,39 +46,8 @@ public class AdministratorController extends Controller {
         registerFXML("gui/Overview_administrator.fxml");
         
         adduserButton.setOnAction(this::createNewEmployee);
-        
-        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
-        nameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
-        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephoneNumber"));
-        
-        employeeList = EmployeeModel.getDefault().getEmployees();
-        
-//        for(int i = 0; i < employeeList.size(); i++) {
-//            Employee a = employeeList.get(i);
-//            Log.display(a.firstName, a.lastName, a.username);
-//        }
-        
-        data = FXCollections.observableArrayList();
-        
-        for(Employee employee : employeeList) {
-            
-            if( !employee.account_status.equals("deleted") ) {
-                 String name = employee.firstName + " " + employee.lastName;
-                TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
-                data.add(user);
-            }
-        }
-        
-//        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
-//                new TableUser("Robin", "de Jong", "06-12345678"),
-//                new TableUser("Jeroen", "Groot", "06-12345678"),
-//                new TableUser("Stefan", "de Groot", "06-12345678"),
-//                new TableUser("Erik", "Schouten", "06-12345678"),
-//                new TableUser("Igor", "Willems", "06-12345678")
-//        );
-        
-        userTable.setItems(data);
-        
+
+        initializeTable();
         
         /**
          * Delete user
@@ -96,19 +65,78 @@ public class AdministratorController extends Controller {
     }
     
     public void createNewEmployee(ActionEvent event) {
+        
+        initializeTable();
         addController(new CreateUserController());
     }
     
     /**
      * Handle delete action through database
      * @param event 
+     * @param UserId 
      */
     public void deleteEmployee(ActionEvent event) {
+        
         EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.deleteEmployee(this.deleteUserId);
+        System.out.println("UserId: "+ this.deleteUserId);
+        //employeemodel.deleteEmployee(UserId);
+        initializeTable();
     }
     
-    void initializeTable() {
+    public void initializeTable() {
+        
+        System.out.println("Init table!");
+        userTable.getItems().clear();
+        
+        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
+        nameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
+        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephoneNumber"));
+        
+        for(Employee employee : employeeList) {
+            
+            if( !employee.account_status.equals("deleted") ) {
+                
+                String name = employee.firstName + " " + employee.lastName;
+                TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
+                this.data.add(user);
+            }
+        }
+        
+        userTable.setItems(data);
+        
+        
+   
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        //employeeList = EmployeeModel.getDefault().getEmployees();
+        
+//        for(int i = 0; i < employeeList.size(); i++) {
+//            Employee a = employeeList.get(i);
+//            Log.display(a.firstName, a.lastName, a.username);
+//        }
+        
+        //data = FXCollections.observableArrayList();    
+        
+        
+        
+ //        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
+//                new TableUser("Robin", "de Jong", "06-12345678"),
+//                new TableUser("Jeroen", "Groot", "06-12345678"),
+//                new TableUser("Stefan", "de Groot", "06-12345678"),
+//                new TableUser("Erik", "Schouten", "06-12345678"),
+//                new TableUser("Igor", "Willems", "06-12345678")
+//        );
+               
+        
         
         //Create columns and set their datatype
         

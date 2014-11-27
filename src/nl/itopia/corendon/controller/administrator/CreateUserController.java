@@ -27,6 +27,7 @@ public class CreateUserController extends Controller {
     @FXML private Button cancelButton;
 
     private final List<Role> roleList;
+    private AdministratorController AdministratorController;
 
     public CreateUserController() {
         
@@ -91,7 +92,7 @@ public class CreateUserController extends Controller {
             employee.createDate = DateModel.getDefault().getCurrentTimeStamp();
             //employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
 
-//            employeemodel.createEmployee(userName, password, userRole);
+            // employeemodel.createEmployee(userName, password, userRole);
             employeemodel.createEmployee(employee);
             removeController(this);
         }

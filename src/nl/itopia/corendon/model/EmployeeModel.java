@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
@@ -251,11 +252,10 @@ public class EmployeeModel {
     {
         //String deleteQuery = "DELETE FROM employee WHERE id = '"+ userID +"'";
         String deleteQuery = "UPDATE employee SET account_status = 'deleted' WHERE id = '"+ userID +"'";
-        try{
+        try {
             dbmanager.updateQuery(deleteQuery);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
-        
     }
 }
