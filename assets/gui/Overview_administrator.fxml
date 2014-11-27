@@ -35,9 +35,12 @@
                <children>
                   <TableView id="luggageInfo" fx:id="userTable" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn id="ID" fx:id="userIDtable" prefWidth="75.0" text="ID" />
-                        <TableColumn id="ID" fx:id="nameTable" prefWidth="273.0" text="Name" />
-                        <TableColumn id="ID" fx:id="usernameTable" minWidth="0.0" prefWidth="410.0" text="Username" />
+                      <TableColumn id="ID" fx:id="userIDtable" prefWidth="64.0" text="ID" />
+                        <TableColumn id="ID" fx:id="usernameTable" minWidth="0.0" prefWidth="126.0" text="Username" />
+                        <TableColumn id="ID" fx:id="firstnameTable" prefWidth="128.0" text="First name" />
+                        <TableColumn id="ID" fx:id="lastnameTable1" prefWidth="161.0" text="Last name" />
+                        <TableColumn id="ID" fx:id="roleTable" minWidth="0.0" prefWidth="140.0" text="Role" />
+                        <TableColumn id="ID" fx:id="airportTable" minWidth="0.0" prefWidth="135.0" text="Airport" />
                     </columns>
                   </TableView>
                </children>
