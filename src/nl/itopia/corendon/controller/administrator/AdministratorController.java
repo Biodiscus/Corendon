@@ -89,16 +89,12 @@ public class AdministratorController extends Controller {
     }
     
     public void initializeTable() {
-                //userTable.getItems().clear();
-        
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
-        usernameTable.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        firstnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-        lastnameTable.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        usernameTable.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        firstnameTable.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
-        //lastnameTable1.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastnameTable1"));
-
 
         for(Employee employee : employeeList) {
             
