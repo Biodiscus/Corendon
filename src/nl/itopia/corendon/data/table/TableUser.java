@@ -11,7 +11,7 @@ public class TableUser {
     private final SimpleStringProperty firstName;
     private final SimpleStringProperty lastName;
     
-//    private final SimpleStringProperty userName;
+    //private final SimpleStringProperty userName;
     private final SimpleStringProperty telephoneNumber;
 
 
@@ -20,7 +20,7 @@ public class TableUser {
         userID = new SimpleStringProperty(uID);
         firstName = new SimpleStringProperty(fName);
         lastName = new SimpleStringProperty(lName);
-//        userName = new SimpleStringProperty(uName);
+        //userName = new SimpleStringProperty(uName);
         telephoneNumber = new SimpleStringProperty(tName);
     }
     

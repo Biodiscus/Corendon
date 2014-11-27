@@ -34,8 +34,9 @@ public class AdministratorController extends Controller {
     @FXML private TableView userTable;
     
     @FXML private TableColumn <Employee,String>userIDtable;
-    @FXML private TableColumn <Employee,String>nameTable;
     @FXML private TableColumn <Employee,String>usernameTable;
+    @FXML private TableColumn <Employee,String>firstnameTable;
+    @FXML private TableColumn <Employee,String>lastnameTable1;
     
     @FXML private Button adduserButton;
     @FXML private Button deleteuserButton;
@@ -57,6 +58,8 @@ public class AdministratorController extends Controller {
             // Get the object for the selected user in the table
             TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
             this.deleteUserId = user.getUserID();
+            
+            System.out.println(deleteUserId);
             
             // Trigger click on button and run delete method
             deleteuserButton.setOnAction(this::deleteEmployee);
@@ -88,9 +91,10 @@ public class AdministratorController extends Controller {
         System.out.println("Init table!");
         userTable.getItems().clear();
         
-        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstName"));
-        nameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastName"));
-        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("telephoneNumber"));
+        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("userIDtable"));
+        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("usernameTable"));
+        firstnameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstnameTable"));
+        lastnameTable1.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastnameTable1"));
         
         for(Employee employee : employeeList) {
             
