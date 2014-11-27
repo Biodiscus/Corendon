@@ -95,7 +95,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showContactdetails" layoutX="720.0" layoutY="121.0" prefHeight="186.0" prefWidth="378.0">
+            <Label fx:id="showContactdetails" layoutX="720.0" layoutY="121.0" prefHeight="186.0" prefWidth="378.0" wrapText="true">
                <font>
                   <Font size="17.0" />
                </font>
@@ -118,7 +118,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showNotes" layoutX="720.0" layoutY="377.0" prefHeight="186.0" prefWidth="378.0">
+            <Label fx:id="showNotes" layoutX="720.0" layoutY="377.0" prefHeight="186.0" prefWidth="378.0" wrapText="true">
                <font>
                   <Font size="17.0" />
                </font>
