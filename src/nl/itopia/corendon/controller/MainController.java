@@ -12,22 +12,20 @@ import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.mvc.View;
 import nl.itopia.corendon.utils.Log;
-import nl.itopia.corendon.view.MainView;
 
 /**
  * © 2014, Biodiscus.net Robin
  */
 public class MainController extends Controller {
 //    @FXML public Button test_button;
-    private MainView mainView;
 
     public MainController() {
         this(Launcher.WIDTH, Launcher.HEIGHT);
     }
 
     public MainController(int width, int height) {
-        mainView = new MainView();
-        mainView.data.add(new TableUser("Test", "Ing", "06-55556666"));
+//        mainView = new MainView();
+//        mainView.data.add(new OldTabl("Test", "Ing", "06-55556666"));
 //        registerFXML("gui/TestGUI.fxml");
 
 //        addController(new DetailLuggageController(3));
@@ -65,8 +63,8 @@ public class MainController extends Controller {
         Log.display("Button clicked", e);
     }
 
-    @Override
-    public View getView() {
-        return mainView;
-    }
+//    @Override
+//    public View getView() {
+//        return mainView;
+//    }
 }

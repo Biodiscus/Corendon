@@ -8,25 +8,32 @@ import javafx.beans.property.SimpleStringProperty;
 public class TableUser {
     
     private final SimpleStringProperty userID;
-    private final SimpleStringProperty firstName;
-    private final SimpleStringProperty lastName;
-    
-    //private final SimpleStringProperty userName;
-    private final SimpleStringProperty telephoneNumber;
+    private final SimpleStringProperty firstName, lastName, userName, role, airport;
 
-
-    public TableUser(String uID, String userName, String fName, String lName) {
-        
+    public TableUser(String uID, String uName, String fName, String lName, String role, String airport) {
         userID = new SimpleStringProperty(uID);
-        firstName = new SimpleStringProperty(userName);
-        lastName = new SimpleStringProperty(fName);
-        //userName = new SimpleStringProperty(uName);
-        telephoneNumber = new SimpleStringProperty(lName);
+        userName = new SimpleStringProperty(uName);
+        firstName = new SimpleStringProperty(fName);
+        lastName = new SimpleStringProperty(lName);
+        this.role = new SimpleStringProperty(role);
+        this.airport = new SimpleStringProperty(airport);
     }
     
     public String getUserID()
     {
         return userID.get();
+    }
+
+    public String getAirport() {
+        return airport.get();
+    }
+
+    public void setAirport(String airport) {
+        this.airport.set(airport);
+    }
+
+    public void setUserID(String userID) {
+        this.userID.set(userID);
     }
 
     public String getFirstName() {
@@ -36,14 +43,6 @@ public class TableUser {
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
     }
-    
-//    public String getUserID() {
-//        return firstName.get();
-//    }
-//
-//    public void setUserID(String userID) {
-//        this.userID.set(userID);
-//    }
 
     public String getLastName() {
         return lastName.get();
@@ -52,20 +51,20 @@ public class TableUser {
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
-    
-//    public String getUserName() {
-//        return userName.get();
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName.set(userName);
-//    }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber.get();
+    public String getUserName() {
+        return userName.get();
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber.set(telephoneNumber);
+    public void setUserName(String userName) {
+        this.userName.set(userName);
+    }
+
+    public String getRole() {
+        return role.get();
+    }
+
+    public void setRole(String role) {
+        this.role.set(role);
     }
 }

@@ -36,8 +36,10 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>userIDtable;
     @FXML private TableColumn <Employee,String>usernameTable;
     @FXML private TableColumn <Employee,String>firstnameTable;
-    @FXML private TableColumn <Employee,String>lastnameTable1;
-    
+    @FXML private TableColumn <Employee,String>lastnameTable;
+    @FXML private TableColumn <Employee,String>roleTable;
+    @FXML private TableColumn <Employee,String>airportTable;
+
     @FXML private Button adduserButton;
     @FXML private Button deleteuserButton;
     private String deleteUserId;
@@ -87,66 +89,33 @@ public class AdministratorController extends Controller {
     }
     
     public void initializeTable() {
+                //userTable.getItems().clear();
         
-        System.out.println("Init table!");
-        //userTable.getItems().clear();
-        
-        userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("userIDtable"));
-        usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("usernameTable"));
-        firstnameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstnameTable"));
+        userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
+        usernameTable.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        firstnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        lastnameTable.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
+        airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
         //lastnameTable1.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastnameTable1"));
-        
+
+
         for(Employee employee : employeeList) {
             
             if( !employee.account_status.equals("deleted") ) {
                 
-                String name = employee.firstName + " " + employee.lastName;
-                TableUser user = new TableUser(Integer.toString(employee.id), employee.username, employee.firstName, employee.lastName);
+                String role = employee.role.getName();
+                String airport = employee.airport.getName();
+                String id = ""+employee.id;
+
+                TableUser user = new TableUser(
+                        id, employee.username, employee.firstName,
+                        employee.lastName, role, airport
+                );
                 this.data.add(user);
             }
         }
         
         userTable.setItems(data);
-        
-        
-   
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        //employeeList = EmployeeModel.getDefault().getEmployees();
-        
-//        for(int i = 0; i < employeeList.size(); i++) {
-//            Employee a = employeeList.get(i);
-//            Log.display(a.firstName, a.lastName, a.username);
-//        }
-        
-        //data = FXCollections.observableArrayList();    
-        
-        
-        
- //        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
-//                new TableUser("Robin", "de Jong", "06-12345678"),
-//                new TableUser("Jeroen", "Groot", "06-12345678"),
-//                new TableUser("Stefan", "de Groot", "06-12345678"),
-//                new TableUser("Erik", "Schouten", "06-12345678"),
-//                new TableUser("Igor", "Willems", "06-12345678")
-//        );
-               
-        
-        
-        //Create columns and set their datatype
-        
-        //MAAK LIST VAN LUGGAGE OBJECTS EN VUL DE KOLOMMEN
-        //LuggageModel luggageModel = LuggageModel.getDefault(); 
-        //List<Employee> employeeList = EmployeeModel.getAllEmployee();
-        //luggageInfo.getItems().setAll(luggageList);
     }
 }
