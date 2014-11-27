@@ -15,7 +15,7 @@
 
 <StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
             <Label prefHeight="107.0" prefWidth="1369.0" style="-fx-background-color: #9C0C0C;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="8.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">

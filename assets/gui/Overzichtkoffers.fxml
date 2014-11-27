@@ -17,7 +17,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
          <children>
-            <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9C0C0C;" />
+            <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="8.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -41,9 +41,9 @@
             <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text=" Lost luggage" textFill="WHITE" />
             <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Turned in luggage" textFill="WHITE" />
             <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Search luggage" textFill="WHITE" />
-            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="502.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Add luggage" textFill="WHITE" />
-            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Edit luggage" textFill="WHITE" />
-            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="592.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Delete luggage" textFill="WHITE" />
+            <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="458.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Add luggage" textFill="WHITE" />
+            <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="503.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Edit luggage" textFill="WHITE" />
+            <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="593.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Delete luggage" textFill="WHITE" />
             <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
                <font>
                   <Font size="15.0" />
@@ -70,6 +70,7 @@
                   </TableView>
                </children>
             </AnchorPane>
+            <Button fx:id="detailsLuggagebutton" layoutX="43.0" layoutY="548.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Details luggage" textFill="WHITE" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
