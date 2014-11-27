@@ -25,7 +25,7 @@ public class MainController extends Controller {
 
     public MainController(int width, int height) {
 //        mainView = new MainView();
-//        mainView.data.add(new OldTabl("Test", "Ing", "06-55556666"));
+//        mainView.tableData.add(new OldTabl("Test", "Ing", "06-55556666"));
 //        registerFXML("gui/TestGUI.fxml");
 
 //        addController(new DetailLuggageController(3));

@@ -33,6 +33,7 @@ public class LoginController extends Controller {
         Log.display(usernameField);
         
 //        loginButton.setOnKeyPressed(null);
+        usernameField.setOnKeyPressed(this::loginWithEnter);
         passwordField.setOnKeyPressed(this::loginWithEnter);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
@@ -81,7 +82,7 @@ public class LoginController extends Controller {
             employeemodel.currentEmployee = employee;
             redirectEmployee(employee);
         } else {
-            Log.display("Error, account does not exist or entered data is incorrect.");
+            Log.display("Error, account does not exist or entered tableData is incorrect.");
         }
     }
 

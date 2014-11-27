@@ -31,12 +31,16 @@ public class AddLuggageController extends Controller {
     private AirportModel airportModel;
     private ColorModel colorModel;
 
+    private Luggage currentLuggage;
+
     public AddLuggageController() {
         registerFXML("gui/add_luggage.fxml");
 
         luggageModel = LuggageModel.getDefault();
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
+
+        brandInputfield.setDisable(true);
 
 
         // Set the Airports in the foundonAirportdropdown
@@ -92,8 +96,14 @@ public class AddLuggageController extends Controller {
         luggage.createDate = currentTimeStamp;
         luggage.returnDate = 0;
 
+        currentLuggage = luggage;
         luggageModel.addLuggage(luggage);
         removeController(this);
+    }
+
+    @Override
+    protected Object destroyReturn() {
+        return currentLuggage;
     }
 
     private void cancelHandler(ActionEvent e) {

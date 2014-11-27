@@ -10,8 +10,8 @@ package nl.itopia.corendon.data;
  * @author Erik
  */
 public class Role {
-    public int id;
-    public String name;
+    private int id;
+    private String name;
 
     public Role(int id, String name) {
         this.id = id;

@@ -47,6 +47,8 @@ public class EditLuggageController extends Controller {
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
 
+        brandInputfield.setDisable(true);
+
         cancelButton.setOnAction(this::cancelHandler);
 
         labelInputfield.setText(luggage.label);
@@ -130,17 +132,23 @@ public class EditLuggageController extends Controller {
         luggage.createDate = currentTimeStamp;
         luggage.returnDate = 0;
 
+        currentLuggage = luggage;
         luggageModel.editLuggage(luggage);
 
 
-        Pane parent = (Pane)getView().getParent();
-        addController(new DetailLuggageController(luggage), parent);
+//        Pane parent = (Pane)getView().getParent();
+//        addController(new DetailLuggageController(luggage), parent);
         removeController(this);
     }
 
     private void cancelHandler(ActionEvent e) {
-        Pane parent = (Pane)getView().getParent();
-        addController(new DetailLuggageController(currentLuggage), parent);
+//        Pane parent = (Pane)getView().getParent();
+//        addController(new DetailLuggageController(currentLuggage), parent);
         removeController(this);
+    }
+
+    @Override
+    protected Object destroyReturn() {
+        return currentLuggage;
     }
 }

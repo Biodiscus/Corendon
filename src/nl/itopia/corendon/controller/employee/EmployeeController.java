@@ -1,11 +1,16 @@
 package nl.itopia.corendon.controller.employee;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -21,9 +26,11 @@ import nl.itopia.corendon.data.table.TableLuggage;
  */
 public class EmployeeController extends Controller {
     @FXML private TableView luggageInfo;
-    public final ObservableList<TableLuggage> data;
-    
-    public final List<Luggage> luggageList;    
+
+    public ObservableList<TableLuggage> tableData;
+    public List<Luggage> luggageList;
+
+    @FXML private TableColumn <Luggage,String>ID;
     @FXML private TableColumn <Luggage,String>Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
@@ -31,51 +38,87 @@ public class EmployeeController extends Controller {
     @FXML private TableColumn <Luggage,String>Status;
     @FXML private TableColumn <Luggage,String>Notes;
 
-    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton;
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
+                        logoutButon, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
+
+    private ImageView spinningIcon;
+    private StackPane iconPane;
     
     
     public EmployeeController(){
-        registerFXML("gui/Overzichtkoffers.fxml");  
+        registerFXML("gui/Overzichtkoffers.fxml");
+
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+
+        iconPane = new StackPane();
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
 
         //C reate buttons
         addLuggagebutton.setOnAction(this::addHandler);
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
         searchLuggagebutton.setOnAction(this::searchHandler);
+        detailsLuggagebutton.setOnAction(this::detailsHandler);
         helpButton.setOnAction(this::helpHandler);
+        logoutButon.setOnAction(this::logoutHandler);
+
+        // Set the luggage specific buttons disabled
+        editLuggagebutton.setDisable(true);
+        deleteLuggagebutton.setDisable(true);
+        detailsLuggagebutton.setDisable(true);
+
+        foundLuggagebutton.setDisable(true);
+        lostLuggagebutton.setDisable(true);
+        turnedinLuggagebutton.setDisable(true);
+
+
         
         // Create columns and set their datatype for building the Luggage Table
-        Brand.setCellValueFactory(new PropertyValueFactory<Luggage, String>("brand"));
-        Dimensions.setCellValueFactory(new PropertyValueFactory<Luggage, String>("dimensions"));
-        Color.setCellValueFactory(new PropertyValueFactory<Luggage, String>("color"));
-        Airport.setCellValueFactory(new PropertyValueFactory<Luggage, String>("airport"));
-        Status.setCellValueFactory(new PropertyValueFactory<Luggage, String>("status"));
-        Notes.setCellValueFactory(new PropertyValueFactory<Luggage, String>("notes"));
-        
-        luggageList = LuggageModel.getDefault().getAllLuggage();
-        data = FXCollections.observableArrayList();
-        
-        for(Luggage luggage : luggageList) {
-            
-            TableLuggage luggageTabel = new TableLuggage(luggage.dimensions,luggage.notes,
-                    luggage.airport.getName(),luggage.brand.getName(),luggage.color.getHex(),
-                    luggage.status.getName());
-            
-            data.add(luggageTabel);
-        }
-        
-        luggageInfo.setItems(data);
-    }        
+        ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Brand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        Dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
+        Color.setCellValueFactory(new PropertyValueFactory<>("color"));
+        Airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
+        Status.setCellValueFactory(new PropertyValueFactory<>("status"));
+        Notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
 
+        luggageInfo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            editLuggagebutton.setDisable(false);
+//            deleteLuggagebutton.setDisable(false);
+            detailsLuggagebutton.setDisable(false);
+        });
 
-    private void addHandler(ActionEvent e) {
-        
-        addController(new AddLuggageController());
-        // Update our table with the new data
+        // Make a new thread that will recieve the tableData from the database
+        Thread dataThread = new Thread(()->recieveData());
+        dataThread.start();
     }
+
+    private void recieveData() {
+        luggageList = LuggageModel.getDefault().getAllLuggage();
+        tableData = FXCollections.observableArrayList();
+
+        for(Luggage luggage : luggageList) {
+            TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.dimensions,
+                    luggage.notes, luggage.airport.getName(),luggage.brand.getName(),
+                    luggage.color.getHex(), luggage.status.getName()
+            );
+
+            tableData.add(luggageTable);
+        }
+
+        Platform.runLater(() -> {
+            luggageInfo.setItems(tableData);
+            view.fxmlPane.getChildren().remove(iconPane);
+        });
+    }
+
+
     
     private void searchHandler(ActionEvent e) {
-        
+
         SearchLuggageController searchluggagecontroller = new SearchLuggageController();
         
         searchluggagecontroller.setControllerDeleteHandler((o)->{
@@ -83,16 +126,17 @@ public class EmployeeController extends Controller {
             List<Luggage> searchList = (List<Luggage>) o;
             
             /* delete all records from the table view */
-            data.clear();
+            tableData.clear();
             
             if(null != searchList && searchList.size() >= 1) {
                 /* the search query has atleast one record, continue to fill the table view */
                 for(Luggage luggage : searchList){
-                    TableLuggage luggageTabel = new TableLuggage(luggage.dimensions,luggage.notes,
-                            luggage.airport.getName(),luggage.brand.getName(),luggage.color.getHex(),
-                            luggage.status.getName());
+                    TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.dimensions,
+                            luggage.notes, luggage.airport.getName(),luggage.brand.getName(),
+                            luggage.color.getHex(), luggage.status.getName()
+                    );
 
-                    data.add(luggageTabel);
+                    tableData.add(luggageTable);
                 }
             }
 
@@ -101,9 +145,53 @@ public class EmployeeController extends Controller {
         addController(searchluggagecontroller);
     }
 
+    private void logoutHandler(ActionEvent e) {
+        changeController(new LoginController());
+    }
+
+    private void addHandler(ActionEvent e) {
+        AddLuggageController addLuggage = new AddLuggageController();
+        addLuggage.setControllerDeleteHandler((obj)->{
+            if(obj == null) return;
+            // Update our table with the new tableData
+            Luggage luggage = (Luggage)obj;
+            TableLuggage tableLuggage = new TableLuggage(
+                luggage.getID(),
+                luggage.dimensions,
+                luggage.notes,
+                luggage.airport.getName(),
+                luggage.brand.getName(),
+                luggage.color.getHex(),
+                luggage.status.getName()
+            );
+            tableData.add(tableLuggage);
+        });
+        addController(addLuggage);
+    }
+
+    private void detailsHandler(ActionEvent e) {
+        TableLuggage luggage = (TableLuggage) luggageInfo.getSelectionModel().getSelectedItem();
+        addController(new DetailLuggageController(luggage.getId()));
+    }
+
     private void editHandler(ActionEvent e) {
-        int id = 5; // Check the table for the current selected item
-        addController(new EditLuggageController(id));
+        int selectedIndex = luggageInfo.getSelectionModel().getSelectedIndex();
+        TableLuggage luggage = (TableLuggage) luggageInfo.getSelectionModel().getSelectedItem();
+        EditLuggageController editLuggage = new EditLuggageController(luggage.getId());
+        editLuggage.setControllerDeleteHandler((obj)->{
+            if(obj == null) return;
+            // Update our table with the new tableData
+            Luggage lug = (Luggage) obj;
+            luggage.setId(lug.getID());
+            luggage.setDimensions(lug.dimensions);
+            luggage.setNotes(lug.notes);
+            luggage.setAirport(lug.airport.getName());
+            luggage.setBrand(lug.brand.getName());
+            luggage.setColor(lug.color.getHex());
+            luggage.setStatus(lug.status.getName());
+            tableData.set(selectedIndex, luggage);
+        });
+        addController(editLuggage);
     }
 
     private void deleteHandler(ActionEvent e) {
@@ -112,8 +200,8 @@ public class EmployeeController extends Controller {
     }
     
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerEmployee());
+//        addController(new HelpFunctionControllerEmployee());
 
-        // opens help function
+        // Update our table with the new tableData
     }
 }

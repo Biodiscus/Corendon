@@ -1,6 +1,8 @@
 package nl.itopia.corendon.controller.administrator;
 
 import java.util.List;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,12 +11,16 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import nl.itopia.corendon.controller.administrator.CreateUserController;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Log;
 
 /**
  *
@@ -23,10 +29,10 @@ import nl.itopia.corendon.mvc.Controller;
 public class AdministratorController extends Controller {
     
     //private AdministratorView view;
-    private Employee employee;
+    private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
     
-    public final ObservableList<TableUser> data = FXCollections.observableArrayList();;
+    public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();;
     
     public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();;
     @FXML private TableView userTable;
@@ -38,64 +44,36 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
 
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton,helpButton;
-    private String deleteUserId;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButon, helpButton;
+
+    private ImageView spinningIcon;
+    private StackPane iconPane;
     
     public AdministratorController() {
+        registerFXML("gui/Overview_administrator.fxml");
+
+        employeeModel = EmployeeModel.getDefault();
         
         registerFXML("gui/overview_administrator.fxml");
         
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
-        helpButton.setOnAction(this::helpHandler);
-               
-        initializeTable();
-        
-        /**
-         * Delete user
-         */
-        userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            
-            // Get the object for the selected user in the table
-            TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-            this.deleteUserId = user.getUserID();
-            
-            if(deleteUserId != "") {
-               // Trigger click on button and run delete method
-               deleteuserButton.setOnAction(this::deleteEmployee);               
-            }
-        });
-        
-    }
-    
-    public void allUsers(ActionEvent event) {
-        changeController(new AdministratorController());
-    }
-    
-    public void createNewEmployee(ActionEvent event) {
-        initializeTable();
-        addController(new CreateUserController());
-    }
-    
-    public void editEmployee(ActionEvent event) {
-        addController(new editEmployeeController());
-    }
-    
-    /**
-     * Handle delete action through database
-     * 
-     * @param event
-     */
-    public void deleteEmployee(ActionEvent event) {
-        
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.deleteEmployee(this.deleteUserId);
-        initializeTable();
-    }
-    
-    public void initializeTable() {
-        
+        deleteuserButton.setOnAction(this::deleteEmployee);
+        logoutButon.setOnAction(this::logoutHandler);
+
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+
+        iconPane = new StackPane();
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+
+        // Make a new thread that will recieve the tableData from the database
+        Thread dataThread = new Thread(()->recieveData());
+        dataThread.start();
+
         // Table headings
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
         usernameTable.setCellValueFactory(new PropertyValueFactory<>("userName"));
@@ -104,26 +82,87 @@ public class AdministratorController extends Controller {
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
 
+        // As long as we don't have any user selected delete and edit user shouldn't be enabled
+        edituserButton.setDisable(true);
+        deleteuserButton.setDisable(true);
+
+
+        /**
+         * Delete user
+         */
+        // TODO: Throw this in it's own function
+        userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+//            edituserButton.setDisable(false);
+            deleteuserButton.setDisable(false);
+        });
+    }
+    
+    public void allUsers(ActionEvent event) {
+        changeController(new AdministratorController());
+    }
+    
+    public void createNewEmployee(ActionEvent event) {
+        CreateUserController createUser = new CreateUserController();
+        createUser.setControllerDeleteHandler((obj)->{
+            // The createUserController will return a Employee
+            Employee employee = (Employee) obj;
+            TableUser user = new TableUser(
+                    employee.getID(),
+                    employee.username,
+                    employee.firstName,
+                    employee.lastName,
+                    employee.role.getName(),
+                    employee.airport.getName()
+            );
+            tableData.add(user);
+        });
+        addController(createUser);
+    }
+
+    private void logoutHandler(ActionEvent e) {
+        changeController(new LoginController());
+    }
+
+
+    public void editEmployee(ActionEvent event) {
+        TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
+        addController(new EditEmployeeController(user.getUserID()));
+    }
+
+    
+    /**
+     * Handle delete action through database
+     * 
+     * @param event
+     */
+    public void deleteEmployee(ActionEvent event) {
+        TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
+        employeeModel.deleteEmployee(user.getUserID());
+        tableData.remove(user);
+    }
+
+    private void recieveData() {
         for(Employee employee : employeeList) {
-            
+
             if( !employee.account_status.equals("deleted") ) {
-                
+
                 String role = employee.role.getName();
                 String airport = employee.airport.getName();
-                String id = ""+employee.id;
 
-                TableUser user = new TableUser(id, employee.username, employee.firstName, employee.lastName, role, airport);
-                this.data.add(user);
+                TableUser user = new TableUser(employee.id, employee.username, employee.firstName, employee.lastName, role, airport);
+                this.tableData.add(user);
             }
         }
-        
-        userTable.setItems(data);
+
+        Platform.runLater(() -> {
+            userTable.setItems(tableData);
+            view.fxmlPane.getChildren().remove(iconPane);
+        });
     }
     
      private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerAdmin());
+//        addController(new HelpFunctionControllerAdmin());
 
         //opens help function
     }
 }
-

@@ -1,5 +1,6 @@
 package nl.itopia.corendon.data.table;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -7,11 +8,11 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class TableUser {
     
-    private final SimpleStringProperty userID;
+    private final SimpleIntegerProperty userID;
     private final SimpleStringProperty firstName, lastName, userName, role, airport;
 
-    public TableUser(String uID, String uName, String fName, String lName, String role, String airport) {
-        userID = new SimpleStringProperty(uID);
+    public TableUser(int uID, String uName, String fName, String lName, String role, String airport) {
+        userID = new SimpleIntegerProperty(uID);
         userName = new SimpleStringProperty(uName);
         firstName = new SimpleStringProperty(fName);
         lastName = new SimpleStringProperty(lName);
@@ -19,7 +20,7 @@ public class TableUser {
         this.airport = new SimpleStringProperty(airport);
     }
     
-    public String getUserID()
+    public int getUserID()
     {
         return userID.get();
     }
@@ -32,7 +33,7 @@ public class TableUser {
         this.airport.set(airport);
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(int userID) {
         this.userID.set(userID);
     }
 

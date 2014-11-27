@@ -38,15 +38,15 @@ public class RoleModel {
     }
     
     public Role getRoleByEmployeeId(int employeeId) {
-        
+
         /* Role query */
         String roleQuery = "SELECT roles.id, roles.name FROM employee\n" +
                         "INNER JOIN roles ON roles.id = employee.role_id\n" +
                         "WHERE employee.id = " + employeeId;
-        
+
         /* create role object so we can manipulate it later on */
         Role role = null;
-        
+
         try {
             /* try to run the sql query */
             ResultSet result = dbmanager.doQuery(roleQuery);
@@ -54,15 +54,15 @@ public class RoleModel {
                 /* ok, there is a record. Get the field values */
                 int roleId = result.getInt("id");
                 String roleName = result.getString("name");
-                
+
                 /* make a new role object and send the field values to the constructor */
                 role = new Role(roleId, roleName);
-                
+
             }
         } catch (SQLException e) {
            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
-        
+
         /* return the full role */
         return role;
     }
@@ -73,19 +73,14 @@ public class RoleModel {
      * @param result a {@code ResultSet} ResultSet
      * @return full roles object
      */ 
-    private Role resultToEmployee(ResultSet result) throws SQLException {
-        
-        RoleModel rolemodel = RoleModel.getDefault();
-        
-        Role role = new Role(result.getInt("id"), result.getString("name"));
-        role.id = result.getInt("id");
-        role.name = result.getString("name");
-        
-        return role;
+    private Role resultToRole(ResultSet result) throws SQLException {
+        int id = result.getInt("id");
+        String name = result.getString("name");
+
+        return new Role(id, name);
     }
     
-    public List<Role> getRoles()
-    {
+    public List<Role> getRoles() {
         List<Role> roleList = new ArrayList<Role>();
         
         try{
@@ -94,7 +89,7 @@ public class RoleModel {
             while (result.next()) {
                 int id = result.getInt("id");
                 String name = result.getString("name");
-                Role roles = resultToEmployee(result);
+                Role roles = resultToRole(result);
                 roleList.add(roles);
             }
             

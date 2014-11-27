@@ -1,5 +1,6 @@
 
 package nl.itopia.corendon.data.table;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -7,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Igor's_Boven
  */
 public class TableLuggage {
+    private final SimpleIntegerProperty id;
     private final SimpleStringProperty dimensions;
     private final SimpleStringProperty notes;
     private final SimpleStringProperty airport;
@@ -14,8 +16,8 @@ public class TableLuggage {
     private final SimpleStringProperty color;
     private final SimpleStringProperty status;
     
-    public TableLuggage(String dimensions, String notes, String airport, String brand, String color, String status) {
-        
+    public TableLuggage(int id, String dimensions, String notes, String airport, String brand, String color, String status) {
+        this.id = new SimpleIntegerProperty(id);
         this.dimensions = new SimpleStringProperty(dimensions);
         this.notes = new SimpleStringProperty(notes);
         this.airport = new SimpleStringProperty(airport);
@@ -23,7 +25,14 @@ public class TableLuggage {
         this.color = new SimpleStringProperty(color);
         this.status = new SimpleStringProperty(status);
     }
-    
+
+    public int getId() {
+        return id.get();
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
     
     public String getDimensions() {
         return dimensions.get();

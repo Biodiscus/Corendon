@@ -130,7 +130,7 @@ public class LuggageModel {
         return luggage;
     }
     
-    //Gets all luggagedata from DB, puts the data fields in luggage object,
+    //Gets all luggagedata from DB, puts the tableData fields in luggage object,
     //and puts all luggageobjects in ArrayList of Luggage objects
     public List<Luggage> getAllLuggage() {
         List<Luggage> luggageList = new ArrayList<Luggage>();

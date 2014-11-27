@@ -12,6 +12,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.manager.ChartData;
 import nl.itopia.corendon.model.DateModel;
@@ -29,6 +30,7 @@ public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
 
     @FXML private Button filterButton, helpButton;
+    @FXML private Button logoutButon;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
 
@@ -37,7 +39,6 @@ public class ManagerController extends Controller {
 
     private ImageView spinningIcon;
     private StackPane iconPane;
-
 
     private XYChart.Series<String, Integer> foundSeries, lostSeries, resolvedSeries;
 
@@ -50,6 +51,7 @@ public class ManagerController extends Controller {
         foundLuggagecheckbox.setOnAction(this::filterHandle);
         lostLuggagecheckbox.setOnAction(this::filterHandle);
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
+        logoutButon.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
 
         // TODO: Set the datePicker1 to something else
@@ -58,7 +60,7 @@ public class ManagerController extends Controller {
         datepicker2.setValue(LocalDate.now());
 
 
-        // Show a spinning icon to indicate to the user that we are getting the data
+        // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         spinningIcon = new ImageView(image);
 
@@ -76,7 +78,7 @@ public class ManagerController extends Controller {
         resolvedSeries = new XYChart.Series<>();
         resolvedSeries.setName("Resolved");
 
-        // Make a new thread that will recieve the data from the database
+        // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(()->recieveData());
         dataThread.start();
     }
@@ -128,7 +130,6 @@ public class ManagerController extends Controller {
             long uxt = luggage.createDate;
             ChartData contains = null;
             for(ChartData d : dates) {
-                // TODO: We need to define the date later on
                 String date1 = dateModel.getTimestampDate(uxt);
                 String date2 = dateModel.getTimestampDate(d.timestamp);
                 if(date1.equals(date2)) {
@@ -168,7 +169,7 @@ public class ManagerController extends Controller {
 
         // Notify the javafx thread to run this next command
         Platform.runLater(()->{
-            // Update the line diagram with our data
+            // Update the line diagram with our tableData
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
 
             // Remove the spinning icon
@@ -181,5 +182,10 @@ public class ManagerController extends Controller {
 
         //opens help function
     }
+
+    private void logoutHandler(ActionEvent e) {
+        changeController(new LoginController());
+    }
+
 
 }

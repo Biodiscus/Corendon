@@ -42,11 +42,15 @@ public class DetailLuggageController extends Controller {
         showHeight.setText(dimensions[1]);
         showDepth.setText(dimensions[2] + " " + dimensions[3]);
 
-        printdetailsButton.setOnAction(this::printHandler);
+//        printdetailsButton.setOnAction(this::printHandler);
         cancelButton.setOnAction(this::cancelHandler);
-        markasfoundButton.setOnAction(this::markHandler);
-        editButton.setOnAction(this::editHandler);
-        deleteButton.setOnAction(this::deleteHandler);
+//        markasfoundButton.setOnAction(this::markHandler);
+//        editButton.setOnAction(this::editHandler);
+//        deleteButton.setOnAction(this::deleteHandler);
+        printdetailsButton.setDisable(true);
+        markasfoundButton.setDisable(true);
+        editButton.setDisable(true);
+        deleteButton.setDisable(true);
     }
 
     public void printHandler(ActionEvent e) {
