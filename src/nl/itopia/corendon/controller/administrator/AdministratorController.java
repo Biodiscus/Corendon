@@ -89,19 +89,19 @@ public class AdministratorController extends Controller {
     public void initializeTable() {
         
         System.out.println("Init table!");
-        userTable.getItems().clear();
+        //userTable.getItems().clear();
         
         userIDtable.setCellValueFactory(new PropertyValueFactory<Employee, String>("userIDtable"));
         usernameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("usernameTable"));
         firstnameTable.setCellValueFactory(new PropertyValueFactory<Employee, String>("firstnameTable"));
-        lastnameTable1.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastnameTable1"));
+        //lastnameTable1.setCellValueFactory(new PropertyValueFactory<Employee, String>("lastnameTable1"));
         
         for(Employee employee : employeeList) {
             
             if( !employee.account_status.equals("deleted") ) {
                 
                 String name = employee.firstName + " " + employee.lastName;
-                TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
+                TableUser user = new TableUser(Integer.toString(employee.id), employee.username, employee.firstName, employee.lastName);
                 this.data.add(user);
             }
         }

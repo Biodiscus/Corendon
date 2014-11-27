@@ -15,13 +15,13 @@ public class TableUser {
     private final SimpleStringProperty telephoneNumber;
 
 
-    public TableUser(String fName, String lName, String tName, String uID) {
+    public TableUser(String uID, String userName, String fName, String lName) {
         
         userID = new SimpleStringProperty(uID);
-        firstName = new SimpleStringProperty(fName);
-        lastName = new SimpleStringProperty(lName);
+        firstName = new SimpleStringProperty(userName);
+        lastName = new SimpleStringProperty(fName);
         //userName = new SimpleStringProperty(uName);
-        telephoneNumber = new SimpleStringProperty(tName);
+        telephoneNumber = new SimpleStringProperty(lName);
     }
     
     public String getUserID()
