@@ -10,62 +10,70 @@ public class TableUser {
     private final SimpleStringProperty userID;
     private final SimpleStringProperty firstName;
     private final SimpleStringProperty lastName;
-    
-    //private final SimpleStringProperty userName;
-    private final SimpleStringProperty telephoneNumber;
+    private final SimpleStringProperty userName;
 
 
-    public TableUser(String uID, String userName, String fName, String lName) {
+    public TableUser(String userID, String userName, String firstName, String lastName) {
         
-        userID = new SimpleStringProperty(uID);
-        firstName = new SimpleStringProperty(userName);
-        lastName = new SimpleStringProperty(fName);
-        //userName = new SimpleStringProperty(uName);
-        telephoneNumber = new SimpleStringProperty(lName);
+        this.userID = new SimpleStringProperty(userID);
+        this.userName = new SimpleStringProperty(userName);
+        this.firstName = new SimpleStringProperty(firstName);
+        this.lastName = new SimpleStringProperty(lastName);
     }
-    
-    public String getUserID()
-    {
+
+    /**
+     * @return the userID
+     */
+    public String getUserID() {
         return userID.get();
     }
 
+    /**
+     * @param userID the userID to set
+     */
+    public void setUserID(String userID) {
+        this.userID.set(userID);
+    }
+
+    /**
+     * @return the firstName
+     */
     public String getFirstName() {
         return firstName.get();
     }
 
+    /**
+     * @param firstName the firstName to set
+     */
     public void setFirstName(String firstName) {
         this.firstName.set(firstName);
     }
-    
-//    public String getUserID() {
-//        return firstName.get();
-//    }
-//
-//    public void setUserID(String userID) {
-//        this.userID.set(userID);
-//    }
 
+    /**
+     * @return the lastName
+     */
     public String getLastName() {
         return lastName.get();
     }
 
+    /**
+     * @param lastName the lastName to set
+     */
     public void setLastName(String lastName) {
         this.lastName.set(lastName);
     }
-    
-//    public String getUserName() {
-//        return userName.get();
-//    }
-//
-//    public void setUserName(String userName) {
-//        this.userName.set(userName);
-//    }
 
-    public String getTelephoneNumber() {
-        return telephoneNumber.get();
+    /**
+     * @return the userName
+     */
+    public String getUserName() {
+        return userName.get();
     }
 
-    public void setTelephoneNumber(String telephoneNumber) {
-        this.telephoneNumber.set(telephoneNumber);
+    /**
+     * @param userName the userName to set
+     */
+    public void setUserName(String userName) {
+        this.userName.set(userName);
     }
 }
