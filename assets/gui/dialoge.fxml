@@ -16,7 +16,7 @@
 
 <StackPane prefHeight="230.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="500.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="230.0" prefWidth="500.0" style="-fx-background-color: #FEDFA2;">
          <opaqueInsets>
             <Insets right="2.0" />
          </opaqueInsets>

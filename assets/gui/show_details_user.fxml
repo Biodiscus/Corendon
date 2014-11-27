@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="1125.0" style="-fx-background-color: #FEDFA2;">
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+         <children>
+            <Label alignment="CENTER" prefHeight="59.0" prefWidth="1126.0" style="-fx-background-color: #9D0B0F;" text="Details luggage" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Button fx:id="editButton" layoutX="21.0" layoutY="67.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Edit" textFill="WHITE" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="settoactiveButton" layoutX="178.0" layoutY="67.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Set to active" textFill="WHITE" />
+            <Button fx:id="printButton" layoutX="954.0" layoutY="67.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Print" textFill="WHITE" />
+            <Label layoutX="11.0" layoutY="200.0" prefHeight="33.0" prefWidth="92.0" text="First name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showFirstname" layoutX="168.0" layoutY="200.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showLastname" layoutX="168.0" layoutY="240.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="240.0" prefHeight="33.0" prefWidth="121.0" text="Last name:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="280.0" prefHeight="33.0" prefWidth="111.0" text="Online status:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showOnlinestatus" layoutX="168.0" layoutY="280.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showAccountstatus" layoutX="168.0" layoutY="320.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="320.0" prefHeight="33.0" prefWidth="121.0" text="Account status:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showRole" layoutX="168.0" layoutY="360.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="360.0" prefHeight="33.0" prefWidth="77.0" text="Role:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showAirport" layoutX="168.0" layoutY="400.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="400.0" prefHeight="33.0" prefWidth="135.0" text="Works on airport:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="563.0" layoutY="121.0" prefHeight="33.0" prefWidth="121.0" text="Contact details:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showContactdetails" layoutX="720.0" layoutY="121.0" prefHeight="186.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="logo" fitHeight="59.0" fitWidth="280.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Label fx:id="showUserID" layoutX="171.0" layoutY="121.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="121.0" prefHeight="33.0" prefWidth="77.0" text="User ID:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showNotes" layoutX="720.0" layoutY="377.0" prefHeight="186.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="563.0" layoutY="360.0" prefHeight="33.0" prefWidth="77.0" text="Notes:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label fx:id="showUsername" layoutX="168.0" layoutY="161.0" prefHeight="33.0" prefWidth="378.0">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Label layoutX="11.0" layoutY="161.0" prefHeight="33.0" prefWidth="92.0" text="Username:">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <Button fx:id="settononactiveButton1" layoutX="332.0" layoutY="67.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Set to non-active" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+   </children>
+</StackPane>

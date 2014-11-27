@@ -15,10 +15,10 @@
 
 <StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;" StackPane.alignment="CENTER">
          <children>
             <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
-            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="8.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
                </image>

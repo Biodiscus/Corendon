@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -14,30 +15,17 @@
 
 <StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Line endX="1220.0" layoutX="115.0" layoutY="133.0" startX="-100.0" />
-            <Text layoutX="938.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-            <Text layoutX="938.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <ComboBox fx:id="dropdownMenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button fx:id="lineDiagrambutton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
-            <Label fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <Button fx:id="barDiagrambutton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
-            <Button fx:id="overviewbutton" layoutX="43.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Overview" />
-            <Button fx:id="logfilesbutton" layoutX="185.0" layoutY="44.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="134.0" text="Logfiles" />
-            <Button fx:id="Helpbutton" layoutX="1287.0" layoutY="39.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+            <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
+            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
             <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
                <font>
                   <Font size="18.0" />
@@ -65,12 +53,34 @@
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">
+            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" style="-fx-background-color: #53AF36;" text="Filter" textFill="WHITE" />
+            <Text layoutX="936.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                <font>
                   <Font size="19.0" />
                </font>
+            </Text>
+            <Text layoutX="936.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="dropdownMenu" layoutX="1075.0" layoutY="62.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Label fx:id="userID" layoutX="1003.0" layoutY="26.0" prefHeight="25.0" prefWidth="252.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="helpButton" layoutX="1279.0" layoutY="19.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+               <font>
+                  <Font size="18.0" />
+               </font>
             </Button>
-            <BarChart layoutX="363.0" layoutY="216.0">
+            <Button fx:id="logoutButon" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Logfiles" textFill="WHITE" />
+            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Overview" textFill="WHITE" />
+            <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Bar diagram" textFill="WHITE" />
+            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Line diagram" textFill="WHITE" />
+            <BarChart layoutX="360.0" layoutY="205.0" style="-fx-background-color: white;">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
               </xAxis>

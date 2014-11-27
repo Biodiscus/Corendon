@@ -33,7 +33,7 @@
                </font>
             </Text>
             <Label prefHeight="111.0" prefWidth="1366.0" style="-fx-background-color: #9D0B0F;" />
-            <ImageView fx:id="logo" fitHeight="113.0" fitWidth="340.0" layoutX="50.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="logo" fitHeight="113.0" fitWidth="340.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
                </image>

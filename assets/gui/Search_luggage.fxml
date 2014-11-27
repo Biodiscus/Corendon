@@ -84,21 +84,6 @@
                </font>
             </Label>
             <DatePicker fx:id="datepicker2" layoutX="910.0" layoutY="127.0" />
-            <CheckBox fx:id="foundluggageCheckbox" layoutX="670.0" layoutY="377.0" mnemonicParsing="false" text="Found koffers">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="lostluggageCheckbox" layoutX="670.0" layoutY="408.0" mnemonicParsing="false" text="Lost koffers">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </CheckBox>
-            <CheckBox fx:id="resolvedluggageCheckbox" layoutX="670.0" layoutY="440.0" mnemonicParsing="false" text="Resolved luggage">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </CheckBox>
             <Label alignment="CENTER" prefHeight="59.0" prefWidth="1126.0" style="-fx-background-color: #9C0C0C;" text="Search luggage" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
@@ -117,6 +102,9 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <RadioButton fx:id="foundluggageRadiobutton" layoutX="670.0" layoutY="378.0" mnemonicParsing="false" text="Found luggage" />
+            <RadioButton fx:id="lostluggageRadiobutton" layoutX="670.0" layoutY="410.0" mnemonicParsing="false" text="Lost luggage" />
+            <RadioButton fx:id="resolvedluggageRadiobutton" layoutX="670.0" layoutY="442.0" mnemonicParsing="false" text="Resolved luggage" />
          </children>
       </AnchorPane>
    </children>
