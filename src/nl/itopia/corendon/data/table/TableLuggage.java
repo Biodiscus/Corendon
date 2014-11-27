@@ -14,7 +14,8 @@ public class TableLuggage {
     private final SimpleStringProperty color;
     private final SimpleStringProperty status;
     
-    public TableLuggage(String dimensions, String notes, String airport, String brand, String color, String status){
+    public TableLuggage(String dimensions, String notes, String airport, String brand, String color, String status) {
+        
         this.dimensions = new SimpleStringProperty(dimensions);
         this.notes = new SimpleStringProperty(notes);
         this.airport = new SimpleStringProperty(airport);

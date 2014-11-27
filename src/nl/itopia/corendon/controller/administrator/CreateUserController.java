@@ -89,7 +89,7 @@ public class CreateUserController extends Controller {
             employee.password = Hashing.sha256(password + salt);
             employee.salt = salt;
             employee.createDate = DateModel.getDefault().getCurrentTimeStamp();
-            employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
+            //employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
 
 //            employeemodel.createEmployee(userName, password, userRole);
             employeemodel.createEmployee(employee);

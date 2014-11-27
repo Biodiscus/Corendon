@@ -14,6 +14,7 @@ public class Employee {
     public String contactDetails;
     public String notes;
     public Role role;
+    public String account_status;
     public Airport airport;
     public long createDate;
     public long lastOnline;

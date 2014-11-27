@@ -2,14 +2,12 @@ package nl.itopia.corendon.controller.administrator;
 
 import java.util.List;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import nl.itopia.corendon.controller.administrator.CreateUserController;
 import nl.itopia.corendon.data.Employee;
@@ -19,8 +17,6 @@ import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 //import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.mvc.View;
-import nl.itopia.corendon.utils.Log;
 
 /**
  *
@@ -65,11 +61,12 @@ public class AdministratorController extends Controller {
         data = FXCollections.observableArrayList();
         
         for(Employee employee : employeeList) {
-            String name = employee.firstName + " " + employee.lastName;
             
-            TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
-            
-            data.add(user);
+            if( !employee.account_status.equals("deleted") ) {
+                 String name = employee.firstName + " " + employee.lastName;
+                TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
+                data.add(user);
+            }
         }
         
 //        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
@@ -88,21 +85,25 @@ public class AdministratorController extends Controller {
          */
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             
+            // Get the object for the selected user in the table
             TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
             this.deleteUserId = user.getUserID();
             
+            // Trigger click on button and run delete method
             deleteuserButton.setOnAction(this::deleteEmployee);
         });
         
     }
     
-    public void createNewEmployee(ActionEvent event)
-    {
+    public void createNewEmployee(ActionEvent event) {
         addController(new CreateUserController());
     }
     
-    public void deleteEmployee(ActionEvent event)
-    {
+    /**
+     * Handle delete action through database
+     * @param event 
+     */
+    public void deleteEmployee(ActionEvent event) {
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         employeemodel.deleteEmployee(this.deleteUserId);
     }

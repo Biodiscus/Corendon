@@ -72,6 +72,7 @@ public class EmployeeModel {
         employee.createDate = result.getInt("create_date");
         employee.createDate = result.getInt("last_online");
         employee.role = rolemodel.getRoleByEmployeeId(employee.getID());
+        employee.account_status = result.getString("account_status");
         employee.airport = airportmodel.getAirportByEmployeeId(employee.getID());
         
         return employee;
@@ -152,7 +153,7 @@ public class EmployeeModel {
             }
             
             return numRecords == 1;
-        }else{
+        } else {
             /* user doesn't exists */
             return false;
         }
@@ -212,37 +213,26 @@ public class EmployeeModel {
     }
 
     /**
-     * Insert new employee to the database
+     * Insert new employee into database
      * 
      * @param username
      * @param password
      * @param userRole 
      */
-    public void createEmployee(String username, String password, int userRole) {
-//        String query = "INSERT INTO ";
-        String createQuery = "INSERT INTO employee (username, password, role_id, airports_id) VALUES ('"+ username +"', '"+ password +"', '"+ userRole +"', 1)";
-        
-        try{
-            dbmanager.insertQuery(createQuery);
-            
-        } catch (SQLException e) {
-            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
-        }
-    }
-
     public void createEmployee(Employee employee) {
+        
         int role_id = employee.role.getID();
-        int airport_id = employee.airport.getID();
+        //int airport_id = employee.airport.getID();
 
         String query = "INSERT INTO employee " +
-                "(username, password, salt, first_name, last_name, role_id, contact_details, notes, create_date, airports_id)"+
-                "VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%d')";
+                "(username, password, salt, first_name, last_name, role_id, contact_details, notes,airports_id)"+
+                "VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', ' %s' )";
         
         Log.display(employee.salt);
         
         String finalQuery = String.format(
                 query, employee.username, employee.password, employee.salt, employee.firstName, employee.lastName,
-                role_id, employee.contactDetails, employee.notes, employee.createDate, airport_id
+                role_id, employee.contactDetails, employee.notes, 1
         );
 
         try {
@@ -253,10 +243,14 @@ public class EmployeeModel {
         }
     }
     
+    /**
+     * Hard delete user from database
+     * @param userID 
+     */
     public void deleteEmployee(String userID)
     {
-        String deleteQuery = "DELETE FROM employee WHERE id = '"+ userID +"'";
-        //dbmanager.executeQuery(deleteQuery);
+        //String deleteQuery = "DELETE FROM employee WHERE id = '"+ userID +"'";
+        String deleteQuery = "UPDATE employee SET account_status = 'deleted' WHERE id = '"+ userID +"'";
         try{
             dbmanager.updateQuery(deleteQuery);
         } catch (SQLException e) {
