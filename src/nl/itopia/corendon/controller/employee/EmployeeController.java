@@ -31,7 +31,7 @@ public class EmployeeController extends Controller {
     @FXML private TableColumn <Luggage,String>Status;
     @FXML private TableColumn <Luggage,String>Notes;
 
-    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton;
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton;
     
     
     public EmployeeController(){
@@ -42,6 +42,7 @@ public class EmployeeController extends Controller {
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
         searchLuggagebutton.setOnAction(this::searchHandler);
+        helpButton.setOnAction(this::helpHandler);
         
         // Create columns and set their datatype for building the Luggage Table
         Brand.setCellValueFactory(new PropertyValueFactory<Luggage, String>("brand"));
@@ -108,5 +109,11 @@ public class EmployeeController extends Controller {
     private void deleteHandler(ActionEvent e) {
         int id = 5; // Check the table for the current selected item
         // Show dialog with text: Do you really want to delete this luggage?
+    }
+    
+    private void helpHandler(ActionEvent e) {
+        addController(new helpFunctionController());
+
+        // Update our table with the new data
     }
 }
