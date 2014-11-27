@@ -112,7 +112,7 @@ public class EmployeeController extends Controller {
     }
     
     private void helpHandler(ActionEvent e) {
-        addController(new helpFunctionController());
+        addController(new HelpFunctionController());
 
         // Update our table with the new data
     }
