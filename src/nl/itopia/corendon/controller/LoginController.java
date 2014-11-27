@@ -14,7 +14,7 @@ import nl.itopia.corendon.utils.Log;
 
 /**
  *
- * @author Jeroentje & Wies
+ * @author Jeroentje & wieskueter.com
  */
 public class LoginController extends Controller {
     
@@ -32,8 +32,7 @@ public class LoginController extends Controller {
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
-
-    @FXML
+    
     private void loginButtonAction(ActionEvent event) {
         // Store username and password in variable
         String userName = usernameField.getText();
@@ -85,7 +84,7 @@ public class LoginController extends Controller {
                 changeController(new ManagerController());
             break;
             default: 
-                // Show default screen
+                changeController(new LoginController());
         }
     }
     

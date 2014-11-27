@@ -37,16 +37,13 @@ public class EmployeeController extends Controller {
     public EmployeeController(){
         registerFXML("gui/Overzichtkoffers.fxml");  
 
-        //Create buttons
+        //C reate buttons
         addLuggagebutton.setOnAction(this::addHandler);
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
         searchLuggagebutton.setOnAction(this::searchHandler);
         
-        
-        
-        
-        //Create columns and set their datatype for building the Luggage Table
+        // Create columns and set their datatype for building the Luggage Table
         Brand.setCellValueFactory(new PropertyValueFactory<Luggage, String>("brand"));
         Dimensions.setCellValueFactory(new PropertyValueFactory<Luggage, String>("dimensions"));
         Color.setCellValueFactory(new PropertyValueFactory<Luggage, String>("color"));
@@ -57,7 +54,8 @@ public class EmployeeController extends Controller {
         luggageList = LuggageModel.getDefault().getAllLuggage();
         data = FXCollections.observableArrayList();
         
-        for(Luggage luggage : luggageList){
+        for(Luggage luggage : luggageList) {
+            
             TableLuggage luggageTabel = new TableLuggage(luggage.dimensions,luggage.notes,
                     luggage.airport.getName(),luggage.brand.getName(),luggage.color.getHex(),
                     luggage.status.getName());
@@ -70,12 +68,13 @@ public class EmployeeController extends Controller {
 
 
     private void addHandler(ActionEvent e) {
+        
         addController(new AddLuggageController());
-
         // Update our table with the new data
     }
     
     private void searchHandler(ActionEvent e) {
+        
         SearchLuggageController searchluggagecontroller = new SearchLuggageController();
         
         searchluggagecontroller.setControllerDeleteHandler((o)->{

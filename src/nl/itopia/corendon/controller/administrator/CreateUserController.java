@@ -23,8 +23,7 @@ public class CreateUserController extends Controller {
 
     @FXML private TextField usernameInputfield, nameInputfield, passwordInputfield, repeatpasswordInputfield, notesInputfield;
     @FXML private ChoiceBox<ChooseItem> roleDropdownmenu = new ChoiceBox<>();
-    @FXML private Button addButton;
-    @FXML private Button cancelButton;
+    @FXML private Button addButton, cancelButton;
 
     private final List<Role> roleList;
     private AdministratorController AdministratorController;
@@ -50,7 +49,6 @@ public class CreateUserController extends Controller {
 
     public void createNewEmployee(ActionEvent event) {
         
-        Log.display("Creating new employee...");
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         String errors = "";
 

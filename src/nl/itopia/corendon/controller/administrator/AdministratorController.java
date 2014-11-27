@@ -12,10 +12,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import nl.itopia.corendon.controller.administrator.CreateUserController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
-//import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
-//import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 
 /**
@@ -40,16 +38,17 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
 
-    @FXML private Button adduserButton;
-    @FXML private Button deleteuserButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton;
     private String deleteUserId;
     
     public AdministratorController() {
         
-        registerFXML("gui/Overview_administrator.fxml");
+        registerFXML("gui/overview_administrator.fxml");
         
+        allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
-
+        edituserButton.setOnAction(this::editEmployee);
+        
         initializeTable();
         
         /**
@@ -61,34 +60,42 @@ public class AdministratorController extends Controller {
             TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
             this.deleteUserId = user.getUserID();
             
-            System.out.println(deleteUserId);
-            
-            // Trigger click on button and run delete method
-            deleteuserButton.setOnAction(this::deleteEmployee);
+            if(deleteUserId != "") {
+               // Trigger click on button and run delete method
+               deleteuserButton.setOnAction(this::deleteEmployee);               
+            }
         });
         
     }
     
+    public void allUsers(ActionEvent event) {
+        changeController(new AdministratorController());
+    }
+    
     public void createNewEmployee(ActionEvent event) {
-        
         initializeTable();
         addController(new CreateUserController());
     }
     
+    public void editEmployee(ActionEvent event) {
+        addController(new editEmployeeController());
+    }
+    
     /**
      * Handle delete action through database
-     * @param event 
-     * @param UserId 
+     * 
+     * @param event
      */
     public void deleteEmployee(ActionEvent event) {
         
         EmployeeModel employeemodel = EmployeeModel.getDefault();
-        System.out.println("UserId: "+ this.deleteUserId);
-        //employeemodel.deleteEmployee(UserId);
+        employeemodel.deleteEmployee(this.deleteUserId);
         initializeTable();
     }
     
     public void initializeTable() {
+        
+        // Table headings
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
         usernameTable.setCellValueFactory(new PropertyValueFactory<>("userName"));
         firstnameTable.setCellValueFactory(new PropertyValueFactory<>("firstName"));
@@ -104,10 +111,7 @@ public class AdministratorController extends Controller {
                 String airport = employee.airport.getName();
                 String id = ""+employee.id;
 
-                TableUser user = new TableUser(
-                        id, employee.username, employee.firstName,
-                        employee.lastName, role, airport
-                );
+                TableUser user = new TableUser(id, employee.username, employee.firstName, employee.lastName, role, airport);
                 this.data.add(user);
             }
         }
