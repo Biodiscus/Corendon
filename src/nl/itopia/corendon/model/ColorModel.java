@@ -32,6 +32,21 @@ public class ColorModel {
 
         return color;
     }
+    
+    public Color getColor(String name) {
+        Color color = null;
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM color WHERE name = '"+ name + "'");
+            if(result.next()) {
+                color = resultToColor(result);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return color;
+    }
 
     private Color resultToColor(ResultSet result) throws SQLException {
         int id = result.getInt("id");

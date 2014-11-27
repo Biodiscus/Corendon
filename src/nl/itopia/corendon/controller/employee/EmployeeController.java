@@ -76,7 +76,29 @@ public class EmployeeController extends Controller {
     }
     
     private void searchHandler(ActionEvent e) {
-        addController(new SearchLuggageController());
+        SearchLuggageController searchluggagecontroller = new SearchLuggageController();
+        
+        searchluggagecontroller.setControllerDeleteHandler((o)->{
+            /* cast the object to a list */
+            List<Luggage> searchList = (List<Luggage>) o;
+            
+            /* delete all records from the table view */
+            data.clear();
+            
+            if(null != searchList && searchList.size() >= 1) {
+                /* the search query has atleast one record, continue to fill the table view */
+                for(Luggage luggage : searchList){
+                    TableLuggage luggageTabel = new TableLuggage(luggage.dimensions,luggage.notes,
+                            luggage.airport.getName(),luggage.brand.getName(),luggage.color.getHex(),
+                            luggage.status.getName());
+
+                    data.add(luggageTabel);
+                }
+            }
+
+        });
+        
+        addController(searchluggagecontroller);
     }
 
     private void editHandler(ActionEvent e) {

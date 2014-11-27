@@ -34,6 +34,24 @@ public class AirportModel {
 
         return airport;
     }
+    
+    public Airport getAirport(String airportName) {
+        Airport airport = null;
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM airport WHERE name = '"+ airportName + "'");
+            if(result.next()) {
+                int code = result.getInt("code");
+                String name = result.getString("name");
+                int id = result.getInt("id");
+                airport = new Airport(id, code, name);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return airport;
+    }
 
     public List<Airport> getAirports() {
         List<Airport> airports = new ArrayList<>();
