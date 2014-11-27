@@ -10,8 +10,6 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import nl.itopia.corendon.data.Airport;
-import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.utils.Log;
 

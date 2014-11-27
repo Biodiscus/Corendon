@@ -1,13 +1,9 @@
 package nl.itopia.corendon.model;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.utils.Hashing;
