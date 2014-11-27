@@ -1,4 +1,4 @@
-package nl.itopia.corendon.controller.employee;
+package nl.itopia.corendon.controller.administrator;
 
 import java.util.List;
 import javafx.event.ActionEvent;
@@ -19,17 +19,17 @@ import nl.itopia.corendon.mvc.Controller;
 /**
  * @author Stefan de Groot
  */
-public class HelpFunctionController extends Controller {
+public class HelpFunctionControllerAdmin extends Controller {
 
    
-    @FXML private Button cancelButton;
+    @FXML private Button exitButton;
     
    
     
-    public HelpFunctionController() {
+    public HelpFunctionControllerAdmin() {
         registerFXML("gui/Help_function.fxml");
         
-       cancelButton.setOnAction(this::cancelHandler);
+       exitButton.setOnAction(this::cancelHandler);
     }
     
     public void cancelHandler(ActionEvent e){

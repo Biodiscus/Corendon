@@ -28,7 +28,7 @@ import java.util.*;
 public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
 
-    @FXML private Button filterButton;
+    @FXML private Button filterButton, helpButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
 
@@ -50,6 +50,7 @@ public class ManagerController extends Controller {
         foundLuggagecheckbox.setOnAction(this::filterHandle);
         lostLuggagecheckbox.setOnAction(this::filterHandle);
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
+        helpButton.setOnAction(this::helpHandler);
 
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
@@ -173,6 +174,12 @@ public class ManagerController extends Controller {
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
         });
+    }
+    
+    private void helpHandler(ActionEvent e) {
+        addController(new HelpFunctionControllerManager());
+
+        //opens help function
     }
 
 }

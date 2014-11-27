@@ -38,7 +38,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
 
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton,helpButton;
     private String deleteUserId;
     
     public AdministratorController() {
@@ -48,7 +48,8 @@ public class AdministratorController extends Controller {
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
-        
+        helpButton.setOnAction(this::helpHandler);
+               
         initializeTable();
         
         /**
@@ -118,4 +119,11 @@ public class AdministratorController extends Controller {
         
         userTable.setItems(data);
     }
+    
+     private void helpHandler(ActionEvent e) {
+        addController(new HelpFunctionControllerAdmin());
+
+        //opens help function
+    }
 }
+
