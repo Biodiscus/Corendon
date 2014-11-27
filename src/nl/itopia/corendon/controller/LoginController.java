@@ -1,9 +1,12 @@
 package nl.itopia.corendon.controller;
 
+//import java.awt.event.KeyEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.controller.employee.EmployeeController;
 import nl.itopia.corendon.controller.manager.ManagerController;
@@ -28,12 +31,24 @@ public class LoginController extends Controller {
         registerFXML("gui/Inlogscherm.fxml");
 
         Log.display(usernameField);
-
+        
+//        loginButton.setOnKeyPressed(null);
+        passwordField.setOnKeyPressed(this::loginWithEnter);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
     
+    private void loginWithEnter(KeyEvent evt) {
+        if(evt.getCode()==KeyCode.ENTER) {
+            loginAction();
+        }
+    }
+    
     private void loginButtonAction(ActionEvent event) {
+        loginAction();
+    }
+    
+    private void loginAction() {
         // Store username and password in variable
         String userName = usernameField.getText();
         String password = passwordField.getText();
