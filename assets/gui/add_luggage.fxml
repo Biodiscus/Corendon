@@ -51,6 +51,7 @@
                </font>
             </Label>
             <Button fx:id="browseButton" layoutX="448.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="81.0" text="Browse" />
+            <Button fx:id="addButton" layoutX="529.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="45.0" text="Add" />
             <Label layoutX="40.0" layoutY="321.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
                <font>
                   <Font size="17.0" />
@@ -58,6 +59,8 @@
             </Label>
             <TextField fx:id="brandInputfield" layoutX="184.0" layoutY="335.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />
             <TextField fx:id="heightInputfield" layoutX="184.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
+            <TextField fx:id="widthInputfield" layoutX="322.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
+            <TextField fx:id="depthInputfield" layoutX="463.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
             <Label layoutX="40.0" layoutY="375.0" prefHeight="59.0" prefWidth="117.0" text="Dimensions:">
                <font>
                   <Font size="17.0" />
@@ -75,15 +78,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="addButton" layoutX="529.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="45.0" text="Add" />
             <ImageView fx:id="pictureFrame1" fitHeight="210.0" fitWidth="200.0" layoutX="619.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="pictureFrame2" fitHeight="210.0" fitWidth="200.0" layoutX="854.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="pictureFrame4" fitHeight="210.0" fitWidth="200.0" layoutX="854.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" />
             <ImageView fx:id="pictureFrame3" fitHeight="210.0" fitWidth="200.0" layoutX="619.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="addButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Add" textFill="WHITE" />
             <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
-            <TextField fx:id="widthInputfield" layoutX="322.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
-            <TextField fx:id="depthInputfield" layoutX="463.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
             <Label layoutX="302.0" layoutY="392.0" text="X">
                <font>
                   <Font size="16.0" />

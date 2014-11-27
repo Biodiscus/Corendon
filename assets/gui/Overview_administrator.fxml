@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
@@ -16,28 +17,20 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: white;">
          <children>
-            <Line endX="1220.0" layoutX="115.0" layoutY="133.0" startX="-100.0" />
-            <Text layoutX="938.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-            <Text layoutX="938.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <ComboBox id="dropdownMenu" fx:id="dropdownmenu" layoutX="1072.0" layoutY="88.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button id="foundLuggagebutton" fx:id="allusersButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="All users" />
-            <Button id="lostLuggagebutton" fx:id="searchusersButton" layoutX="43.0" layoutY="224.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search user" />
-            <Button id="addLuggagebutton" fx:id="adduserButton" layoutX="43.0" layoutY="504.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add user" />
-            <Button id="editLuggagebutton" fx:id="edituserButton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit user" />
-            <Button id="deleteLuggagebutton" fx:id="deleteuserButton" layoutX="43.0" layoutY="590.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete user" />
-            <Label id="userID" fx:id="userID" layoutX="994.0" layoutY="60.0" prefHeight="25.0" prefWidth="174.0" text=" //ID user">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+            <Label prefHeight="107.0" prefWidth="1369.0" style="-fx-background-color: #9C0C0C;" />
+            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="8.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Button id="foundLuggagebutton" fx:id="allusersButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="All users" textFill="WHITE" />
+            <Button id="lostLuggagebutton" fx:id="searchusersButton" layoutX="43.0" layoutY="226.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Search user" textFill="WHITE" />
+            <Button id="addLuggagebutton" fx:id="adduserButton" layoutX="43.0" layoutY="502.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Add user" textFill="WHITE" />
+            <Button id="editLuggagebutton" fx:id="edituserButton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Edit user" textFill="WHITE" />
+            <Button id="deleteLuggagebutton" fx:id="deleteuserButton" layoutX="43.0" layoutY="592.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="  Delete user" textFill="WHITE" />
             <AnchorPane fx:id="userAnchorpane" layoutX="430.0" layoutY="181.0" prefHeight="457.0" prefWidth="773.0">
                <children>
                   <TableView id="luggageInfo" fx:id="userTable" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -49,7 +42,28 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button id="helpButton" fx:id="helpButton" layoutX="1287.0" layoutY="38.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="49.0" text="?" />
+            <Button fx:id="logoutButon" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <ComboBox fx:id="dropdownMenu" layoutX="1069.0" layoutY="61.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Text layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <Text layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
