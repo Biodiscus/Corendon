@@ -39,7 +39,7 @@ public class Launcher extends Application {
         Log.display("Database initialized");
 
         mvcEngine = new MVC((e)->{
-//            scene = new Scene(e, e.getWidth(), e.getHeight());
+            // scene = new Scene(e, e.getWidth(), e.getHeight());
             scene = new Scene(e, WIDTH, HEIGHT);
             scene.getStylesheets().clear();
             scene.getStylesheets().add("stylesheets/style.css");

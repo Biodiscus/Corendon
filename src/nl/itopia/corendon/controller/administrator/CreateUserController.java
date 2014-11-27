@@ -29,6 +29,7 @@ public class CreateUserController extends Controller {
     private final List<Role> roleList;
 
     public CreateUserController() {
+        
         // Set view
         registerFXML("gui/add_user.fxml");
 
@@ -47,6 +48,7 @@ public class CreateUserController extends Controller {
     }
 
     public void createNewEmployee(ActionEvent event) {
+        
         Log.display("Creating new employee...");
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         String errors = "";
@@ -89,13 +91,10 @@ public class CreateUserController extends Controller {
             employee.createDate = DateModel.getDefault().getCurrentTimeStamp();
             employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
 
-
 //            employeemodel.createEmployee(userName, password, userRole);
             employeemodel.createEmployee(employee);
             removeController(this);
         }
-
-
     }
 
     private void cancelHandler(ActionEvent e) {

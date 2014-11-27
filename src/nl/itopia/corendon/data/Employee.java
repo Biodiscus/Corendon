@@ -5,7 +5,7 @@ package nl.itopia.corendon.data;
  * @author wieskueter.com
  */
 public class Employee {
-    private int id;
+    public int id;
     public String username;
     public String password;
     public String firstName;

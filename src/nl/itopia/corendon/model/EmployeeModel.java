@@ -237,7 +237,9 @@ public class EmployeeModel {
         String query = "INSERT INTO employee " +
                 "(username, password, salt, first_name, last_name, role_id, contact_details, notes, create_date, airports_id)"+
                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', '%d', '%d')";
-Log.display(employee.salt);
+        
+        Log.display(employee.salt);
+        
         String finalQuery = String.format(
                 query, employee.username, employee.password, employee.salt, employee.firstName, employee.lastName,
                 role_id, employee.contactDetails, employee.notes, employee.createDate, airport_id
@@ -249,6 +251,17 @@ Log.display(employee.salt);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
-
+    }
+    
+    public void deleteEmployee(String userID)
+    {
+        String deleteQuery = "DELETE FROM employee WHERE id = '"+ userID +"'";
+        //dbmanager.executeQuery(deleteQuery);
+        try{
+            dbmanager.updateQuery(deleteQuery);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
     }
 }

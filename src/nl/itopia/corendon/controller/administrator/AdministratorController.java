@@ -42,6 +42,8 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>usernameTable;
     
     @FXML private Button adduserButton;
+    @FXML private Button deleteuserButton;
+    private String deleteUserId;
     
     public AdministratorController() {
         
@@ -62,16 +64,13 @@ public class AdministratorController extends Controller {
         
         data = FXCollections.observableArrayList();
         
-        for(Employee employee : employeeList){
+        for(Employee employee : employeeList) {
             String name = employee.firstName + " " + employee.lastName;
             
-            TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username);
+            TableUser user = new TableUser(employee.firstName, employee.lastName, employee.username, Integer.toString(employee.id));
             
             data.add(user);
         }
-        
-        
-        
         
 //        data = FXCollections.observableArrayList(new TableUser("Wies", "Kueter", "06-12345678"),
 //                new TableUser("Robin", "de Jong", "06-12345678"),
@@ -82,18 +81,35 @@ public class AdministratorController extends Controller {
 //        );
         
         userTable.setItems(data);
+        
+        
+        /**
+         * Delete user
+         */
+        userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            
+            TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
+            this.deleteUserId = user.getUserID();
+            
+            deleteuserButton.setOnAction(this::deleteEmployee);
+        });
+        
     }
-    
     
     public void createNewEmployee(ActionEvent event)
     {
         addController(new CreateUserController());
     }
     
-    void initializeTable(){
+    public void deleteEmployee(ActionEvent event)
+    {
+        EmployeeModel employeemodel = EmployeeModel.getDefault();
+        employeemodel.deleteEmployee(this.deleteUserId);
+    }
+    
+    void initializeTable() {
+        
         //Create columns and set their datatype
-        
-        
         
         //MAAK LIST VAN LUGGAGE OBJECTS EN VUL DE KOLOMMEN
         //LuggageModel luggageModel = LuggageModel.getDefault(); 
