@@ -32,21 +32,27 @@ public class LoginController extends Controller {
 
         Log.display(usernameField);
         
-        usernameField.setOnKeyPressed(this::goToPasswordField);
-        passwordField.setOnKeyPressed(this::loginWithEnter);
+        usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
+        passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
     
-    private void goToPasswordField(KeyEvent event) {
+    private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             passwordField.requestFocus();
         }
+        if(event.getCode()==KeyCode.ESCAPE) {
+            usernameField.clear();
+        }
     }
     
-    private void loginWithEnter(KeyEvent event) {
+    private void passwordFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
+        }
+        if(event.getCode()==KeyCode.ESCAPE) {
+            passwordField.clear();
         }
     }
     
