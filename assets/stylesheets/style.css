@@ -1,0 +1,7 @@
+.error_prompt {
+    -fx-prompt-text-fill: red;
+}
+
+.error_prompt:focused {
+    -fx-prompt-text-fill: transparent;
+}

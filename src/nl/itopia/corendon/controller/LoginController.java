@@ -1,6 +1,7 @@
 package nl.itopia.corendon.controller;
 
 //import java.awt.event.KeyEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,11 +28,8 @@ public class LoginController extends Controller {
     @FXML private TextField passwordField;
     
     public LoginController(){
-        
         registerFXML("gui/Inlogscherm.fxml");
 
-        Log.display(usernameField);
-        
         usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
         passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
         loginButton.setOnAction(this::loginButtonAction);
@@ -66,10 +64,17 @@ public class LoginController extends Controller {
         String password = passwordField.getText();
 
         // Check if values aren't empty
-        if(userName.isEmpty() || password.isEmpty())
-        {
+        if(userName.isEmpty() || password.isEmpty()) {
             // Show error if values are empty
-            Log.display("Error, the required fields are empty!");
+            if(userName.isEmpty()) {
+                usernameField.setPromptText("Please enter a username");
+                usernameField.getStyleClass().add("error_prompt");
+            }
+
+            if(password.isEmpty()) {
+                passwordField.setPromptText("Please enter a password");
+                passwordField.getStyleClass().add("error_prompt");
+            }
         } else {
            /* User credentials are filled in, create a employee object and check */
             login(userName, password);
@@ -93,7 +98,11 @@ public class LoginController extends Controller {
             employeemodel.currentEmployee = employee;
             redirectEmployee(employee);
         } else {
-            Log.display("Error, account does not exist or entered tableData is incorrect.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("We couldn't log you in as: "+userName);
+            alert.showAndWait();
         }
     }
 

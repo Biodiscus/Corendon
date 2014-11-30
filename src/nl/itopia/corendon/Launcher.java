@@ -48,7 +48,7 @@ public class Launcher extends Application {
 
             Log.display("Changing view");
         });
-        //mvcEngine.setController(new MainController(WIDTH, HEIGHT));
+//        mvcEngine.setController(new MainController(WIDTH, HEIGHT));
         mvcEngine.setController(new LoginController());
         
         stage.show();
