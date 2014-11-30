@@ -5,10 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import static nl.itopia.corendon.controller.employee.CreatePDF.generateLuggageReportPDF;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
+import static nl.itopia.corendon.pdf.LuggageReportPDF.generateLuggageReportPDF;
 
 /**
  * © 2014, Biodiscus.net Robin

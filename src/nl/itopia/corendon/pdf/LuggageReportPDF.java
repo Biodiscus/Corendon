@@ -1,4 +1,4 @@
-package nl.itopia.corendon.controller.employee;
+package nl.itopia.corendon.pdf;
 
 import java.io.FileOutputStream;
 import java.util.Date;
@@ -22,12 +22,12 @@ import nl.itopia.corendon.data.Luggage;
  *
  * @author Igor's_Boven
  */
-public class CreatePDF {
+public class LuggageReportPDF {
     private static String FILE = "c:/LUGGAGE_REPORT.pdf";
     private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     
-    static void generateLuggageReportPDF(Luggage luggage){
+    public static void generateLuggageReportPDF(Luggage luggage){
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(FILE));
@@ -38,7 +38,6 @@ public class CreatePDF {
         catch (Exception e) {
             e.printStackTrace();
         }
-        
     }
     
     private static void addContent(Document document, Luggage luggage)
@@ -107,7 +106,7 @@ public class CreatePDF {
         try {
             Desktop.getDesktop().open(pdf);
         } catch (IOException ex) {
-            Logger.getLogger(CreatePDF.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LuggageReportPDF.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("You need to have default program set to open .PDF files.");
         }
     }

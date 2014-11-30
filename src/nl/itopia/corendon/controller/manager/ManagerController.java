@@ -22,6 +22,7 @@ import nl.itopia.corendon.utils.Log;
 
 import java.time.LocalDate;
 import java.util.*;
+import static nl.itopia.corendon.pdf.ManagerStatisticsPDF.generateManagerReportPDF;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -31,6 +32,7 @@ public class ManagerController extends Controller {
 
     @FXML private Button filterButton, helpButton;
     @FXML private Button logoutButon;
+    @FXML private Button printStatisticsButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
 
@@ -53,6 +55,7 @@ public class ManagerController extends Controller {
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButon.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
+        printStatisticsButton.setOnAction(this::printStatisticsHandler);
 
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
@@ -174,18 +177,22 @@ public class ManagerController extends Controller {
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
-        });
+        });         
     }
     
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionControllerManager());
-
         //opens help function
     }
 
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }
-
+    
+    private void printStatisticsHandler(ActionEvent e){
+        generateManagerReportPDF(lineDiagram);
+        System.out.println("PDF OF MANAGER REPORT SAVED IN C:/");         
+    }
+   
 
 }
