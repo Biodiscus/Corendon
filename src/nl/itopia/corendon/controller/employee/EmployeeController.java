@@ -19,6 +19,7 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import nl.itopia.corendon.data.table.TableLuggage;
+import nl.itopia.corendon.utils.Log;
 
 /**
  *  AUTHOR: IGOR
@@ -43,16 +44,21 @@ public class EmployeeController extends Controller {
 
     private ImageView spinningIcon;
     private StackPane iconPane;
+
+    private LuggageModel luggageModel;
     
     
     public EmployeeController(){
         registerFXML("gui/Overzichtkoffers.fxml");
+
+        luggageModel = LuggageModel.getDefault();
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         spinningIcon = new ImageView(image);
 
         iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
 
@@ -87,7 +93,7 @@ public class EmployeeController extends Controller {
 
         luggageInfo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             editLuggagebutton.setDisable(false);
-//            deleteLuggagebutton.setDisable(false);
+            deleteLuggagebutton.setDisable(false);
             detailsLuggagebutton.setDisable(false);
         });
 
@@ -97,13 +103,18 @@ public class EmployeeController extends Controller {
     }
 
     private void recieveData() {
-        luggageList = LuggageModel.getDefault().getAllLuggage();
+        luggageList = luggageModel.getAllLuggage();
         tableData = FXCollections.observableArrayList();
 
         for(Luggage luggage : luggageList) {
-            TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.dimensions,
-                    luggage.notes, luggage.airport.getName(),luggage.brand.getName(),
-                    luggage.color.getHex(), luggage.status.getName()
+            TableLuggage luggageTable = new TableLuggage(
+                    luggage.getID(),
+                    luggage.dimensions,
+                    luggage.notes,
+                    luggage.airport.getName(),
+                    luggage.brand.getName(),
+                    luggage.color.getHex(),
+                    luggage.status.getName()
             );
 
             tableData.add(luggageTable);
@@ -195,8 +206,10 @@ public class EmployeeController extends Controller {
     }
 
     private void deleteHandler(ActionEvent e) {
-        int id = 5; // Check the table for the current selected item
-        // Show dialog with text: Do you really want to delete this luggage?
+        // TODO: Show dialog with text: Do you really want to delete this luggage?
+        TableLuggage luggage = (TableLuggage) luggageInfo.getSelectionModel().getSelectedItem();
+        luggageModel.deleteLuggage(luggage.getId());
+        tableData.remove(luggage);
     }
     
     private void helpHandler(ActionEvent e) {

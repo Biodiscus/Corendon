@@ -57,7 +57,8 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="brandInputfield" layoutX="184.0" layoutY="335.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />
+            <!--<TextField fx:id="brandInputfield" layoutX="184.0" layoutY="335.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />-->
+            <ComboBox fx:id="brandInput" layoutX="184.0" layoutY="335.0" prefHeight="33.0" prefWidth="388.0" editable="true"/>
             <TextField fx:id="heightInputfield" layoutX="184.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
             <TextField fx:id="widthInputfield" layoutX="322.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
             <TextField fx:id="depthInputfield" layoutX="463.0" layoutY="389.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />

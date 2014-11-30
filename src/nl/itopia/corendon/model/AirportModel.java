@@ -7,7 +7,9 @@ import nl.itopia.corendon.utils.Log;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * © 2014, Biodiscus.net Robin
@@ -16,20 +18,31 @@ public class AirportModel {
     private static final AirportModel _default = new AirportModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
-    private AirportModel() {}
+    private Map<Integer, Airport> _cache;
+
+    private AirportModel() {
+        _cache = new HashMap<>();
+    }
 
     public Airport getAirport(int id) {
         Airport airport = null;
 
-        try {
-            ResultSet result = dbmanager.doQuery("SELECT * FROM airport WHERE id = "+ id);
-            if(result.next()) {
-                int code = result.getInt("code");
-                String name = result.getString("name");
-                airport = new Airport(id, code, name);
+        // Check if the cache already has the airport
+        if(_cache.containsKey(id)) {
+            airport = _cache.get(id);
+        } else {
+            try {
+                ResultSet result = dbmanager.doQuery("SELECT * FROM airport WHERE id = " + id);
+                if (result.next()) {
+                    int code = result.getInt("code");
+                    String name = result.getString("name");
+                    airport = new Airport(id, code, name);
+                    // Add the airport to the cache
+                    _cache.put(id, airport);
+                }
+            } catch (SQLException e) {
+                Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
             }
-        } catch (SQLException e) {
-            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
 
         return airport;
@@ -45,6 +58,9 @@ public class AirportModel {
                 String name = result.getString("name");
                 int id = result.getInt("id");
                 airport = new Airport(id, code, name);
+
+                // Add the airport to the cache
+                _cache.put(id, airport);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
@@ -62,8 +78,11 @@ public class AirportModel {
                 int id = result.getInt("id");
                 String name = result.getString("name");
                 int code = result.getInt("code");
-                Airport luggage = new Airport(id, code, name);
-                airports.add(luggage);
+                Airport airport = new Airport(id, code, name);
+                airports.add(airport);
+
+                // Add the airport to the cache
+                _cache.put(id, airport);
             }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());

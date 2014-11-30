@@ -73,7 +73,6 @@ public class LuggageModel {
                 query, color_id, status_id, employee_id, client_id, airport_id, luggage.dimensions, luggage.label,
                 luggage.notes, luggage.weight, brand_id, luggage.foundDate, luggage.returnDate, luggage.createDate, luggage.getID()
         );
-        Log.display(finalQuery);
 
         try {
             dbmanager.updateQuery(finalQuery);
@@ -101,7 +100,7 @@ public class LuggageModel {
 
     private Luggage resultToLuggage(ResultSet result) throws SQLException{
         Luggage luggage = new Luggage(result.getInt("id"));
-        // TODO: status, airport, customer (IN CUSTOMER CLASS NOG GEEN LINK NAAR COUNTRY)
+        // TODO: customer (IN CUSTOMER CLASS NOG GEEN LINK NAAR COUNTRY)
 
         int colorID = result.getInt("color_id");
         int statusID = result.getInt("status_id");
@@ -109,6 +108,7 @@ public class LuggageModel {
         int customerID = result.getInt("client_id");
         int airportID = result.getInt("airport_id");
         int brandID = result.getInt("brand_id");
+
 
         luggage.brand = brandModel.getBrand(brandID);
         luggage.customer = customerModel.getCustomer(customerID);
@@ -129,13 +129,22 @@ public class LuggageModel {
 
         return luggage;
     }
+
+    public void deleteLuggage(int id) {
+        String deleteQuery = "UPDATE luggage SET deleted = '1' WHERE id = '" + id + "'";
+        try {
+            dbmanager.updateQuery(deleteQuery);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
     
     //Gets all luggagedata from DB, puts the tableData fields in luggage object,
     //and puts all luggageobjects in ArrayList of Luggage objects
     public List<Luggage> getAllLuggage() {
         List<Luggage> luggageList = new ArrayList<Luggage>();
         try {
-            String sql = "SELECT * FROM luggage";
+            String sql = "SELECT * FROM luggage WHERE deleted='0'";
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
                 int id = result.getInt("id");
