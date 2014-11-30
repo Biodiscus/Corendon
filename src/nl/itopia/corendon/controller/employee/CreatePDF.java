@@ -3,7 +3,6 @@ package nl.itopia.corendon.controller.employee;
 import java.io.FileOutputStream;
 import java.util.Date;
 
-import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
