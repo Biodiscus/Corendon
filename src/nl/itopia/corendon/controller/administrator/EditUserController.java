@@ -19,11 +19,9 @@ public class EditUserController extends Controller {
     }
 
     public EditUserController(Employee employee) {
-        // Set view
+    // Set view
         registerFXML("gui/add_user.fxml");
-
         // TODO: Do something with the employee
-
         cancelButton.setOnAction(this::cancelHandler);
     }
 
