@@ -94,6 +94,7 @@
               </yAxis>
             </LineChart>
             <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" style="-fx-background-color: #53AF36;" text="Filter" textFill="WHITE" />
+            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Print statistics" textFill="WHITE" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
