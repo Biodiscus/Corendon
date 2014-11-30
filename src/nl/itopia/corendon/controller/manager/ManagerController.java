@@ -32,7 +32,7 @@ public class ManagerController extends Controller {
 
     @FXML private Button filterButton, helpButton;
     @FXML private Button logoutButon;
-    @FXML private Button printStatisticsButton;
+    @FXML private Button printstatisticsButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
 
@@ -55,7 +55,7 @@ public class ManagerController extends Controller {
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButon.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
-        printStatisticsButton.setOnAction(this::printStatisticsHandler);
+        printstatisticsButton.setOnAction(this::printStatisticsHandler);
 
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
@@ -188,7 +188,7 @@ public class ManagerController extends Controller {
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }
-    
+
     private void printStatisticsHandler(ActionEvent e){
         generateManagerReportPDF(lineDiagram);
         System.out.println("PDF OF MANAGER REPORT SAVED IN C:/");         
