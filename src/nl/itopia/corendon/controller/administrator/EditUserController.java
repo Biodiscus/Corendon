@@ -28,10 +28,6 @@ public class EditUserController extends Controller {
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         Employee employee = employeemodel.getEmployee(userId);
         
-        //this(EmployeeModel.getDefault().getEmployee(userId));
-        
-        //EmployeeModel.getDefault().getEmployee(userId);
-        
         // Set field data from object being edited
         usernameInputfield.setText(employee.username);
         firstnameInputfield.setText(employee.firstName);

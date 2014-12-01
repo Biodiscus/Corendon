@@ -64,6 +64,9 @@ public class CreateUserController extends Controller {
     }
  
     public void createNewEmployee(ActionEvent event) {
+        
+        cancelButton.setOnAction(this::cancelHandler);
+        
         EmployeeModel employeemodel = EmployeeModel.getDefault();
        
         String userName = usernameInputfield.getText();
@@ -75,8 +78,6 @@ public class CreateUserController extends Controller {
         //String employeeSince = employeeSinceField.getText();
         String contactDetails = contactdetailsInputfield.getText();
         String notes = notesInputfield.getText();
- 
-        //System.out.println("Selected role: "+ userRole);
  
         String salt = Hashing.generateSaltString();
  

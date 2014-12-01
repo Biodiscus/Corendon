@@ -54,7 +54,14 @@ public class AdministratorController extends Controller {
         
         // Set view
         registerFXML("gui/overview_administrator.fxml");
-
+        
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+        iconPane = new StackPane();
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+        
         employeeModel = EmployeeModel.getDefault();
         
         allusersButton.setOnAction(this::allUsers);
@@ -63,14 +70,10 @@ public class AdministratorController extends Controller {
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButon.setOnAction(this::logoutHandler);
 
-        // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
-
-        iconPane = new StackPane();
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
-
+          // As long as we don't have any user selected delete and edit user shouldn't be enabled
+        edituserButton.setDisable(true);
+        deleteuserButton.setDisable(true);
+        
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(()->recieveData());
         dataThread.start();
@@ -82,15 +85,15 @@ public class AdministratorController extends Controller {
         lastnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
-
-        // As long as we don't have any user selected delete and edit user shouldn't be enabled
-        edituserButton.setDisable(true);
-        deleteuserButton.setDisable(true);
-
-        /**
-         * Delete user
-         */
-        // TODO: Throw this in it's own function
+        
+        this.tableActions();
+    }
+    
+    /**
+     * Actions for selected row (edit, delete)
+     */
+    public void tableActions()
+    {
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             
             edituserButton.setDisable(false);
@@ -106,7 +109,7 @@ public class AdministratorController extends Controller {
                // Trigger click on button and run delete method
                deleteuserButton.setOnAction(this::deleteEmployee);               
             }
-        });
+        });        
     }
     
     public void allUsers(ActionEvent event) {
@@ -185,8 +188,8 @@ public class AdministratorController extends Controller {
     }
     
      private void helpHandler(ActionEvent e) {
-//        addController(new HelpFunctionControllerAdmin());
-
+         
+        //addController(new HelpFunctionControllerAdmin());
         //opens help function
     }
 }
