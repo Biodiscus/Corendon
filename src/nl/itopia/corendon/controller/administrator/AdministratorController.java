@@ -20,7 +20,6 @@ import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
 
 /**
  *
@@ -36,25 +35,27 @@ public class AdministratorController extends Controller {
     
     public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();;
     @FXML private TableView userTable;
-    
     @FXML private TableColumn <Employee,String>userIDtable;
     @FXML private TableColumn <Employee,String>usernameTable;
     @FXML private TableColumn <Employee,String>firstnameTable;
     @FXML private TableColumn <Employee,String>lastnameTable;
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
-
     @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButon, helpButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
     
+    private int deleteUserId;
+    private TableUser user;
+    private Object items;
+    
     public AdministratorController() {
-        registerFXML("gui/Overview_administrator.fxml");
+        
+        // Set view
+        registerFXML("gui/overview_administrator.fxml");
 
         employeeModel = EmployeeModel.getDefault();
-        
-        registerFXML("gui/overview_administrator.fxml");
         
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
@@ -92,8 +93,18 @@ public class AdministratorController extends Controller {
          */
         // TODO: Throw this in it's own function
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-//            edituserButton.setDisable(false);
+            
+            //edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
+            
+            // Get the object for the selected user in the table
+            this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
+            
+            if(this.deleteUserId != 0) {
+                this.deleteUserId = user.getUserID();
+               // Trigger click on button and run delete method
+               deleteuserButton.setOnAction(this::deleteEmployee);               
+            }
         });
     }
     
@@ -136,9 +147,15 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void deleteEmployee(ActionEvent event) {
+        
         TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
         employeeModel.deleteEmployee(user.getUserID());
         tableData.remove(user);
+        
+        EmployeeModel employeemodel = EmployeeModel.getDefault();
+        employeemodel.deleteEmployee(this.deleteUserId);
+        //data.remove(this.user);
+        //initializeTable();
     }
 
     private void recieveData() {

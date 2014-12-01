@@ -23,15 +23,13 @@ import nl.itopia.corendon.utils.Log;
  * @author wieskueter.com
  */
 public class CreateUserController extends Controller {
-
-    @FXML
-    private TextField usernameInputfield, nameInputfield, passwordInputfield, repeatpasswordInputfield, notesInputfield,
-            firstnameInputfield, lastnameInputfield, contactdetailsInputfield;
-    @FXML
+        
+    private TextField usernameInputfield, firstnameInputfield, lastnameInputfield, passwordInputfield, repeatpasswordInputfield, 
+            contactdetailsInputfield, notesInputfield;
     private ChoiceBox<ChooseItem> roleDropdownmenu, airportDropdownmenu;
-
-    @FXML
+    
     private Button addButton, cancelButton;
+    //private ChoiceBox<ChooseItem> roleDropdownmenu = new ChoiceBox<>();
 
     private final List<Role> roleList;
     private final List<Airport> airportList;
@@ -67,13 +65,16 @@ public class CreateUserController extends Controller {
 
     public void createNewEmployee(ActionEvent event) {
         EmployeeModel employeemodel = EmployeeModel.getDefault();
-
+        
+        String userName = usernameInputfield.getText();
+        String firstName = firstnameInputfield.getText();
+        String lastName = lastnameInputfield.getText();
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
-
         int userRole = roleDropdownmenu.getValue().getKey();
         //String employeeSince = employeeSinceField.getText();
-        //String notes = notesInputfield.getText();
+        String contactDetails = contactdetailsInputfield.getText();
+        String notes = notesInputfield.getText();
 
         //System.out.println("Selected role: "+ userRole);
 
@@ -95,11 +96,11 @@ public class CreateUserController extends Controller {
             // TODO: Set the correct employeeID
             ChooseItem airport = airportDropdownmenu.getValue();
             Employee employee = new Employee(-1);
-            employee.username = usernameInputfield.getText();
-            employee.firstName = firstnameInputfield.getText();
-            employee.lastName = lastnameInputfield.getText();
-            employee.notes = notesInputfield.getText();
-            employee.contactDetails = contactdetailsInputfield.getText();
+            employee.username = userName;
+            employee.firstName = firstName;
+            employee.lastName = lastName;
+            employee.notes = notes;
+            employee.contactDetails = contactDetails;
             employee.role = new Role(userRole, "none"); // The role will only be inserted in the database, so no reason to get the correct role from the database
             employee.password = Hashing.sha256(password + salt);
             employee.salt = salt;
@@ -108,6 +109,9 @@ public class CreateUserController extends Controller {
 
             // employeemodel.createEmployee(userName, password, userRole);
             createdEmployee = employee;
+            
+            //employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
+            //employeemodel.createEmployee(userName, password, userRole);
             employeemodel.createEmployee(employee);
             removeController(this);
         }
