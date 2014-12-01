@@ -28,6 +28,8 @@ public class LoginController extends Controller {
     @FXML private TextField passwordField;
     
     public LoginController(){
+        
+        // Set view
         registerFXML("gui/Inlogscherm.fxml");
 
         usernameField.setOnKeyReleased(this::usernameFieldKeyReleased);
