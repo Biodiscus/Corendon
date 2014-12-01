@@ -79,6 +79,15 @@ public class ImageModel {
         return "http://"+server+"/image_upload/"+uploadPath;
     }
 
+    public void deleteImage(int id) {
+        String query = "DELETE FROM photo where id='"+id+"'";
+        try {
+            dbmanager.updateQuery(query);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
+
     // Insert the image into the database
     public void insertImage(String path, int luggageID) {
         String query = "INSERT INTO photo (path, luggage_id) VALUES ('"+path+"', '"+luggageID+"')";

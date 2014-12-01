@@ -59,13 +59,9 @@ public class DatabaseManager {
      * Executes a query without result.
      * @param query, the SQl query
      */
-    public void executeQuery(String query) {
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeQuery(query);
-        } catch (SQLException e) {
-            Log.display(SQL_EXCEPTION, e.getErrorCode(), e.getSQLState(), e.getMessage());
-        }
+    public void executeQuery(String query) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeQuery(query);
     }
 
     /**
