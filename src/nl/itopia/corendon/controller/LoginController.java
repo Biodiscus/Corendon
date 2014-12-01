@@ -32,16 +32,24 @@ public class LoginController extends Controller {
 
         usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
         passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
+        loginButton.setOnKeyPressed(this::buttonEnterPressed);
+        forgottenPasswordbutton.setOnKeyPressed(this::buttonEnterPressed);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
     
     private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
-            passwordField.requestFocus();
+            loginAction();
         }
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
+        }
+    }
+    
+    private void buttonEnterPressed(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER) {
+            loginAction();
         }
     }
     
@@ -51,6 +59,9 @@ public class LoginController extends Controller {
         }
         if(event.getCode()==KeyCode.ESCAPE) {
             passwordField.clear();
+        }
+        if(event.getCode()==KeyCode.TAB) {
+            usernameField.requestFocus();
         }
     }
     
