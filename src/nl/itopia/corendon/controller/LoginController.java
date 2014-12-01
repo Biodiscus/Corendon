@@ -30,15 +30,15 @@ public class LoginController extends Controller {
     public LoginController(){
         registerFXML("gui/Inlogscherm.fxml");
 
-        usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
-        passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
-        loginButton.setOnKeyPressed(this::buttonEnterPressed);
-        forgottenPasswordbutton.setOnKeyPressed(this::buttonEnterPressed);
+        usernameField.setOnKeyReleased(this::usernameFieldKeyReleased);
+        passwordField.setOnKeyReleased(this::passwordFieldKeyReleased);
+        loginButton.setOnKeyReleased(this::buttonEnterReleased);
+        forgottenPasswordbutton.setOnKeyReleased(this::buttonEnterReleased);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
     
-    private void usernameFieldKeyPressed(KeyEvent event) {
+    private void usernameFieldKeyReleased(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
@@ -47,21 +47,18 @@ public class LoginController extends Controller {
         }
     }
     
-    private void buttonEnterPressed(KeyEvent event) {
+    private void buttonEnterReleased(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
     }
     
-    private void passwordFieldKeyPressed(KeyEvent event) {
+    private void passwordFieldKeyReleased(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
         if(event.getCode()==KeyCode.ESCAPE) {
             passwordField.clear();
-        }
-        if(event.getCode()==KeyCode.TAB) {
-            usernameField.requestFocus();
         }
     }
     

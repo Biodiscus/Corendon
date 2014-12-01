@@ -86,6 +86,8 @@ public class CreateUserController extends Controller {
         // Check if passwords match
         if (!password.equals(repeatPassword)) {
             Log.display("Passwords doesn't match");
+        } else if (password.length()<6) {
+            Log.display("Minimum password length is 6 characters.");
         } else {
             System.out.println(password + " is equal to " + repeatPassword);
 
