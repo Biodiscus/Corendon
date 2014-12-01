@@ -87,15 +87,16 @@ public class AdministratorController extends Controller {
         edituserButton.setDisable(true);
         deleteuserButton.setDisable(true);
 
-
         /**
          * Delete user
          */
         // TODO: Throw this in it's own function
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
             
-            //edituserButton.setDisable(false);
+            edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
+            
+            edituserButton.setOnAction(this::editEmployee);
             
             // Get the object for the selected user in the table
             this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
@@ -113,7 +114,9 @@ public class AdministratorController extends Controller {
     }
     
     public void createNewEmployee(ActionEvent event) {
+        
         CreateUserController createUser = new CreateUserController();
+        
         createUser.setControllerDeleteHandler((obj)->{
             // The createUserController will return a Employee
             Employee employee = (Employee) obj;
@@ -134,12 +137,15 @@ public class AdministratorController extends Controller {
         changeController(new LoginController());
     }
 
-
+    /**
+     * 
+     * @param event 
+     */
     public void editEmployee(ActionEvent event) {
+        
         TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
-        addController(new EditUserController(user.getUserID()));
+        addController( new EditUserController(user.getUserID()) );
     }
-
     
     /**
      * Handle delete action through database
@@ -159,6 +165,7 @@ public class AdministratorController extends Controller {
     }
 
     private void recieveData() {
+        
         for(Employee employee : employeeList) {
 
             if( !employee.account_status.equals("deleted") ) {
