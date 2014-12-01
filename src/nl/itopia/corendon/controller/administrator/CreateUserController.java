@@ -12,10 +12,10 @@ import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.Role;
 import nl.itopia.corendon.model.AirportModel;
-import nl.itopia.corendon.model.DateModel;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.RoleModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
 
@@ -106,7 +106,7 @@ public class CreateUserController extends Controller {
             employee.role = new Role(userRole, "none"); // The role will only be inserted in the database, so no reason to get the correct role from the database
             employee.password = Hashing.sha256(password + salt);
             employee.salt = salt;
-            employee.createDate = DateModel.getDefault().getCurrentTimeStamp();
+            employee.createDate = DateUtil.getCurrentTimeStamp();
             employee.airport = AirportModel.getDefault().getAirport(airport.getKey());
 
             // employeemodel.createEmployee(userName, password, userRole);

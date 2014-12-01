@@ -2,19 +2,19 @@ package nl.itopia.corendon.controller.employee;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import nl.itopia.corendon.data.Airport;
-import nl.itopia.corendon.data.ChooseItem;
-import nl.itopia.corendon.data.Color;
-import nl.itopia.corendon.data.Luggage;
+import javafx.scene.layout.VBox;
+import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Log;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -25,13 +25,15 @@ public class EditLuggageController extends Controller {
             notesInputfield, widthInputfield, depthInputfield;
 
     @FXML private ChoiceBox foundonAirportdropdown, colorDropdown;
+    @FXML private ScrollPane imageScrollpane;
+    @FXML private Button cancelButton, editButton;
 
-    @FXML
-    private Button cancelButton, editButton;
+    private VBox imageScrollContent;
 
     private LuggageModel luggageModel;
     private AirportModel airportModel;
     private ColorModel colorModel;
+    private ImageModel imageModel;
 
     private Luggage currentLuggage;
 
@@ -46,13 +48,12 @@ public class EditLuggageController extends Controller {
         luggageModel = LuggageModel.getDefault();
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
-
-        brandInputfield.setDisable(true);
+        imageModel = ImageModel.getDefault();
 
         cancelButton.setOnAction(this::cancelHandler);
 
         labelInputfield.setText(luggage.label);
-        brandInputfield.setText(luggage.brand.getName());
+//        brandInputfield.setText(luggage.brand.getName());
         notesInputfield.setText(luggage.notes);
 
         String[] dimensions = luggage.getDimensions();
@@ -61,6 +62,10 @@ public class EditLuggageController extends Controller {
         depthInputfield.setText(dimensions[2]);
 
         weightInputfield.setText(luggage.weight);
+
+        // Set the imageScrollpane content
+        imageScrollContent = new VBox();
+        imageScrollpane.setContent(imageScrollContent);
 
 
         // Set the Airports in the foundonAirportdropdown
@@ -91,6 +96,13 @@ public class EditLuggageController extends Controller {
         }
         colorDropdown.getSelectionModel().select(currentColorPlace);
 
+        // Get the photos
+        List<Picture> pictures = imageModel.getPicturesFromLuggage(luggage.getID());
+        for(Picture pic : pictures) {
+            double width = imageScrollpane.getPrefWidth() - 50;
+            Image image = new Image(pic.getPath(), width, 0, true, true);
+            imageScrollContent.getChildren().add(new ImageView(image));
+        }
 
         cancelButton.setOnAction(this::cancelHandler);
         editButton.setOnAction(this::editHandler);
@@ -126,7 +138,7 @@ public class EditLuggageController extends Controller {
         luggage.weight = weightInputfield.getText();
         luggage.brand = BrandModel.getDefault().getBrand(1);
 
-        long currentTimeStamp = DateModel.getDefault().getCurrentTimeStamp();
+        long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 
         luggage.foundDate = currentTimeStamp;
         luggage.createDate = currentTimeStamp;

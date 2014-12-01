@@ -30,7 +30,8 @@ public class LuggageModel {
         statusModel = StatusModel.getDefault();
     }
 
-    public void addLuggage(Luggage luggage) {
+    // Returns the ID of the inserted luggage
+    public int addLuggage(Luggage luggage) {
         int color_id = luggage.color.getID();
         int status_id = luggage.status.getID();
         int employee_id = luggage.employee.getID();
@@ -51,9 +52,19 @@ public class LuggageModel {
 
         try {
             dbmanager.insertQuery(finalQuery);
+
+            // After inserting the item, get the last added luggage
+            // This way we can set the correct ID to the new luggage
+            ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
+            if(result.next()) {
+                return result.getInt(1);
+            }
+
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
+
+        return -1;
     }
 
     public void editLuggage(Luggage luggage) {
@@ -147,8 +158,7 @@ public class LuggageModel {
             String sql = "SELECT * FROM luggage WHERE deleted='0'";
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
-                int id = result.getInt("id");
-                Luggage luggage = getLuggage(id);
+                Luggage luggage = resultToLuggage(result);
                 luggageList.add(luggage);
             }
         } catch (SQLException e) {

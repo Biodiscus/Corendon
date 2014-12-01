@@ -16,7 +16,7 @@ public class Luggage {
     public Customer customer;
     public Airport airport;
     public String dimensions;
-    public List<Pictures> pictures;
+    public List<Picture> pictures;
     public String label;
     public String notes;
     public String weight;
@@ -36,6 +36,10 @@ public class Luggage {
 
     public int getID() {
         return id;
+    }
+
+    public void setID(int val) {
+        id = val;
     }
 
 

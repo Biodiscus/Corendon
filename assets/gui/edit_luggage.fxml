@@ -98,11 +98,11 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <ScrollPane fx:id="imageScrollpane" layoutX="670.0" layoutY="83.0" prefHeight="493.0" prefWidth="427.0">
-               <content>
-                  <AnchorPane fx:id="imageAnchorpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="422.0" />
-               </content>
-            </ScrollPane>
+             <ScrollPane fx:id="imageScrollpane" layoutX="670.0" layoutY="83.0" prefHeight="493.0" prefWidth="427.0">
+                 <content>
+                     <AnchorPane fx:id="imageAnchorpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="422.0" />
+                 </content>
+             </ScrollPane>
          </children>
       </AnchorPane>
    </children>
