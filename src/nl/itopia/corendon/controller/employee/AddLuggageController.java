@@ -11,6 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
+import nl.itopia.corendon.components.PictureView;
 import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
@@ -33,7 +34,6 @@ public class AddLuggageController extends Controller {
                             notesInputfield, widthInputfield, depthInputfield;
     @FXML private ComboBox<ChooseItem> brandInput;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown;
-    @FXML private ImageView pictureFrame1, pictureFrame2, pictureFrame3, pictureFrame4;
     @FXML private ScrollPane imageScrollpane;
 
     private VBox imageScrollContent;
@@ -117,6 +117,7 @@ public class AddLuggageController extends Controller {
 
         // Set the imageScrollpane content
         imageScrollContent = new VBox();
+        imageScrollContent.setSpacing(10);
         imageScrollpane.setContent(imageScrollContent);
 
         addButton.setOnAction(this::addHandler);
@@ -141,10 +142,32 @@ public class AddLuggageController extends Controller {
         if(file != null) {
             // We set the preserverRatio to true, so we don't have to fill in a height
             double width = imageScrollpane.getWidth() - 50;
-            Image image = new Image(file.toURI().toString(), width, 0, true, true);
-            imageScrollContent.getChildren().add(new ImageView(image));
+            PictureView pictureView = new PictureView(file.toURI().toString(), width, 0, true);
+            pictureView.setOnDelete(this::pictureDeleteHandler);
+            pictureView.setEditable(true);
+            imageScrollContent.getChildren().add(pictureView);
             imagesToUpload.add(file);
+
         }
+    }
+
+    private void pictureDeleteHandler(Object object) {
+        PictureView picture = (PictureView) object;
+
+        // Loop to our current images
+        // Get our the correct file and delete it so the program won't upload it
+        for(int i = 0; i < imagesToUpload.size(); i ++) {
+            File file = imagesToUpload.get(i);
+            String path = file.toURI().toString();
+            String imagePath = picture.getImagePath();
+            if(imagePath.equals(path)) {
+                imagesToUpload.remove(i);
+                break;
+            }
+        }
+
+        // Remove the pictureview from the content pane
+        imageScrollContent.getChildren().remove(picture);
     }
 
     private void addHandler(ActionEvent e) {
@@ -170,7 +193,6 @@ public class AddLuggageController extends Controller {
         };
 
         luggage.setDimensions(dimensions);
-
 
         luggage.label = labelInputfield.getText();
         luggage.notes = notesInputfield.getText();

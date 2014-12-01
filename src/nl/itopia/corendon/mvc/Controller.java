@@ -21,7 +21,7 @@ public abstract class Controller {
     private MVC mvc;
     protected View view;
 
-    private ControllerDelete controllerDeleteHandler;
+    private ObjectDelete controllerDeleteHandler;
 
     public Controller() {}
 
@@ -95,7 +95,7 @@ public abstract class Controller {
         }
     }
 
-    public void setControllerDeleteHandler(ControllerDelete handler) {
+    public void setControllerDeleteHandler(ObjectDelete handler) {
         this.controllerDeleteHandler = handler;
     }
 
@@ -106,9 +106,5 @@ public abstract class Controller {
 
     public View getView() {
         return view;
-    }
-
-    public interface ControllerDelete {
-        public void action(Object object);
     }
 }
