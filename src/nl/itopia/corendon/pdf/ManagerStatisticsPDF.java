@@ -18,25 +18,26 @@ import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.chart.LineChart;
 import javafx.scene.image.WritableImage;
+import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import nl.itopia.corendon.model.EmployeeModel;
+import nl.itopia.corendon.mvc.Controller;
 
 /**
  *
  * @author Igor's_Boven
  */
 public class ManagerStatisticsPDF {
-    private static String FILE = "c:/MANAGER_REPORT.pdf";
     private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private static Image graph;
     
-    public static void generateManagerReportPDF(LineChart linechart){
+    public static void generateManagerReportPDF(File file, LineChart linechart){
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            addContent(document, linechart);
+            addContent(file, document, linechart);
             document.close();
         }
         catch (Exception e) {
@@ -44,7 +45,7 @@ public class ManagerStatisticsPDF {
         }
     }
         
-    private static void addContent(Document document, LineChart linechart)
+    private static void addContent(File file, Document document, LineChart linechart)
         throws DocumentException, BadElementException, IOException {
         Paragraph paragraph = new Paragraph();
 
@@ -81,13 +82,10 @@ public class ManagerStatisticsPDF {
         
         document.add(paragraph);
         document.add(graph);
-
-        //open file aftercreation
-        File pdf = new File(FILE);
+        //OPEN PDF AFTER CREATION 
         try {
-            Desktop.getDesktop().open(pdf);
+            Desktop.getDesktop().open(file);
         } catch (IOException ex) {
-            Logger.getLogger(ManagerStatisticsPDF.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("You need to have default program set to open .PDF files.");
         }        
     }

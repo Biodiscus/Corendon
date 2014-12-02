@@ -1,5 +1,6 @@
 package nl.itopia.corendon.controller.manager;
 
+import java.io.File;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import java.time.LocalDate;
 import java.util.*;
+import javafx.stage.FileChooser;
 import static nl.itopia.corendon.pdf.ManagerStatisticsPDF.generateManagerReportPDF;
 
 /**
@@ -186,8 +188,17 @@ public class ManagerController extends Controller {
     }
 
     private void printStatisticsHandler(ActionEvent e){
-        generateManagerReportPDF(lineDiagram);
-        System.out.println("PDF OF MANAGER REPORT SAVED IN C:/");         
+        //SAVE FILE WITH FILECHOOSER
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select location to save PDF.");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        
+        File pdf = fileChooser.showSaveDialog(view.getScene().getWindow());
+        
+        
+        generateManagerReportPDF(pdf, lineDiagram);
+        System.out.println("PDF OF MANAGER REPORT SAVED");         
     }
    
 

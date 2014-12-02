@@ -1,5 +1,6 @@
 package nl.itopia.corendon.controller.employee;
 
+import java.io.File;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 
 import java.util.List;
+import javafx.stage.FileChooser;
 
 import static nl.itopia.corendon.pdf.LuggageReportPDF.generateLuggageReportPDF;
 
@@ -81,8 +83,17 @@ public class DetailLuggageController extends Controller {
     }
 
     public void printHandler(ActionEvent e) {
-        generateLuggageReportPDF(currentLuggage);
-        System.out.println("PDF OF LUGGAGE REPORT SAVED IN C:/");  
+        //SAVE FILE WITH FILECHOOSER
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select location to save PDF.");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        
+        File file = fileChooser.showSaveDialog(view.getScene().getWindow());
+        
+        
+        System.out.println("PDF OF MANAGER REPORT SAVED");           
+        generateLuggageReportPDF(file, currentLuggage);  
     }
 
     public void markHandler(ActionEvent e) {

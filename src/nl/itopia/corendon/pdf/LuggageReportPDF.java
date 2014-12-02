@@ -25,16 +25,15 @@ import nl.itopia.corendon.model.EmployeeModel;
  * @author Igor's_Boven
  */
 public class LuggageReportPDF {
-    private static String FILE = "c:/LUGGAGE_REPORT.pdf";
     private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     
-    public static void generateLuggageReportPDF(Luggage luggage){
+    public static void generateLuggageReportPDF(File file, Luggage luggage){
         try {
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream(FILE));
+            PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            addContent(document, luggage);
+            addContent(file, document, luggage);
             document.close();
         }
         catch (Exception e) {
@@ -42,7 +41,7 @@ public class LuggageReportPDF {
         }
     }
     
-    private static void addContent(Document document, Luggage luggage)
+    private static void addContent(File file, Document document, Luggage luggage)
         throws DocumentException {
         Paragraph paragraph = new Paragraph();
 
@@ -102,13 +101,9 @@ public class LuggageReportPDF {
 
         document.add(paragraph);
         document.add(table);
-        
-        //OPEN PDF AFTER CREATION
-        File pdf = new File(FILE);
         try {
-            Desktop.getDesktop().open(pdf);
+            Desktop.getDesktop().open(file);
         } catch (IOException ex) {
-            Logger.getLogger(LuggageReportPDF.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("You need to have default program set to open .PDF files.");
         }
     }
