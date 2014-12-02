@@ -183,7 +183,6 @@ public class AddLuggageController extends Controller {
         luggage.employee = employeeModel.currentEmployee;
         luggage.customer = CustomerModel.getDefault().getCustomer(2);
         luggage.airport = airportModel.getAirport(airport.getKey());
-        luggage.brand = new Brand(brand.getKey(), brand.toString());
 
         String[] dimensions = {
                 widthInputfield.getText(),
@@ -197,7 +196,7 @@ public class AddLuggageController extends Controller {
         luggage.label = labelInputfield.getText();
         luggage.notes = notesInputfield.getText();
         luggage.weight = weightInputfield.getText();
-        luggage.brand = BrandModel.getDefault().getBrand(1);
+        luggage.brand = new Brand(brand.getKey(), brand.toString());
 
         long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 
