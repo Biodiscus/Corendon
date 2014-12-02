@@ -81,14 +81,6 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <ImageView fx:id="logo" fitHeight="59.0" fitWidth="280.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Corendon-logo-groot3.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
          </children>
       </AnchorPane>
    </children>

@@ -100,14 +100,6 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <ImageView fx:id="logo" fitHeight="59.0" fitWidth="280.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Corendon-logo-groot3.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
             <Label fx:id="showUserID" layoutX="171.0" layoutY="121.0" prefHeight="33.0" prefWidth="378.0">
                <font>
                   <Font size="17.0" />

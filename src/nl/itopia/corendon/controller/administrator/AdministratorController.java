@@ -188,8 +188,7 @@ public class AdministratorController extends Controller {
     }
     
      private void helpHandler(ActionEvent e) {
-         
-        //addController(new HelpFunctionControllerAdmin());
+		addController(new HelpFunctionControllerAdmin());
         //opens help function
     }
 }
