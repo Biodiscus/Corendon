@@ -213,8 +213,8 @@ public class EmployeeController extends Controller {
     }
     
     private void helpHandler(ActionEvent e) {
-//        addController(new HelpFunctionControllerEmployee());
+        addController(new HelpFunctionControllerEmployee());
 
-        // Update our table with the new tableData
+        //opens help function
     }
 }
