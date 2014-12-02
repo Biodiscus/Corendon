@@ -20,7 +20,7 @@ public class EmployeeModel {
     private static final EmployeeModel _default = new EmployeeModel();
 
     // The current employee that is logged in
-    public Employee currentEmployee;
+    public static Employee currentEmployee;
 
     private EmployeeModel() {
     }
