@@ -1,39 +1,58 @@
 package nl.itopia.corendon.controller.employee;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import nl.itopia.corendon.data.Airport;
-import nl.itopia.corendon.data.ChooseItem;
-import nl.itopia.corendon.data.Color;
-import nl.itopia.corendon.data.Luggage;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.util.StringConverter;
+import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
+import nl.itopia.corendon.components.PictureView;
+import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Log;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * © 2014, Biodiscus.net Robin
  */
 public class EditLuggageController extends Controller {
-    @FXML private TextField labelInputfield, fileInputfield, brandInputfield, heightInputfield, weightInputfield,
+    @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
             notesInputfield, widthInputfield, depthInputfield;
 
-    @FXML private ChoiceBox foundonAirportdropdown, colorDropdown;
+    @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown;
+    @FXML private ScrollPane imageScrollpane;
+    @FXML private Button cancelButton, editButton, browseButton;
+    @FXML private ComboBox<ChooseItem> brandInput;
 
-    @FXML
-    private Button cancelButton, editButton;
+    // Used for the brandInput, to give more control to the combobox
+    private AutoCompleteComboBoxListener<ChooseItem> comboBoxListener;
+
+    private VBox imageScrollContent;
 
     private LuggageModel luggageModel;
     private AirportModel airportModel;
     private ColorModel colorModel;
+    private ImageModel imageModel;
+    private BrandModel brandModel;
 
     private Luggage currentLuggage;
+
+    // Deleted pictures is used so when the programs edits the suitcases we can loop trough the array and remove the relation
+    private List<Picture> deletedPictures, currentPictures;
+    private List<File> addedPictures;
 
     public EditLuggageController(int luggageID) {
         this(LuggageModel.getDefault().getLuggage(luggageID));
@@ -43,16 +62,16 @@ public class EditLuggageController extends Controller {
         registerFXML("gui/edit_luggage.fxml");
         currentLuggage = luggage;
 
+        deletedPictures = new ArrayList<>();
+        addedPictures = new ArrayList<>();
+
         luggageModel = LuggageModel.getDefault();
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
-
-        brandInputfield.setDisable(true);
-
-        cancelButton.setOnAction(this::cancelHandler);
+        imageModel = ImageModel.getDefault();
+        brandModel = BrandModel.getDefault();
 
         labelInputfield.setText(luggage.label);
-        brandInputfield.setText(luggage.brand.getName());
         notesInputfield.setText(luggage.notes);
 
         String[] dimensions = luggage.getDimensions();
@@ -61,6 +80,48 @@ public class EditLuggageController extends Controller {
         depthInputfield.setText(dimensions[2]);
 
         weightInputfield.setText(luggage.weight);
+
+
+        // Fill the brand input with the brands in the system
+        List<Brand> brands = brandModel.getBrands();
+        ObservableList<ChooseItem> brandData = FXCollections.observableArrayList();
+
+        for(Brand brand : brands) {
+            ChooseItem c = brandModel.brandToChoose(brand);
+            brandData.add(c);
+        }
+        brandInput.setItems(brandData);
+        // Set the current brand to the brand of the luggage
+        brandInput.setValue(brandModel.brandToChoose(luggage.brand));
+
+        // Because we set the combobox editable to true, we need to implement our StringConverter
+        brandInput.setConverter(new StringConverter<ChooseItem>() {
+            @Override
+            public String toString(ChooseItem object) {
+                if(object == null) return null;
+                return object.toString();
+            }
+
+            @Override
+            public ChooseItem fromString(String string) {
+                //TODO: Implement a factory patern for this
+                ChooseItem item = null;
+                for(ChooseItem data : brandData) {
+                    if(data.toString().equals(string)) {
+                        item = data;
+                        break;
+                    }
+                }
+                return item;
+            }
+        });
+        // Give the brand input our combobox listener
+        comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
+
+
+        // Set the imageScrollpane content
+        imageScrollContent = new VBox();
+        imageScrollpane.setContent(imageScrollContent);
 
 
         // Set the Airports in the foundonAirportdropdown
@@ -91,14 +152,73 @@ public class EditLuggageController extends Controller {
         }
         colorDropdown.getSelectionModel().select(currentColorPlace);
 
+        // Get the photos
+        currentPictures = imageModel.getPicturesFromLuggage(luggage.getID());
+        for(Picture pic : currentPictures) {
+            double width = imageScrollpane.getPrefWidth() - 50;
+            PictureView pictureView = new PictureView(pic.getPath(), width, 0, true);
+            pictureView.setOnDelete(this::pictureDeleteHandler);
+            pictureView.setEditable(true);
+            imageScrollContent.getChildren().add(pictureView);
+        }
 
         cancelButton.setOnAction(this::cancelHandler);
         editButton.setOnAction(this::editHandler);
+//        browseButton.setOnAction(this::browseHandler);
+        browseButton.setDisable(true);
+    }
+
+    private void addImageToContent(File file) {
+        double width = imageScrollpane.getPrefWidth() - 50;
+        PictureView pictureView = new PictureView(file.toURI().toString(), width, 0, true);
+        pictureView.setOnDelete(this::pictureDeleteHandler);
+        pictureView.setEditable(true);
+        imageScrollContent.getChildren().add(pictureView);
+    }
+
+
+    private void browseHandler(ActionEvent e) {
+        FileChooser chooser = new FileChooser();
+
+        // Configure the file chooser
+        chooser.setTitle("Select image");
+        chooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("All images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+
+        File file = chooser.showOpenDialog(view.getScene().getWindow());
+
+        // TODO: error when it's not an image
+        if(file != null) {
+            // We set the preserverRatio to true, so we don't have to fill in a height
+            addImageToContent(file);
+            addedPictures.add(file);
+        }
+    }
+
+    private void pictureDeleteHandler(Object object) {
+        PictureView picture = (PictureView) object;
+
+        // Loop trough the pictures
+        for(Picture pic : currentPictures) {
+            String path = pic.getPath();
+            String imagePath = picture.getImagePath();
+            if(path.equals(imagePath)) {
+                deletedPictures.add(pic);
+                currentPictures.remove(pic);
+                break;
+            }
+        }
+
+        imageScrollContent.getChildren().remove(picture);
     }
 
     private void editHandler(ActionEvent e) {
-        ChooseItem airport = (ChooseItem)foundonAirportdropdown.getValue();
-        ChooseItem color = (ChooseItem)colorDropdown.getValue();
+        ChooseItem airport = foundonAirportdropdown.getValue();
+        ChooseItem color = colorDropdown.getValue();
+        ChooseItem brand = brandInput.getValue();
 
         Luggage luggage = new Luggage(currentLuggage.getID());
         luggage.color = ColorModel.getDefault().getColor(color.getKey());
@@ -124,13 +244,20 @@ public class EditLuggageController extends Controller {
         luggage.label = labelInputfield.getText();
         luggage.notes = notesInputfield.getText();
         luggage.weight = weightInputfield.getText();
-        luggage.brand = BrandModel.getDefault().getBrand(1);
+        luggage.brand = new Brand(brand.getKey(), brand.toString());
 
-        long currentTimeStamp = DateModel.getDefault().getCurrentTimeStamp();
+        long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 
         luggage.foundDate = currentTimeStamp;
         luggage.createDate = currentTimeStamp;
         luggage.returnDate = 0;
+
+        // Loop trough the deleted pictures and delete those from the database
+        for(Picture pic : deletedPictures) {
+            imageModel.deleteImage(pic.getID());
+        }
+
+
 
         currentLuggage = luggage;
         luggageModel.editLuggage(luggage);

@@ -28,24 +28,34 @@ public class LoginController extends Controller {
     @FXML private TextField passwordField;
     
     public LoginController(){
+        
+        // Set view
         registerFXML("gui/Inlogscherm.fxml");
 
-        usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
-        passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
+        usernameField.setOnKeyReleased(this::usernameFieldKeyReleased);
+        passwordField.setOnKeyReleased(this::passwordFieldKeyReleased);
+        loginButton.setOnKeyReleased(this::buttonEnterReleased);
+        forgottenPasswordbutton.setOnKeyReleased(this::buttonEnterReleased);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
     }
     
-    private void usernameFieldKeyPressed(KeyEvent event) {
+    private void usernameFieldKeyReleased(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
-            passwordField.requestFocus();
+            loginAction();
         }
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
         }
     }
     
-    private void passwordFieldKeyPressed(KeyEvent event) {
+    private void buttonEnterReleased(KeyEvent event) {
+        if(event.getCode()==KeyCode.ENTER) {
+            loginAction();
+        }
+    }
+    
+    private void passwordFieldKeyReleased(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
@@ -127,7 +137,7 @@ public class LoginController extends Controller {
     private void resetPassword(ActionEvent event)
     {
         // Show login reset screen
-        //changeController(new InfoController());
-        changeController(new AdministratorController());
+        changeController(new InfoController());
+        //changeController(new AdministratorController());
     }
 }

@@ -15,11 +15,9 @@ import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.manager.ChartData;
-import nl.itopia.corendon.model.DateModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
-
+import nl.itopia.corendon.utils.DateUtil;
 import java.time.LocalDate;
 import java.util.*;
 import static nl.itopia.corendon.pdf.ManagerStatisticsPDF.generateManagerReportPDF;
@@ -37,7 +35,6 @@ public class ManagerController extends Controller {
     @FXML private DatePicker datepicker1, datepicker2;
 
     private LuggageModel luggageModel;
-    private DateModel dateModel;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -48,7 +45,6 @@ public class ManagerController extends Controller {
         registerFXML("gui/manager_linediagram.fxml");
 
         luggageModel = LuggageModel.getDefault();
-        dateModel = DateModel.getDefault();
 
         foundLuggagecheckbox.setOnAction(this::filterHandle);
         lostLuggagecheckbox.setOnAction(this::filterHandle);
@@ -133,8 +129,8 @@ public class ManagerController extends Controller {
             long uxt = luggage.createDate;
             ChartData contains = null;
             for(ChartData d : dates) {
-                String date1 = dateModel.getTimestampDate(uxt);
-                String date2 = dateModel.getTimestampDate(d.timestamp);
+                String date1 = DateUtil.getTimestampDate(uxt);
+                String date2 = DateUtil.getTimestampDate(d.timestamp);
                 if(date1.equals(date2)) {
                     contains = d;
                     break;
@@ -155,7 +151,7 @@ public class ManagerController extends Controller {
         });
 
         for(ChartData data : dates) {
-            String date = dateModel.getTimestampDate(data.timestamp);
+            String date = DateUtil.getTimestampDate(data.timestamp);
             XYChart.Data<String, Integer> pointData = new XYChart.Data<>(date, data.count);
             foundSeries.getData().add(pointData);
         }
