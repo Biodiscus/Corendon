@@ -31,7 +31,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showFoundonairport" layoutX="168.0" layoutY="119.0" prefHeight="33.0" prefWidth="388.0">
+            <Label fx:id="showFoundonairport" alignment="TOP_LEFT" layoutX="168.0" layoutY="119.0" prefHeight="33.0" prefWidth="388.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -41,7 +41,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showLabel" layoutX="168.0" layoutY="174.0" prefHeight="33.0" prefWidth="388.0">
+            <Label fx:id="showLabel" alignment="TOP_LEFT" layoutX="168.0" layoutY="174.0" prefHeight="33.0" prefWidth="388.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -51,7 +51,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showColor" layoutX="168.0" layoutY="229.0" prefHeight="33.0" prefWidth="388.0">
+            <Label fx:id="showColor" alignment="TOP_LEFT" layoutX="168.0" layoutY="229.0" prefHeight="33.0" prefWidth="388.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -76,12 +76,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showBrand" layoutX="168.0" layoutY="284.0" prefHeight="33.0" prefWidth="380.0">
+            <Label fx:id="showBrand" alignment="TOP_LEFT" layoutX="168.0" layoutY="284.0" prefHeight="33.0" prefWidth="380.0">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showWeight" layoutX="168.0" layoutY="339.0" prefHeight="33.0" prefWidth="388.0">
+            <Label fx:id="showWeight" alignment="TOP_LEFT" layoutX="168.0" layoutY="339.0" prefHeight="33.0" prefWidth="388.0">
                <font>
                   <Font size="17.0" />
                </font>
@@ -91,7 +91,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showNotes" layoutX="168.0" layoutY="449.0" prefHeight="174.0" prefWidth="380.0" wrapText="true">
+            <Label fx:id="showNotes" alignment="TOP_LEFT" layoutX="168.0" layoutY="449.0" prefHeight="174.0" prefWidth="380.0" wrapText="true">
                <font>
                   <Font size="17.0" />
                </font>
