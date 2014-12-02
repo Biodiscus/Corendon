@@ -13,6 +13,7 @@ public class CustomerModel {
     private static final CustomerModel _default = new CustomerModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private final CountryModel countryModel;
+    private final char COMMA = ',';
 
     private CustomerModel() {
         countryModel = CountryModel.getDefault();
@@ -48,6 +49,20 @@ public class CustomerModel {
         customer.phone = result.getString("phone");
 
         return customer;
+    }
+    
+    public boolean insertCustomer(Customer customer) {
+        String values = customer.firstName + this.COMMA + customer.lastName + this.COMMA + customer.address + this.COMMA + customer.zipcode + this.COMMA + customer.state + this.COMMA + customer.country.getID() + this.COMMA + customer.email + this.COMMA + customer.phone ;
+        String insertQuery = "INSERT INTO customer "
+                                + " VALUES(" + values + ")";
+        try {
+            dbmanager.insertQuery(insertQuery);
+            return true;
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return false;
+        }        
+        
     }
 
     public static CustomerModel getDefault() {
