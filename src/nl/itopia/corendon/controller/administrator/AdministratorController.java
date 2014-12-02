@@ -20,7 +20,6 @@ import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
 
 /**
  *
@@ -36,25 +35,34 @@ public class AdministratorController extends Controller {
     
     public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();;
     @FXML private TableView userTable;
-    
     @FXML private TableColumn <Employee,String>userIDtable;
     @FXML private TableColumn <Employee,String>usernameTable;
     @FXML private TableColumn <Employee,String>firstnameTable;
     @FXML private TableColumn <Employee,String>lastnameTable;
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
-
     @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButon, helpButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
     
+    private int deleteUserId;
+    private TableUser user;
+    private Object items;
+    
     public AdministratorController() {
-        registerFXML("gui/Overview_administrator.fxml");
-
-        employeeModel = EmployeeModel.getDefault();
         
+        // Set view
         registerFXML("gui/overview_administrator.fxml");
+        
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+        iconPane = new StackPane();
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+        
+        employeeModel = EmployeeModel.getDefault();
         
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
@@ -62,14 +70,10 @@ public class AdministratorController extends Controller {
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButon.setOnAction(this::logoutHandler);
 
-        // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
-
-        iconPane = new StackPane();
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
-
+          // As long as we don't have any user selected delete and edit user shouldn't be enabled
+        edituserButton.setDisable(true);
+        deleteuserButton.setDisable(true);
+        
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(()->recieveData());
         dataThread.start();
@@ -81,20 +85,31 @@ public class AdministratorController extends Controller {
         lastnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
-
-        // As long as we don't have any user selected delete and edit user shouldn't be enabled
-        edituserButton.setDisable(true);
-        deleteuserButton.setDisable(true);
-
-
-        /**
-         * Delete user
-         */
-        // TODO: Throw this in it's own function
+        
+        this.tableActions();
+    }
+    
+    /**
+     * Actions for selected row (edit, delete)
+     */
+    public void tableActions()
+    {
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-//            edituserButton.setDisable(false);
+            
+            edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
-        });
+            
+            edituserButton.setOnAction(this::editEmployee);
+            
+            // Get the object for the selected user in the table
+            this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
+            
+            if(this.deleteUserId != 0) {
+                this.deleteUserId = user.getUserID();
+               // Trigger click on button and run delete method
+               deleteuserButton.setOnAction(this::deleteEmployee);               
+            }
+        });        
     }
     
     public void allUsers(ActionEvent event) {
@@ -102,7 +117,9 @@ public class AdministratorController extends Controller {
     }
     
     public void createNewEmployee(ActionEvent event) {
+        
         CreateUserController createUser = new CreateUserController();
+        
         createUser.setControllerDeleteHandler((obj)->{
             // The createUserController will return a Employee
             Employee employee = (Employee) obj;
@@ -123,12 +140,15 @@ public class AdministratorController extends Controller {
         changeController(new LoginController());
     }
 
-
+    /**
+     * 
+     * @param event 
+     */
     public void editEmployee(ActionEvent event) {
+        
         TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
-        addController(new EditUserController(user.getUserID()));
+        addController( new EditUserController(user.getUserID()) );
     }
-
     
     /**
      * Handle delete action through database
@@ -136,12 +156,19 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void deleteEmployee(ActionEvent event) {
+        
         TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
         employeeModel.deleteEmployee(user.getUserID());
         tableData.remove(user);
+        
+        EmployeeModel employeemodel = EmployeeModel.getDefault();
+        employeemodel.deleteEmployee(this.deleteUserId);
+        //data.remove(this.user);
+        //initializeTable();
     }
 
     private void recieveData() {
+        
         for(Employee employee : employeeList) {
 
             if( !employee.account_status.equals("deleted") ) {
@@ -161,8 +188,7 @@ public class AdministratorController extends Controller {
     }
     
      private void helpHandler(ActionEvent e) {
-     addController(new HelpFunctionControllerAdmin());
-
+		addController(new HelpFunctionControllerAdmin());
         //opens help function
     }
 }
