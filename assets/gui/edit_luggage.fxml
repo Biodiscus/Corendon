@@ -90,14 +90,6 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <ImageView fx:id="logo" fitHeight="59.0" fitWidth="280.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Corendon-logo-groot3.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
             <ScrollPane fx:id="imageScrollpane" layoutX="670.0" layoutY="83.0" prefHeight="493.0" prefWidth="427.0">
                <content>
                   <AnchorPane fx:id="imageAnchorpane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="500.0" prefWidth="422.0" />

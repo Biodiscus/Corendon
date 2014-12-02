@@ -102,9 +102,18 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <RadioButton fx:id="foundluggageRadiobutton" layoutX="670.0" layoutY="378.0" mnemonicParsing="false" text="Found luggage" />
-            <RadioButton fx:id="lostluggageRadiobutton" layoutX="670.0" layoutY="410.0" mnemonicParsing="false" text="Lost luggage" />
-            <RadioButton fx:id="resolvedluggageRadiobutton" layoutX="670.0" layoutY="442.0" mnemonicParsing="false" text="Resolved luggage" />
+            <RadioButton fx:id="foundluggageRadiobutton" layoutX="618.0" layoutY="245.0" mnemonicParsing="false" text="Found luggage">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="lostluggageRadiobutton" layoutX="618.0" layoutY="277.0" mnemonicParsing="false" text="Lost luggage">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
+            <RadioButton fx:id="resolvedluggageRadiobutton" layoutX="618.0" layoutY="309.0" mnemonicParsing="false" text="Resolved luggage">
+               <font>
+                  <Font size="17.0" />
+               </font></RadioButton>
          </children>
       </AnchorPane>
    </children>

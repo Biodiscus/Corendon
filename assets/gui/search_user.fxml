@@ -26,6 +26,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
+            <TextField fx:id="useridInputfield" layoutX="185.0" layoutY="130.0" prefHeight="33.0" prefWidth="388.0" promptText="User ID" />
             <Label layoutX="41.0" layoutY="180.0" prefHeight="33.0" prefWidth="117.0" text="Username:">
                <font>
                   <Font size="17.0" />
@@ -37,6 +38,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
+            <TextField fx:id="firstnameInputfield" layoutX="185.0" layoutY="230.0" prefHeight="33.0" prefWidth="388.0" promptText="First name" />
             <Label layoutX="41.0" layoutY="280.0" prefHeight="33.0" prefWidth="117.0" text="Last name:">
                <font>
                   <Font size="17.0" />
@@ -48,11 +50,13 @@
                   <Font size="17.0" />
                </font>
             </Label>
+            <ChoiceBox fx:id="roleDropdown" layoutX="185.0" layoutY="330.0" prefHeight="33.0" prefWidth="388.0" />
             <Label layoutX="41.0" layoutY="380.0" prefHeight="33.0" prefWidth="143.0" text="Works on Airport:">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
+            <ChoiceBox fx:id="worksonairportDropdown" layoutX="185.0" layoutY="380.0" prefHeight="33.0" prefWidth="388.0" />
             <Button fx:id="searchButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Search" textFill="WHITE" />
             <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
             <Label alignment="CENTER" prefHeight="59.0" prefWidth="1126.0" style="-fx-background-color: #9C0C0C;" text="Search user" textFill="WHITE">
@@ -60,18 +64,6 @@
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <ImageView fx:id="logo1" fitHeight="59.0" fitWidth="280.0" layoutX="20.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/Corendon-logo-groot3.png" />
-               </image>
-               <viewport>
-                  <Rectangle2D />
-               </viewport>
-            </ImageView>
-            <TextField fx:id="useridInputfield" layoutX="185.0" layoutY="130.0" prefHeight="33.0" prefWidth="388.0" promptText="User ID" />
-            <TextField fx:id="firstnameInputfield" layoutX="185.0" layoutY="230.0" prefHeight="33.0" prefWidth="388.0" promptText="First name" />
-            <ChoiceBox fx:id="roleDropdown" layoutX="185.0" layoutY="330.0" prefHeight="33.0" prefWidth="388.0" />
-            <ChoiceBox fx:id="worksonairportDropdown" layoutX="185.0" layoutY="380.0" prefHeight="33.0" prefWidth="388.0" />
          </children>
       </AnchorPane>
    </children>
