@@ -21,6 +21,8 @@ import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import java.time.LocalDate;
 import java.util.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import static nl.itopia.corendon.pdf.ManagerStatisticsPDF.generateManagerReportPDF;
 
@@ -54,6 +56,7 @@ public class ManagerController extends Controller {
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
+        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
@@ -183,6 +186,16 @@ public class ManagerController extends Controller {
         //opens help function
     }
 
+    
+    private void f1HelpFunction(KeyEvent e) {
+    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+        addController(new HelpFunctionControllerManager());
+        //opens helpfunction with the f1 key
+    }
+}
+    
+    
+    
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }

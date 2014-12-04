@@ -13,6 +13,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
@@ -70,6 +72,7 @@ public class AdministratorController extends Controller {
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
+        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
           // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
@@ -188,6 +191,14 @@ public class AdministratorController extends Controller {
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
+    
+    
+      private void f1HelpFunction(KeyEvent e) {
+    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+        addController(new HelpFunctionControllerAdmin());
+        //opens helpfunction with the f1 key
+    }
+}
     
      private void helpHandler(ActionEvent e) {
 		addController(new HelpFunctionControllerAdmin());

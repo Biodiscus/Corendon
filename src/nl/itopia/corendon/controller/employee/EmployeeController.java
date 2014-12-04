@@ -18,6 +18,8 @@ import nl.itopia.corendon.mvc.Controller;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
 import nl.itopia.corendon.utils.Log;
 
@@ -62,7 +64,7 @@ public class EmployeeController extends Controller {
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
 
-        //C reate buttons
+        //Create buttons
         addLuggagebutton.setOnAction(this::addHandler);
         editLuggagebutton.setOnAction(this::editHandler);
         deleteLuggagebutton.setOnAction(this::deleteHandler);
@@ -70,6 +72,7 @@ public class EmployeeController extends Controller {
         detailsLuggagebutton.setOnAction(this::detailsHandler);
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
+        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
         // Set the luggage specific buttons disabled
         editLuggagebutton.setDisable(true);
@@ -211,6 +214,13 @@ public class EmployeeController extends Controller {
         luggageModel.deleteLuggage(luggage.getId());
         tableData.remove(luggage);
     }
+    
+    private void f1HelpFunction(KeyEvent e) {
+    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+        addController(new HelpFunctionControllerEmployee());
+        //opens helpfunction with the f1 key
+    }
+}
     
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionControllerEmployee());
