@@ -233,6 +233,28 @@ public class EmployeeModel {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
     }
+    
+    public void editEmployee(Employee employee)    
+    {
+        System.out.println("editEmployee - MODEL");
+        String editQuery = "UPDATE employee SET "
+                //+ "username = '"+ employee.username +"', "
+                + "password = '"+ employee.password +"', "
+                + "salt = '"+ employee.password +"', "
+                + "first_name = '"+ employee.firstName +"', "
+                + "last_name = '"+ employee.lastName +"', "
+                //+ "role_id = '"+ employee. +"', "
+                + "contact_details = '"+ employee.contactDetails +"', "
+                + "notes = '"+ employee.notes +"', "
+                + "airports_id = 1"
+                + "WHERE id = "+ employee.id;
+        
+       try{
+           dbmanager.updateQuery(editQuery);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
 
     /**
      * Hard delete user from database

@@ -117,6 +117,7 @@ public class LoginController extends Controller {
     }
 
     private void redirectEmployee(Employee employee) {
+        
         /* User is logged in, redirect user to the right controller by role name */
 
         switch (employee.role.getName()) {

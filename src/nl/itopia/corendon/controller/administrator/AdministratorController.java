@@ -147,7 +147,8 @@ public class AdministratorController extends Controller {
     public void editEmployee(ActionEvent event) {
         
         TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
-        addController( new EditUserController(user.getUserID()) );
+        //addController( new EditUserController(user.getUserID()) );
+        addController( new EditUserController( user.getUserID() ) );
     }
     
     /**

@@ -216,6 +216,7 @@ public class EditLuggageController extends Controller {
     }
 
     private void editHandler(ActionEvent e) {
+        
         ChooseItem airport = foundonAirportdropdown.getValue();
         ChooseItem color = colorDropdown.getValue();
         ChooseItem brand = brandInput.getValue();
@@ -226,7 +227,7 @@ public class EditLuggageController extends Controller {
 
         // This won't work if no user is logged in!
         luggage.employee = EmployeeModel.getDefault().currentEmployee;
-//        luggage.employee = EmployeeModel.getDefault().getEmployee(0);
+        //luggage.employee = EmployeeModel.getDefault().getEmployee(0);
 
         luggage.customer = CustomerModel.getDefault().getCustomer(2);
         luggage.airport = airportModel.getAirport(airport.getKey());

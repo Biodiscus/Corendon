@@ -18,15 +18,19 @@ public class EditUserController extends Controller {
     @FXML private TextField usernameInputfield, firstnameInputfield, lastnameInputfield, passwordInputfield, repeatpasswordInputfield,
             contactdetailsInputfield, notesInputfield;
     @FXML private ChoiceBox<ChooseItem> roleDropdownmenu, airportDropdownmenu;
-    @FXML private Button addButton, cancelButton;
+    @FXML private Button editButton, cancelButton;
 
+    public Employee employee, newEmployee;
+    public int userId;
+    
     public EditUserController(int userId) {
         
+        this.userId = userId;
         // Set view
         registerFXML("gui/edit_user.fxml");
         
         EmployeeModel employeemodel = EmployeeModel.getDefault();
-        Employee employee = employeemodel.getEmployee(userId);
+        this.employee = employeemodel.getEmployee(userId);
         
         // Set field data from object being edited
         usernameInputfield.setText(employee.username);
@@ -35,16 +39,33 @@ public class EditUserController extends Controller {
         contactdetailsInputfield.setText(employee.contactDetails);
         notesInputfield.setText(employee.notes);
         
+        editButton.setOnAction(this::editHandler);
+        cancelButton.setOnAction(this::cancelHandler);
+    }
+
+    private void cancelHandler(ActionEvent event) {
+        removeController(this);
+    }
+    
+    private void editHandler(ActionEvent event)
+    {
         String userName = usernameInputfield.getText();
         String firstName = firstnameInputfield.getText();
         String lastName = lastnameInputfield.getText();
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
+        String contactDetails = contactdetailsInputfield.getText();
+        String notes = notesInputfield.getText();
         
-        cancelButton.setOnAction(this::cancelHandler);
-    }
-
-    private void cancelHandler(ActionEvent event) {
+        this.newEmployee = new Employee(this.userId);
+        this.newEmployee.username = userName;
+        this.newEmployee.firstName = firstName;
+        this.newEmployee.lastName = lastName;
+        this.newEmployee.contactDetails = contactDetails;
+        this.newEmployee.notes = notes;
+        
+        EmployeeModel employeemodel = EmployeeModel.getDefault();
+        employeemodel.editEmployee(this.newEmployee);
         removeController(this);
     }
 }
