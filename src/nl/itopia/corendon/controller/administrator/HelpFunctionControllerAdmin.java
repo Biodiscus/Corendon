@@ -27,7 +27,7 @@ public class HelpFunctionControllerAdmin extends Controller {
    
     
     public HelpFunctionControllerAdmin() {
-        registerFXML("gui/Help_function.fxml");
+        registerFXML("gui/help_function.fxml");
         
        exitButton.setOnAction(this::cancelHandler);
     }

@@ -75,7 +75,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Button fx:id="logoutButon" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
             <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Logfiles" textFill="WHITE" />
             <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Overview" textFill="WHITE" />
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Bar diagram" textFill="WHITE" />

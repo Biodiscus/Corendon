@@ -45,7 +45,7 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="logoutButon" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
             <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
                <font>
                   <Font size="18.0" />

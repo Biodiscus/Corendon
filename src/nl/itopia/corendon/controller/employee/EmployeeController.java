@@ -40,7 +40,7 @@ public class EmployeeController extends Controller {
     @FXML private TableColumn <Luggage,String>Notes;
 
     @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
-                        logoutButon, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
+                        logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -69,7 +69,7 @@ public class EmployeeController extends Controller {
         searchLuggagebutton.setOnAction(this::searchHandler);
         detailsLuggagebutton.setOnAction(this::detailsHandler);
         helpButton.setOnAction(this::helpHandler);
-        logoutButon.setOnAction(this::logoutHandler);
+        logoutButton.setOnAction(this::logoutHandler);
 
         // Set the luggage specific buttons disabled
         editLuggagebutton.setDisable(true);

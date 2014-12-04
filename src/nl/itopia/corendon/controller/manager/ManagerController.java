@@ -31,7 +31,7 @@ public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
 
     @FXML private Button filterButton, helpButton;
-    @FXML private Button logoutButon;
+    @FXML private Button logoutButton;
     @FXML private Button printstatisticsButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
@@ -51,7 +51,7 @@ public class ManagerController extends Controller {
         foundLuggagecheckbox.setOnAction(this::filterHandle);
         lostLuggagecheckbox.setOnAction(this::filterHandle);
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
-        logoutButon.setOnAction(this::logoutHandler);
+        logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
 

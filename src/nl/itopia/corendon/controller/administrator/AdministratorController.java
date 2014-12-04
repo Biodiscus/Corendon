@@ -41,7 +41,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn <Employee,String>lastnameTable;
     @FXML private TableColumn <Employee,String>roleTable;
     @FXML private TableColumn <Employee,String>airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButon, helpButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -68,7 +68,8 @@ public class AdministratorController extends Controller {
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
         deleteuserButton.setOnAction(this::deleteEmployee);
-        logoutButon.setOnAction(this::logoutHandler);
+        logoutButton.setOnAction(this::logoutHandler);
+        helpButton.setOnAction(this::helpHandler);
 
           // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);

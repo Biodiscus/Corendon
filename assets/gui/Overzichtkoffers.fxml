@@ -53,7 +53,7 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button fx:id="logoutButon" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
             <AnchorPane layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="789.0">
                <children>
                   <TableView fx:id="luggageInfo" prefHeight="466.0" prefWidth="791.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
