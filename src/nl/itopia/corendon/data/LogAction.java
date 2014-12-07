@@ -11,7 +11,7 @@ package nl.itopia.corendon.data;
  */
 public class LogAction {
     private int id;
-    public int date;
+    public long date;
     public Action action;
     public Employee employee;
     public Luggage luggage;
@@ -22,5 +22,8 @@ public class LogAction {
     
     public int getID() {
         return id;
+    }
+    public void setID(int id) {
+        this.id = id;
     }
 }

@@ -41,7 +41,7 @@ public class ImageModel {
      */
     public String uploadImage(File file) throws IOException {
         // Make a FTP connnection
-
+        // TODO: Config this
         String server = "biodiscus.net";
         String user = "corendon%40biodiscus.net";
         String password = "PSckX6R4fl";

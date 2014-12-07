@@ -22,6 +22,7 @@ public class EmployeeModel {
     // The current employee that is logged in
     public static Employee currentEmployee;
 
+
     private EmployeeModel() {
     }
 

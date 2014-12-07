@@ -46,6 +46,21 @@ public class ActionModel {
         return action;
     }
 
+    public Action getAction(String name) {
+        Action action = null;
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM action WHERE name = '" + name + "'");
+            if (result.next()) {
+                int id = result.getInt("id");
+                action = new Action(id, name);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return action;
+    }
+
     public List<Action> getActions() {
         List<Action> actions = new ArrayList<>();
         try {

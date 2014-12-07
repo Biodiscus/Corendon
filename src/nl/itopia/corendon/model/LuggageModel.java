@@ -4,7 +4,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.data.Luggage;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Log;
 
 /**
@@ -14,12 +18,15 @@ public class LuggageModel {
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final LuggageModel _default = new LuggageModel();
 
-    private EmployeeModel employeeModel;
-    private ColorModel colorModel;
-    private BrandModel brandModel;
-    private CustomerModel customerModel;
-    private AirportModel airportModel;
-    private StatusModel statusModel;
+    private final EmployeeModel employeeModel;
+    private final ColorModel colorModel;
+    private final BrandModel brandModel;
+    private final CustomerModel customerModel;
+    private final AirportModel airportModel;
+    private final StatusModel statusModel;
+    private final ActionModel actionModel;
+    private final LogModel logModel;
+
 
     private LuggageModel() {
         employeeModel = EmployeeModel.getDefault();
@@ -28,6 +35,8 @@ public class LuggageModel {
         customerModel = CustomerModel.getDefault();
         airportModel = AirportModel.getDefault();
         statusModel = StatusModel.getDefault();
+        actionModel = ActionModel.getDefault();
+        logModel = LogModel.getDefault();
     }
 
     // Returns the ID of the inserted luggage
@@ -52,6 +61,15 @@ public class LuggageModel {
 
         try {
             dbmanager.insertQuery(finalQuery);
+
+            // Add a new action of a usr adding the luggage
+            LogAction log = new LogAction(-1);
+            log.date = DateUtil.getCurrentTimeStamp();
+            log.action = actionModel.getAction("Added luggage");
+            log.employee = luggage.employee;
+            log.luggage = luggage;
+            logModel.insertAction(log);
+
 
             // After inserting the item, get the last added luggage
             // This way we can set the correct ID to the new luggage

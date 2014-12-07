@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author Jeroentje
+ * @author Jeroentje, Robin de Jong
  */
 public class LogModel {
     private static final LogModel _default = new LogModel();
@@ -42,7 +42,7 @@ public class LogModel {
 
         return logaction;
     }
-    
+
     public List<LogAction> getLogFiles() {
         List<LogAction> logFiles = new ArrayList<>();
         try {
@@ -61,10 +61,39 @@ public class LogModel {
         return logFiles;
     }
 
+    public int insertAction(LogAction log) {
+        long date = log.date;
+        int action_id = log.action.getID();
+        int employee_id = log.employee.getID();
+        int luggage_id = log.luggage.getID();
+
+        String query = "INSERT INTO log " +
+                "(date, action_id, employee_id, luggage_id) " +
+                "VALUES" +
+                "('%d', '%d', '%d', '%d')";
+
+        String finalQuery = String.format(
+                query, date, action_id, employee_id, luggage_id
+        );
+
+        try {
+            dbmanager.insertQuery(finalQuery);
+
+            // After inserting the item, get the last added luggage
+            // This way we can set the correct ID to the new luggage
+            ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
+            if(result.next()) {
+                return result.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return -1;
+    }
+
     public static LogModel getDefault() {
         return _default;
     }
-    
-
-
 }
