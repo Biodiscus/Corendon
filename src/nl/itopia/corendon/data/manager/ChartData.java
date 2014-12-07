@@ -11,4 +11,9 @@ public class ChartData {
         this.timestamp = timestamp;
         this.count = count;
     }
+
+    @Override
+    public String toString() {
+        return "ChartData("+timestamp+", "+count+")";
+    }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.itopia.corendon.utils;
+package nl.itopia.corendon.components;
 
 import java.util.List;
 import javafx.fxml.FXML;

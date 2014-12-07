@@ -8,7 +8,7 @@
 
 Button {
     -fx-background-color: #53AF36;
-    -fx-color: white;
+    -fx-text-fill: white;
 }
 
 Button:hover {
