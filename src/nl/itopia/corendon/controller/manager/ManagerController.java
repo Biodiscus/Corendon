@@ -17,11 +17,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
-import nl.itopia.corendon.data.Brand;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.Status;
 import nl.itopia.corendon.data.manager.ChartData;
-import nl.itopia.corendon.model.BrandModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.model.StatusModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -46,7 +44,7 @@ public class ManagerController extends Controller {
     private BarChart barDiagram;
 
     @FXML
-    private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton;
+    private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
     @FXML
     private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML
@@ -71,6 +69,7 @@ public class ManagerController extends Controller {
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
+        logfilesbutton.setOnAction(this::logHandler);        
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
@@ -109,7 +108,12 @@ public class ManagerController extends Controller {
         Thread dataThread = new Thread(() -> receiveData());
         dataThread.start();
     }
-
+    
+    // Fired when the log button is clicked
+    private void logHandler(ActionEvent e) {
+        addController(new LogController());
+    }
+    
     // Fired when lineDiagrambutton is clicked
     private void lineDiagramHandler(ActionEvent e) {
         lineDiagrambutton.setDisable(true);
