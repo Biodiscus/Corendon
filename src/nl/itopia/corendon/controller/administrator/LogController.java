@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLog;
+import nl.itopia.corendon.utils.DateUtil;
 
 /**
  * @author Jeroentje
@@ -74,9 +75,9 @@ public class LogController extends Controller {
         view.fxmlPane.getChildren().add(iconPane);
 
         // Create columns and set their datatype for building the Luggage Table
-        ID.setCellValueFactory(new PropertyValueFactory<>("id"));
-        user.setCellValueFactory(new PropertyValueFactory<>("User"));
-        userID.setCellValueFactory(new PropertyValueFactory<>("UserId"));
+        ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
+        user.setCellValueFactory(new PropertyValueFactory<>("user"));
+        userID.setCellValueFactory(new PropertyValueFactory<>("userID"));
         action.setCellValueFactory(new PropertyValueFactory<>("Action"));
         date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         
@@ -95,12 +96,13 @@ public class LogController extends Controller {
         tableData = FXCollections.observableArrayList();
 
         for(LogAction logEntry : logFileList) {
+            String formattedDate = DateUtil.formatDate("dd-MM-yyyy HH:mm:ss", logEntry.date);
             TableLog logTable = new TableLog(
                     logEntry.getID(),
                     logEntry.employee.username,
                     logEntry.employee.id,
                     logEntry.action.getName(),
-                    logEntry.date
+                    formattedDate
             );
 
             tableData.add(logTable);

@@ -1,7 +1,6 @@
 
 package nl.itopia.corendon.data.table;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -13,14 +12,15 @@ public class TableLog {
     private SimpleStringProperty user;
     private SimpleIntegerProperty userID;
     private SimpleStringProperty action;
-    private SimpleLongProperty date;
+    private SimpleStringProperty date;
     
-    public TableLog(int ID, String user, int userID, String action, long date) {
+    
+    public TableLog(int ID, String user, int userID, String action, String date) {
         this.ID = new SimpleIntegerProperty(ID);
         this.user = new SimpleStringProperty(user);
         this.userID = new SimpleIntegerProperty(userID);
         this.action = new SimpleStringProperty(action);
-        this.date = new SimpleLongProperty(date);
+        this.date = new SimpleStringProperty(date);
     }
 
     /**
@@ -82,14 +82,14 @@ public class TableLog {
     /**
      * @return the date
      */
-    public long getDate() {
+    public String getDate() {
         return date.get();
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(long date) {
+    public void setDate(String date) {
         this.date.set(date);
     }
 }
