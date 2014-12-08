@@ -45,28 +45,29 @@
                   </TableView>
                </children>
             </AnchorPane>
-            <Button fx:id="logoutButton" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
-            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+            <Button fx:id="logoutButton" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" style="-fx-background-color: #53AF36;" text="Logout" textFill="WHITE" />
+            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" style="-fx-background-color: #53AF36;" text="?" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Button>
-            <ComboBox fx:id="dropdownMenu" layoutX="1069.0" layoutY="61.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Text layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+            <Text fill="WHITE" layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
                <font>
                   <Font size="18.0" />
                </font>
             </Text>
-            <Text layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+            <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                <font>
                   <Font size="19.0" />
                </font>
             </Text>
-            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
+            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0" style="-fx-background-color: #9C0C0;" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
+            <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Logfiles" textFill="WHITE" />
+            <Button fx:id="overviewbutton" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Overview" textFill="WHITE" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
