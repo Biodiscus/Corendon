@@ -69,7 +69,7 @@ public class ManagerController extends Controller {
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
-        logfilesbutton.setOnAction(this::logHandler);        
+
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
@@ -108,11 +108,7 @@ public class ManagerController extends Controller {
         Thread dataThread = new Thread(() -> receiveData());
         dataThread.start();
     }
-    
-    // Fired when the log button is clicked
-    private void logHandler(ActionEvent e) {
-        addController(new LogController());
-    }
+
     
     // Fired when lineDiagrambutton is clicked
     private void lineDiagramHandler(ActionEvent e) {

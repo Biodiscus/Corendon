@@ -24,62 +24,73 @@ import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 
 /**
- *
  * @author Erik
  */
 public class AdministratorController extends Controller {
-    
+
     //private AdministratorView view;
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
-    
-    public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();;
-    
-    public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();;
-    @FXML private TableView userTable;
-    @FXML private TableColumn <Employee,String>userIDtable;
-    @FXML private TableColumn <Employee,String>usernameTable;
-    @FXML private TableColumn <Employee,String>firstnameTable;
-    @FXML private TableColumn <Employee,String>lastnameTable;
-    @FXML private TableColumn <Employee,String>roleTable;
-    @FXML private TableColumn <Employee,String>airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton;
+
+    public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();
+    ;
+
+    public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();
+    ;
+    @FXML
+    private TableView userTable;
+    @FXML
+    private TableColumn<Employee, String> userIDtable;
+    @FXML
+    private TableColumn<Employee, String> usernameTable;
+    @FXML
+    private TableColumn<Employee, String> firstnameTable;
+    @FXML
+    private TableColumn<Employee, String> lastnameTable;
+    @FXML
+    private TableColumn<Employee, String> roleTable;
+    @FXML
+    private TableColumn<Employee, String> airportTable;
+    @FXML
+    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
-    
+
     private int deleteUserId;
     private TableUser user;
     private Object items;
-    
+
     public AdministratorController() {
-        
+
         // Set view
-        registerFXML("gui/overview_administrator.fxml");
-        
+        registerFXML("gui/Overview_administrator.fxml");
+
         // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         spinningIcon = new ImageView(image);
         iconPane = new StackPane();
         iconPane.getChildren().add(spinningIcon);
+        iconPane.setPickOnBounds(false);
         view.fxmlPane.getChildren().add(iconPane);
-        
+
         employeeModel = EmployeeModel.getDefault();
-        
+
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
+        logfilesbutton.setOnAction(this::logHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
-          // As long as we don't have any user selected delete and edit user shouldn't be enabled
+        // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
         deleteuserButton.setDisable(true);
-        
-        // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(()->recieveData());
+
+        // Make a new thread that will receive the tableData from the database
+        Thread dataThread = new Thread(() -> receiveData());
         dataThread.start();
 
         // Table headings
@@ -89,42 +100,47 @@ public class AdministratorController extends Controller {
         lastnameTable.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
-        
+
+
         this.tableActions();
     }
-    
+
+    // Fired when the log button is clicked
+    private void logHandler(ActionEvent e) {
+        changeController(new LogController());
+    }
+
     /**
      * Actions for selected row (edit, delete)
      */
-    public void tableActions()
-    {
+    public void tableActions() {
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
-            
+
             edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
-            
+
             edituserButton.setOnAction(this::editEmployee);
-            
+
             // Get the object for the selected user in the table
             this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-            
-            if(this.deleteUserId != 0) {
+
+            if (this.deleteUserId != 0) {
                 this.deleteUserId = user.getUserID();
-               // Trigger click on button and run delete method
-               deleteuserButton.setOnAction(this::deleteEmployee);               
+                // Trigger click on button and run delete method
+                deleteuserButton.setOnAction(this::deleteEmployee);
             }
-        });        
+        });
     }
-    
+
     public void allUsers(ActionEvent event) {
         changeController(new AdministratorController());
     }
-    
+
     public void createNewEmployee(ActionEvent event) {
-        
+
         CreateUserController createUser = new CreateUserController();
-        
-        createUser.setControllerDeleteHandler((obj)->{
+
+        createUser.setControllerDeleteHandler((obj) -> {
             // The createUserController will return a Employee
             Employee employee = (Employee) obj;
             TableUser user = new TableUser(
@@ -145,38 +161,37 @@ public class AdministratorController extends Controller {
     }
 
     /**
-     * 
-     * @param event 
+     * @param event
      */
     public void editEmployee(ActionEvent event) {
-        
-        TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
+
+        TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         //addController( new EditUserController(user.getUserID()) );
-        addController( new EditUserController( user.getUserID() ) );
+        addController(new EditUserController(user.getUserID()));
     }
-    
+
     /**
      * Handle delete action through database
-     * 
+     *
      * @param event
      */
     public void deleteEmployee(ActionEvent event) {
-        
-        TableUser user = (TableUser)userTable.getSelectionModel().getSelectedItem();
+
+        TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         employeeModel.deleteEmployee(user.getUserID());
         tableData.remove(user);
-        
+
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         employeemodel.deleteEmployee(this.deleteUserId);
         //data.remove(this.user);
         //initializeTable();
     }
 
-    private void recieveData() {
-        
-        for(Employee employee : employeeList) {
+    private void receiveData() {
 
-            if( !employee.account_status.equals("deleted") ) {
+        for (Employee employee : employeeList) {
+
+            if (!employee.account_status.equals("deleted")) {
 
                 String role = employee.role.getName();
                 String airport = employee.airport.getName();
@@ -191,17 +206,17 @@ public class AdministratorController extends Controller {
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
-    
-    
-      private void f1HelpFunction(KeyEvent e) {
-    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-        addController(new HelpFunctionControllerAdmin());
-        //opens helpfunction with the f1 key
+
+
+    private void f1HelpFunction(KeyEvent e) {
+        if (e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            addController(new HelpFunctionControllerAdmin());
+            //opens helpfunction with the f1 key
+        }
     }
-}
-    
-     private void helpHandler(ActionEvent e) {
-		addController(new HelpFunctionControllerAdmin());
+
+    private void helpHandler(ActionEvent e) {
+        addController(new HelpFunctionControllerAdmin());
         //opens help function
     }
 }

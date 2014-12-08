@@ -204,8 +204,7 @@ public class AddLuggageController extends Controller {
         luggage.createDate = currentTimeStamp;
         luggage.returnDate = 0;
 
-        int luggageID = luggageModel.addLuggage(luggage);
-        luggage.setID(luggageID);
+        luggageModel.addLuggage(luggage);
         currentLuggage = luggage;
         removeController(this);
 
@@ -213,7 +212,7 @@ public class AddLuggageController extends Controller {
         for(File img : imagesToUpload) {
             try {
                 String path = imageModel.uploadImage(img);
-                imageModel.insertImage(path, luggageID);
+                imageModel.insertImage(path, luggage.getID());
             } catch (IOException ioE) {
                 ioE.printStackTrace();
             }

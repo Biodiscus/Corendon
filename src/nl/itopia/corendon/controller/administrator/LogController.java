@@ -1,4 +1,4 @@
-package nl.itopia.corendon.controller.manager;
+package nl.itopia.corendon.controller.administrator;
 
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -11,6 +11,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
+import nl.itopia.corendon.controller.employee.HelpFunctionControllerEmployee;
+import nl.itopia.corendon.controller.manager.HelpFunctionControllerManager;
 import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.model.LogModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -27,10 +29,7 @@ import nl.itopia.corendon.data.table.TableLog;
  * @author Jeroentje
  */
 public class LogController extends Controller {
-
-    @FXML private Button filterButton, helpButton;
-    @FXML private Button logoutButton;
-    @FXML private Button printstatisticsButton;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, overviewbutton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private TableView logInfo;
@@ -52,14 +51,16 @@ public class LogController extends Controller {
     
 
     public LogController() {
-        registerFXML("gui/Manager_logs.fxml");
+        registerFXML("gui/administrator_logs.fxml");
 
          logModel = logModel.getDefault();
 
-//        logoutButton.setOnAction(this::logoutHandler);
-//        helpButton.setOnAction(this::helpHandler);
+        logoutButton.setOnAction(this::logoutHandler);
+        helpButton.setOnAction(this::helpHandler);
+        overviewbutton.setOnAction(this::overviewHandler);
+        // TODO: Implement print
 //        printstatisticsButton.setOnAction(this::printStatisticsHandler);
-//        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
 //        datepicker1.setValue(LocalDate.now());
 
@@ -68,6 +69,7 @@ public class LogController extends Controller {
         spinningIcon = new ImageView(image);
 
         iconPane = new StackPane();
+        iconPane.setPickOnBounds(false);
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
 
@@ -83,6 +85,9 @@ public class LogController extends Controller {
         dataThread.start();
     }
 
+    private void overviewHandler(ActionEvent e) {
+        changeController(new AdministratorController());
+    }
 
     // We will call this function in a new thread, so the user can still click buttons
     private void recieveData() {

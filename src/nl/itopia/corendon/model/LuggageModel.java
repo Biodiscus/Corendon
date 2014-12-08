@@ -39,8 +39,8 @@ public class LuggageModel {
         logModel = LogModel.getDefault();
     }
 
-    // Returns the ID of the inserted luggage
-    public int addLuggage(Luggage luggage) {
+    // Sets the current luggage id, to the inserted ID
+    public void addLuggage(Luggage luggage) {
         int color_id = luggage.color.getID();
         int status_id = luggage.status.getID();
         int employee_id = luggage.employee.getID();
@@ -62,27 +62,27 @@ public class LuggageModel {
         try {
             dbmanager.insertQuery(finalQuery);
 
-            // Add a new action of a usr adding the luggage
-            LogAction log = new LogAction(-1);
-            log.date = DateUtil.getCurrentTimeStamp();
-            log.action = actionModel.getAction("Added luggage");
-            log.employee = luggage.employee;
-            log.luggage = luggage;
-            logModel.insertAction(log);
-
 
             // After inserting the item, get the last added luggage
             // This way we can set the correct ID to the new luggage
             ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
             if(result.next()) {
-                return result.getInt(1);
+                luggage.setID(result.getInt(1));
+
+                // Add a new action of an user adding the luggage
+                LogAction log = new LogAction(-1);
+                log.date = DateUtil.getCurrentTimeStamp();
+                log.action = actionModel.getAction("Added luggage");
+                log.employee = luggage.employee;
+                log.luggage = luggage;
+                logModel.insertAction(log);
+            } else {
+                // ERROR!
             }
 
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
-
-        return -1;
     }
 
     public void editLuggage(Luggage luggage) {
@@ -105,6 +105,14 @@ public class LuggageModel {
 
         try {
             dbmanager.updateQuery(finalQuery);
+
+            // Add a new action of an user editing the luggage
+            LogAction log = new LogAction(-1);
+            log.date = DateUtil.getCurrentTimeStamp();
+            log.action = actionModel.getAction("Edited luggage");
+            log.employee = luggage.employee;
+            log.luggage = luggage;
+            logModel.insertAction(log);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
@@ -163,6 +171,15 @@ public class LuggageModel {
         String deleteQuery = "UPDATE luggage SET deleted = '1' WHERE id = '" + id + "'";
         try {
             dbmanager.updateQuery(deleteQuery);
+            Luggage luggage = getLuggage(id);
+
+            // Add a new action of an user editing the luggage
+            LogAction log = new LogAction(-1);
+            log.date = DateUtil.getCurrentTimeStamp();
+            log.action = actionModel.getAction("Deleted luggage");
+            log.employee = luggage.employee;
+            log.luggage = luggage;
+            logModel.insertAction(log);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }

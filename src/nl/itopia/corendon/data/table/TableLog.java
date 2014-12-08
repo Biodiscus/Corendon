@@ -1,6 +1,7 @@
 
 package nl.itopia.corendon.data.table;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -12,14 +13,14 @@ public class TableLog {
     private SimpleStringProperty user;
     private SimpleIntegerProperty userID;
     private SimpleStringProperty action;
-    private SimpleIntegerProperty date;
+    private SimpleLongProperty date;
     
-    public TableLog(int ID, String user, int userID, String action, int date) {
+    public TableLog(int ID, String user, int userID, String action, long date) {
         this.ID = new SimpleIntegerProperty(ID);
         this.user = new SimpleStringProperty(user);
         this.userID = new SimpleIntegerProperty(userID);
         this.action = new SimpleStringProperty(action);
-        this.date = new SimpleIntegerProperty(date);
+        this.date = new SimpleLongProperty(date);
     }
 
     /**
@@ -32,8 +33,8 @@ public class TableLog {
     /**
      * @param ID the ID to set
      */
-    public void setID(SimpleIntegerProperty ID) {
-        this.ID = ID;
+    public void setID(int ID) {
+        this.ID.set(ID);
     }
 
     /**
@@ -46,8 +47,8 @@ public class TableLog {
     /**
      * @param user the user to set
      */
-    public void setUser(SimpleStringProperty user) {
-        this.user = user;
+    public void setUser(String user) {
+        this.user.set(user);
     }
 
     /**
@@ -60,8 +61,8 @@ public class TableLog {
     /**
      * @param userID the userID to set
      */
-    public void setUserID(SimpleIntegerProperty userID) {
-        this.userID = userID;
+    public void setUserID(int userID) {
+        this.userID.set(userID);
     }
 
     /**
@@ -74,21 +75,21 @@ public class TableLog {
     /**
      * @param action the action to set
      */
-    public void setAction(SimpleStringProperty action) {
-        this.action = action;
+    public void setAction(String action) {
+        this.action.set(action);
     }
 
     /**
      * @return the date
      */
-    public int getDate() {
+    public long getDate() {
         return date.get();
     }
 
     /**
      * @param date the date to set
      */
-    public void setDate(SimpleIntegerProperty date) {
-        this.date = date;
+    public void setDate(long date) {
+        this.date.set(date);
     }
 }
