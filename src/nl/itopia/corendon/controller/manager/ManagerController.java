@@ -1,10 +1,13 @@
 package nl.itopia.corendon.controller.manager;
 
 import java.io.File;
+
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
@@ -15,35 +18,46 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
+import nl.itopia.corendon.data.Status;
 import nl.itopia.corendon.data.manager.ChartData;
 import nl.itopia.corendon.model.LuggageModel;
+import nl.itopia.corendon.model.StatusModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.pdf.ManagerStatisticsPDF;
 import nl.itopia.corendon.utils.DateUtil;
+
 import java.time.LocalDate;
 import java.util.*;
+
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
-import static nl.itopia.corendon.pdf.ManagerStatisticsPDF.generateManagerReportPDF;
+import nl.itopia.corendon.utils.Log;
 
 /**
  * © 2014, Biodiscus.net robin
  */
 public class ManagerController extends Controller {
-    @FXML private LineChart lineDiagram;
+    @FXML
+    private LineChart lineDiagram;
+    @FXML
+    private BarChart barDiagram;
 
-    @FXML private Button filterButton, helpButton;
-    @FXML private Button logoutButton;
-    @FXML private Button printstatisticsButton;
-    @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
-    @FXML private DatePicker datepicker1, datepicker2;
+    @FXML
+    private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
+    @FXML
+    private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
+    @FXML
+    private DatePicker datepicker1, datepicker2;
 
     private LuggageModel luggageModel;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
 
-    private XYChart.Series<String, Integer> foundSeries, lostSeries, resolvedSeries;
+    private Chart currentChart;
+    private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
+    private XYChart.Series<String, Integer> testSeries;
 
     public ManagerController() {
         registerFXML("gui/manager_linediagram.fxml");
@@ -55,8 +69,12 @@ public class ManagerController extends Controller {
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
+        logfilesbutton.setOnAction(this::logHandler);        
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
+        lineDiagrambutton.setOnAction(this::lineDiagramHandler);
+        barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+
 
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
@@ -69,12 +87,16 @@ public class ManagerController extends Controller {
         spinningIcon = new ImageView(image);
 
         iconPane = new StackPane();
+        iconPane.setPickOnBounds(false);
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
 
         // Initialize the Series, give them a name and give them a color
         foundSeries = new XYChart.Series<>();
         foundSeries.setName("Found");
+
+        testSeries = new XYChart.Series<>();
+        testSeries.setName("Test");
 
         lostSeries = new XYChart.Series<>();
         lostSeries.setName("Lost");
@@ -83,8 +105,33 @@ public class ManagerController extends Controller {
         resolvedSeries.setName("Resolved");
 
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(()->recieveData());
+        Thread dataThread = new Thread(() -> receiveData());
         dataThread.start();
+    }
+    
+    // Fired when the log button is clicked
+    private void logHandler(ActionEvent e) {
+        addController(new LogController());
+    }
+    
+    // Fired when lineDiagrambutton is clicked
+    private void lineDiagramHandler(ActionEvent e) {
+        lineDiagrambutton.setDisable(true);
+        barDiagrambutton.setDisable(false);
+
+        lineDiagram.setVisible(true);
+        barDiagram.setVisible(false);
+        currentChart = lineDiagram;
+    }
+
+    // Fired when barDiagrambutton is clicked
+    private void barDiagramHandler(ActionEvent e) {
+        lineDiagrambutton.setDisable(false);
+        barDiagrambutton.setDisable(true);
+
+        lineDiagram.setVisible(false);
+        barDiagram.setVisible(true);
+        currentChart = barDiagram;
     }
 
     private void filterHandle(ActionEvent e) {
@@ -95,124 +142,183 @@ public class ManagerController extends Controller {
     }
 
     private void showLuggage(boolean found, boolean lost, boolean resolved) {
-        ObservableList<XYChart.Series> series = lineDiagram.getData();
-        if(found) {
-            // If the series is not in the chart, add it
-            if(!series.contains(foundSeries)) {
-                series.add(foundSeries);
+        ObservableList<XYChart.Series> lineSeries = lineDiagram.getData();
+        ObservableList<XYChart.Series> barSeries = barDiagram.getData();
+
+
+        if (found) {
+            // If the chartSeries is not in the chart, add it
+            if (!lineSeries.contains(foundSeries)) {
+                lineSeries.add(foundSeries);
             }
+
+//            if(!barSeries.contains(foundSeries)) {
+//                barSeries.add(foundSeries);
+//            }
+
         } else {
             lineDiagram.getData().remove(foundSeries);
+//            barDiagram.getData().remove(foundSeries);
         }
 
-        if(lost) {
-            // If the series is not in the chart, add it
-            if(!series.contains(lostSeries)) {
-                series.add(lostSeries);
+        if (lost) {
+            // If the chartSeries is not in the chart, add it
+            if (!lineSeries.contains(lostSeries)) {
+                lineSeries.add(lostSeries);
             }
+
+//            if(!barSeries.contains(lostSeries)) {
+//                barSeries.add(lostSeries);
+//            }
         } else {
             lineDiagram.getData().remove(lostSeries);
+//            barDiagram.getData().remove(lostSeries);
         }
 
-        if(resolved) {
-            // If the series is not in the chart, add it
-            if(!series.contains(resolvedSeries)) {
-                series.add(resolvedSeries);
+        if (resolved) {
+            // If the chartSeries is not in the chart, add it
+            if (!lineSeries.contains(resolvedSeries)) {
+                lineSeries.add(resolvedSeries);
             }
+
+//            if(!barSeries.contains(resolvedSeries)) {
+//                barSeries.add(resolvedSeries);
+//            }
         } else {
             lineDiagram.getData().remove(resolvedSeries);
+//            barDiagram.getData().remove(resolvedSeries);
         }
     }
 
-
     // We will call this function in a new thread, so the user can still click buttons
-    private void recieveData() {
-        List<ChartData> dates = new ArrayList<>();
+    private void receiveData() {
+        StatusModel status = StatusModel.getDefault();
+        Status foundStatus = status.getStatus("Found");
+        Status lostStatus = status.getStatus("Lost");
+        Status resolvedStatus = status.getStatus("Resolved");
 
+        List<ChartData> foundDates = new ArrayList<>();
+        List<ChartData> lostDates = new ArrayList<>();
+        List<ChartData> resolvedDates = new ArrayList<>();
+
+        // If the date is not set, add it to the list.
+        // If the date is set, add one to the count
         List<Luggage> luggages = luggageModel.getAllLuggage();
-        for(Luggage luggage : luggages) {
+
+        for (Luggage luggage : luggages) {
             long uxt = luggage.createDate;
             ChartData contains = null;
-            for(ChartData d : dates) {
-                String date1 = DateUtil.getTimestampDate(uxt);
-                String date2 = DateUtil.getTimestampDate(d.timestamp);
-                if(date1.equals(date2)) {
+            for (ChartData d : foundDates) {
+                String date1 = DateUtil.formatDate("MMM yy", uxt);
+                String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                if (date1.equals(date2)) {
                     contains = d;
                     break;
                 }
             }
-            if(contains == null) {
-                dates.add(new ChartData(uxt, 1));
+
+            if (contains == null) {
+                for (ChartData d : lostDates) {
+                    String date1 = DateUtil.formatDate("MMM yy", uxt);
+                    String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                    if (date1.equals(date2)) {
+                        contains = d;
+                        break;
+                    }
+                }
+            }
+
+            if (contains == null) {
+                for (ChartData d : resolvedDates) {
+                    String date1 = DateUtil.formatDate("MMM yy", uxt);
+                    String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                    if (date1.equals(date2)) {
+                        contains = d;
+                        break;
+                    }
+                }
+            }
+
+            if (contains == null) {
+                String statusName = luggage.status.getName();
+                if (foundStatus.getName().equals(statusName)) {
+                    foundDates.add(new ChartData(uxt, 1));
+                } else if (lostStatus.getName().equals(statusName)) {
+                    lostDates.add(new ChartData(uxt, 1));
+                } else if (resolvedStatus.getName().equals(statusName)) {
+                    resolvedDates.add(new ChartData(uxt, 1));
+                }
             } else {
-                contains.count ++;
+                contains.count++;
             }
         }
 
-        Collections.sort(dates, (o1, o2) -> {
-            Date date1 = new Date(o1.timestamp);
-            Date date2 = new Date(o2.timestamp);
+        //TODO: Refactor
 
-            return date1.compareTo(date2);
-        });
-
-        for(ChartData data : dates) {
-            String date = DateUtil.getTimestampDate(data.timestamp);
-            XYChart.Data<String, Integer> pointData = new XYChart.Data<>(date, data.count);
+        for (ChartData data : foundDates) {
+            int count = data.count;
+            Date date = DateUtil.timestampToDate(data.timestamp);
+            XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
             foundSeries.getData().add(pointData);
+
+            String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
+            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
+            testSeries.getData().add(testData);
+        }
+        for (ChartData data : lostDates) {
+            int count = data.count;
+            Date date = DateUtil.timestampToDate(data.timestamp);
+            XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
+            lostSeries.getData().add(pointData);
+        }
+        for (ChartData data : resolvedDates) {
+            int count = data.count;
+            Date date = DateUtil.timestampToDate(data.timestamp);
+            XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
+            resolvedSeries.getData().add(pointData);
         }
 
-        lostSeries.getData().add(new XYChart.Data<>("20.11.2014", 5));
-        lostSeries.getData().add(new XYChart.Data<>("23.11.2014", 0));
-        lostSeries.getData().add(new XYChart.Data<>("24.11.2014", 0));
-        lostSeries.getData().add(new XYChart.Data<>("25.11.2014", 3));
-
-        resolvedSeries.getData().add(new XYChart.Data<>("20.11.2014", 3));
-        resolvedSeries.getData().add(new XYChart.Data<>("23.11.2014", 6));
-        resolvedSeries.getData().add(new XYChart.Data<>("24.11.2014", 4));
-        resolvedSeries.getData().add(new XYChart.Data<>("25.11.2014", 2));
-
         // Notify the javafx thread to run this next command
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
             // Update the line diagram with our tableData
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
+            barDiagram.getData().add(testSeries);
+//            barDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
-        });         
+        });
     }
-    
+
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionControllerManager());
         //opens help function
     }
 
-    
     private void f1HelpFunction(KeyEvent e) {
-    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-        addController(new HelpFunctionControllerManager());
-        //opens helpfunction with the f1 key
+        if (e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            addController(new HelpFunctionControllerManager());
+            //opens helpfunction with the f1 key
+        }
     }
-}
-    
-    
-    
+
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }
 
-    private void printStatisticsHandler(ActionEvent e){
+    private void printStatisticsHandler(ActionEvent e) {
         //SAVE FILE WITH FILECHOOSER
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select location to save PDF.");
         fileChooser.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("PDF", "*.pdf"));
-        
-        File pdf = fileChooser.showSaveDialog(view.getScene().getWindow());
-        
-        
-        generateManagerReportPDF(pdf, lineDiagram);
-        System.out.println("PDF OF MANAGER REPORT SAVED");         
-    }
-   
 
+        File pdf = fileChooser.showSaveDialog(view.getScene().getWindow());
+
+
+        if (pdf != null) {
+            ManagerStatisticsPDF.generateManagerReportPDF(pdf, currentChart);
+            System.out.println("PDF OF MANAGER REPORT SAVED");
+        }
+    }
 }

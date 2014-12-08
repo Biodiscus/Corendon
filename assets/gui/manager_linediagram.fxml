@@ -2,22 +2,17 @@
 
 <?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.media.*?>
 <?import javafx.scene.chart.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import nl.itopia.corendon.components.DateAxis?>
 <StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Line diagram" textFill="WHITE" />
+            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
             <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -27,7 +22,13 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
+<<<<<<< HEAD
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Bar diagram" textFill="WHITE" />
+=======
+            <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
+            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
+            <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
+>>>>>>> origin/master
             <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
                <font>
                   <Font size="18.0" />
@@ -85,14 +86,24 @@
             <!--</Button>-->
             <LineChart fx:id="lineDiagram" animated="false" layoutX="360.0" layoutY="205.0" style="-fx-background-color: white;">
               <xAxis>
-                <CategoryAxis side="BOTTOM" />
+                <DateAxis side="BOTTOM" />
               </xAxis>
               <yAxis>
                 <NumberAxis side="LEFT" />
               </yAxis>
             </LineChart>
-            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" style="-fx-background-color: #53AF36;" text="Filter" textFill="WHITE" />
-            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Print statistics" textFill="WHITE" />
+
+            <BarChart fx:id="barDiagram" layoutX="360.0" layoutY="205.0" visible="false" style="-fx-background-color: white;">
+                <xAxis>
+                    <CategoryAxis side="BOTTOM" />
+                </xAxis>
+                <yAxis>
+                    <NumberAxis side="LEFT" />
+                </yAxis>
+            </BarChart>
+
+            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter" />
+            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />

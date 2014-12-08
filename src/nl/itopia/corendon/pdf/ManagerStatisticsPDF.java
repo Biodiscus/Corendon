@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.chart.Chart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
@@ -32,12 +33,12 @@ public class ManagerStatisticsPDF {
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private static Image graph;
     
-    public static void generateManagerReportPDF(File file, LineChart linechart){
+    public static void generateManagerReportPDF(File file, Chart chart){
         try {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
-            addContent(file, document, linechart);
+            addContent(file, document, chart);
             document.close();
         }
         catch (Exception e) {
@@ -45,7 +46,7 @@ public class ManagerStatisticsPDF {
         }
     }
         
-    private static void addContent(File file, Document document, LineChart linechart)
+    private static void addContent(File file, Document document, Chart chart)
         throws DocumentException, BadElementException, IOException {
         Paragraph paragraph = new Paragraph();
 
@@ -65,10 +66,8 @@ public class ManagerStatisticsPDF {
         addEmptyLine(paragraph, 4);
         
         //Convert LineChart byte by byte to WritableImage
-        WritableImage wi = new WritableImage((int)linechart.getWidth(), (int)linechart.getHeight());
-        
-        wi = linechart.snapshot(null,null);
-        
+        WritableImage wi = chart.snapshot(null,null);
+
         ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
         try {
             ImageIO.write(SwingFXUtils.fromFXImage(wi, null), "png", byteOutput);

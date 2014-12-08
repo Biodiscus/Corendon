@@ -5,3 +5,12 @@
 .error_prompt:focused {
     -fx-prompt-text-fill: transparent;
 }
+
+Button {
+    -fx-background-color: #53AF36;
+    -fx-text-fill: white;
+}
+
+Button:hover {
+    -fx-background-color: #428C2B;
+}

@@ -17,12 +17,12 @@
          <children>
             <TextField fx:id="usernameField" layoutX="536.0" layoutY="302.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="42.0" prefWidth="278.0" promptText="Username" />
             <PasswordField fx:id="passwordField" layoutX="536.0" layoutY="353.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="47.0" prefWidth="278.0" promptText="Password" />
-            <Button fx:id="loginButton" layoutX="536.0" layoutY="413.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="53.0" prefWidth="158.0" style="-fx-background-color: #53AF36; -fx-: white;" text="Login" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="536.0" layoutY="413.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="53.0" prefWidth="158.0" text="Login" textFill="WHITE">
                <font>
                   <Font size="17.0" />
                </font>
             </Button>
-            <Button fx:id="forgottenPasswordbutton" layoutX="727.0" layoutY="433.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="74.0" style="-fx-background-color: #53AF36;" text="click here" textFill="WHITE">
+            <Button fx:id="forgottenPasswordbutton" layoutX="727.0" layoutY="433.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="74.0" text="click here" textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>
