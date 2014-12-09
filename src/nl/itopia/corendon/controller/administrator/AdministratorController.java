@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
@@ -52,7 +53,7 @@ public class AdministratorController extends Controller {
     @FXML
     private TableColumn<Employee, String> airportTable;
     @FXML
-    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton;
+    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -60,6 +61,8 @@ public class AdministratorController extends Controller {
     private int deleteUserId;
     private TableUser user;
     private Object items;
+    private boolean helpFunctionOpened;
+    private HelpFunctionController helpController;
 
     public AdministratorController() {
 
@@ -83,7 +86,10 @@ public class AdministratorController extends Controller {
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         logfilesbutton.setOnAction(this::logHandler);
+        deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+
+        helpFunctionOpened = false;
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
@@ -207,16 +213,32 @@ public class AdministratorController extends Controller {
         });
     }
 
-
     private void f1HelpFunction(KeyEvent e) {
-        if (e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            addController(new HelpFunctionControllerAdmin());
-            //opens helpfunction with the f1 key
+        //opens helpfunction with the f1 key
+        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            // If it's already openend, close it
+            if(helpController == null) {
+                openHelp();
+            } else {
+                removeController(helpController);
+                helpController = null;
+            }
         }
     }
 
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerAdmin());
+        if(helpController == null) {
+            openHelp();
+        }
         //opens help function
+    }
+    
+    private void deletedLuggageHandler(ActionEvent e) {
+        changeController(new DeletedLuggageController());
+    }
+
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
     }
 }

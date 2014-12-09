@@ -21,9 +21,9 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Button fx:id="printButton" layoutX="804.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Print" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
-            <Button fx:id="backButton" layoutX="36.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Back" textFill="WHITE" />
+            <Button fx:id="printButton" layoutX="804.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Print" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <Button fx:id="backButton" layoutX="36.0" layoutY="74.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Back" />
             <Label fx:id="showdateToday" layoutX="664.0" layoutY="70.0" prefHeight="25.0" prefWidth="223.0" />
             <Label layoutX="664.0" layoutY="92.0" prefHeight="25.0" prefWidth="223.0" text="Infomation employee:">
                <font>

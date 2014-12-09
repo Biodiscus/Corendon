@@ -135,10 +135,9 @@ public class LoginController extends Controller {
         }
     }
     
-    private void resetPassword(ActionEvent event)
+    private void resetPassword(ActionEvent e)
     {
         // Show login reset screen
-        changeController(new InfoController());
-        //changeController(new AdministratorController());
+        addController(new InfoController());
     }
 }
