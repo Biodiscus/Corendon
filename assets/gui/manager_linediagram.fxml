@@ -23,6 +23,7 @@
                </viewport>
             </ImageView>
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
+			<Button fx:id="refreshButton" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
             <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
             <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
             <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
