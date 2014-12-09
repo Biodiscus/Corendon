@@ -39,7 +39,8 @@ public class EmployeeController extends Controller {
     @FXML private Label userName, userID;
 
     @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
-                        logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
+                        logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton,
+                        refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -56,14 +57,7 @@ public class EmployeeController extends Controller {
         userID.setText("1337");
         userName.setText("Robin de Jong");
 
-        // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
-
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
+        showLoadingIcon();
 
         //Create buttons
         addLuggagebutton.setOnAction(this::addHandler);
@@ -73,7 +67,8 @@ public class EmployeeController extends Controller {
         detailsLuggagebutton.setOnAction(this::detailsHandler);
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        refreshButton.setOnAction(this::refreshHandler);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
 
         // Set the luggage specific buttons disabled
         editLuggagebutton.setDisable(true);
@@ -106,10 +101,31 @@ public class EmployeeController extends Controller {
         dataThread.start();
     }
 
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+    }
+
+    private void refreshHandler(ActionEvent e) {
+        refreshButton.setDisable(true);
+        tableData.clear();
+        showLoadingIcon();
+
+        Thread dataThread = new Thread(()-> {
+            receiveData();
+        });
+        dataThread.start();
+    }
+
     private void receiveData() {
         luggageList = luggageModel.getAllLuggage();
         tableData = FXCollections.observableArrayList();
-
         for(Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
                     luggage.getID(),
@@ -127,6 +143,8 @@ public class EmployeeController extends Controller {
 
         Platform.runLater(() -> {
             luggageInfo.setItems(tableData);
+            // Enable the button, remove the loading icon
+            refreshButton.setDisable(false);
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
@@ -216,15 +234,23 @@ public class EmployeeController extends Controller {
         tableData.remove(luggage);
     }
     
-    private void f1HelpFunction(KeyEvent e) {
+    private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            // If it's already openend, close it
-            if(helpController == null) {
-                openHelp();
-            } else {
-                removeController(helpController);
-                helpController = null;
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (helpController == null) {
+                    openHelp();
+                } else {
+                    removeController(helpController);
+                    helpController = null;
+                }
+            } else if (e.getCode() == KeyCode.F5) {
+                // If the refreshButton is disabled we can't refresh
+                if(!refreshButton.isDisabled()) {
+                    // We don't need to pass an event
+                    refreshHandler(null);
+                }
             }
         }
     }
