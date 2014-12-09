@@ -66,6 +66,8 @@ public class CreateUserController extends Controller {
  
     public void createNewEmployee(ActionEvent event) {
         
+        int errorCount = 0;
+        
         cancelButton.setOnAction(this::cancelHandler);
         
         EmployeeModel employeemodel = EmployeeModel.getDefault();
@@ -81,17 +83,69 @@ public class CreateUserController extends Controller {
         String notes = notesInputfield.getText();
  
         String salt = Hashing.generateSaltString();
+        
+        // To-do validator class
  
         // Check if username already exists
-        //employeemodel.usernameExists(String username);
- 
+        Employee userNameModel = employeemodel.getEmployee(userName);
+        
+        if(userNameModel.username.equals(userName)) {
+            
+            usernameInputfield.setText("");
+            usernameInputfield.setPromptText("Username already exsists.");
+            usernameInputfield.getStyleClass().add("error_prompt");
+            
+            errorCount++;
+        }
+        
         // Check if passwords match
         if (!password.equals(repeatPassword)) {
-            Log.display("Passwords doesn't match");
-        } else if (password.length()<6) {
+            
+            passwordInputfield.setText("");
+            repeatpasswordInputfield.setText("");
+            passwordInputfield.setPromptText("Passwords doesn't match.");
+            passwordInputfield.getStyleClass().add("error_prompt");
+            
+            repeatpasswordInputfield.setPromptText("Passwords doesn't match.");
+            repeatpasswordInputfield.getStyleClass().add("error_prompt");
+            
+            errorCount++;
+        }
+        
+        // Check if the password is the correct size
+        if (password.length() < 6) {
             Log.display("Minimum password length is 6 characters.");
-        } else {
-            System.out.println(password + " is equal to " + repeatPassword);
+            errorCount++;
+        }
+        
+        // Check if firstname is correct size
+        if (firstName.length() < 3) {
+            
+            firstnameInputfield.setText("");
+            firstnameInputfield.setPromptText("Firstname is required.");
+            firstnameInputfield.getStyleClass().add("error_prompt");
+            
+            errorCount++;
+        }
+        
+        // Check if firstname is correct size
+        if (lastName.length() < 3) {
+            
+            lastnameInputfield.setText("");
+            lastnameInputfield.setPromptText("Firstname is required.");
+            lastnameInputfield.getStyleClass().add("error_prompt");
+            
+            errorCount++;
+        }
+        
+        // Check if username is the correct size
+        if (userName.length() < 3) {
+            errorCount++;
+        }
+        
+        System.out.println(errorCount);
+        
+        if(errorCount == 0) {
  
             /**
              * Check if username already exists

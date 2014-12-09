@@ -33,6 +33,7 @@ public class EmployeeModel {
      * @return Get the full object of employee
      */
     public Employee getEmployee(int id) {
+        
         Employee employee = new Employee(id);
 
         try {
@@ -47,6 +48,25 @@ public class EmployeeModel {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
             return null;
         }
+    }
+    
+    public Employee getEmployee(String username) {
+        
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM employee WHERE username = '"+ username +"'");
+            
+            if (result.next()) {
+                int employeeId = Integer.parseInt(result.getString("id"));
+                Employee employee = getEmployee(employeeId);
+                return employee;
+            }
+            
+         } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
+        }
+        
+        return null;
     }
 
     /**

@@ -88,7 +88,6 @@ public class EditUserController extends Controller {
             
             password = this.newEmployee.password;
             salt = this.newEmployee.salt;
-            
         } else {
             password = passwordInputfield.getText();
             salt = Hashing.generateSaltString();
