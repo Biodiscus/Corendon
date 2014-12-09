@@ -51,13 +51,11 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="passwordInputfield" layoutX="175.0" layoutY="281.0" prefHeight="33.0" prefWidth="388.0" promptText="Password" />
             <Label layoutX="25.0" layoutY="339.0" text="Repeat password:">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="repeatpasswordInputfield" layoutX="175.0" layoutY="336.0" prefHeight="33.0" prefWidth="388.0" promptText="Repeat password" />
             <Label layoutX="25.0" layoutY="394.0" text="Role:">
                <font>
                   <Font size="17.0" />
@@ -82,6 +80,8 @@
                </font>
             </Label>
             <TextField fx:id="notesInputfield" alignment="TOP_LEFT" layoutX="709.0" layoutY="340.0" prefHeight="215.0" prefWidth="388.0" promptText="Notes" />
+            <PasswordField fx:id="passwordInputfield" layoutX="175.0" layoutY="281.0" prefHeight="33.0" prefWidth="388.0" promptText="Password" />
+            <PasswordField fx:id="repeatpasswordInputfield" layoutX="175.0" layoutY="337.0" prefHeight="33.0" prefWidth="388.0" promptText="Repeat password" />
          </children>
       </AnchorPane>
    </children>
