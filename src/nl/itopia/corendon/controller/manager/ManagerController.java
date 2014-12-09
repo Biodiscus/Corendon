@@ -81,6 +81,9 @@ public class ManagerController extends Controller {
         barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         helpFunctionOpened = false;
+        
+        
+        currentChart = lineDiagram;
 
 
         // TODO: Set the datePicker1 to something else
