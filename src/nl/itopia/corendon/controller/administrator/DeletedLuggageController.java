@@ -114,6 +114,7 @@ public class DeletedLuggageController extends Controller {
                     luggage.getID(),
                     luggage.dimensions,
                     luggage.notes,
+                    luggage.label,
                     luggage.airport.getName(),
                     luggage.brand.getName(),
                     luggage.color.getHex(),
