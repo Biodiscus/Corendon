@@ -27,6 +27,7 @@
                </viewport>
             </ImageView>
             <Button fx:id="luggageButton" layoutX="43.0" layoutY="175.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Luggage" />
+            <Button fx:id="deletedLuggageButton" layoutX="338.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
             <Button fx:id="usersButton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Users" />
             <Button fx:id="filterButton" layoutX="110.0" layoutY="603.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter" />
             <Button fx:id="actionsButton" layoutX="44.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Actions" />

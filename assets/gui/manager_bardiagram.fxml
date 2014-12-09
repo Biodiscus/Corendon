@@ -53,7 +53,7 @@
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" style="-fx-background-color: #53AF36;" text="Filter" textFill="WHITE" />
+            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter" />
             <Text layoutX="936.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                <font>
                   <Font size="19.0" />
@@ -76,10 +76,10 @@
                </font>
             </Button>
             <Button fx:id="logoutButton" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
-            <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Logfiles" textFill="WHITE" />
-            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" style="-fx-background-color: #53AF36;" text="Overview" textFill="WHITE" />
-            <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Bar diagram" textFill="WHITE" />
-            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Line diagram" textFill="WHITE" />
+            <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
+            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
+            <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
+            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
             <BarChart layoutX="360.0" layoutY="205.0" style="-fx-background-color: white;">
               <xAxis>
                 <CategoryAxis side="BOTTOM" />
@@ -88,7 +88,7 @@
                 <NumberAxis side="LEFT" />
               </yAxis>
             </BarChart>
-            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" style="-fx-background-color: #53AF36;" text="Print statistics" textFill="WHITE" />
+            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
