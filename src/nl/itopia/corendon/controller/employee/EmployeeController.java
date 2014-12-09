@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.LuggageModel;
@@ -48,6 +49,7 @@ public class EmployeeController extends Controller {
     private StackPane iconPane;
 
     private LuggageModel luggageModel;
+    private HelpFunctionController helpController;
     
     
     public EmployeeController(){
@@ -83,7 +85,6 @@ public class EmployeeController extends Controller {
         lostLuggagebutton.setDisable(true);
         turnedinLuggagebutton.setDisable(true);
 
-
         
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -101,11 +102,11 @@ public class EmployeeController extends Controller {
         });
 
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(()->recieveData());
+        Thread dataThread = new Thread(()-> receiveData());
         dataThread.start();
     }
 
-    private void recieveData() {
+    private void receiveData() {
         luggageList = luggageModel.getAllLuggage();
         tableData = FXCollections.observableArrayList();
 
@@ -128,8 +129,6 @@ public class EmployeeController extends Controller {
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
-
-
     
     private void searchHandler(ActionEvent e) {
 
@@ -216,15 +215,27 @@ public class EmployeeController extends Controller {
     }
     
     private void f1HelpFunction(KeyEvent e) {
-    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-        addController(new HelpFunctionControllerEmployee());
         //opens helpfunction with the f1 key
+        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            // If it's already openend, close it
+            if(helpController == null) {
+                openHelp();
+            } else {
+                removeController(helpController);
+                helpController = null;
+            }
+        }
     }
-}
     
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerEmployee());
-
+        if(helpController == null) {
+            openHelp();
+        }
         //opens help function
+    }
+
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
     }
 }

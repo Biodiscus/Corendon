@@ -11,8 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
-import nl.itopia.corendon.controller.employee.HelpFunctionControllerEmployee;
-import nl.itopia.corendon.controller.manager.HelpFunctionControllerManager;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.model.LogModel;
 import nl.itopia.corendon.mvc.Controller;
@@ -116,14 +115,14 @@ public class LogController extends Controller {
     }
     
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerManager());
+        addController(new HelpFunctionController());
         //opens help function
     }
 
     
     private void f1HelpFunction(KeyEvent e) {
     if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-        addController(new HelpFunctionControllerManager());
+        addController(new HelpFunctionController());
         //opens helpfunction with the f1 key
     }
 }

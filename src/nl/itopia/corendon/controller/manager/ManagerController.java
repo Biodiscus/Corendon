@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.Status;
@@ -32,7 +33,6 @@ import java.util.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
-import nl.itopia.corendon.utils.Log;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -58,6 +58,8 @@ public class ManagerController extends Controller {
     private Chart currentChart;
     private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
     private XYChart.Series<String, Integer> testSeries;
+    private boolean helpFunctionOpened;
+    private HelpFunctionController helpController;
 
     public ManagerController() {
         registerFXML("gui/manager_linediagram.fxml");
@@ -74,6 +76,7 @@ public class ManagerController extends Controller {
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        helpFunctionOpened = false;
 
 
         // TODO: Set the datePicker1 to something else
@@ -286,16 +289,29 @@ public class ManagerController extends Controller {
         });
     }
 
+    private void f1HelpFunction(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            // If it's already openend, close it
+            if(helpController == null) {
+                openHelp();
+            } else {
+                removeController(helpController);
+                helpController = null;
+            }
+        }
+    }
+
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionControllerManager());
+        if(helpController == null) {
+            openHelp();
+        }
         //opens help function
     }
 
-    private void f1HelpFunction(KeyEvent e) {
-        if (e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            addController(new HelpFunctionControllerManager());
-            //opens helpfunction with the f1 key
-        }
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
     }
 
     private void logoutHandler(ActionEvent e) {

@@ -26,16 +26,27 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Text layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-            <Text layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
+             <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+                 <font>
+                     <Font size="19.0" />
+                 </font>
+             </Text>
+             <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
+                 <font>
+                     <Font size="15.0" />
+                 </font>
+             </Label>
+             <Text fill="WHITE" layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+                 <font>
+                     <Font size="18.0" />
+                 </font>
+             </Text>
+             <Label fx:id="userName" layoutX="997.0" layoutY="79.0" prefHeight="25.0" prefWidth="252.0">
+                 <font>
+                     <Font size="15.0" />
+                 </font>
+             </Label>
+
             <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="175.5" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
             <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
             <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
@@ -43,11 +54,6 @@
             <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="458.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
             <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="503.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
             <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="593.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
-            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
             <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
                <font>
                   <Font size="18.0" />
