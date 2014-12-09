@@ -51,6 +51,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <Button fx:id="refreshButton" layoutX="1168.0" layoutY="134.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
              <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                  <font>
                      <Font size="19.0" />
