@@ -58,22 +58,26 @@
                   <Font size="18.0" />
                </font>
             </Button>
-            <Label fx:id="userID" layoutX="1003.0" layoutY="26.0" prefHeight="25.0" prefWidth="252.0">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-            <ComboBox fx:id="dropdownMenu" layoutX="1075.0" layoutY="62.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Text layoutX="936.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <Text layoutX="936.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
+             <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+                 <font>
+                     <Font size="19.0" />
+                 </font>
+             </Text>
+             <Label fx:id="userID" layoutX="984.0" layoutY="28.0" prefHeight="25.0" prefWidth="283.0" textFill="WHITE">
+                 <font>
+                     <Font size="15.0" />
+                 </font>
+             </Label>
+             <Text fill="WHITE" layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+                 <font>
+                     <Font size="18.0" />
+                 </font>
+             </Text>
+             <Label fx:id="userName" layoutX="1073.0" layoutY="62.0" prefHeight="25.0" prefWidth="205.0" textFill="WHITE">
+                 <font>
+                     <Font size="15.0" />
+                 </font>
+             </Label>
             <!--<Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">-->
             <!--<Button fx:id="filterButton" layoutX="1024.0" layoutY="431.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter">-->
                <!--<font>-->

@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -58,16 +59,19 @@ public class AdministratorController extends Controller {
     private ImageView spinningIcon;
     private StackPane iconPane;
 
+    @FXML private Label userName, userID;
+
     private int deleteUserId;
     private TableUser user;
-    private Object items;
-    private boolean helpFunctionOpened;
     private HelpFunctionController helpController;
 
     public AdministratorController() {
 
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
+
+        userID.setText("1337");
+        userName.setText("Robin de Jong");
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
@@ -88,8 +92,6 @@ public class AdministratorController extends Controller {
         logfilesbutton.setOnAction(this::logHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
-
-        helpFunctionOpened = false;
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);

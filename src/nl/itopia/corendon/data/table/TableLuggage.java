@@ -9,15 +9,17 @@ import javafx.beans.property.SimpleStringProperty;
  */
 public class TableLuggage {
     private final SimpleIntegerProperty id;
+    private final SimpleStringProperty label;
     private final SimpleStringProperty dimensions;
     private final SimpleStringProperty notes;
     private final SimpleStringProperty airport;
     private final SimpleStringProperty brand;
     private final SimpleStringProperty color;
     private final SimpleStringProperty status;
-    
-    public TableLuggage(int id, String dimensions, String notes, String airport, String brand, String color, String status) {
+
+    public TableLuggage(int id, String label, String dimensions, String notes, String airport, String brand, String color, String status) {
         this.id = new SimpleIntegerProperty(id);
+        this.label = new SimpleStringProperty(label);
         this.dimensions = new SimpleStringProperty(dimensions);
         this.notes = new SimpleStringProperty(notes);
         this.airport = new SimpleStringProperty(airport);
@@ -33,7 +35,15 @@ public class TableLuggage {
     public void setId(int id) {
         this.id.set(id);
     }
-    
+
+    public String getLabel() {
+        return label.get();
+    }
+
+    public void setLabel(String label) {
+        this.label.set(label);
+    }
+
     public String getDimensions() {
         return dimensions.get();
     }

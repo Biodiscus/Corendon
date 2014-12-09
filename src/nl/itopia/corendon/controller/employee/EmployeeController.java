@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,16 +35,12 @@ public class EmployeeController extends Controller {
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
-    @FXML private TableColumn <Luggage,String>ID;
-    @FXML private TableColumn <Luggage,String>Brand;
-    @FXML private TableColumn <Luggage,String>Dimensions;
-    @FXML private TableColumn <Luggage,String>Color;
-    @FXML private TableColumn <Luggage,String>Airport;
-    @FXML private TableColumn <Luggage,String>Status;
-    @FXML private TableColumn <Luggage,String>Notes;
+    @FXML private TableColumn <Luggage,String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML private Label userName, userID;
 
     @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
-                        logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
+                        logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton,
+                        refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -56,16 +53,15 @@ public class EmployeeController extends Controller {
         registerFXML("gui/Overzichtkoffers.fxml");
 
         luggageModel = LuggageModel.getDefault();
-
         // Show a spinning icon to indicate to the user that we are getting the tableData
 //        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         Image image = new Image("img/loader.gif");
         spinningIcon = new ImageView(image);
+        
+        userID.setText("1337");
+        userName.setText("Robin de Jong");
 
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
+        showLoadingIcon();
 
         //Create buttons
         addLuggagebutton.setOnAction(this::addHandler);
@@ -75,7 +71,8 @@ public class EmployeeController extends Controller {
         detailsLuggagebutton.setOnAction(this::detailsHandler);
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        refreshButton.setOnAction(this::refreshHandler);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
 
         // Set the luggage specific buttons disabled
         editLuggagebutton.setDisable(true);
@@ -89,6 +86,7 @@ public class EmployeeController extends Controller {
         
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Label.setCellValueFactory(new PropertyValueFactory<>("label"));
         Brand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         Dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
         Color.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -107,13 +105,35 @@ public class EmployeeController extends Controller {
         dataThread.start();
     }
 
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+    }
+
+    private void refreshHandler(ActionEvent e) {
+        refreshButton.setDisable(true);
+        tableData.clear();
+        showLoadingIcon();
+
+        Thread dataThread = new Thread(()-> {
+            receiveData();
+        });
+        dataThread.start();
+    }
+
     private void receiveData() {
         luggageList = luggageModel.getAllLuggage();
         tableData = FXCollections.observableArrayList();
-
         for(Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
                     luggage.getID(),
+                    luggage.label,
                     luggage.dimensions,
                     luggage.notes,
                     luggage.airport.getName(),
@@ -127,6 +147,8 @@ public class EmployeeController extends Controller {
 
         Platform.runLater(() -> {
             luggageInfo.setItems(tableData);
+            // Enable the button, remove the loading icon
+            refreshButton.setDisable(false);
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
@@ -145,9 +167,9 @@ public class EmployeeController extends Controller {
             if(null != searchList && searchList.size() >= 1) {
                 /* the search query has atleast one record, continue to fill the table view */
                 for(Luggage luggage : searchList){
-                    TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.dimensions,
-                            luggage.notes, luggage.airport.getName(),luggage.brand.getName(),
-                            luggage.color.getHex(), luggage.status.getName()
+                    TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.label,luggage.dimensions,
+                            luggage.notes, luggage.airport.getName(),luggage.brand.getName(), luggage.color.getHex(),
+                            luggage.status.getName()
                     );
 
                     tableData.add(luggageTable);
@@ -171,6 +193,7 @@ public class EmployeeController extends Controller {
             Luggage luggage = (Luggage)obj;
             TableLuggage tableLuggage = new TableLuggage(
                 luggage.getID(),
+                luggage.label,
                 luggage.dimensions,
                 luggage.notes,
                 luggage.airport.getName(),
@@ -215,15 +238,23 @@ public class EmployeeController extends Controller {
         tableData.remove(luggage);
     }
     
-    private void f1HelpFunction(KeyEvent e) {
+    private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            // If it's already openend, close it
-            if(helpController == null) {
-                openHelp();
-            } else {
-                removeController(helpController);
-                helpController = null;
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (helpController == null) {
+                    openHelp();
+                } else {
+                    removeController(helpController);
+                    helpController = null;
+                }
+            } else if (e.getCode() == KeyCode.F5) {
+                // If the refreshButton is disabled we can't refresh
+                if(!refreshButton.isDisabled()) {
+                    // We don't need to pass an event
+                    refreshHandler(null);
+                }
             }
         }
     }

@@ -73,8 +73,18 @@ public class DeletedLuggageController extends Controller {
         helpButton.setOnAction(this::helpHandler);
         overviewbutton.setOnAction(this::overviewHandler);
         logfilesbutton.setOnAction(this::logHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        revertLuggageButton.setOnAction(this::revertHandler);
+        deleteLuggageButton.setOnAction(this::deleteHandler);
 
+        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        
+        revertLuggageButton.setDisable(true);
+        deleteLuggageButton.setDisable(true);
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
 
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -84,6 +94,11 @@ public class DeletedLuggageController extends Controller {
         Airport.setCellValueFactory(new PropertyValueFactory<>("airport"));
         Status.setCellValueFactory(new PropertyValueFactory<>("status"));
         Notes.setCellValueFactory(new PropertyValueFactory<>("notes"));
+        
+        luggageInfo.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            revertLuggageButton.setDisable(false);
+            deleteLuggageButton.setDisable(false);
+        });
         
         Thread dataThread = new Thread(()-> receiveData());
         dataThread.start();
@@ -124,6 +139,18 @@ public class DeletedLuggageController extends Controller {
         changeController(new LogController());
     }
     
+    private void revertHandler(ActionEvent e) {
+        // TODO: Show dialog with text: Do you really want to delete this luggage?
+        TableLuggage luggage = (TableLuggage) luggageInfo.getSelectionModel().getSelectedItem();
+        luggageModel.revertLuggage(luggage.getId());
+        tableData.remove(luggage);
+    }
+    
+    private void deleteHandler(ActionEvent e) {
+        TableLuggage luggage = (TableLuggage) luggageInfo.getSelectionModel().getSelectedItem();
+        luggageModel.permDeleteLuggage(luggage.getId());
+        tableData.remove(luggage);
+    }
     
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionController());
@@ -142,7 +169,4 @@ public class DeletedLuggageController extends Controller {
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }
-    
-   
-
 }

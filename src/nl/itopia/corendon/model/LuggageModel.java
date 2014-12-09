@@ -179,7 +179,43 @@ public class LuggageModel {
             log.action = actionModel.getAction("Deleted luggage");
             log.employee = luggage.employee;
             log.luggage = luggage;
-            logModel.insertAction(log);
+//            logModel.insertAction(log);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
+    
+    public void revertLuggage(int id) {
+        String deleteQuery = "UPDATE luggage SET deleted = '0' WHERE id = '" + id + "'";
+        try {
+            dbmanager.updateQuery(deleteQuery);
+            Luggage luggage = getLuggage(id);
+
+            // Add a new action of an user editing the luggage
+            LogAction log = new LogAction(-1);
+            log.date = DateUtil.getCurrentTimeStamp();
+            log.action = actionModel.getAction("Deleted luggage");
+            log.employee = luggage.employee;
+            log.luggage = luggage;
+//            logModel.insertAction(log);
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+    }
+    
+    public void permDeleteLuggage(int id) {
+        String deleteQuery = "DELETE FROM luggage WHERE id = '" + id + "'";
+        try {
+            dbmanager.updateQuery(deleteQuery);
+            Luggage luggage = getLuggage(id);
+
+//             Add a new action of an user editing the luggage
+            LogAction log = new LogAction(-1);
+            log.date = DateUtil.getCurrentTimeStamp();
+            log.action = actionModel.getAction("Permanent deleted luggage");
+            log.employee = luggage.employee;
+            log.luggage = luggage;
+//            logModel.insertAction(log);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
