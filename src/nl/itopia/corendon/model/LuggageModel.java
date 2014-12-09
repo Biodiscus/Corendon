@@ -185,6 +185,21 @@ public class LuggageModel {
         }
     }
     
+    public List<Luggage> getAllDeletedLuggage() {
+        List<Luggage> deletedLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE deleted='1'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                deletedLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return deletedLuggageList;
+    }
+    
     //Gets all luggagedata from DB, puts the tableData fields in luggage object,
     //and puts all luggageobjects in ArrayList of Luggage objects
     public List<Luggage> getAllLuggage() {
