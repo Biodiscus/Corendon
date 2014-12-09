@@ -13,6 +13,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -49,7 +50,7 @@ public class ManagerController extends Controller {
     private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML
     private DatePicker datepicker1, datepicker2;
-
+    @FXML private Label userName, userID;
     private LuggageModel luggageModel;
 
     private ImageView spinningIcon;
@@ -63,6 +64,9 @@ public class ManagerController extends Controller {
 
     public ManagerController() {
         registerFXML("gui/manager_linediagram.fxml");
+
+        userName.setText("Robin de Jong");
+        userID.setText("1337");
 
         luggageModel = LuggageModel.getDefault();
 

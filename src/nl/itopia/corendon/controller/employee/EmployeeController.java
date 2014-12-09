@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -34,13 +35,8 @@ public class EmployeeController extends Controller {
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
-    @FXML private TableColumn <Luggage,String>ID;
-    @FXML private TableColumn <Luggage,String>Brand;
-    @FXML private TableColumn <Luggage,String>Dimensions;
-    @FXML private TableColumn <Luggage,String>Color;
-    @FXML private TableColumn <Luggage,String>Airport;
-    @FXML private TableColumn <Luggage,String>Status;
-    @FXML private TableColumn <Luggage,String>Notes;
+    @FXML private TableColumn <Luggage,String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML private Label userName, userID;
 
     @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
                         logoutButton, detailsLuggagebutton, foundLuggagebutton, lostLuggagebutton, turnedinLuggagebutton;
@@ -56,6 +52,9 @@ public class EmployeeController extends Controller {
         registerFXML("gui/Overzichtkoffers.fxml");
 
         luggageModel = LuggageModel.getDefault();
+
+        userID.setText("1337");
+        userName.setText("Robin de Jong");
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
@@ -88,6 +87,7 @@ public class EmployeeController extends Controller {
         
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Label.setCellValueFactory(new PropertyValueFactory<>("label"));
         Brand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         Dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
         Color.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -113,6 +113,7 @@ public class EmployeeController extends Controller {
         for(Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
                     luggage.getID(),
+                    luggage.label,
                     luggage.dimensions,
                     luggage.notes,
                     luggage.airport.getName(),
@@ -144,9 +145,9 @@ public class EmployeeController extends Controller {
             if(null != searchList && searchList.size() >= 1) {
                 /* the search query has atleast one record, continue to fill the table view */
                 for(Luggage luggage : searchList){
-                    TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.dimensions,
-                            luggage.notes, luggage.airport.getName(),luggage.brand.getName(),
-                            luggage.color.getHex(), luggage.status.getName()
+                    TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.label,luggage.dimensions,
+                            luggage.notes, luggage.airport.getName(),luggage.brand.getName(), luggage.color.getHex(),
+                            luggage.status.getName()
                     );
 
                     tableData.add(luggageTable);
@@ -170,6 +171,7 @@ public class EmployeeController extends Controller {
             Luggage luggage = (Luggage)obj;
             TableLuggage tableLuggage = new TableLuggage(
                 luggage.getID(),
+                luggage.label,
                 luggage.dimensions,
                 luggage.notes,
                 luggage.airport.getName(),
