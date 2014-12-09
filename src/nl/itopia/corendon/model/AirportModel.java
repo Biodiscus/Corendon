@@ -72,7 +72,7 @@ public class AirportModel {
     public List<Airport> getAirports() {
         List<Airport> airports = new ArrayList<>();
         try {
-            String sql = "SELECT * FROM airport";
+            String sql = "SELECT * FROM airport ORDER BY id";
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
                 int id = result.getInt("id");

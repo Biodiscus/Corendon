@@ -84,7 +84,7 @@ public class RoleModel {
         List<Role> roleList = new ArrayList<Role>();
         
         try{
-            ResultSet result = dbmanager.doQuery("SELECT * FROM roles");
+            ResultSet result = dbmanager.doQuery("SELECT * FROM roles ORDER BY id");
             
             while (result.next()) {
                 int id = result.getInt("id");

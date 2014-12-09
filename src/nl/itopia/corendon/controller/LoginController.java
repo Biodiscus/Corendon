@@ -139,6 +139,5 @@ public class LoginController extends Controller {
     {
         // Show login reset screen
         addController(new InfoController());
-        //changeController(new AdministratorController());
     }
 }

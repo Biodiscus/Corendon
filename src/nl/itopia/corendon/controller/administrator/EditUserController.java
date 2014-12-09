@@ -1,14 +1,20 @@
 package nl.itopia.corendon.controller.administrator;
 
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import nl.itopia.corendon.data.Airport;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.Role;
+import nl.itopia.corendon.model.AirportModel;
 import nl.itopia.corendon.model.EmployeeModel;
+import nl.itopia.corendon.model.RoleModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Hashing;
 
 /**
  * @author wieskueter.com
@@ -22,6 +28,9 @@ public class EditUserController extends Controller {
 
     public Employee employee, newEmployee;
     public int userId;
+  
+    private final List<Role> roleList;
+    private final List<Airport> airportList;
     
     public EditUserController(int userId) {
         
@@ -31,6 +40,21 @@ public class EditUserController extends Controller {
         
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         this.employee = employeemodel.getEmployee(userId);
+        
+        // Populate dropdownmenu with role values
+        roleList = RoleModel.getDefault().getRoles();
+ 
+        for (Role role : roleList) {
+            roleDropdownmenu.getItems().add(new ChooseItem(role.getID(), role.getName()));
+        }
+ 
+        airportList = AirportModel.getDefault().getAirports();
+        for (Airport airport : airportList) {
+            airportDropdownmenu.getItems().add(new ChooseItem(airport.getID(), airport.getName()));
+        }
+        
+        roleDropdownmenu.getSelectionModel().select(employee.role.getID()-1);
+        airportDropdownmenu.getSelectionModel().select(employee.airport.getID()-1);
         
         // Set field data from object being edited
         usernameInputfield.setText(employee.username);
@@ -47,22 +71,38 @@ public class EditUserController extends Controller {
         removeController(this);
     }
     
-    private void editHandler(ActionEvent event)
-    {
-        String userName = usernameInputfield.getText();
-        String firstName = firstnameInputfield.getText();
-        String lastName = lastnameInputfield.getText();
+    private void editHandler(ActionEvent event) {
+        
+        // Password stuff
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
-        String contactDetails = contactdetailsInputfield.getText();
-        String notes = notesInputfield.getText();
+        String salt = Hashing.generateSaltString();
+        
+        System.out.println(password);
+        
+        int userRole = roleDropdownmenu.getValue().getKey();
         
         this.newEmployee = new Employee(this.userId);
-        this.newEmployee.username = userName;
-        this.newEmployee.firstName = firstName;
-        this.newEmployee.lastName = lastName;
-        this.newEmployee.contactDetails = contactDetails;
-        this.newEmployee.notes = notes;
+        
+        if(password.length() < 6) {
+            
+            password = this.newEmployee.password;
+            salt = this.newEmployee.salt;
+            
+        } else {
+            password = passwordInputfield.getText();
+            salt = Hashing.generateSaltString();
+            password = Hashing.sha256(password + salt);
+        }
+        
+        this.newEmployee.username = usernameInputfield.getText();
+        this.newEmployee.firstName = firstnameInputfield.getText();
+        this.newEmployee.lastName = lastnameInputfield.getText();
+        this.newEmployee.role = new Role(userRole, "none");
+        this.newEmployee.password = password;
+        this.newEmployee.salt = salt;
+        this.newEmployee.contactDetails = contactdetailsInputfield.getText();
+        this.newEmployee.notes = notesInputfield.getText();
         
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         employeemodel.editEmployee(this.newEmployee);

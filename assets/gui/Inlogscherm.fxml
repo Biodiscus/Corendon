@@ -27,7 +27,7 @@
                   <Font size="13.0" />
                </font>
             </Button>
-            <Text layoutX="698.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="132.0">
+            <Text layoutX="698.0" layoutY="418.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgotten password ?" wrappingWidth="200.0">
                <font>
                   <Font size="13.0" />
                </font>

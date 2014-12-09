@@ -235,22 +235,22 @@ public class EmployeeModel {
         }
     }
     
-    public void editEmployee(Employee employee)    
-    {
-        System.out.println("editEmployee - MODEL");
+    public void editEmployee(Employee employee) {
+        
         String editQuery = "UPDATE employee SET "
-                //+ "username = '"+ employee.username +"', "
+                + "username = '"+ employee.username +"', "
                 + "password = '"+ employee.password +"', "
-                + "salt = '"+ employee.password +"', "
+                + "salt = '"+ employee.salt +"', "
                 + "first_name = '"+ employee.firstName +"', "
                 + "last_name = '"+ employee.lastName +"', "
-                //+ "role_id = '"+ employee. +"', "
+                + "role_id = "+ employee.role.getID() +", "
                 + "contact_details = '"+ employee.contactDetails +"', "
-                + "notes = '"+ employee.notes +"', "
-                + "airports_id = 1"
+                + "notes = '"+ employee.notes +"' "
+                //+ "airports_id = 1" 
                 + "WHERE id = "+ employee.id;
         
-       try{
+        Log.display(editQuery);
+       try {
            dbmanager.updateQuery(editQuery);
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());

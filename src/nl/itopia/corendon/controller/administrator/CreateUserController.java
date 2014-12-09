@@ -18,6 +18,7 @@ import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
+import nl.itopia.corendon.utils.dropdownLists;
  
 /**
  * @author wieskueter.com
@@ -42,7 +43,7 @@ public class CreateUserController extends Controller {
  
         // Set view
         registerFXML("gui/add_user.fxml");
- 
+        
         // Populate dropdownmenu with role values
         roleList = RoleModel.getDefault().getRoles();
  

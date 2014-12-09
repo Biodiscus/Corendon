@@ -234,7 +234,7 @@ public class AdministratorController extends Controller {
         }
         //opens help function
     }
-
+    
     private void deletedLuggageHandler(ActionEvent e) {
         changeController(new DeletedLuggageController());
     }
