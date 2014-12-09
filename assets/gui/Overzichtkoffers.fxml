@@ -31,7 +31,7 @@
                      <Font size="19.0" />
                  </font>
              </Text>
-             <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
+             <Label fx:id="userID" layoutX="982.0" layoutY="26.0" prefHeight="25.0" prefWidth="283.0">
                  <font>
                      <Font size="15.0" />
                  </font>
@@ -41,7 +41,7 @@
                      <Font size="18.0" />
                  </font>
              </Text>
-             <Label fx:id="userName" layoutX="997.0" layoutY="79.0" prefHeight="25.0" prefWidth="252.0">
+             <Label fx:id="userName" layoutX="1057.0" layoutY="62.0" prefHeight="25.0" prefWidth="205.0">
                  <font>
                      <Font size="15.0" />
                  </font>

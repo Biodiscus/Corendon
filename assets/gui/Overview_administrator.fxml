@@ -61,14 +61,19 @@
                   <Font size="19.0" />
                </font>
             </Text>
-            <Label fx:id="userID" layoutX="997.0" layoutY="25.0" prefHeight="25.0" prefWidth="252.0">
+            <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
+            <Button fx:id="overviewbutton" disable="true" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
+            <Button fx:id="deletedLuggageButton" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Label fx:id="userName" layoutX="1057.0" layoutY="62.0" prefHeight="25.0" prefWidth="205.0">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
-            <Button fx:id="overviewbutton" disable="true" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
-            <Button fx:id="deletedLuggageButton" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Label fx:id="userID1" layoutX="979.0" layoutY="26.0" prefHeight="25.0" prefWidth="283.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
