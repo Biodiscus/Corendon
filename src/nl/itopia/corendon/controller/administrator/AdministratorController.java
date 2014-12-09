@@ -232,13 +232,15 @@ public class AdministratorController extends Controller {
         }
         //opens help function
     }
+<<<<<<< HEAD
     
     private void deletedLuggageHandler(ActionEvent e) {
         changeController(new DeletedLuggageController());
-    }
+=======
 
     private void openHelp() {
         helpController = new HelpFunctionController();
         addController(helpController);
+>>>>>>> origin/master
     }
 }

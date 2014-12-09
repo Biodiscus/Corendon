@@ -22,8 +22,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
+import nl.itopia.corendon.controller.manager.HelpFunctionControllerManager;
 import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.table.TableLog;
@@ -85,14 +85,14 @@ public class DeletedLuggageController extends Controller {
     
     
     private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionController());
+        addController(new HelpFunctionControllerManager());
         //opens help function
     }
 
     
     private void f1HelpFunction(KeyEvent e) {
         if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            addController(new HelpFunctionController());
+            addController(new HelpFunctionControllerAdmin());
             //opens helpfunction with the f1 key
         }
     }    

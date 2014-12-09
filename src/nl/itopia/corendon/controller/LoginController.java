@@ -138,8 +138,12 @@ public class LoginController extends Controller {
     private void resetPassword(ActionEvent e)
     {
         // Show login reset screen
+<<<<<<< HEAD
 
         this.addController(new InfoController());
+=======
+        addController(new InfoController());
+>>>>>>> origin/master
         //changeController(new AdministratorController());
     }
 }
