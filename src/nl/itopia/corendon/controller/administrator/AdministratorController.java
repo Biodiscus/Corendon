@@ -52,7 +52,7 @@ public class AdministratorController extends Controller {
     @FXML
     private TableColumn<Employee, String> airportTable;
     @FXML
-    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton;
+    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -83,6 +83,7 @@ public class AdministratorController extends Controller {
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         logfilesbutton.setOnAction(this::logHandler);
+        deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
@@ -218,5 +219,9 @@ public class AdministratorController extends Controller {
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionControllerAdmin());
         //opens help function
+    }
+    
+    private void deletedLuggageHandler(ActionEvent e) {
+        changeController(new DeletedLuggageController());
     }
 }

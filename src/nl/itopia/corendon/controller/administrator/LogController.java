@@ -30,7 +30,7 @@ import nl.itopia.corendon.utils.DateUtil;
  * @author Jeroentje
  */
 public class LogController extends Controller {
-    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, overviewbutton;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, overviewbutton, deletedLuggageButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private TableView logInfo;
@@ -59,6 +59,7 @@ public class LogController extends Controller {
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         overviewbutton.setOnAction(this::overviewHandler);
+        deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         // TODO: Implement print
 //        printstatisticsButton.setOnAction(this::printStatisticsHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
@@ -131,6 +132,10 @@ public class LogController extends Controller {
     
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
+    }
+    
+    private void deletedLuggageHandler(ActionEvent e) {
+        changeController(new DeletedLuggageController());
     }
    
 
