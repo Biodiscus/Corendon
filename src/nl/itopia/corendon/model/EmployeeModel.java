@@ -238,7 +238,7 @@ public class EmployeeModel {
     public void editEmployee(Employee employee) {
         
         String editQuery = "UPDATE employee SET "
-                //+ "username = '"+ employee.username +"', "
+                + "username = '"+ employee.username +"', "
                 + "password = '"+ employee.password +"', "
                 + "salt = '"+ employee.salt +"', "
                 + "first_name = '"+ employee.firstName +"', "

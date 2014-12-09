@@ -73,19 +73,33 @@ public class EditUserController extends Controller {
     
     private void editHandler(ActionEvent event) {
         
-        int userRole = roleDropdownmenu.getValue().getKey();
-        
         // Password stuff
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
         String salt = Hashing.generateSaltString();
         
+        System.out.println(password);
+        
+        int userRole = roleDropdownmenu.getValue().getKey();
+        
         this.newEmployee = new Employee(this.userId);
+        
+        if(password.length() < 6) {
+            
+            password = this.newEmployee.password;
+            salt = this.newEmployee.salt;
+            
+        } else {
+            password = passwordInputfield.getText();
+            salt = Hashing.generateSaltString();
+            password = Hashing.sha256(password + salt);
+        }
+        
         this.newEmployee.username = usernameInputfield.getText();
         this.newEmployee.firstName = firstnameInputfield.getText();
         this.newEmployee.lastName = lastnameInputfield.getText();
         this.newEmployee.role = new Role(userRole, "none");
-        this.newEmployee.password = Hashing.sha256(password + salt);
+        this.newEmployee.password = password;
         this.newEmployee.salt = salt;
         this.newEmployee.contactDetails = contactdetailsInputfield.getText();
         this.newEmployee.notes = notesInputfield.getText();
