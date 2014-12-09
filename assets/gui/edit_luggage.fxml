@@ -73,8 +73,8 @@
                </font>
             </Label>
             <TextField fx:id="notesInputfield" alignment="TOP_LEFT" layoutX="184.0" layoutY="494.0" prefHeight="127.0" prefWidth="388.0" promptText="Notes" />
-            <Button fx:id="editButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Save" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="editButton" layoutX="792.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Save" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
             <Label layoutX="302.0" layoutY="392.0" text="X">
                <font>
                   <Font size="16.0" />

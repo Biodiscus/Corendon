@@ -21,11 +21,11 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Button fx:id="printdetailsButton" layoutX="954.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Print details" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
-            <Button fx:id="markasfoundButton" layoutX="796.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Resolved" textFill="WHITE" />
-            <Button fx:id="editButton" layoutX="19.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Edit" textFill="WHITE" />
-            <Button fx:id="deleteButton" layoutX="189.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" style="-fx-background-color: #53AF36;" text="Delete" textFill="WHITE" />
+            <Button fx:id="printdetailsButton" layoutX="954.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Print details" />
+            <Button fx:id="cancelButton" layoutX="954.0" layoutY="587.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Cancel" />
+            <Button fx:id="markasfoundButton" layoutX="796.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Resolved" />
+            <Button fx:id="editButton" layoutX="19.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Edit" />
+            <Button fx:id="deleteButton" layoutX="189.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Delete" />
             <Label layoutX="25.0" layoutY="119.0" text="Found on airport:">
                <font>
                   <Font size="17.0" />

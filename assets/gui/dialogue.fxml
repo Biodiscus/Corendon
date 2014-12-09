@@ -26,8 +26,8 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <Button fx:id="okeButton" layoutX="139.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" style="-fx-background-color: #53AF36;" text="Oke" textFill="WHITE" />
-            <Button fx:id="cancelButton" layoutX="256.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" style="-fx-background-color: #53AF36;" text="Cancel" textFill="WHITE" />
+            <Button fx:id="okeButton" layoutX="139.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Oke" />
+            <Button fx:id="cancelButton" layoutX="256.0" layoutY="171.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="94.0" text="Cancel" />
             <Label fx:id="inputErrormessage" layoutX="86.0" layoutY="61.0" prefHeight="87.0" prefWidth="326.0" wrapText="true">
                <font>
                   <Font size="16.0" />
