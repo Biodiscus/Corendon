@@ -257,7 +257,7 @@ public class EditLuggageController extends Controller {
         for(Picture pic : deletedPictures) {
             imageModel.deleteImage(pic.getID());
         }
-
+        
 
 
         currentLuggage = luggage;
