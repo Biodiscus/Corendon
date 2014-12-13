@@ -161,10 +161,10 @@ public class EmployeeController extends Controller {
             /* cast the object to a list */
             List<Luggage> searchList = (List<Luggage>) o;
             
-            /* delete all records from the table view */
-            tableData.clear();
             
             if(null != searchList && searchList.size() >= 1) {
+                /* delete all records from the table view */
+                tableData.clear();
                 /* the search query has atleast one record, continue to fill the table view */
                 for(Luggage luggage : searchList){
                     TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.label,luggage.dimensions,

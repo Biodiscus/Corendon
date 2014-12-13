@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.itopia.corendon.controller.administrator.AdministratorController;
+import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.utils.Hashing;
@@ -117,6 +118,29 @@ public class EmployeeModel {
         }
         return employeeList;
     }
+    
+    public List<Employee> getLogEmployees() {
+        List<Employee> employeeList = new ArrayList<Employee>();
+        try {
+            String sql = "SELECT DISTINCT(employee.id), employee.username FROM log INNER JOIN employee on employee.id = log.employee_id";
+            System.out.println(sql);
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                int id = result.getInt("id");
+                String username = result.getString("username");
+                Employee employee = new Employee(id);
+                employee.username = username;
+                employeeList.add(employee);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return employeeList;
+    }
+    
+    public ChooseItem employeeToChoose(Employee employee) {
+        return new ChooseItem(employee.getID(), employee.username);
+    }    
 
     public Employee login(Employee employee) {
         if (checkPassword(employee)) {
