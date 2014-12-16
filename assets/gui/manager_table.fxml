@@ -80,16 +80,15 @@
             <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
             <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
-            <BarChart layoutX="360.0" layoutY="205.0" style="-fx-background-color: white;">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </BarChart>
             <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
             <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
+            <TableView layoutX="360.0" layoutY="205.0" prefHeight="400.0" prefWidth="500.0">
+              <columns>
+                <TableColumn fx:id="lostLuggageTable" prefWidth="149.0" text="Lost luggage" />
+                <TableColumn fx:id="foundLuggageTable" prefWidth="177.0" text="Found luggage" />
+                  <TableColumn fx:id="resolvedLuggageTable" prefWidth="169.0" text="Resolved luggage" />
+              </columns>
+            </TableView>
          </children>
          <opaqueInsets>
             <Insets right="2.0" />

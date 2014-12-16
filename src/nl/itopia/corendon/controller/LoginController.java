@@ -35,32 +35,29 @@ public class LoginController extends Controller {
         // Set view
         registerFXML("gui/Inlogscherm.fxml");
 
-        usernameField.setOnKeyReleased(this::usernameFieldKeyReleased);
-        passwordField.setOnKeyReleased(this::passwordFieldKeyReleased);
-        loginButton.setOnKeyReleased(this::buttonEnterReleased);
-        forgottenPasswordbutton.setOnKeyReleased(this::buttonEnterReleased);
+        usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
+        passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
+        loginButton.setOnKeyPressed(this::buttonEnterPressed);
+        forgottenPasswordbutton.setOnKeyPressed(this::buttonEnterPressed);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
         view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         helpButton.setOnAction(this::helpHandler);
     }
     
-    private void usernameFieldKeyReleased(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER) {
-            loginAction();
-        }
+    private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
         }
     }
     
-    private void buttonEnterReleased(KeyEvent event) {
+    private void buttonEnterPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
     }
     
-    private void passwordFieldKeyReleased(KeyEvent event) {
+    private void passwordFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
@@ -113,6 +110,7 @@ public class LoginController extends Controller {
             employeemodel.currentEmployee = employee;
             redirectEmployee(employee);
         } else {
+            usernameField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -144,6 +142,8 @@ public class LoginController extends Controller {
     {
         // Show login reset screen
         addController(new InfoController());
+        
+        
     }
     
     
