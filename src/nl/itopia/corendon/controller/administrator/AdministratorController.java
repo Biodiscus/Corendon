@@ -74,12 +74,7 @@ public class AdministratorController extends Controller {
         userName.setText("Robin de Jong");
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
-        iconPane = new StackPane();
-        iconPane.getChildren().add(spinningIcon);
-        iconPane.setPickOnBounds(false);
-        view.fxmlPane.getChildren().add(iconPane);
+        showLoadingIcon();
 
         employeeModel = EmployeeModel.getDefault();
 
@@ -111,6 +106,16 @@ public class AdministratorController extends Controller {
 
 
         this.tableActions();
+    }
+
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        spinningIcon = new ImageView("img/loader.gif");
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
     }
 
     // Fired when the log button is clicked

@@ -1,5 +1,6 @@
 package nl.itopia.corendon.controller.administrator;
 
+import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +18,16 @@ import nl.itopia.corendon.model.LogModel;
 import nl.itopia.corendon.mvc.Controller;
 import java.util.*;
 import javafx.collections.FXCollections;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.table.TableLog;
+import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.utils.DateUtil;
 
 /**
@@ -33,7 +38,7 @@ public class LogController extends Controller {
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private TableView logInfo;
-
+    @FXML private ChoiceBox users;
     public ObservableList<TableLog> tableData;
     public List<LogAction> logFileList;
 
@@ -44,7 +49,7 @@ public class LogController extends Controller {
     @FXML private TableColumn <LogAction,String>date;    
     
     private LogModel logModel;
-
+    private EmployeeModel employeeModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
 
@@ -53,17 +58,19 @@ public class LogController extends Controller {
     public LogController() {
         registerFXML("gui/administrator_logs.fxml");
 
-         logModel = logModel.getDefault();
-
+        logModel = logModel.getDefault();
+        employeeModel = EmployeeModel.getDefault();
+        
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         overviewbutton.setOnAction(this::overviewHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
+        filterButton.setOnAction(this::filterHandler);
         // TODO: Implement print
 //        printstatisticsButton.setOnAction(this::printStatisticsHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
-//        datepicker1.setValue(LocalDate.now());
+        datepicker1.setValue(LocalDate.now());
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         Image image = new Image("img/loader.gif", 24, 16.5, true, false);
@@ -74,6 +81,15 @@ public class LogController extends Controller {
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
 
+                // Set the Airports in the foundonAirportdropdown
+        List<Employee> employees = employeeModel.getLogEmployees();
+        users.getItems().add(0, "Maak een keuze");
+        for(Employee employee : employees) {
+            ChooseItem c = employeeModel.employeeToChoose(employee);
+            users.getItems().add(c);
+        }
+        users.getSelectionModel().selectFirst();
+        
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("ID"));
         user.setCellValueFactory(new PropertyValueFactory<>("user"));
@@ -82,7 +98,7 @@ public class LogController extends Controller {
         date.setCellValueFactory(new PropertyValueFactory<>("Date"));
         
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(()->recieveData());
+        Thread dataThread = new Thread(()->recieveData(logModel.getLogFiles()));
         dataThread.start();
     }
 
@@ -91,8 +107,8 @@ public class LogController extends Controller {
     }
 
     // We will call this function in a new thread, so the user can still click buttons
-    private void recieveData() {
-        logFileList = logModel.getLogFiles();
+    private void recieveData(List<LogAction> logList) {
+        logFileList = logList;
         tableData = FXCollections.observableArrayList();
 
         for(LogAction logEntry : logFileList) {
@@ -113,6 +129,24 @@ public class LogController extends Controller {
             view.fxmlPane.getChildren().remove(iconPane);
         });
     }
+    
+    private void filterHandler(ActionEvent e) {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        spinningIcon = new ImageView(image);
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false);
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
+        
+        /* filtering on date */
+        LocalDate searchDate = datepicker1.getValue();
+        String username = users.getSelectionModel().getSelectedItem().toString();
+        // Make a new thread that will recieve the tableData from the database
+        Thread dataThread = new Thread(()->recieveData(logModel.getLogFiles(searchDate,username)));
+        dataThread.start();        
+    }    
     
     private void helpHandler(ActionEvent e) {
         addController(new HelpFunctionController());

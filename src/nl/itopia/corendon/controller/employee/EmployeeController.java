@@ -55,9 +55,6 @@ public class EmployeeController extends Controller {
 
         luggageModel = LuggageModel.getDefault();
         // Show a spinning icon to indicate to the user that we are getting the tableData
-//        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        Image image = new Image("img/loader.gif");
-        spinningIcon = new ImageView(image);
         
         userID.setText("1337");
         userName.setText("Robin de Jong");
@@ -107,17 +104,20 @@ public class EmployeeController extends Controller {
     }
 
     private void showLoadingIcon() {
+        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         Image image = new Image("img/loader.gif", 64, 65, true, false);
-        ImageView v = new ImageView(image);
-        StackPane.setAlignment(v, Pos.CENTER_LEFT);
+        //ImageView v = new ImageView(image);
+        //StackPane.setAlignment(v, Pos.CENTER_LEFT);
         spinningIcon = new ImageView(image);
+        spinningIcon = new ImageView("img/loader.gif");
 
         iconPane = new StackPane();
         iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
+
     }
 
     private void refreshHandler(ActionEvent e) {
@@ -165,10 +165,10 @@ public class EmployeeController extends Controller {
             /* cast the object to a list */
             List<Luggage> searchList = (List<Luggage>) o;
             
-            /* delete all records from the table view */
-            tableData.clear();
             
             if(null != searchList && searchList.size() >= 1) {
+                /* delete all records from the table view */
+                tableData.clear();
                 /* the search query has atleast one record, continue to fill the table view */
                 for(Luggage luggage : searchList){
                     TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.label,luggage.dimensions,

@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.controller.employee.EmployeeController;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.manager.ManagerController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.model.EmployeeModel;
@@ -25,38 +26,39 @@ public class LoginController extends Controller {
     
     @FXML private TextField usernameField;
     @FXML private Button loginButton;
-    @FXML private Button forgottenPasswordbutton;
+    @FXML private Button forgottenPasswordbutton, helpButton;
     @FXML private TextField passwordField;
+    
+    private HelpFunctionController helpController;
     
     public LoginController(){
         
         // Set view
         registerFXML("gui/Inlogscherm.fxml");
 
-        usernameField.setOnKeyReleased(this::usernameFieldKeyReleased);
-        passwordField.setOnKeyReleased(this::passwordFieldKeyReleased);
-        loginButton.setOnKeyReleased(this::buttonEnterReleased);
-        forgottenPasswordbutton.setOnKeyReleased(this::buttonEnterReleased);
+        usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
+        passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
+        loginButton.setOnKeyPressed(this::buttonEnterPressed);
+        forgottenPasswordbutton.setOnKeyPressed(this::buttonEnterPressed);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+        helpButton.setOnAction(this::helpHandler);
     }
     
-    private void usernameFieldKeyReleased(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER) {
-            loginAction();
-        }
+    private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
         }
     }
     
-    private void buttonEnterReleased(KeyEvent event) {
+    private void buttonEnterPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
     }
     
-    private void passwordFieldKeyReleased(KeyEvent event) {
+    private void passwordFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
@@ -109,6 +111,7 @@ public class LoginController extends Controller {
             employeemodel.currentEmployee = employee;
             redirectEmployee(employee);
         } else {
+            usernameField.requestFocus();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
@@ -140,5 +143,45 @@ public class LoginController extends Controller {
     {
         // Show login reset screen
         addController(new InfoController());
+        
+        
     }
+    
+    
+    
+    
+    private void keypressHandler(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (helpController == null) {
+                    openHelp();
+                } else {
+                    removeController(helpController);
+                    helpController = null;
+                }
+            } 
+        }
+    }
+    
+    
+    
+    
+    private void helpHandler(ActionEvent e) {
+        if(helpController == null) {
+            openHelp();
+        }
+        //opens help function
+    }
+
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
+    }
+    
+    
+    
+    
+    
 }

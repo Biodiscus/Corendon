@@ -5,6 +5,7 @@ import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Map;
 public class LogModel {
     private static final LogModel _default = new LogModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
-
+    private final String DEFAULTSEARCHVALUE = "Maak een keuze";
     private Map<Integer, LogAction> _cache;
 
     private LogModel() {
@@ -60,7 +61,40 @@ public class LogModel {
 
         return logFiles;
     }
+    
+    public List<LogAction> getLogFiles(LocalDate date, String userName) {
+        List<LogAction> logFiles = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM log {JOIN} {WHERE}";
+            String whereQuery = " WHERE ";
+            String innerJoinQuery = "";
+            
+            if(null != date){
+                /* filtering on date */
+                whereQuery += "DATE_FORMAT(FROM_UNIXTIME(date), '%Y-%m-%d') >= '" + date + "'";
+            }
+            
+            if(userName != null && !userName.isEmpty() && !userName.equals(DEFAULTSEARCHVALUE)){
+                /* filtering on username */
+                whereQuery += " AND employee.username = '" + userName + "'";
+                innerJoinQuery += " INNER JOIN employee ON log.employee_id = employee.id";
+            }
+            
+            sql = sql.replace("{JOIN}",innerJoinQuery).replace("{WHERE}", whereQuery);
+            
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                logFiles.add(resultToLogAction(result));
 
+                // Add the airport to the cache
+//                _cache.put(id, airport);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return logFiles;
+    }
     public int insertAction(LogAction log) {
         long date = log.date;
         int action_id = log.action.getID();
