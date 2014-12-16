@@ -52,7 +52,7 @@
             <Button fx:id="refreshButton" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
             <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
             <Button fx:id="overviewbutton" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
-            <AnchorPane layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="920.0">
+            <AnchorPane fx:id="LuggageTable" layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="920.0">
                <children>
                   <TableView fx:id="luggageInfo" prefHeight="466.0" prefWidth="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columns>

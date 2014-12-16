@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
@@ -35,10 +36,11 @@ public class AdministratorController extends Controller {
     private DatabaseManager dbManager;
 
     public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();
-    ;
+
 
     public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();
-    ;
+
+    @FXML private AnchorPane userAnchorpane;
     @FXML
     private TableView userTable;
     @FXML
@@ -112,10 +114,10 @@ public class AdministratorController extends Controller {
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
+        iconPane = new StackPane(spinningIcon);
+        iconPane.setPrefWidth(userTable.getPrefWidth());
+        iconPane.setPrefHeight(userTable.getPrefHeight());
+        userAnchorpane.getChildren().add(iconPane);
     }
 
     // Fired when the log button is clicked
@@ -216,7 +218,7 @@ public class AdministratorController extends Controller {
 
         Platform.runLater(() -> {
             userTable.setItems(tableData);
-            view.fxmlPane.getChildren().remove(iconPane);
+            userAnchorpane.getChildren().remove(iconPane);
         });
     }
 

@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
@@ -32,6 +33,8 @@ import nl.itopia.corendon.model.LogModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
+import nl.itopia.corendon.utils.Log;
+
 /**
  *
  * @author Erik
@@ -39,6 +42,7 @@ import nl.itopia.corendon.utils.DateUtil;
 public class DeletedLuggageController extends Controller {
 
     @FXML private TableView luggageInfo;
+    @FXML private AnchorPane LuggageTable;
     
     @FXML private Button revertLuggageButton, helpButton, logoutButton, deleteLuggageButton, overviewbutton, logfilesbutton;
     @FXML private TableView logInfo;
@@ -66,9 +70,13 @@ public class DeletedLuggageController extends Controller {
         luggageModel = LuggageModel.getDefault();
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
+<<<<<<< HEAD
         //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         Image image = new Image("img/loader.gif", 64, 65, true, false);
         spinningIcon = new ImageView(image);
+=======
+        showLoadingIcon();
+>>>>>>> f085622d549736723e506332f97c9595a0f30fa8
         
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
@@ -81,11 +89,6 @@ public class DeletedLuggageController extends Controller {
         
         revertLuggageButton.setDisable(true);
         deleteLuggageButton.setDisable(true);
-
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
 
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -105,6 +108,16 @@ public class DeletedLuggageController extends Controller {
         dataThread.start();
 
     }
+
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        spinningIcon = new ImageView("img/loader.gif");
+
+        iconPane = new StackPane(spinningIcon);
+        iconPane.setPrefWidth(LuggageTable.getPrefWidth());
+        iconPane.setPrefHeight(LuggageTable.getPrefHeight());
+        LuggageTable.getChildren().add(iconPane);
+    }
     
     private void receiveData() {
         luggageList = luggageModel.getAllDeletedLuggage();
@@ -113,9 +126,9 @@ public class DeletedLuggageController extends Controller {
         for(Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
                     luggage.getID(),
+                    luggage.label,
                     luggage.dimensions,
                     luggage.notes,
-                    luggage.label,
                     luggage.airport.getName(),
                     luggage.brand.getName(),
                     luggage.color.getHex(),
@@ -127,7 +140,8 @@ public class DeletedLuggageController extends Controller {
 
         Platform.runLater(() -> {
             luggageInfo.setItems(tableData);
-            view.fxmlPane.getChildren().remove(iconPane);
+            LuggageTable.getChildren().remove(iconPane);
+            Log.display("Attempting to delete iconPane");
         });
     }
     
