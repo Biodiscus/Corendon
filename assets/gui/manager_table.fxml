@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.media.*?>
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane prefWidth="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
+         <children>
+            <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
+            <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/Corendon-logo-groot3.png" />
+               </image>
+               <viewport>
+                  <Rectangle2D />
+               </viewport>
+            </ImageView>
+            <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="datepicker1" layoutX="896.0" layoutY="235.0" />
+            <Text layoutX="1066.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="until" textAlignment="CENTER" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="datepicker2" layoutX="1146.0" layoutY="233.0" />
+            <CheckBox fx:id="foundLuggagecheckbox" layoutX="900.0" layoutY="295.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="248.0" text="Found luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="lostLuggagecheckbox" layoutX="900.0" layoutY="335.0" mnemonicParsing="false" text="Lost luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <CheckBox fx:id="resolvedLuggagecheckbox" layoutX="900.0" layoutY="375.0" mnemonicParsing="false" text="Resolved luggage">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </CheckBox>
+            <Button fx:id="filterButton" layoutX="1034.0" layoutY="441.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="131.0" text="Filter" />
+            <Text layoutX="936.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text layoutX="936.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+            <ComboBox fx:id="dropdownMenu" layoutX="1075.0" layoutY="62.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
+            <Label fx:id="userID" layoutX="1003.0" layoutY="26.0" prefHeight="25.0" prefWidth="252.0">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="helpButton" layoutX="1279.0" layoutY="19.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutButton" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logfilesbutton" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
+            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
+            <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
+            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
+            <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
+            <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
+            <TableView layoutX="360.0" layoutY="205.0" prefHeight="400.0" prefWidth="500.0">
+              <columns>
+                <TableColumn fx:id="lostLuggageTable" prefWidth="149.0" text="Lost luggage" />
+                <TableColumn fx:id="foundLuggageTable" prefWidth="177.0" text="Found luggage" />
+                  <TableColumn fx:id="resolvedLuggageTable" prefWidth="169.0" text="Resolved luggage" />
+              </columns>
+            </TableView>
+         </children>
+         <opaqueInsets>
+            <Insets right="2.0" />
+         </opaqueInsets>
+      </AnchorPane>
+   </children>
+</StackPane>
