@@ -89,6 +89,7 @@
               </yAxis>
             </BarChart>
             <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
+            <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
