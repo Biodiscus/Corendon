@@ -18,6 +18,7 @@ import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
+import nl.itopia.corendon.utils.Validation;
 import nl.itopia.corendon.utils.dropdownLists;
  
 /**
@@ -91,9 +92,7 @@ public class CreateUserController extends Controller {
         
         if(userNameModel.username.equals(userName)) {
             
-            usernameInputfield.setText("");
-            usernameInputfield.setPromptText("Username already exsists.");
-            usernameInputfield.getStyleClass().add("error_prompt");
+            Validation.errorMessage(usernameInputfield, "Username already exsists.");
             
             errorCount++;
         }
@@ -103,27 +102,24 @@ public class CreateUserController extends Controller {
             
             passwordInputfield.setText("");
             repeatpasswordInputfield.setText("");
-            passwordInputfield.setPromptText("Passwords doesn't match.");
-            passwordInputfield.getStyleClass().add("error_prompt");
             
-            repeatpasswordInputfield.setPromptText("Passwords doesn't match.");
-            repeatpasswordInputfield.getStyleClass().add("error_prompt");
+            Validation.errorMessage(passwordInputfield, "Passwords doesn't match.");
+            Validation.errorMessage(repeatpasswordInputfield, "Passwords doesn't match.");
             
             errorCount++;
         }
         
         // Check if the password is the correct size
         if (password.length() < 6) {
-            Log.display("Minimum password length is 6 characters.");
+            
+            Validation.errorMessage(passwordInputfield, "Minimum password length is 6 characters.");
             errorCount++;
         }
         
         // Check if firstname is correct size
         if (firstName.length() < 3) {
             
-            firstnameInputfield.setText("");
-            firstnameInputfield.setPromptText("Firstname is required.");
-            firstnameInputfield.getStyleClass().add("error_prompt");
+            Validation.errorMessage(firstnameInputfield, "Firstname is required.");
             
             errorCount++;
         }
@@ -131,9 +127,7 @@ public class CreateUserController extends Controller {
         // Check if firstname is correct size
         if (lastName.length() < 3) {
             
-            lastnameInputfield.setText("");
-            lastnameInputfield.setPromptText("Firstname is required.");
-            lastnameInputfield.getStyleClass().add("error_prompt");
+            Validation.errorMessage(firstnameInputfield, "Firstname is required.");
             
             errorCount++;
         }

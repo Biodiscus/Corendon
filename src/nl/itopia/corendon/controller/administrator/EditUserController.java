@@ -73,6 +73,8 @@ public class EditUserController extends Controller {
     
     private void editHandler(ActionEvent event) {
         
+        int errorCount = 0;
+        
         // Password stuff
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
@@ -94,17 +96,20 @@ public class EditUserController extends Controller {
             password = Hashing.sha256(password + salt);
         }
         
-        this.newEmployee.username = usernameInputfield.getText();
-        this.newEmployee.firstName = firstnameInputfield.getText();
-        this.newEmployee.lastName = lastnameInputfield.getText();
-        this.newEmployee.role = new Role(userRole, "none");
-        this.newEmployee.password = password;
-        this.newEmployee.salt = salt;
-        this.newEmployee.contactDetails = contactdetailsInputfield.getText();
-        this.newEmployee.notes = notesInputfield.getText();
-        
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.editEmployee(this.newEmployee);
-        removeController(this);
+        if(errorCount == 0) {
+            
+            this.newEmployee.username = usernameInputfield.getText();
+            this.newEmployee.firstName = firstnameInputfield.getText();
+            this.newEmployee.lastName = lastnameInputfield.getText();
+            this.newEmployee.role = new Role(userRole, "none");
+            this.newEmployee.password = password;
+            this.newEmployee.salt = salt;
+            this.newEmployee.contactDetails = contactdetailsInputfield.getText();
+            this.newEmployee.notes = notesInputfield.getText();
+
+            EmployeeModel employeemodel = EmployeeModel.getDefault();
+            employeemodel.editEmployee(this.newEmployee);
+            removeController(this);
+        }
     }
 }

@@ -21,6 +21,7 @@ import nl.itopia.corendon.mvc.Controller;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
@@ -103,7 +104,13 @@ public class EmployeeController extends Controller {
     }
 
     private void showLoadingIcon() {
+        
         // Show a spinning icon to indicate to the user that we are getting the tableData
+        //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        Image image = new Image("img/loader.gif", 64, 65, true, false);
+        //ImageView v = new ImageView(image);
+        //StackPane.setAlignment(v, Pos.CENTER_LEFT);
+        spinningIcon = new ImageView(image);
         spinningIcon = new ImageView("img/loader.gif");
 
         iconPane = new StackPane(spinningIcon);

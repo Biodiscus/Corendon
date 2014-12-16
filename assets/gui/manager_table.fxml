@@ -82,7 +82,7 @@
             <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
             <Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
             <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
-            <TableView layoutX="360.0" layoutY="205.0" prefHeight="400.0" prefWidth="500.0">
+            <TableView fx:id="luggageTableView" layoutX="360.0" layoutY="205.0" prefHeight="400.0" prefWidth="500.0">
               <columns>
                 <TableColumn fx:id="lostLuggageTable" prefWidth="149.0" text="Lost luggage" />
                 <TableColumn fx:id="foundLuggageTable" prefWidth="177.0" text="Found luggage" />
