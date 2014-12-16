@@ -10,6 +10,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
@@ -23,14 +24,13 @@ import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
-import nl.itopia.corendon.utils.Log;
 
 /**
  *  AUTHOR: IGOR
- *  
  */
 public class EmployeeController extends Controller {
     @FXML private TableView luggageInfo;
+    @FXML private AnchorPane LuggageTable;
 
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
@@ -106,11 +106,10 @@ public class EmployeeController extends Controller {
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
-
+        iconPane = new StackPane(spinningIcon);
+        iconPane.setPrefWidth(luggageInfo.getPrefWidth());
+        iconPane.setPrefHeight(luggageInfo.getPrefHeight());
+        LuggageTable.getChildren().add(iconPane);
     }
 
     private void refreshHandler(ActionEvent e) {
@@ -146,7 +145,7 @@ public class EmployeeController extends Controller {
             luggageInfo.setItems(tableData);
             // Enable the button, remove the loading icon
             refreshButton.setDisable(false);
-            view.fxmlPane.getChildren().remove(iconPane);
+            LuggageTable.getChildren().remove(iconPane);
         });
     }
     

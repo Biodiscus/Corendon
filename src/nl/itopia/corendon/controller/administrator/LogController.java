@@ -10,6 +10,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.controller.HelpFunctionController;
@@ -39,6 +40,7 @@ public class LogController extends Controller {
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private TableView logInfo;
     @FXML private ChoiceBox users;
+    @FXML private AnchorPane logTable;
     public ObservableList<TableLog> tableData;
     public List<LogAction> logFileList;
 
@@ -58,7 +60,7 @@ public class LogController extends Controller {
     public LogController() {
         registerFXML("gui/administrator_logs.fxml");
 
-        logModel = logModel.getDefault();
+        logModel = LogModel.getDefault();
         employeeModel = EmployeeModel.getDefault();
         
         logoutButton.setOnAction(this::logoutHandler);
@@ -73,15 +75,9 @@ public class LogController extends Controller {
         datepicker1.setValue(LocalDate.now());
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
+        showLoadingIcon();
 
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false);
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
-
-                // Set the Airports in the foundonAirportdropdown
+        // Set the Airports in the foundonAirportdropdown
         List<Employee> employees = employeeModel.getLogEmployees();
         users.getItems().add(0, "Maak een keuze");
         for(Employee employee : employees) {
@@ -100,6 +96,16 @@ public class LogController extends Controller {
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(()->recieveData(logModel.getLogFiles()));
         dataThread.start();
+    }
+
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        spinningIcon = new ImageView("img/loader.gif");
+
+        iconPane = new StackPane(spinningIcon);
+        iconPane.setPrefWidth(logInfo.getPrefWidth());
+        iconPane.setPrefHeight(logInfo.getPrefHeight());
+        logTable.getChildren().add(iconPane);
     }
 
     private void overviewHandler(ActionEvent e) {
@@ -126,19 +132,13 @@ public class LogController extends Controller {
 
         Platform.runLater(() -> {
             logInfo.setItems(tableData);
-            view.fxmlPane.getChildren().remove(iconPane);
+            logTable.getChildren().remove(iconPane);
         });
     }
     
     private void filterHandler(ActionEvent e) {
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
-
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false);
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
+        showLoadingIcon();
         
         /* filtering on date */
         LocalDate searchDate = datepicker1.getValue();
