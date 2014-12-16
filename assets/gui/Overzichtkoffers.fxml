@@ -31,19 +31,19 @@
                      <Font size="19.0" />
                  </font>
              </Text>
-             <Label fx:id="userID" layoutX="976.0" layoutY="27.0" prefHeight="25.0" prefWidth="283.0" textFill="WHITE">
+             <Label fx:id="userID" layoutX="980.0" layoutY="25.0" prefHeight="28.0" prefWidth="277.0" textFill="WHITE">
                  <font>
-                     <Font size="15.0" />
+                     <Font size="19.0" />
                  </font>
              </Label>
-             <Text fill="WHITE" layoutX="930.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+             <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
                  <font>
                      <Font size="18.0" />
                  </font>
              </Text>
-             <Label fx:id="userName" layoutX="1061.0" layoutY="60.0" prefHeight="25.0" prefWidth="198.0" textFill="WHITE">
+             <Label fx:id="userName" layoutX="1056.0" layoutY="57.0" prefHeight="28.0" prefWidth="203.0" textFill="WHITE">
                  <font>
-                     <Font size="15.0" />
+                     <Font size="19.0" />
                  </font>
              </Label>
 
