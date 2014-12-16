@@ -34,6 +34,7 @@ import java.util.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
+import nl.itopia.corendon.model.EmployeeModel;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -65,8 +66,8 @@ public class ManagerController extends Controller {
     public ManagerController() {
         registerFXML("gui/manager_linediagram.fxml");
 
-        userName.setText("Robin de Jong");
-        userID.setText("1337");
+        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         luggageModel = LuggageModel.getDefault();
 

@@ -25,6 +25,7 @@ import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
+import nl.itopia.corendon.model.EmployeeModel;
 
 /**
  *  AUTHOR: IGOR
@@ -56,8 +57,8 @@ public class EmployeeController extends Controller {
         luggageModel = LuggageModel.getDefault();
         // Show a spinning icon to indicate to the user that we are getting the tableData
         
-        userID.setText("1337");
-        userName.setText("Robin de Jong");
+        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         showLoadingIcon();
 
