@@ -54,7 +54,7 @@ public class LogController extends Controller {
     private EmployeeModel employeeModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
-
+    private HelpFunctionController helpController;
     
 
     public LogController() {
@@ -68,6 +68,7 @@ public class LogController extends Controller {
         overviewbutton.setOnAction(this::overviewHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         filterButton.setOnAction(this::filterHandler);
+        helpButton.setOnAction(this::helpHandler);
         // TODO: Implement print
 //        printstatisticsButton.setOnAction(this::printStatisticsHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
@@ -148,18 +149,35 @@ public class LogController extends Controller {
         dataThread.start();        
     }    
     
-    private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionController());
-        //opens help function
-    }
-
+    
     
     private void f1HelpFunction(KeyEvent e) {
-    if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-        addController(new HelpFunctionController());
         //opens helpfunction with the f1 key
+        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            // If it's already openend, close it
+            if(helpController == null) {
+                openHelp();
+            } else {
+                removeController(helpController);
+                helpController = null;
+            }
+        }
     }
-}
+    
+    
+    
+   private void helpHandler(ActionEvent e) {
+        if(helpController == null) {
+            openHelp();
+        }
+        //opens help function
+    }
+    
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
+    }
+
     
     
     

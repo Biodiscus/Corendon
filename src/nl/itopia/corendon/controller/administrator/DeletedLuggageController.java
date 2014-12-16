@@ -59,9 +59,9 @@ public class DeletedLuggageController extends Controller {
     @FXML private TableColumn <Luggage,String>Notes; 
     
     private LuggageModel luggageModel;
-    
     private ImageView spinningIcon;
     private StackPane iconPane;
+    private HelpFunctionController helpController;
 
     
     public DeletedLuggageController() {
@@ -79,6 +79,7 @@ public class DeletedLuggageController extends Controller {
         logfilesbutton.setOnAction(this::logHandler);
         revertLuggageButton.setOnAction(this::revertHandler);
         deleteLuggageButton.setOnAction(this::deleteHandler);
+        helpButton.setOnAction(this::helpHandler);
 
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         
@@ -163,18 +164,32 @@ public class DeletedLuggageController extends Controller {
         tableData.remove(luggage);
     }
     
-    private void helpHandler(ActionEvent e) {
-        addController(new HelpFunctionController());
+    private void f1HelpFunction(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
+            // If it's already openend, close it
+            if(helpController == null) {
+                openHelp();
+            } else {
+                removeController(helpController);
+                helpController = null;
+            }
+        }
+    }
+    
+    
+    
+   private void helpHandler(ActionEvent e) {
+        if(helpController == null) {
+            openHelp();
+        }
         //opens help function
     }
-
     
-    private void f1HelpFunction(KeyEvent e) {
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            addController(new HelpFunctionController());
-            //opens helpfunction with the f1 key
-        }
-    }    
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
+    }   
     
     
     private void logoutHandler(ActionEvent e) {
