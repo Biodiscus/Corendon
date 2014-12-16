@@ -66,7 +66,8 @@ public class DeletedLuggageController extends Controller {
         luggageModel = LuggageModel.getDefault();
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
+        Image image = new Image("img/loader.gif", 64, 65, true, false);
         spinningIcon = new ImageView(image);
         
         logoutButton.setOnAction(this::logoutHandler);
