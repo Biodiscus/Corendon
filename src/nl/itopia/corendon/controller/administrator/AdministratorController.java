@@ -72,8 +72,8 @@ public class AdministratorController extends Controller {
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
 
-        userID.setText("1337");
-        userName.setText("Robin de Jong");
+        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
