@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.controller.employee.EmployeeController;
+import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.manager.ManagerController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.model.EmployeeModel;
@@ -24,8 +25,10 @@ public class LoginController extends Controller {
     
     @FXML private TextField usernameField;
     @FXML private Button loginButton;
-    @FXML private Button forgottenPasswordbutton;
+    @FXML private Button forgottenPasswordbutton, helpButton;
     @FXML private TextField passwordField;
+    
+    private HelpFunctionController helpController;
     
     public LoginController(){
         
@@ -38,6 +41,8 @@ public class LoginController extends Controller {
         forgottenPasswordbutton.setOnKeyReleased(this::buttonEnterReleased);
         loginButton.setOnAction(this::loginButtonAction);
         forgottenPasswordbutton.setOnAction(this::resetPassword);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+        helpButton.setOnAction(this::helpHandler);
     }
     
     private void usernameFieldKeyReleased(KeyEvent event) {
@@ -140,4 +145,42 @@ public class LoginController extends Controller {
         // Show login reset screen
         addController(new InfoController());
     }
+    
+    
+    
+    
+    private void keypressHandler(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (helpController == null) {
+                    openHelp();
+                } else {
+                    removeController(helpController);
+                    helpController = null;
+                }
+            } 
+        }
+    }
+    
+    
+    
+    
+    private void helpHandler(ActionEvent e) {
+        if(helpController == null) {
+            openHelp();
+        }
+        //opens help function
+    }
+
+    private void openHelp() {
+        helpController = new HelpFunctionController();
+        addController(helpController);
+    }
+    
+    
+    
+    
+    
 }
