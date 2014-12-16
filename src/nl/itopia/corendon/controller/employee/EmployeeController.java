@@ -54,9 +54,6 @@ public class EmployeeController extends Controller {
 
         luggageModel = LuggageModel.getDefault();
         // Show a spinning icon to indicate to the user that we are getting the tableData
-//        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        Image image = new Image("img/loader.gif");
-        spinningIcon = new ImageView(image);
         
         userID.setText("1337");
         userName.setText("Robin de Jong");
@@ -107,13 +104,13 @@ public class EmployeeController extends Controller {
 
     private void showLoadingIcon() {
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
+        spinningIcon = new ImageView("img/loader.gif");
 
         iconPane = new StackPane();
         iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
+
     }
 
     private void refreshHandler(ActionEvent e) {

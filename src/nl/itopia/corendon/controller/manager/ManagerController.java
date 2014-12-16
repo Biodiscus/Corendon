@@ -58,7 +58,7 @@ public class ManagerController extends Controller {
 
     private Chart currentChart;
     private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
-    private XYChart.Series<String, Integer> testSeries;
+    private XYChart.Series<String, Integer> foundBarSeries, lostBarSeries, resolvedBarSeries;
     private boolean helpFunctionOpened;
     private HelpFunctionController helpController;
 
@@ -93,8 +93,7 @@ public class ManagerController extends Controller {
 
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        Image image = new Image("img/loader.gif", 24, 16.5, true, false);
-        spinningIcon = new ImageView(image);
+        showLoadingIcon();
 
         iconPane = new StackPane();
         iconPane.setPickOnBounds(false);
@@ -105,14 +104,20 @@ public class ManagerController extends Controller {
         foundSeries = new XYChart.Series<>();
         foundSeries.setName("Found");
 
-        testSeries = new XYChart.Series<>();
-        testSeries.setName("Test");
+        foundBarSeries = new XYChart.Series<>();
+        foundBarSeries.setName("Found");
 
         lostSeries = new XYChart.Series<>();
         lostSeries.setName("Lost");
 
+        lostBarSeries = new XYChart.Series<>();
+        lostBarSeries.setName("Found");
+
         resolvedSeries = new XYChart.Series<>();
         resolvedSeries.setName("Resolved");
+
+        resolvedBarSeries = new XYChart.Series<>();
+        resolvedBarSeries.setName("Found");
 
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(() -> receiveData());
@@ -269,27 +274,34 @@ public class ManagerController extends Controller {
 
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
             XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
-            testSeries.getData().add(testData);
+            foundBarSeries.getData().add(testData);
         }
         for (ChartData data : lostDates) {
             int count = data.count;
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
             lostSeries.getData().add(pointData);
+
+            String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
+            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
+            lostBarSeries.getData().add(testData);
         }
         for (ChartData data : resolvedDates) {
             int count = data.count;
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
             resolvedSeries.getData().add(pointData);
+
+            String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
+            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
+            resolvedBarSeries.getData().add(testData);
         }
 
         // Notify the javafx thread to run this next command
         Platform.runLater(() -> {
             // Update the line diagram with our tableData
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
-            barDiagram.getData().add(testSeries);
-//            barDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
+            barDiagram.getData().addAll(foundBarSeries, lostBarSeries, resolvedBarSeries);
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
@@ -314,6 +326,16 @@ public class ManagerController extends Controller {
             openHelp();
         }
         //opens help function
+    }
+
+    private void showLoadingIcon() {
+        // Show a spinning icon to indicate to the user that we are getting the tableData
+        spinningIcon = new ImageView("img/loader.gif");
+
+        iconPane = new StackPane();
+        iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
+        iconPane.getChildren().add(spinningIcon);
+        view.fxmlPane.getChildren().add(iconPane);
     }
 
     private void openHelp() {
