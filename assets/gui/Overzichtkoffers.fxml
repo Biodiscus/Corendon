@@ -17,7 +17,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;" StackPane.alignment="CENTER">
          <children>
-            <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
+            <Label layoutX="-6.0" layoutY="-1.0" prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -49,7 +49,7 @@
 
             <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="175.5" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
             <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
-            <Button fx:id="turnedinLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Turned in luggage" />
+            <Button fx:id="resolvedLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Resolved luggage" />
             <Button fx:id="searchLuggagebutton" layoutX="43.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search luggage" />
             <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="458.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
             <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="503.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />

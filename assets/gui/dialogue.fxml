@@ -21,7 +21,7 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Label fx:id="inputErrortitle" alignment="CENTER" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #9D0B0F; -fx-border-color: black;" textAlignment="CENTER" textFill="WHITE">
+            <Label fx:id="inputErrortitle" alignment="CENTER" prefHeight="35.0" prefWidth="500.0" style="-fx-background-color: #BB1D14; -fx-border-color: black;" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font size="16.0" />
                </font>
