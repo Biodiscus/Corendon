@@ -90,7 +90,7 @@ public class CreateUserController extends Controller {
         // Check if username already exists
         Employee userNameModel = employeemodel.getEmployee(userName);
 
-        if(userNameModel.username == null) {
+        if(userNameModel != null) {
             
             Validation.errorMessage(usernameInputfield, "Username already exsists.");
             
