@@ -106,7 +106,7 @@ public class EmployeeModel {
     public List<Employee> getEmployees() {
         List<Employee> employeeList = new ArrayList<Employee>();
         try {
-            String sql = "SELECT * FROM employee";
+            String sql = "SELECT * FROM employee WHERE account_status != 'deleted'";
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
                 int id = result.getInt("id");
@@ -258,17 +258,15 @@ public class EmployeeModel {
     public void createEmployee(Employee employee) {
 
         int role_id = employee.role.getID();
-        //int airport_id = employee.airport.getID();
+        int airport_id = employee.airport.getID();
 
         String query = "INSERT INTO employee " +
                 "(username, password, salt, first_name, last_name, role_id, contact_details, notes,airports_id)" +
                 "VALUES ('%s', '%s', '%s', '%s', '%s', '%d', '%s', '%s', ' %s' )";
 
-        Log.display(employee.salt);
-
         String finalQuery = String.format(
                 query, employee.username, employee.password, employee.salt, employee.firstName, employee.lastName,
-                role_id, employee.contactDetails, employee.notes, 1
+                role_id, employee.contactDetails, employee.notes, airport_id
         );
 
         try {
