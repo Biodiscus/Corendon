@@ -69,6 +69,11 @@
                </children>
             </AnchorPane>
             <Button fx:id="deletedLuggageButton" disable="true" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Label fx:id="userName" layoutX="1056.0" layoutY="57.0" prefHeight="28.0" prefWidth="203.0" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
