@@ -123,7 +123,6 @@ public class EmployeeModel {
         List<Employee> employeeList = new ArrayList<Employee>();
         try {
             String sql = "SELECT DISTINCT(employee.id), employee.username FROM log INNER JOIN employee on employee.id = log.employee_id";
-            System.out.println(sql);
             ResultSet result = dbmanager.doQuery(sql);
             while (result.next()) {
                 int id = result.getInt("id");

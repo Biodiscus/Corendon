@@ -236,6 +236,21 @@ public class LuggageModel {
         return deletedLuggageList;
     }
     
+    public boolean labelExists(String label) {
+        int numRecords = 0;
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "'");
+            if (result.next()) {
+                String labelCounter = result.getString("labelcounter");
+                numRecords = Integer.parseInt(labelCounter);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return numRecords == 1;
+    }
+    
     //Gets all luggagedata from DB, puts the tableData fields in luggage object,
     //and puts all luggageobjects in ArrayList of Luggage objects
     public List<Luggage> getAllLuggage() {
