@@ -134,6 +134,23 @@ public class LuggageModel {
             return null;
         }
     }
+    
+    public Luggage getLuggageByLabel(String label) {
+        Luggage luggage = new Luggage();
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM luggage WHERE label = '" + label + "'");
+
+            if(result.next()) {
+                luggage = resultToLuggage(result);
+            }
+
+            return luggage;
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
+        }
+    }
 
     private Luggage resultToLuggage(ResultSet result) throws SQLException{
         Luggage luggage = new Luggage(result.getInt("id"));

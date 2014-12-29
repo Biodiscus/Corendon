@@ -66,6 +66,7 @@ public class CustomerController extends Controller {
         currentLuggage.status = new Status(3, "Resolved");
         luggageModel = LuggageModel.getDefault();
         luggageModel.editLuggage(currentLuggage);
+        removeController(this);
     }
 
     private void cancelHandler(ActionEvent e) {

@@ -209,6 +209,8 @@ public class EmployeeController extends Controller {
             tableData.add(tableLuggage);
         });
         addController(addLuggage);
+        
+        addLuggage.setControllerDeleteHandler((o) -> {  refreshHandler(null);   });        
     }
 
     private void detailsHandler(ActionEvent e) {
