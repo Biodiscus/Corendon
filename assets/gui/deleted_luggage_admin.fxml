@@ -17,7 +17,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Label prefHeight="107.0" prefWidth="1369.0" style="-fx-background-color: #9C0C0C;" />
+            <Label prefHeight="107.0" prefWidth="1369.0" style="-fx-background-color: #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -69,6 +69,11 @@
                </children>
             </AnchorPane>
             <Button fx:id="deletedLuggageButton" disable="true" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Label fx:id="userName" layoutX="1056.0" layoutY="57.0" prefHeight="28.0" prefWidth="203.0" textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
          </children>
          <opaqueInsets>
             <Insets right="2.0" />

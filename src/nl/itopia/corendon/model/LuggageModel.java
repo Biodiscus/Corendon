@@ -268,6 +268,55 @@ public class LuggageModel {
         return luggageList;
     }
 
+    
+     public List<Luggage> getAllLostLuggage() {
+        List<Luggage> lostLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='1'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                lostLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return lostLuggageList;
+    }
+     
+     
+          public List<Luggage> getAllFoundLuggage() {
+        List<Luggage> foundLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='2'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                foundLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return foundLuggageList;
+    }
+          
+          
+          
+               public List<Luggage> getAllResolvedLuggage() {
+        List<Luggage> resolvedLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='3'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                resolvedLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return resolvedLuggageList;
+    }
+    
     public static LuggageModel getDefault() {
         return _default;
     }

@@ -6,6 +6,11 @@
     -fx-prompt-text-fill: transparent;
 }
 
+labelButton {
+    -fx-background-color: #9D0B0F;
+    -fx-text-fill: white;
+}
+
 Button {
     -fx-background-color: #53AF36;
     -fx-text-fill: white;
@@ -14,3 +19,4 @@ Button {
 Button:hover {
     -fx-background-color: #428C2B;
 }
+

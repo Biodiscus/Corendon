@@ -89,8 +89,8 @@ public class CreateUserController extends Controller {
  
         // Check if username already exists
         Employee userNameModel = employeemodel.getEmployee(userName);
-        
-        if(userNameModel.username.equals(userName)) {
+
+        if(userNameModel != null) {
             
             Validation.errorMessage(usernameInputfield, "Username already exsists.");
             
@@ -158,12 +158,9 @@ public class CreateUserController extends Controller {
             employee.salt = salt;
             employee.createDate = DateUtil.getCurrentTimeStamp();
             employee.airport = AirportModel.getDefault().getAirport(airport.getKey());
- 
-            // employeemodel.createEmployee(userName, password, userRole);
+
             createdEmployee = employee;
-           
-            //employee.airport = employeemodel.currentEmployee.airport; // TODO: We also need an airport field
-            //employeemodel.createEmployee(userName, password, userRole);
+
             employeemodel.createEmployee(employee);
             removeController(this);
         }
