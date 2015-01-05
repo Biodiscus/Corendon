@@ -32,7 +32,7 @@
                   <Font size="13.0" />
                </font>
             </Text>
-            <Label prefHeight="111.0" prefWidth="1366.0" style="-fx-background-color: #9D0B0F;" />
+            <Label prefHeight="111.0" prefWidth="1366.0" style="-fx-background-color: #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -41,7 +41,7 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
+            <Button id="labelButton" fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" styleClass="labelButton" text="?">
                <font>
                   <Font size="18.0" />
                </font>

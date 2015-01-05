@@ -23,6 +23,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import nl.itopia.corendon.controller.CustomerController;
 
 
 /**
@@ -33,7 +36,7 @@ public class AddLuggageController extends Controller {
     @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
                             notesInputfield, widthInputfield, depthInputfield;
     @FXML private ComboBox<ChooseItem> brandInput;
-    @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown;
+    @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown, lostOrFounddropdown;
     @FXML private ScrollPane imageScrollpane;
 
     private VBox imageScrollContent;
@@ -44,12 +47,13 @@ public class AddLuggageController extends Controller {
     private ColorModel colorModel;
     private BrandModel brandModel;
     private ImageModel imageModel;
-
+    private StatusModel statusModel;
+    
     private Luggage currentLuggage;
 
     private AutoCompleteComboBoxListener<ChooseItem> comboBoxListener;
     private List<File> imagesToUpload;
-
+    boolean labelExists = false;
 
     public AddLuggageController() {
         registerFXML("gui/add_luggage.fxml");
@@ -60,7 +64,8 @@ public class AddLuggageController extends Controller {
         colorModel = ColorModel.getDefault();
         brandModel = BrandModel.getDefault();
         imageModel = ImageModel.getDefault();
-
+        statusModel = StatusModel.getDefault();
+        
         imagesToUpload = new ArrayList<>();
 
 
@@ -89,7 +94,18 @@ public class AddLuggageController extends Controller {
             brandData.add(c);
         }
         brandInput.setItems(brandData);
+        
+        /* status */
+        List<Status> statuses = statusModel.getFoundLost();
+        ObservableList<ChooseItem> statusData = FXCollections.observableArrayList();
 
+        for(Status status : statuses) {
+            ChooseItem c = statusModel.statusToChoose(status);
+            statusData.add(c);
+        }
+        lostOrFounddropdown.setItems(statusData);
+        lostOrFounddropdown.getSelectionModel().selectFirst();
+        
         // Because we set the combobox editable to true, we need to implement our StringConverter
         brandInput.setConverter(new StringConverter<ChooseItem>() {
             @Override
@@ -123,8 +139,36 @@ public class AddLuggageController extends Controller {
         addButton.setOnAction(this::addHandler);
         cancelButton.setOnAction(this::cancelHandler);
         browseButton.setOnAction(this::browseHandler);
+        labelInputfield.focusedProperty().addListener((ObservableValue<? extends Boolean> arg0, Boolean oldPropertyValue, Boolean newPropertyValue)->{
+            labelHandler();
+        });
     }
 
+    private void labelHandler() {
+        String labelNr = labelInputfield.getText();
+        
+        if(null != labelNr && !labelNr.isEmpty()) {
+            labelExists = luggageModel.labelExists(labelNr);            
+        }
+        
+        if(labelExists) {
+            lostOrFounddropdown.getSelectionModel().select(1);
+            deactivateFields();
+        }
+    }
+    
+    private void deactivateFields() {
+        fileInputfield.setDisable(true);
+        brandInput.setDisable(true);
+        heightInputfield.setDisable(true);
+        widthInputfield.setDisable(true);
+        depthInputfield.setDisable(true);
+        weightInputfield.setDisable(true);
+        notesInputfield.setDisable(true);
+        colorDropdown.setDisable(true);
+        browseButton.setDisable(true);
+    }
+    
     private void browseHandler(ActionEvent e) {
         FileChooser chooser = new FileChooser();
 
@@ -171,50 +215,70 @@ public class AddLuggageController extends Controller {
     }
 
     private void addHandler(ActionEvent e) {
-        // TODO: Should we reference the Color or Airport in the ChooseItem?
-        ChooseItem airport = foundonAirportdropdown.getValue();
-        ChooseItem color = colorDropdown.getValue();
-        ChooseItem brand = brandInput.getValue();
+        
+        if(labelExists) {
+            /* label exists, show customer controller to fill the rest in */
+            String label  = labelInputfield.getText();
+            ChooseItem airport = foundonAirportdropdown.getValue();
+            Luggage luggage = luggageModel.getLuggageByLabel(label);
+            /* attach new airport to the luggage */
+            luggage.airport = airportModel.getAirport(airport.getKey());
+            
+            /* update luggage for the newly added airport */
+            luggageModel.editLuggage(luggage);
+            CustomerController custController = new CustomerController(luggage);
+            addController(custController);
+            
+            custController.setControllerDeleteHandler((o) -> {
+                removeController(this);
+            });
+            
+        } else {
+            // TODO: Should we reference the Color or Airport in the ChooseItem?
+            ChooseItem airport = foundonAirportdropdown.getValue();
+            ChooseItem color = colorDropdown.getValue();
+            ChooseItem brand = brandInput.getValue();
 
 
-        Luggage luggage = new Luggage();
-        luggage.color = ColorModel.getDefault().getColor(color.getKey());
-        luggage.status = StatusModel.getDefault().getStatus(1);
-        luggage.employee = employeeModel.currentEmployee;
-        luggage.customer = CustomerModel.getDefault().getCustomer(2);
-        luggage.airport = airportModel.getAirport(airport.getKey());
+            Luggage luggage = new Luggage();
+            luggage.color = ColorModel.getDefault().getColor(color.getKey());
+            luggage.status = StatusModel.getDefault().getStatus(1);
+            luggage.employee = employeeModel.currentEmployee;
+            luggage.customer = CustomerModel.getDefault().getCustomer(2);
+            luggage.airport = airportModel.getAirport(airport.getKey());
 
-        String[] dimensions = {
-                widthInputfield.getText(),
-                heightInputfield.getText(),
-                depthInputfield.getText(),
-                "cm"
-        };
+            String[] dimensions = {
+                    widthInputfield.getText(),
+                    heightInputfield.getText(),
+                    depthInputfield.getText(),
+                    "cm"
+            };
 
-        luggage.setDimensions(dimensions);
+            luggage.setDimensions(dimensions);
 
-        luggage.label = labelInputfield.getText();
-        luggage.notes = notesInputfield.getText();
-        luggage.weight = weightInputfield.getText();
-        luggage.brand = new Brand(brand.getKey(), brand.toString());
+            luggage.label = labelInputfield.getText();
+            luggage.notes = notesInputfield.getText();
+            luggage.weight = weightInputfield.getText();
+            luggage.brand = new Brand(brand.getKey(), brand.toString());
 
-        long currentTimeStamp = DateUtil.getCurrentTimeStamp();
+            long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 
-        luggage.foundDate = currentTimeStamp;
-        luggage.createDate = currentTimeStamp;
-        luggage.returnDate = 0;
+            luggage.foundDate = currentTimeStamp;
+            luggage.createDate = currentTimeStamp;
+            luggage.returnDate = 0;
 
-        luggageModel.addLuggage(luggage);
-        currentLuggage = luggage;
-        removeController(this);
+            luggageModel.addLuggage(luggage);
+            currentLuggage = luggage;
+            removeController(this);
 
-        // Upload the images
-        for(File img : imagesToUpload) {
-            try {
-                String path = imageModel.uploadImage(img);
-                imageModel.insertImage(path, luggage.getID());
-            } catch (IOException ioE) {
-                ioE.printStackTrace();
+            // Upload the images
+            for(File img : imagesToUpload) {
+                try {
+                    String path = imageModel.uploadImage(img);
+                    imageModel.insertImage(path, luggage.getID());
+                } catch (IOException ioE) {
+                    ioE.printStackTrace();
+                }
             }
         }
     }

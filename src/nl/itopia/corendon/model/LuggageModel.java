@@ -134,6 +134,23 @@ public class LuggageModel {
             return null;
         }
     }
+    
+    public Luggage getLuggageByLabel(String label) {
+        Luggage luggage = new Luggage();
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM luggage WHERE label = '" + label + "'");
+
+            if(result.next()) {
+                luggage = resultToLuggage(result);
+            }
+
+            return luggage;
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+            return null;
+        }
+    }
 
     private Luggage resultToLuggage(ResultSet result) throws SQLException{
         Luggage luggage = new Luggage(result.getInt("id"));
@@ -236,6 +253,21 @@ public class LuggageModel {
         return deletedLuggageList;
     }
     
+    public boolean labelExists(String label) {
+        int numRecords = 0;
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "'");
+            if (result.next()) {
+                String labelCounter = result.getString("labelcounter");
+                numRecords = Integer.parseInt(labelCounter);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        
+        return numRecords == 1;
+    }
+    
     //Gets all luggagedata from DB, puts the tableData fields in luggage object,
     //and puts all luggageobjects in ArrayList of Luggage objects
     public List<Luggage> getAllLuggage() {
@@ -253,6 +285,55 @@ public class LuggageModel {
         return luggageList;
     }
 
+    
+     public List<Luggage> getAllLostLuggage() {
+        List<Luggage> lostLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='1'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                lostLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return lostLuggageList;
+    }
+     
+     
+          public List<Luggage> getAllFoundLuggage() {
+        List<Luggage> foundLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='2'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                foundLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return foundLuggageList;
+    }
+          
+          
+          
+               public List<Luggage> getAllResolvedLuggage() {
+        List<Luggage> resolvedLuggageList = new ArrayList<Luggage>();
+        try {
+            String sql = "SELECT * FROM luggage WHERE status_id ='3'";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Luggage luggage = resultToLuggage(result);
+                resolvedLuggageList.add(luggage);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return resolvedLuggageList;
+    }
+    
     public static LuggageModel getDefault() {
         return _default;
     }
