@@ -52,20 +52,14 @@
                   <Font size="19.0" />
                </font>
             </CheckBox>
-            <Button fx:id="logoutButton" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
-            <Button fx:id="helpButton" layoutX="1279.0" layoutY="19.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
-             <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+                         <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
                  <font>
                      <Font size="19.0" />
                  </font>
              </Text>
-             <Label fx:id="userID" layoutX="980.0" layoutY="25.0" prefHeight="28.0" prefWidth="277.0" textFill="WHITE">
+             <Label fx:id="userID" layoutX="980.0" layoutY="26.0" prefHeight="28.0" prefWidth="244.0" textFill="WHITE">
                  <font>
-                     <Font size="19.0" />
+                     <Font size="13.0" />
                  </font>
              </Label>
              <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
@@ -73,11 +67,21 @@
                      <Font size="18.0" />
                  </font>
              </Text>
-             <Label fx:id="userName" layoutX="1056.0" layoutY="57.0" prefHeight="28.0" prefWidth="203.0" textFill="WHITE">
+             <Label fx:id="userName" alignment="TOP_LEFT" layoutX="1055.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" textFill="WHITE">
                  <font>
-                     <Font size="19.0" />
+                     <Font size="13.0" />
                  </font>
              </Label>
+            <Button fx:id="helpButton" layoutX="1227.0" layoutY="16.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="106.0" text="?">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="changePasswordButton" layoutX="1227.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Change password">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutButton" layoutX="1227.0" layoutY="74.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Logout" />
                <!--<font>-->
                   <!--<Font size="19.0" />-->
                <!--</font>-->

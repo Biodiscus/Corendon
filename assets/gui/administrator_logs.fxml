@@ -17,7 +17,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #9D0B0F;" />
+            <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -26,54 +26,63 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-            <Button fx:id="luggageButton" layoutX="43.0" layoutY="175.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Luggage" />
-            <Button fx:id="deletedLuggageButton" layoutX="338.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
-            <Button fx:id="usersButton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Users" />
-            <Button fx:id="filterButton" layoutX="110.0" layoutY="603.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter" />
-            <Button fx:id="actionsButton" layoutX="44.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Actions" />
-            <Button fx:id="loginsButton" layoutX="44.0" layoutY="310.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Logins" />
-            <Button fx:id="alleventsButton" layoutX="44.0" layoutY="355.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="All events" />
-            <Text layoutX="43.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="120.19921875">
+			             <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
+                 <font>
+                     <Font size="19.0" />
+                 </font>
+             </Text>
+             <Label fx:id="showUserID" layoutX="980.0" layoutY="26.0" prefHeight="28.0" prefWidth="244.0" textFill="WHITE">
+                 <font>
+                     <Font size="13.0" />
+                 </font>
+             </Label>
+             <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
+                 <font>
+                     <Font size="18.0" />
+                 </font>
+             </Text>
+             <Label fx:id="userName" alignment="TOP_LEFT" layoutX="1055.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" textFill="WHITE">
+                 <font>
+                     <Font size="13.0" />
+                 </font>
+             </Label>
+            <Button fx:id="helpButton" layoutX="1227.0" layoutY="16.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="106.0" text="?">
                <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <ChoiceBox fx:id="users" layoutX="44.0" layoutY="444.0" prefHeight="25.0" prefWidth="283.0" />
-            <Text layoutX="43.0" layoutY="512.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" wrappingWidth="120.19921875">
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="changePasswordButton" layoutX="1227.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Change password">
                <font>
-                  <Font size="15.0" />
-               </font>
-            </Text>
-            <DatePicker fx:id="datepicker1" layoutX="44.0" layoutY="524.0" prefHeight="25.0" prefWidth="283.0" />
-            <Button fx:id="printgegevensButton" layoutX="1164.0" layoutY="160.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="162.0" text="Print" />
-             <AnchorPane fx:id="logTable" layoutX="374.0" layoutY="219.0" prefHeight="433.0" prefWidth="953.0">
-                 <TableView fx:id="logInfo" prefHeight="433.0" prefWidth="953.0">
-                  <columns>
-                    <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
-                    <TableColumn fx:id="user" prefWidth="191.66668701171875" text="User" />
-                      <TableColumn fx:id="userID" prefWidth="186.33331298828125" text="User ID" />
-                      <TableColumn fx:id="action" prefWidth="260.33331298828125" text="Action" />
-                      <TableColumn fx:id="date" minWidth="0.0" prefWidth="221.666748046875" text="Date" />
-                  </columns>
-                </TableView>
-             </AnchorPane>
-            <Text layoutX="936.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Text>
-            <Text layoutX="936.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Text>
-            <ComboBox fx:id="dropdownMenu" layoutX="1075.0" layoutY="62.0" prefHeight="25.0" prefWidth="174.0" promptText="//id User" />
-            <Button fx:id="helpButton" layoutX="1279.0" layoutY="19.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
-               <font>
-                  <Font size="18.0" />
+                  <Font size="11.0" />
                </font>
             </Button>
-            <Button fx:id="logoutButton" layoutX="1279.0" layoutY="63.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="1227.0" layoutY="74.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Logout" />
+            <Button fx:id="deletedLuggageButton" layoutX="338.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Button fx:id="filterButton" layoutX="119.0" layoutY="368.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter" />
+            <Text layoutX="42.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="120.19921875">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="users" layoutX="43.0" layoutY="242.0" prefHeight="25.0" prefWidth="283.0" />
+            <Text layoutX="42.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datum:" wrappingWidth="120.19921875">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Text>
+            <DatePicker fx:id="datepicker1" layoutX="43.0" layoutY="322.0" prefHeight="25.0" prefWidth="283.0" />
+             <AnchorPane fx:id="logTable" layoutX="374.0" layoutY="219.0" prefHeight="433.0" prefWidth="953.0">
+                <children>
+                    <TableView fx:id="logInfo" prefHeight="433.0" prefWidth="953.0">
+                     <columns>
+                       <TableColumn fx:id="ID" prefWidth="75.0" text="ID" />
+                       <TableColumn fx:id="user" prefWidth="191.66668701171875" text="User" />
+                         <TableColumn fx:id="userID" prefWidth="186.33331298828125" text="User ID" />
+                         <TableColumn fx:id="action" prefWidth="260.33331298828125" text="Action" />
+                         <TableColumn fx:id="date" minWidth="0.0" prefWidth="221.666748046875" text="Date" />
+                     </columns>
+                   </TableView>
+                </children>
+             </AnchorPane>
             <Button fx:id="logfilesbutton" disable="true" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
             <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
          </children>

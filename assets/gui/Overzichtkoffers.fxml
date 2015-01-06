@@ -31,9 +31,9 @@
                      <Font size="19.0" />
                  </font>
              </Text>
-             <Label fx:id="userID" layoutX="980.0" layoutY="25.0" prefHeight="28.0" prefWidth="277.0" textFill="WHITE">
+             <Label fx:id="userID" layoutX="980.0" layoutY="26.0" prefHeight="28.0" prefWidth="244.0" textFill="WHITE">
                  <font>
-                     <Font size="19.0" />
+                     <Font size="13.0" />
                  </font>
              </Label>
              <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
@@ -41,11 +41,21 @@
                      <Font size="18.0" />
                  </font>
              </Text>
-             <Label fx:id="userName" layoutX="1056.0" layoutY="57.0" prefHeight="28.0" prefWidth="203.0" textFill="WHITE">
+             <Label fx:id="userName" alignment="TOP_LEFT" layoutX="1055.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" textFill="WHITE">
                  <font>
-                     <Font size="19.0" />
+                     <Font size="13.0" />
                  </font>
              </Label>
+            <Button fx:id="helpButton" layoutX="1227.0" layoutY="16.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="106.0" text="?">
+               <font>
+                  <Font size="13.0" />
+               </font></Button>
+            <Button fx:id="changePasswordButton" layoutX="1227.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Change password">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutButton" layoutX="1227.0" layoutY="74.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Logout" />
 
             <Button fx:id="allLuggagebutton" layoutX="43.0" layoutY="175.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" All luggage" />
             <Button fx:id="lostLuggagebutton" layoutX="43.0" layoutY="220.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Lost luggage" />
@@ -54,11 +64,6 @@
             <Button fx:id="addLuggagebutton" layoutX="43.0" layoutY="458.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add luggage" />
             <Button fx:id="editLuggagebutton" layoutX="43.0" layoutY="503.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit luggage" />
             <Button fx:id="deleteLuggagebutton" layoutX="43.0" layoutY="593.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete luggage" />
-            <Button fx:id="helpButton" layoutX="1273.0" layoutY="18.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="60.0" text="?">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-            <Button fx:id="logoutButton" layoutX="1273.0" layoutY="62.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Logout" />
             <AnchorPane fx:id="LuggageTable" layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="920.0">
                <children>
                   <TableView fx:id="luggageInfo" prefHeight="466.0" prefWidth="890.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
