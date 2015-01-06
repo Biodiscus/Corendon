@@ -1,7 +1,6 @@
 package nl.itopia.corendon.data;
 
 import nl.itopia.corendon.utils.Log;
-
 import java.util.List;
 
 /**
@@ -9,6 +8,7 @@ import java.util.List;
  * @author igor
  */
 public class Luggage {
+    
     private int id;
     public Color color;
     public Status status;

@@ -21,7 +21,6 @@ import nl.itopia.corendon.mvc.Controller;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
@@ -32,21 +31,16 @@ import nl.itopia.corendon.model.EmployeeModel;
  */
 public class EmployeeController extends Controller {
 
-    @FXML
-    private TableView luggageInfo;
-    @FXML
-    private AnchorPane LuggageTable;
+    @FXML private TableView luggageInfo;
+    @FXML private AnchorPane LuggageTable;
 
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
-    @FXML
-    private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
-    @FXML
-    private Label userName, userID;
+    @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML private Label userName, userID;
 
-    @FXML
-    private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
             logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
             refreshButton;
 
@@ -57,6 +51,8 @@ public class EmployeeController extends Controller {
     private HelpFunctionController helpController;
 
     public EmployeeController() {
+        
+        // Set view
         registerFXML("gui/Overzichtkoffers.fxml");
 
         luggageModel = LuggageModel.getDefault();
@@ -281,6 +277,7 @@ public class EmployeeController extends Controller {
     }
 
     private void QuickFilterFound(ActionEvent e) {
+        
         tableData.clear();
 
         luggageList = luggageModel.getAllFoundLuggage();
@@ -319,6 +316,7 @@ public class EmployeeController extends Controller {
     }
 
     private void QuickFilterResolved(ActionEvent e) {
+        
         tableData.clear();
 
         luggageList = luggageModel.getAllResolvedLuggage();
@@ -335,5 +333,4 @@ public class EmployeeController extends Controller {
             tableData.add(luggageTable);
         });
     }
-
 }

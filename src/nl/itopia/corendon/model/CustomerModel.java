@@ -2,7 +2,6 @@ package nl.itopia.corendon.model;
 
 import nl.itopia.corendon.data.Customer;
 import nl.itopia.corendon.utils.Log;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -34,6 +33,7 @@ public class CustomerModel {
     }
 
     private Customer resultToCustomer(ResultSet result) throws SQLException {
+        
         int id = result.getInt("id");
         int countryID = result.getInt("country_id");
 

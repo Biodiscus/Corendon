@@ -1,16 +1,8 @@
 package nl.itopia.corendon.controller;
 
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import nl.itopia.corendon.Launcher;
-import nl.itopia.corendon.controller.employee.DetailLuggageController;
-import nl.itopia.corendon.data.*;
-import nl.itopia.corendon.data.table.TableUser;
-import nl.itopia.corendon.model.EmployeeModel;
-import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.mvc.View;
 import nl.itopia.corendon.utils.Log;
 //import nl.itopia.corendon.view.MainView;
 

@@ -7,6 +7,7 @@ import java.sql.*;
  * @author Jeroentje
  */
 public class DatabaseManager {
+    
     private static final DatabaseManager manager = new DatabaseManager();
 
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
@@ -75,6 +76,7 @@ public class DatabaseManager {
 
         return result;
     }
+    
     /**
      * Executes a query with result. TODO: Correct javadocs
      * @param query, the SQL query
@@ -92,6 +94,7 @@ public class DatabaseManager {
      * @param query, the SQL query
      */
     public ResultSet insertQuery(String query) throws SQLException {
+        
         ResultSet result = null;
 
         Statement statement = connection.createStatement();

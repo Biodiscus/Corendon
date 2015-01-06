@@ -8,7 +8,7 @@ import nl.itopia.corendon.data.ChooseItem;
 
 /**
  *
- * @author Kueter
+ * @author Wies Kueter
  */
 public class Validation {
 
@@ -41,5 +41,4 @@ public class Validation {
         field.setPromptText(message);
         field.getStyleClass().add("error_prompt");
     }
-    
 }

@@ -1,7 +1,6 @@
 package nl.itopia.corendon.model;
 
 import nl.itopia.corendon.data.Action;
-import nl.itopia.corendon.data.Airport;
 import nl.itopia.corendon.utils.Log;
 
 import java.sql.ResultSet;
@@ -15,6 +14,7 @@ import java.util.Map;
  * © 2014, Biodiscus.net Robin
  */
 public class ActionModel {
+    
     private static final ActionModel _default = new ActionModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
@@ -81,7 +81,6 @@ public class ActionModel {
 
         return actions;
     }
-
 
     public static ActionModel getDefault() {
         return _default;

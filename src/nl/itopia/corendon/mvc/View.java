@@ -7,6 +7,7 @@ import nl.itopia.corendon.view.DialogBackground;
  * © Biodiscus.net 2014, Robin
  */
 public class View extends Pane {
+    
     public Pane fxmlPane;
 
     // For dialogs we need a background

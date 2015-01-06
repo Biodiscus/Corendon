@@ -37,16 +37,15 @@ public class DetailLuggageController extends Controller {
     private VBox imageScrollContent;
 
     private ImageModel imageModel;
-
-
     private Luggage currentLuggage;
-
 
     public DetailLuggageController(int luggageID) {
         this(LuggageModel.getDefault().getLuggage(luggageID));
     }
 
     public DetailLuggageController(Luggage luggage) {
+        
+        // Set view
         registerFXML("gui/show_details_luggage.fxml");
         currentLuggage = luggage;
 
@@ -94,7 +93,6 @@ public class DetailLuggageController extends Controller {
                 new FileChooser.ExtensionFilter("PDF", "*.pdf"));
         
         File file = fileChooser.showSaveDialog(view.getScene().getWindow());
-        
         
         System.out.println("PDF OF MANAGER REPORT SAVED");           
         generateLuggageReportPDF(file, currentLuggage);

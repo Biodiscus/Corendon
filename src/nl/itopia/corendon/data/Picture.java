@@ -5,6 +5,7 @@ package nl.itopia.corendon.data;
  * @author Erik
  */
 public class Picture {
+    
     private int id;
     private String path;
 

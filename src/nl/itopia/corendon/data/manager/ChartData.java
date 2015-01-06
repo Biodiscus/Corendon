@@ -4,6 +4,7 @@ package nl.itopia.corendon.data.manager;
  * © 2014, Biodiscus.net robin
  */
 public class ChartData {
+    
     public long timestamp;
     public int count;
 

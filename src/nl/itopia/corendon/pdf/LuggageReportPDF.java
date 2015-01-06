@@ -15,8 +15,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.EmployeeModel;
 
@@ -43,6 +41,7 @@ public class LuggageReportPDF {
     
     private static void addContent(File file, Document document, Luggage luggage)
         throws DocumentException {
+        
         Paragraph paragraph = new Paragraph();
 
         addEmptyLine(paragraph, 1);
@@ -59,7 +58,6 @@ public class LuggageReportPDF {
 
         addEmptyLine(paragraph, 4);
 
-
         //generate table with the data of luggage in the PDF
         PdfPTable table = new PdfPTable(2);
 
@@ -70,7 +68,6 @@ public class LuggageReportPDF {
         PdfPCell c2 = new PdfPCell(new Phrase("Value"));
         c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
-
 
         table.addCell("Color");
         table.addCell(luggage.color.getHex());

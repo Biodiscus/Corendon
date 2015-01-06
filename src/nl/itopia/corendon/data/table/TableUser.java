@@ -12,6 +12,7 @@ public class TableUser {
     private final SimpleStringProperty firstName, lastName, userName, role, airport;
 
     public TableUser(int uID, String uName, String fName, String lName, String role, String airport) {
+        
         userID = new SimpleIntegerProperty(uID);
         userName = new SimpleStringProperty(uName);
         firstName = new SimpleStringProperty(fName);
@@ -20,8 +21,7 @@ public class TableUser {
         this.airport = new SimpleStringProperty(airport);
     }
     
-    public int getUserID()
-    {
+    public int getUserID() {
         return userID.get();
     }
 

@@ -4,6 +4,7 @@ package nl.itopia.corendon.utils;
  * © Biodiscus.net 2014, Robin
  */
 public class Log {
+    
     public static boolean DEBUG = true;
 
     public static void display(Object ... str) {

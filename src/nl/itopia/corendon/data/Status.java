@@ -5,6 +5,7 @@ package nl.itopia.corendon.data;
  * @author igor
  */
 public class Status {
+    
     private int id;
     private String name;
 
@@ -16,6 +17,7 @@ public class Status {
     public String getName() {
         return name;
     }
+    
     public int getID() {
         return id;
     }

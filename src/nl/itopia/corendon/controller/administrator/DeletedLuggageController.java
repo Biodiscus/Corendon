@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.itopia.corendon.controller.administrator;
 
 import java.util.List;
@@ -12,12 +7,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -25,14 +17,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
-import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.data.Luggage;
-import nl.itopia.corendon.data.table.TableLog;
 import nl.itopia.corendon.data.table.TableLuggage;
-import nl.itopia.corendon.model.LogModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Log;
 
 /**
@@ -65,13 +53,14 @@ public class DeletedLuggageController extends Controller {
 
     
     public DeletedLuggageController() {
+        
+        // Set view
         registerFXML("gui/deleted_luggage_admin.fxml");
 
         luggageModel = LuggageModel.getDefault();
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
-
         
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
@@ -102,10 +91,10 @@ public class DeletedLuggageController extends Controller {
         
         Thread dataThread = new Thread(()-> receiveData());
         dataThread.start();
-
     }
 
     private void showLoadingIcon() {
+        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -177,8 +166,6 @@ public class DeletedLuggageController extends Controller {
         }
     }
     
-    
-    
    private void helpHandler(ActionEvent e) {
         if(helpController == null) {
             openHelp();
@@ -189,8 +176,7 @@ public class DeletedLuggageController extends Controller {
     private void openHelp() {
         helpController = new HelpFunctionController();
         addController(helpController);
-    }   
-    
+    }
     
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());

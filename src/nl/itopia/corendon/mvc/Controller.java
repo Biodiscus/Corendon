@@ -11,13 +11,12 @@ import nl.itopia.corendon.view.DialogBackground;
 
 import java.io.IOException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 
 /**
  * © Biodiscus.net 2014, Robin
  */
 public abstract class Controller {
+    
     private MVC mvc;
     protected View view;
 
@@ -52,8 +51,7 @@ public abstract class Controller {
     public final void changeController(Controller controller) {
         mvc.setController(controller);
     }
-
-
+    
     public final void addController(Controller controller) {
         addController(controller, getView());
     }
@@ -77,6 +75,7 @@ public abstract class Controller {
     }
 
     public final void removeController(Controller controller) {
+        
         Pane parent = (Pane)controller.getView().getParent();
         // TODO: When the root in addController is null, it should do something else.
         if(parent != null) {

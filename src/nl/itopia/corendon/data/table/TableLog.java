@@ -1,5 +1,5 @@
-
 package nl.itopia.corendon.data.table;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
  * @author Jeroentje
  */
 public class TableLog {
+    
     private SimpleIntegerProperty ID;
     private SimpleStringProperty user;
     private SimpleIntegerProperty userID;
@@ -16,6 +17,7 @@ public class TableLog {
     
     
     public TableLog(int ID, String user, int userID, String action, String date) {
+        
         this.ID = new SimpleIntegerProperty(ID);
         this.user = new SimpleStringProperty(user);
         this.userID = new SimpleIntegerProperty(userID);

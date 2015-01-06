@@ -17,9 +17,7 @@ import nl.itopia.corendon.model.RoleModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
-import nl.itopia.corendon.utils.Log;
 import nl.itopia.corendon.utils.Validation;
-import nl.itopia.corendon.utils.dropdownLists;
  
 /**
  * @author wieskueter.com
@@ -93,7 +91,6 @@ public class CreateUserController extends Controller {
         if(userNameModel != null) {
             
             Validation.errorMessage(usernameInputfield, "Username already exsists.");
-            
             errorCount++;
         }
         
@@ -105,7 +102,6 @@ public class CreateUserController extends Controller {
             
             Validation.errorMessage(passwordInputfield, "Passwords doesn't match.");
             Validation.errorMessage(repeatpasswordInputfield, "Passwords doesn't match.");
-            
             errorCount++;
         }
         
@@ -120,7 +116,6 @@ public class CreateUserController extends Controller {
         if (firstName.length() < 3) {
             
             Validation.errorMessage(firstnameInputfield, "Firstname is required.");
-            
             errorCount++;
         }
         
@@ -128,7 +123,6 @@ public class CreateUserController extends Controller {
         if (lastName.length() < 3) {
             
             Validation.errorMessage(firstnameInputfield, "Firstname is required.");
-            
             errorCount++;
         }
         
@@ -137,7 +131,7 @@ public class CreateUserController extends Controller {
             errorCount++;
         }
         
-        System.out.println(errorCount);
+        System.out.println("Error count"+ errorCount);
         
         if(errorCount == 0) {
  

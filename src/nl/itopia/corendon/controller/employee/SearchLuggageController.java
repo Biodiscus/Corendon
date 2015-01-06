@@ -38,6 +38,7 @@ public class SearchLuggageController extends Controller {
     
     public SearchLuggageController() {
         
+        // Set view
         registerFXML("gui/Search_luggage.fxml");
         
         airportModel = AirportModel.getDefault();
@@ -130,7 +131,5 @@ public class SearchLuggageController extends Controller {
     @Override
     protected Object destroyReturn() {
         return luggageList;
-    }    
-    
-    
+    }
 }

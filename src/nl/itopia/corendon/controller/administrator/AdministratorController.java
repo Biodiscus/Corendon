@@ -12,7 +12,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -37,26 +36,17 @@ public class AdministratorController extends Controller {
 
     public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();
 
-
     public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();
 
     @FXML private AnchorPane userAnchorpane;
-    @FXML
-    private TableView userTable;
-    @FXML
-    private TableColumn<Employee, String> userIDtable;
-    @FXML
-    private TableColumn<Employee, String> usernameTable;
-    @FXML
-    private TableColumn<Employee, String> firstnameTable;
-    @FXML
-    private TableColumn<Employee, String> lastnameTable;
-    @FXML
-    private TableColumn<Employee, String> roleTable;
-    @FXML
-    private TableColumn<Employee, String> airportTable;
-    @FXML
-    private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
+    @FXML private TableView userTable;
+    @FXML  private TableColumn<Employee, String> userIDtable;
+    @FXML private TableColumn<Employee, String> usernameTable;
+    @FXML private TableColumn<Employee, String> firstnameTable;
+    @FXML private TableColumn<Employee, String> lastnameTable;
+    @FXML private TableColumn<Employee, String> roleTable;
+    @FXML private TableColumn<Employee, String> airportTable;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -106,11 +96,11 @@ public class AdministratorController extends Controller {
         roleTable.setCellValueFactory(new PropertyValueFactory<>("role"));
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
 
-
         this.tableActions();
     }
 
     private void showLoadingIcon() {
+        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -122,6 +112,7 @@ public class AdministratorController extends Controller {
 
     // Fired when the log button is clicked
     private void logHandler(ActionEvent e) {
+        
         changeController(new LogController());
     }
 
@@ -129,6 +120,7 @@ public class AdministratorController extends Controller {
      * Actions for selected row (edit, delete)
      */
     public void tableActions() {
+        
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
             edituserButton.setDisable(false);
@@ -250,5 +242,4 @@ public class AdministratorController extends Controller {
     private void deletedLuggageHandler(ActionEvent e) {
         changeController(new DeletedLuggageController());
     }
-
 }

@@ -13,22 +13,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.chart.Chart;
-import javafx.scene.chart.LineChart;
 import javafx.scene.image.WritableImage;
-import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import nl.itopia.corendon.model.EmployeeModel;
-import nl.itopia.corendon.mvc.Controller;
 
 /**
  *
  * @author Igor's_Boven
  */
 public class ManagerStatisticsPDF {
+    
     private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 22, Font.BOLD);
     private static Font smallBold = new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD);
     private static Image graph;
@@ -75,7 +71,6 @@ public class ManagerStatisticsPDF {
         catch(Exception s) {
             System.out.println("Something went wrong with generating graph in PDF.");
         }
-        
         
         graph = Image.getInstance(byteOutput.toByteArray());
         

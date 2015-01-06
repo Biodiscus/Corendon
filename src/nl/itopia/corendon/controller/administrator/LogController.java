@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -55,9 +54,10 @@ public class LogController extends Controller {
     private ImageView spinningIcon;
     private StackPane iconPane;
     private HelpFunctionController helpController;
-    
 
     public LogController() {
+        
+        // Set view
         registerFXML("gui/administrator_logs.fxml");
 
         logModel = LogModel.getDefault();
@@ -70,7 +70,7 @@ public class LogController extends Controller {
         filterButton.setOnAction(this::filterHandler);
         helpButton.setOnAction(this::helpHandler);
         // TODO: Implement print
-//        printstatisticsButton.setOnAction(this::printStatisticsHandler);
+        // printstatisticsButton.setOnAction(this::printStatisticsHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
 
         datepicker1.setValue(LocalDate.now());
@@ -147,9 +147,7 @@ public class LogController extends Controller {
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(()->recieveData(logModel.getLogFiles(searchDate,username)));
         dataThread.start();        
-    }    
-    
-    
+    }
     
     private void f1HelpFunction(KeyEvent e) {
         //opens helpfunction with the f1 key
@@ -162,9 +160,7 @@ public class LogController extends Controller {
                 helpController = null;
             }
         }
-    }
-    
-    
+    } 
     
    private void helpHandler(ActionEvent e) {
         if(helpController == null) {
@@ -177,9 +173,6 @@ public class LogController extends Controller {
         helpController = new HelpFunctionController();
         addController(helpController);
     }
-
-    
-    
     
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
@@ -188,6 +181,4 @@ public class LogController extends Controller {
     private void deletedLuggageHandler(ActionEvent e) {
         changeController(new DeletedLuggageController());
     }
-   
-
 }

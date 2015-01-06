@@ -5,8 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
@@ -16,14 +14,10 @@ import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
-import nl.itopia.corendon.utils.IO;
-import nl.itopia.corendon.utils.Log;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import nl.itopia.corendon.controller.CustomerController;
 
@@ -32,6 +26,7 @@ import nl.itopia.corendon.controller.CustomerController;
  * © 2014, Biodiscus.net Robin
  */
 public class AddLuggageController extends Controller {
+    
     @FXML private Button addButton, cancelButton, browseButton;
     @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
                             notesInputfield, widthInputfield, depthInputfield;
@@ -56,6 +51,8 @@ public class AddLuggageController extends Controller {
     boolean labelExists = false;
 
     public AddLuggageController() {
+        
+        // Set view
         registerFXML("gui/add_luggage.fxml");
 
         employeeModel = EmployeeModel.getDefault();
@@ -67,7 +64,6 @@ public class AddLuggageController extends Controller {
         statusModel = StatusModel.getDefault();
         
         imagesToUpload = new ArrayList<>();
-
 
         // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
@@ -130,7 +126,6 @@ public class AddLuggageController extends Controller {
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
 
-
         // Set the imageScrollpane content
         imageScrollContent = new VBox();
         imageScrollContent.setSpacing(10);
@@ -144,7 +139,13 @@ public class AddLuggageController extends Controller {
         });
     }
 
+    /**
+     * @return void
+     * 
+     * Handle label actions
+     */
     private void labelHandler() {
+        
         String labelNr = labelInputfield.getText();
         
         if(null != labelNr && !labelNr.isEmpty()) {
@@ -157,7 +158,11 @@ public class AddLuggageController extends Controller {
         }
     }
     
+    /**
+     * Disable all input fields
+     */
     private void deactivateFields() {
+        
         fileInputfield.setDisable(true);
         brandInput.setDisable(true);
         heightInputfield.setDisable(true);
@@ -169,7 +174,13 @@ public class AddLuggageController extends Controller {
         browseButton.setDisable(true);
     }
     
+    /**
+     * Handler for file upload
+     * 
+     * @param e 
+     */
     private void browseHandler(ActionEvent e) {
+        
         FileChooser chooser = new FileChooser();
 
         // Configure the file chooser
@@ -191,11 +202,11 @@ public class AddLuggageController extends Controller {
             pictureView.setEditable(true);
             imageScrollContent.getChildren().add(pictureView);
             imagesToUpload.add(file);
-
         }
     }
 
     private void pictureDeleteHandler(Object object) {
+        
         PictureView picture = (PictureView) object;
 
         // Loop to our current images
@@ -214,6 +225,11 @@ public class AddLuggageController extends Controller {
         imageScrollContent.getChildren().remove(picture);
     }
 
+    /**
+     * Add luggage to database
+     * 
+     * @param e ActionEvent
+     */
     private void addHandler(ActionEvent e) {
         
         if(labelExists) {

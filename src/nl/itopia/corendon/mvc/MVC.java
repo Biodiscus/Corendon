@@ -6,9 +6,9 @@ package nl.itopia.corendon.mvc;
  * The MVC Engine
  */
 public class MVC {
+    
     private Controller currentController;
     private ViewChange viewChange;
-
 
     public MVC(ViewChange viewChange) {
         this.viewChange = viewChange;

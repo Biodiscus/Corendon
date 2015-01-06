@@ -80,13 +80,13 @@ public class LoginController extends Controller {
         if(userName.isEmpty() || password.isEmpty()) {
             // Show error if values are empty
             if(userName.isEmpty()) {
-                usernameField.setPromptText("Please enter a username");
-                usernameField.getStyleClass().add("error_prompt");
+                
+                Validation.errorMessage(usernameField, "Please enter a username");
             }
 
             if(password.isEmpty()) {
-                passwordField.setPromptText("Please enter a password");
-                passwordField.getStyleClass().add("error_prompt");
+                
+                Validation.errorMessage(passwordField, "Please enter a password");
             }
         } else {
            /* User credentials are filled in, create a employee object and check */

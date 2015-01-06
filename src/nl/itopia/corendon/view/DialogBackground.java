@@ -9,6 +9,7 @@ import nl.itopia.corendon.mvc.View;
  * © 2014, Biodiscus.net Robin
  */
 public class DialogBackground extends View {
+    
     public DialogBackground(Scene scene) {
         double width = scene.getWidth();
         double height = scene.getHeight();

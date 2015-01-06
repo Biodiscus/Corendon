@@ -7,6 +7,7 @@ import java.util.Date;
  * © 2014, Biodiscus.net robin
  */
 public class DateUtil {
+    
     public static long getCurrentTimeStamp() {
         return System.currentTimeMillis() / 1000;
     }

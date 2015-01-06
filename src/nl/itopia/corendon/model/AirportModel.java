@@ -15,6 +15,7 @@ import java.util.Map;
  * © 2014, Biodiscus.net Robin
  */
 public class AirportModel {
+    
     private static final AirportModel _default = new AirportModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
@@ -128,6 +129,4 @@ public class AirportModel {
         /* return the full airport */
         return airport;
     }
-
-
 }

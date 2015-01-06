@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.itopia.corendon.data.Airport;
 import nl.itopia.corendon.data.Brand;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.utils.Log;
@@ -14,6 +13,7 @@ import nl.itopia.corendon.utils.Log;
  * © 2014, Biodiscus.net Robin
  */
 public class BrandModel {
+    
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
     private static final BrandModel _default = new BrandModel();
 
@@ -38,6 +38,7 @@ public class BrandModel {
     }
 
     public Brand getBrand(int id) {
+        
         Brand brand = null;
 
         try {

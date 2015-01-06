@@ -5,9 +5,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
@@ -17,11 +14,8 @@ import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
-import nl.itopia.corendon.utils.Log;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +23,7 @@ import java.util.List;
  * © 2014, Biodiscus.net Robin
  */
 public class EditLuggageController extends Controller {
+    
     @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
             notesInputfield, widthInputfield, depthInputfield;
 
@@ -59,6 +54,8 @@ public class EditLuggageController extends Controller {
     }
 
     public EditLuggageController(Luggage luggage) {
+        
+        // Set view
         registerFXML("gui/edit_luggage.fxml");
         currentLuggage = luggage;
 
@@ -80,8 +77,7 @@ public class EditLuggageController extends Controller {
         depthInputfield.setText(dimensions[2]);
 
         weightInputfield.setText(luggage.weight);
-
-
+        
         // Fill the brand input with the brands in the system
         List<Brand> brands = brandModel.getBrands();
         ObservableList<ChooseItem> brandData = FXCollections.observableArrayList();
@@ -118,11 +114,9 @@ public class EditLuggageController extends Controller {
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
 
-
         // Set the imageScrollpane content
         imageScrollContent = new VBox();
         imageScrollpane.setContent(imageScrollContent);
-
 
         // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
@@ -175,7 +169,6 @@ public class EditLuggageController extends Controller {
         pictureView.setEditable(true);
         imageScrollContent.getChildren().add(pictureView);
     }
-
 
     private void browseHandler(ActionEvent e) {
         FileChooser chooser = new FileChooser();
@@ -241,7 +234,6 @@ public class EditLuggageController extends Controller {
 
         luggage.setDimensions(dimensions);
 
-
         luggage.label = labelInputfield.getText();
         luggage.notes = notesInputfield.getText();
         luggage.weight = weightInputfield.getText();
@@ -257,8 +249,6 @@ public class EditLuggageController extends Controller {
         for(Picture pic : deletedPictures) {
             imageModel.deleteImage(pic.getID());
         }
-        
-
 
         currentLuggage = luggage;
         luggageModel.editLuggage(luggage);

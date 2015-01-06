@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
@@ -40,17 +39,12 @@ import nl.itopia.corendon.model.EmployeeModel;
  * © 2014, Biodiscus.net robin
  */
 public class ManagerController extends Controller {
-    @FXML
-    private LineChart lineDiagram;
-    @FXML
-    private BarChart barDiagram;
+    @FXML private LineChart lineDiagram;
+    @FXML private BarChart barDiagram;
 
-    @FXML
-    private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
-    @FXML
-    private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
-    @FXML
-    private DatePicker datepicker1, datepicker2;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
+    @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
+    @FXML private DatePicker datepicker1, datepicker2;
     @FXML private Label userName, userID;
     private LuggageModel luggageModel;
 
@@ -64,6 +58,8 @@ public class ManagerController extends Controller {
     private HelpFunctionController helpController;
 
     public ManagerController() {
+        
+        // Set view
         registerFXML("gui/manager_linediagram.fxml");
 
         userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
@@ -83,15 +79,12 @@ public class ManagerController extends Controller {
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         helpFunctionOpened = false;
         
-        
         currentChart = lineDiagram;
-
-
+        
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
         // Set the datePicker2 to today date
         datepicker2.setValue(LocalDate.now());
-
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();

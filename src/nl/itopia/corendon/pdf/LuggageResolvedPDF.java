@@ -15,8 +15,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import nl.itopia.corendon.data.Customer;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.EmployeeModel;
@@ -59,7 +57,6 @@ public class LuggageResolvedPDF {
             smallBold));
 
         addEmptyLine(paragraph, 1);
-
         
         //generate table with the data of luggage in the PDF
         PdfPTable table = new PdfPTable(2);
@@ -71,7 +68,6 @@ public class LuggageResolvedPDF {
         PdfPCell c2 = new PdfPCell(new Phrase("Value"));
         c2.setHorizontalAlignment(Element.ALIGN_CENTER);
         table.addCell(c2);
-
 
         table.addCell("Color");
         table.addCell(luggage.color.getHex());
@@ -109,7 +105,6 @@ public class LuggageResolvedPDF {
 
         table2.addCell(c1);
         table2.addCell(c2);
-
 
         table2.addCell("First name");
         table2.addCell(customer.firstName);
