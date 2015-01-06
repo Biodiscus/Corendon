@@ -20,12 +20,12 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
+            <AnchorPane fx:id="contentHolder" layoutX="7.0" layoutY="59.0" prefHeight="591.0" prefWidth="1118.0" />
             <Label alignment="CENTER" prefHeight="59.0" prefWidth="1126.0" style="-fx-background-color: #BB1D14;" text="Help function" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="19.0" />
                </font>
             </Label>
-            <TextFlow fx:id="helpFunction" layoutY="61.0" prefHeight="589.0" prefWidth="1125.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="61.0" />
             <Button fx:id="exitButton" layoutX="1087.0" layoutY="17.0" mnemonicParsing="false" text="X" />
          </children>
       </AnchorPane>

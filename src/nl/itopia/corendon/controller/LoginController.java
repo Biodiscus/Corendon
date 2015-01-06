@@ -35,7 +35,7 @@ public class LoginController extends Controller {
         
         // Set view
         registerFXML("gui/Inlogscherm.fxml");
-
+        
         usernameField.setOnKeyPressed(this::usernameFieldKeyPressed);
         passwordField.setOnKeyPressed(this::passwordFieldKeyPressed);
         loginButton.setOnKeyPressed(this::buttonEnterPressed);
@@ -115,7 +115,7 @@ public class LoginController extends Controller {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("We couldn't log you in as: "+userName);
+            alert.setContentText("We couldn't log you in as: "+ userName);
             alert.showAndWait();
         }
     }
@@ -139,16 +139,10 @@ public class LoginController extends Controller {
         }
     }
     
-    private void resetPassword(ActionEvent e)
-    {
+    private void resetPassword(ActionEvent e) {
         // Show login reset screen
         addController(new InfoController());
-        
-        
     }
-    
-    
-    
     
     private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
@@ -165,9 +159,6 @@ public class LoginController extends Controller {
         }
     }
     
-    
-    
-    
     private void helpHandler(ActionEvent e) {
         if(helpController == null) {
             openHelp();
@@ -179,9 +170,4 @@ public class LoginController extends Controller {
         helpController = new HelpFunctionController();
         addController(helpController);
     }
-    
-    
-    
-    
-    
 }
