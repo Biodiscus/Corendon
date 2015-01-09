@@ -19,6 +19,7 @@ import nl.itopia.corendon.mvc.Controller;
 import java.util.*;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -40,6 +41,7 @@ public class LogController extends Controller {
     @FXML private TableView logInfo;
     @FXML private ChoiceBox users;
     @FXML private AnchorPane logTable;
+    @FXML private Label userName, userIDLoggedInPerson;
     public ObservableList<TableLog> tableData;
     public List<LogAction> logFileList;
 
@@ -60,6 +62,9 @@ public class LogController extends Controller {
         // Set view
         registerFXML("gui/administrator_logs.fxml");
 
+        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        
         logModel = LogModel.getDefault();
         employeeModel = EmployeeModel.getDefault();
         

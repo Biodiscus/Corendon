@@ -51,7 +51,7 @@ public class AdministratorController extends Controller {
     private ImageView spinningIcon;
     private StackPane iconPane;
 
-    @FXML private Label userName, userID;
+    @FXML private Label userName, userIDLoggedInPerson;
 
     private int deleteUserId;
     private TableUser user;
@@ -62,7 +62,7 @@ public class AdministratorController extends Controller {
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
         userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData

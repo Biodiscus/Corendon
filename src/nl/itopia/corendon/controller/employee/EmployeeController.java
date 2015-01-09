@@ -38,7 +38,7 @@ public class EmployeeController extends Controller {
     public List<Luggage> luggageList;
 
     @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
-    @FXML private Label userName, userID;
+    @FXML private Label userName, userIDLoggedInPerson;
 
     @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
             logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
@@ -58,7 +58,7 @@ public class EmployeeController extends Controller {
         luggageModel = LuggageModel.getDefault();
         // Show a spinning icon to indicate to the user that we are getting the tableData
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
         userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         showLoadingIcon();

@@ -45,7 +45,7 @@ public class ManagerController extends Controller {
     @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
-    @FXML private Label userName, userID;
+    @FXML private Label userName, userIDLoggedInPerson;
     private LuggageModel luggageModel;
 
     private ImageView spinningIcon;
@@ -62,7 +62,7 @@ public class ManagerController extends Controller {
         // Set view
         registerFXML("gui/manager_linediagram.fxml");
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
+        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
         userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
 
         luggageModel = LuggageModel.getDefault();
