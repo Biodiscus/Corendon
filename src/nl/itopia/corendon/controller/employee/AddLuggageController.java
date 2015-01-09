@@ -65,6 +65,10 @@ public class AddLuggageController extends Controller {
         
         imagesToUpload = new ArrayList<>();
 
+        // Create a "None" to let the user choose not to add it to an airport
+//        ChooseItem none = new ChooseItem(-1, "None");
+//        foundonAirportdropdown.getItems().add(none);
+
         // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
         for(Airport airport : airports) {
@@ -72,6 +76,9 @@ public class AddLuggageController extends Controller {
             foundonAirportdropdown.getItems().add(c);
         }
         foundonAirportdropdown.getSelectionModel().selectFirst();
+
+        // Create a "None" to let the user choose not to add it to an airport
+//        colorDropdown.getItems().add(none);
 
         // Set the Colors in the colorDropdown
         List<Color> colors = colorModel.getColors();
@@ -120,11 +127,17 @@ public class AddLuggageController extends Controller {
                         break;
                     }
                 }
+
+                // If the item doesn't exist, create a new one with it's id set to 0
+                item = new ChooseItem(-1, string);
+
                 return item;
             }
         });
+
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
+
 
         // Set the imageScrollpane content
         imageScrollContent = new VBox();
@@ -145,7 +158,6 @@ public class AddLuggageController extends Controller {
      * Handle label actions
      */
     private void labelHandler() {
-        
         String labelNr = labelInputfield.getText();
         
         if(null != labelNr && !labelNr.isEmpty()) {
@@ -162,7 +174,6 @@ public class AddLuggageController extends Controller {
      * Disable all input fields
      */
     private void deactivateFields() {
-        
         fileInputfield.setDisable(true);
         brandInput.setDisable(true);
         heightInputfield.setDisable(true);
@@ -180,7 +191,6 @@ public class AddLuggageController extends Controller {
      * @param e 
      */
     private void browseHandler(ActionEvent e) {
-        
         FileChooser chooser = new FileChooser();
 
         // Configure the file chooser
@@ -206,7 +216,6 @@ public class AddLuggageController extends Controller {
     }
 
     private void pictureDeleteHandler(Object object) {
-        
         PictureView picture = (PictureView) object;
 
         // Loop to our current images
@@ -250,7 +259,6 @@ public class AddLuggageController extends Controller {
             });
             
         } else {
-            // TODO: Should we reference the Color or Airport in the ChooseItem?
             ChooseItem airport = foundonAirportdropdown.getValue();
             ChooseItem color = colorDropdown.getValue();
             ChooseItem brand = brandInput.getValue();
@@ -275,7 +283,7 @@ public class AddLuggageController extends Controller {
             luggage.label = labelInputfield.getText();
             luggage.notes = notesInputfield.getText();
             luggage.weight = weightInputfield.getText();
-            luggage.brand = new Brand(brand.getKey(), brand.toString());
+            luggage.brand = brandModel.handleBrandInput(brand.toString());
 
             long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 

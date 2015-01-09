@@ -218,7 +218,7 @@ public class EditLuggageController extends Controller {
         luggage.color = ColorModel.getDefault().getColor(color.getKey());
         luggage.status = StatusModel.getDefault().getStatus(1);
 
-        // This won't work if no user is logged in!
+        // This won't work if no IMAGE_USER is logged in!
         luggage.employee = EmployeeModel.getDefault().currentEmployee;
         //luggage.employee = EmployeeModel.getDefault().getEmployee(0);
 

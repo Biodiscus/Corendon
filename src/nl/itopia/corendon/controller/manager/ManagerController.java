@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.controller.HelpFunctionController;
@@ -62,8 +63,9 @@ public class ManagerController extends Controller {
         // Set view
         registerFXML("gui/manager_linediagram.fxml");
 
-        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         luggageModel = LuggageModel.getDefault();
 
@@ -195,7 +197,7 @@ public class ManagerController extends Controller {
         }
     }
 
-    // We will call this function in a new thread, so the user can still click buttons
+    // We will call this function in a new thread, so the IMAGE_USER can still click buttons
     private void receiveData() {
         StatusModel status = StatusModel.getDefault();
         Status foundStatus = status.getStatus("Found");
@@ -323,7 +325,7 @@ public class ManagerController extends Controller {
     }
 
     private void showLoadingIcon() {
-        // Show a spinning icon to indicate to the user that we are getting the tableData
+        // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
         iconPane = new StackPane();

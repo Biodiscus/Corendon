@@ -7,6 +7,8 @@ import java.util.List;
 
 import nl.itopia.corendon.data.Brand;
 import nl.itopia.corendon.data.ChooseItem;
+import nl.itopia.corendon.data.LogAction;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Log;
 
 /**
@@ -37,6 +39,21 @@ public class BrandModel {
         return brands;
     }
 
+    public Brand getBrand(String name) {
+        Brand brand = null;
+
+        try {
+            ResultSet result = dbmanager.doQuery("SELECT * FROM brand WHERE name = '"+name+"'");
+            if(result.next()) {
+                brand = resultToBrand(result);
+            }
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+
+        return brand;
+    }
+
     public Brand getBrand(int id) {
         
         Brand brand = null;
@@ -53,6 +70,30 @@ public class BrandModel {
         return brand;
     }
 
+    public int insertBrand(String name) {
+        String query = "INSERT INTO brand (name) VALUES ('%s')";
+
+        String finalQuery = String.format(query, name);
+
+        try {
+            dbmanager.insertQuery(finalQuery);
+
+
+            // After inserting the item, get the last added luggage
+            // This way we can set the correct ID to the new luggage
+            ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
+            if(result.next()) {
+                return result.getInt(1);
+            } else {
+                return -1;
+            }
+
+        } catch (SQLException e) {
+            Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
+        }
+        return 0;
+    }
+
     public ChooseItem brandToChoose(Brand brand) {
         return new ChooseItem(brand.getID(), brand.getName());
     }
@@ -62,6 +103,19 @@ public class BrandModel {
         String name = result.getString("name");
 
         return new Brand(id, name);
+    }
+
+    public Brand handleBrandInput(String name) {
+        Log.display("Getting brand", name);
+        Brand brand = getBrand(name);
+        Log.display("Brand", brand);
+        if(brand == null) {
+            int id = insertBrand(name);
+            Log.display("New id", id);
+            brand = getBrand(id);
+        }
+
+        return brand;
     }
 
     public static BrandModel getDefault() {

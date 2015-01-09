@@ -61,8 +61,9 @@ public class DeletedLuggageController extends Controller {
 
         luggageModel = LuggageModel.getDefault();
 
-        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
         
@@ -98,7 +99,6 @@ public class DeletedLuggageController extends Controller {
     }
 
     private void showLoadingIcon() {
-        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 

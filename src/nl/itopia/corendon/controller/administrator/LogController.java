@@ -62,8 +62,9 @@ public class LogController extends Controller {
         // Set view
         registerFXML("gui/administrator_logs.fxml");
 
-        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
         
         logModel = LogModel.getDefault();
         employeeModel = EmployeeModel.getDefault();

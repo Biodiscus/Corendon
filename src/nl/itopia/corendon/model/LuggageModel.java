@@ -69,7 +69,7 @@ public class LuggageModel {
             if(result.next()) {
                 luggage.setID(result.getInt(1));
 
-                // Add a new action of an user adding the luggage
+                // Add a new action of an username adding the luggage
                 LogAction log = new LogAction(-1);
                 log.date = DateUtil.getCurrentTimeStamp();
                 log.action = actionModel.getAction("Added luggage");
@@ -106,7 +106,7 @@ public class LuggageModel {
         try {
             dbmanager.updateQuery(finalQuery);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Edited luggage");
@@ -163,7 +163,6 @@ public class LuggageModel {
         int airportID = result.getInt("airport_id");
         int brandID = result.getInt("brand_id");
 
-
         luggage.brand = brandModel.getBrand(brandID);
         luggage.customer = customerModel.getCustomer(customerID);
         luggage.color = colorModel.getColor(colorID);
@@ -190,7 +189,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Deleted luggage");
@@ -208,7 +207,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Deleted luggage");
@@ -226,7 +225,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-//             Add a new action of an user editing the luggage
+//             Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Permanent deleted luggage");

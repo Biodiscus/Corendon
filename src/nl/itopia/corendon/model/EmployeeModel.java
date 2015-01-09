@@ -21,7 +21,7 @@ public class EmployeeModel {
     private static final EmployeeModel _default = new EmployeeModel();
 
     // The current employee that is logged in
-    public static Employee currentEmployee;
+    public Employee currentEmployee;
 
 
     private EmployeeModel() {
@@ -144,7 +144,7 @@ public class EmployeeModel {
     public Employee login(Employee employee) {
         if (checkPassword(employee)) {
             Log.display("Password correct");
-            /* user exists and password is corect. Return the full employee */
+            /* User exists and password is corect. Return the full employee */
             String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
 
             int employeeId = 0;
@@ -160,7 +160,7 @@ public class EmployeeModel {
 
             return getEmployee(employeeId);
         } else {
-            /* password is incorect or the user doesn't exists return null */ 
+            /* password is incorect or the username doesn't exists return null */
             /* @TODO Clean the employee object up */
             return null;
         }
@@ -168,7 +168,7 @@ public class EmployeeModel {
 
     private boolean checkPassword(Employee employee) {
         if (userExists(employee)) {
-            /* user exists, convert plain password to sha256 and attach it to the model */
+            /* username exists, convert plain password to sha256 and attach it to the model */
             String salt = getSalt(employee);
             String finalPass = Hashing.sha256(employee.password + salt);
             employee.password = finalPass;
@@ -299,7 +299,7 @@ public class EmployeeModel {
     }
 
     /**
-     * Hard delete user from database
+     * Hard delete username from database
      *
      * @param userID
      */

@@ -56,10 +56,11 @@ public class EmployeeController extends Controller {
         registerFXML("gui/Overzichtkoffers.fxml");
 
         luggageModel = LuggageModel.getDefault();
-        // Show a spinning icon to indicate to the user that we are getting the tableData
+        // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
 
-        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         showLoadingIcon();
 
@@ -102,7 +103,7 @@ public class EmployeeController extends Controller {
 
     private void showLoadingIcon() {
 
-        // Show a spinning icon to indicate to the user that we are getting the tableData
+        // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
         //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         Image image = new Image("img/loader.gif", 64, 65, true, false);
         //ImageView v = new ImageView(image);

@@ -1,4 +1,5 @@
 package nl.itopia.corendon.model;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.utils.Log;
 
 import java.sql.*;
@@ -13,11 +14,6 @@ public class DatabaseManager {
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
     public static final String SQL_EXCEPTION = "SQL Exception: ";
     public Connection connection;
-    
-    private static final String dbHost = "sql4.freesqldatabase.com";
-    private static final String dbName = "sql458254";
-    private static final String dbUser = "sql458254";
-    private static final String dbPass = "kR5!eE6!";    
 
     private DatabaseManager() {}
 
@@ -32,11 +28,11 @@ public class DatabaseManager {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            Log.display("Establishing connection", dbHost, dbName, dbUser, dbPass);
+            Log.display("Establishing connection", Config.DB_HOST, Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
 
             /** Open connection */
-            String url = "jdbc:mysql://"+dbHost+"/"+dbName;
-            connection = DriverManager.getConnection(url, dbUser, dbPass);
+            String url = "jdbc:mysql://"+Config.DB_HOST+"/"+Config.DB_NAME;
+            connection = DriverManager.getConnection(url, Config.DB_USER, Config.DB_PASS);
             Log.display(connection);
         } catch (ClassNotFoundException e) {
             Log.display(JDBC_EXCEPTION, e.getMessage());

@@ -62,8 +62,9 @@ public class AdministratorController extends Controller {
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
 
-        userIDLoggedInPerson.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
@@ -100,7 +101,6 @@ public class AdministratorController extends Controller {
     }
 
     private void showLoadingIcon() {
-        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -112,7 +112,6 @@ public class AdministratorController extends Controller {
 
     // Fired when the log button is clicked
     private void logHandler(ActionEvent e) {
-        
         changeController(new LogController());
     }
 
@@ -120,7 +119,6 @@ public class AdministratorController extends Controller {
      * Actions for selected row (edit, delete)
      */
     public void tableActions() {
-        
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
             edituserButton.setDisable(false);
@@ -173,7 +171,6 @@ public class AdministratorController extends Controller {
     public void editEmployee(ActionEvent event) {
 
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-        //addController( new EditUserController(user.getUserID()) );
         addController(new EditUserController(user.getUserID()));
     }
 
@@ -190,8 +187,6 @@ public class AdministratorController extends Controller {
 
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         employeemodel.deleteEmployee(this.deleteUserId);
-        //data.remove(this.user);
-        //initializeTable();
     }
 
     private void receiveData() {

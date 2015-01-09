@@ -1,6 +1,5 @@
 package nl.itopia.corendon.controller;
 
-//import java.awt.event.KeyEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
@@ -115,7 +114,7 @@ public class LoginController extends Controller {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("We couldn't log you in as: "+ userName);
+            alert.setContentText("We couldn't log you in as: "+userName);
             alert.showAndWait();
         }
     }
