@@ -2,13 +2,14 @@ package nl.itopia.corendon.controller.employee;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
+import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
 import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
@@ -21,10 +22,13 @@ public class SearchLuggageController extends Controller {
 
     @FXML private ChoiceBox foundonAirportdropdown, colorDropdown;
     @FXML private Button searchButton, cancelButton;
-    @FXML private TextField labelInputfield, brandInputfield, heightInputfield, widthInputfield, depthInputfield, weightInputfield, notesInputfield;
+    @FXML private TextField labelInputfield, heightInputfield, widthInputfield, depthInputfield, weightInputfield, notesInputfield;
+    @FXML private ComboBox brandInputfield;
     @FXML private RadioButton foundluggageRadiobutton,lostluggageRadiobutton,resolvedluggageRadiobutton;
     @FXML private DatePicker datepicker1, datepicker2;
-    
+
+    private AutoCompleteComboBoxListener<ChooseItem> comboBoxListener;
+
     private AirportModel airportModel;
     private ColorModel colorModel;
     private BrandModel brandModel;
@@ -38,9 +42,6 @@ public class SearchLuggageController extends Controller {
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
         brandModel = BrandModel.getDefault();
-
-        /* keep brands disabled until brands are implemented */
-        brandInputfield.disableProperty();
         
         // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
@@ -57,6 +58,47 @@ public class SearchLuggageController extends Controller {
             colorDropdown.getItems().add(c);
         }
         colorDropdown.getSelectionModel().selectFirst();
+
+        // Fill the brand input with the brands in the system
+        List<Brand> brands = brandModel.getBrands();
+        ObservableList<ChooseItem> brandData = FXCollections.observableArrayList();
+
+        for(Brand brand : brands) {
+            ChooseItem c = brandModel.brandToChoose(brand);
+            brandData.add(c);
+        }
+        brandInputfield.setItems(brandData);
+
+        // Because we set the combobox editable to true, we need to implement our StringConverter
+        brandInputfield.setConverter(new StringConverter<ChooseItem>() {
+            @Override
+            public String toString(ChooseItem object) {
+                if(object == null) return null;
+                return object.toString();
+            }
+
+            @Override
+            public ChooseItem fromString(String string) {
+                //TODO: Implement a factory patern for this
+                ChooseItem item = null;
+                for(ChooseItem data : brandData) {
+                    if(data.toString().equals(string)) {
+                        item = data;
+                        break;
+                    }
+                }
+
+                // If the item doesn't exist, create a new one with it's id set to 0
+                if(item == null) {
+                    item = new ChooseItem(-1, string);
+                }
+
+                return item;
+            }
+        });
+
+        // Give the brand input our combobox listener
+        comboBoxListener = new AutoCompleteComboBoxListener(brandInputfield);
         
         cancelButton.setOnAction(this::cancelHandler);
         searchButton.setOnAction(this::searchHandler);
@@ -86,7 +128,7 @@ public class SearchLuggageController extends Controller {
         
         Color color = colorModel.getColor(colorName);
         Airport airport = airportModel.getAirport(airportName);
-        Brand brand = brandModel.getBrand(brandInputfield.getText());
+        Brand brand = brandModel.getBrand(brandInputfield.getValue().toString());
         SearchModel searchmodel = SearchModel.getDefault();
 
         Log.display(color, airport, brand);

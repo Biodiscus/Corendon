@@ -64,7 +64,7 @@ public class SearchModel {
 
         if (null != luggage.brand) {
             /* innerjoin for brand */
-            innerjoinQuery += "INNER JOIN brand.id ON luggage.brand_id=brand.id";
+            innerjoinQuery += "INNER JOIN brand ON luggage.brand_id=brand.id";
             // Only add 'AND' when it's not our first statement
             if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
                 whereQuery += " AND";

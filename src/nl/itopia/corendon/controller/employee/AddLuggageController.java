@@ -65,20 +65,12 @@ public class AddLuggageController extends Controller {
         
         imagesToUpload = new ArrayList<>();
 
-        // Create a "None" to let the user choose not to add it to an airport
-//        ChooseItem none = new ChooseItem(-1, "None");
-//        foundonAirportdropdown.getItems().add(none);
-
-        // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
         for(Airport airport : airports) {
             ChooseItem c = airportModel.airportToChoose(airport);
             foundonAirportdropdown.getItems().add(c);
         }
         foundonAirportdropdown.getSelectionModel().selectFirst();
-
-        // Create a "None" to let the user choose not to add it to an airport
-//        colorDropdown.getItems().add(none);
 
         // Set the Colors in the colorDropdown
         List<Color> colors = colorModel.getColors();
@@ -129,7 +121,9 @@ public class AddLuggageController extends Controller {
                 }
 
                 // If the item doesn't exist, create a new one with it's id set to 0
-                item = new ChooseItem(-1, string);
+                if(item == null) {
+                    item = new ChooseItem(-1, string);
+                }
 
                 return item;
             }
