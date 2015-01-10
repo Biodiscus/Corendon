@@ -9,17 +9,10 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
-import nl.itopia.corendon.data.Airport;
-import nl.itopia.corendon.data.ChooseItem;
-import nl.itopia.corendon.data.Color;
-import nl.itopia.corendon.data.Luggage;
-import nl.itopia.corendon.data.Status;
-import nl.itopia.corendon.model.AirportModel;
-import nl.itopia.corendon.model.ColorModel;
-import nl.itopia.corendon.model.LuggageModel;
-import nl.itopia.corendon.model.SearchModel;
-import nl.itopia.corendon.model.StatusModel;
+import nl.itopia.corendon.data.*;
+import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Log;
 
 /**
  * @author Jeroentje
@@ -34,8 +27,9 @@ public class SearchLuggageController extends Controller {
     
     private AirportModel airportModel;
     private ColorModel colorModel;
+    private BrandModel brandModel;
     private List<Luggage> luggageList;
-    
+
     public SearchLuggageController() {
         
         // Set view
@@ -43,6 +37,7 @@ public class SearchLuggageController extends Controller {
         
         airportModel = AirportModel.getDefault();
         colorModel = ColorModel.getDefault();
+        brandModel = BrandModel.getDefault();
 
         /* keep brands disabled until brands are implemented */
         brandInputfield.disableProperty();
@@ -72,7 +67,7 @@ public class SearchLuggageController extends Controller {
     }
     
     public void searchHandler(ActionEvent e) {
-        String label,  brand, notes, weight, colorName, airportName;
+        String label, notes, weight, colorName, airportName;
         String[] dimensions = {
                 widthInputfield.getText(),
                 heightInputfield.getText(),
@@ -84,7 +79,6 @@ public class SearchLuggageController extends Controller {
         LocalDate endDate   = datepicker2.getValue();
         
         label = labelInputfield.getText();
-        brand = brandInputfield.getText();
         weight = weightInputfield.getText();
         notes = notesInputfield.getText();
         colorName = colorDropdown.getSelectionModel().getSelectedItem().toString();
@@ -92,10 +86,11 @@ public class SearchLuggageController extends Controller {
         
         Color color = colorModel.getColor(colorName);
         Airport airport = airportModel.getAirport(airportName);
-        
-        LuggageModel luggagemodel = LuggageModel.getDefault();
+        Brand brand = brandModel.getBrand(brandInputfield.getText());
         SearchModel searchmodel = SearchModel.getDefault();
-        
+
+        Log.display(color, airport, brand);
+
         Luggage luggage = new Luggage();
         
         if(lostluggageRadiobutton.isSelected()) {
@@ -116,6 +111,7 @@ public class SearchLuggageController extends Controller {
             luggage.status = status;
         }
 
+        luggage.brand = brand;
         luggage.label = label;
         luggage.notes = notes;
         luggage.weight = weight;

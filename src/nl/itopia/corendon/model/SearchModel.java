@@ -21,6 +21,8 @@ public class SearchModel {
     private static final SearchModel _default = new SearchModel();
     private final DatabaseManager dbmanager = DatabaseManager.getDefault();
 
+    private static final int WHERE_DEFAULT_LENGTH = 6;
+
     private SearchModel() {}
 
 
@@ -33,52 +35,105 @@ public class SearchModel {
         String searchQuery = "SELECT luggage.id FROM luggage {JOIN} {WHERE}";
         String whereQuery = "WHERE ";
         String innerjoinQuery = "";
-        
-        if(null != luggage.airport){
+
+        if (null != luggage.airport) {
+            // The none value has an ID 0
+            if (luggage.airport.getID() != 0) {
             /* innerjoin airport for searching */
-            innerjoinQuery += "INNER JOIN airport ON luggage.airport_id = airport.id ";
-            whereQuery += " airport.name = '" + luggage.airport.getName() + "'";
+                innerjoinQuery += "INNER JOIN airport ON luggage.airport_id = airport.id ";
+                whereQuery += " airport.name = '" + luggage.airport.getName() + "'";
+            }
         }
-        
-        if(null != luggage.color) {
+
+        if (null != luggage.color) {
+            // The none value has an ID 0
+            if (luggage.color.getID() != 0) {
             /* innerjoin for color */
-            innerjoinQuery += "INNER JOIN color ON luggage.color_id = color.id ";
-            whereQuery += " AND color.name = '" + luggage.color.getHex() + "' ";
+                Log.display(luggage.color.getID());
+                innerjoinQuery += "INNER JOIN color ON luggage.color_id = color.id ";
+
+                // Only add 'AND' when it's not our first statement
+                if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                    whereQuery += " AND";
+                }
+
+                whereQuery += " color.name = '" + luggage.color.getHex() + "' ";
+
+            }
         }
-        
-        if(!luggage.label.isEmpty()) {
+
+        if (null != luggage.brand) {
+            /* innerjoin for brand */
+            innerjoinQuery += "INNER JOIN brand.id ON luggage.brand_id=brand.id";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " brand.name = '" + luggage.brand.getName() + "' ";
+        }
+
+        if (!luggage.label.isEmpty()) {
             /* searching records containing the searchpart for labels */
-            whereQuery += " AND luggage.label LIKE '%" + luggage.label + "%'";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > 0) {
+                whereQuery += " AND";
+            }
+            whereQuery += " luggage.label LIKE '%" + luggage.label + "%'";
         }
-        
-        if(!luggage.notes.isEmpty()) {
+
+        if (!luggage.notes.isEmpty()) {
             /* searching records containing the searchpart for notes */
-            whereQuery += " AND luggage.notes LIKE '%" + luggage.notes + "%'";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " luggage.notes LIKE '%" + luggage.notes + "%'";
         }
-        
-        if(!luggage.weight.isEmpty()) {
+
+        if (!luggage.weight.isEmpty()) {
             /* searching records containing the searchpart for weigth */
-            whereQuery += " AND luggage.weight LIKE '%" + luggage.weight + "%'";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " luggage.weight LIKE '%" + luggage.weight + "%'";
         }
-        
-        if(!"xx cm".equals(luggage.dimensions)) {
+
+        if (!"xx cm".equals(luggage.dimensions)) {
             /* @TODO make this working, it's now a quick and dirty fix */
             /* searching recorde containing the searchparts for dimensions */
-            whereQuery += " AND luggage.dimensions LIKE '%" + luggage.dimensions + "%'";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " luggage.dimensions LIKE '%" + luggage.dimensions + "%'";
         }
-        
-        if(null != beginDate && null != endDate) {
+
+        if (null != beginDate && null != endDate) {
             /* check on create date */
-            whereQuery += " AND (DATE_FORMAT(FROM_UNIXTIME(create_date), '%Y-%m-%d') BETWEEN '" + beginDate + "' AND '" + endDate + "')";
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " (DATE_FORMAT(FROM_UNIXTIME(create_date), '%Y-%m-%d') BETWEEN '" + beginDate + "' AND '" + endDate + "')";
         }
-        
-        if(null != luggage.status) {
+
+        if (null != luggage.status) {
             /* filter on status */
-            whereQuery += " AND luggage.status_id = " + luggage.status.getID();
+            // Only add 'AND' when it's not our first statement
+            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                whereQuery += " AND";
+            }
+            whereQuery += " luggage.status_id = " + luggage.status.getID();
         }
         
         /* replace the wildcards for the real join and where statements */
-        searchQuery = searchQuery.replace("{JOIN}",innerjoinQuery).replace("{WHERE}", whereQuery);
+        searchQuery = searchQuery.replace("{JOIN}", innerjoinQuery);
+        // If no values are given in the WHERE statement, replace it with an empty character
+        // The whereQuery string has a length of 6 by default
+        String replaceValue = (whereQuery.length() > WHERE_DEFAULT_LENGTH) ? whereQuery : "";
+        searchQuery = searchQuery.replace("{WHERE}", replaceValue);
+        Log.display(whereQuery.length(), whereQuery,  searchQuery);
         List<Luggage> luggages = executeQuery(searchQuery);
         
         return luggages;
