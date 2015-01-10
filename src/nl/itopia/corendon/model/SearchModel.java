@@ -63,13 +63,16 @@ public class SearchModel {
         }
 
         if (null != luggage.brand) {
+            // The none value has an ID 0
+            if(luggage.brand.getID() != 0) {
             /* innerjoin for brand */
-            innerjoinQuery += "INNER JOIN brand ON luggage.brand_id=brand.id";
-            // Only add 'AND' when it's not our first statement
-            if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
-                whereQuery += " AND";
+                innerjoinQuery += "INNER JOIN brand ON luggage.brand_id=brand.id";
+                // Only add 'AND' when it's not our first statement
+                if (whereQuery.length() > WHERE_DEFAULT_LENGTH) {
+                    whereQuery += " AND";
+                }
+                whereQuery += " brand.name = '" + luggage.brand.getName() + "' ";
             }
-            whereQuery += " brand.name = '" + luggage.brand.getName() + "' ";
         }
 
         if (!luggage.label.isEmpty()) {

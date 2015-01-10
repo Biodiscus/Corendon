@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.value.ObservableValue;
 import nl.itopia.corendon.controller.CustomerController;
+import nl.itopia.corendon.utils.Log;
 
 
 /**
@@ -234,7 +235,7 @@ public class AddLuggageController extends Controller {
      * @param e ActionEvent
      */
     private void addHandler(ActionEvent e) {
-        
+
         if(labelExists) {
             /* label exists, show customer controller to fill the rest in */
             String label  = labelInputfield.getText();
@@ -277,7 +278,13 @@ public class AddLuggageController extends Controller {
             luggage.label = labelInputfield.getText();
             luggage.notes = notesInputfield.getText();
             luggage.weight = weightInputfield.getText();
-            luggage.brand = brandModel.handleBrandInput(brand.toString());
+
+            if(brand != null) {
+                luggage.brand = brandModel.handleBrandInput(brand.toString());
+            } else {
+                // If no brand is selected, get the 'None' brand,
+                luggage.brand = brandModel.getBrand("None");
+            }
 
             long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 

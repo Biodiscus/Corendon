@@ -39,12 +39,16 @@ public class LuggageModel {
         logModel = LogModel.getDefault();
     }
 
-    // Sets the current luggage id, to the inserted ID
+    /**
+     * Adds a new luggage in the database,
+     * when it's inserted the reference ID will be set to the last inserted ID.
+     * @param luggage Luggage
+     */
     public void addLuggage(Luggage luggage) {
         int color_id = luggage.color.getID();
         int status_id = luggage.status.getID();
         int employee_id = luggage.employee.getID();
-        int client_id = luggage.customer.getID(); // TODO: In the database this is called client instead of customer
+        int client_id = luggage.customer.getID();
         int airport_id = luggage.airport.getID();
         int brand_id = luggage.brand.getID();
 
