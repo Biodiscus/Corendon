@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
+import nl.itopia.corendon.components.NumberTextField;
 import nl.itopia.corendon.components.PictureView;
 import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
@@ -29,8 +30,8 @@ import nl.itopia.corendon.utils.Log;
 public class AddLuggageController extends Controller {
     
     @FXML private Button addButton, cancelButton, browseButton;
-    @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
-                            notesInputfield, widthInputfield, depthInputfield;
+    @FXML private TextField labelInputfield, fileInputfield, weightInputfield, notesInputfield;
+    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield;
     @FXML private ComboBox<ChooseItem> brandInput;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown, lostOrFounddropdown;
     @FXML private ScrollPane imageScrollpane;
@@ -132,6 +133,11 @@ public class AddLuggageController extends Controller {
 
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
+
+        // For the dimmensions, only allow numbers
+//        widthInputfield.textProperty().addListener(new NumberInputListener(widthInputfield));
+//        heightInputfield.textProperty().addListener(new NumberInputListener(heightInputfield));
+//        depthInputfield.textProperty().addListener(new NumberInputListener(depthInputfield));
 
 
         // Set the imageScrollpane content

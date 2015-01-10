@@ -13,6 +13,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import nl.itopia.corendon.components.NumberTextField?>
 
 <StackPane prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -69,9 +70,9 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="heightInputfield" layoutX="184.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
-            <TextField fx:id="widthInputfield" layoutX="323.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
-            <TextField fx:id="depthInputfield" layoutX="467.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
+            <NumberTextField fx:id="heightInputfield" layoutX="184.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
+            <NumberTextField fx:id="widthInputfield" layoutX="323.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Width" />
+            <NumberTextField fx:id="depthInputfield" layoutX="467.0" layoutY="405.0" prefHeight="33.0" prefWidth="107.0" promptText="Depth" />
             <Label layoutX="40.0" layoutY="434.0" prefHeight="59.0" prefWidth="117.0" text="Weight:">
                <font>
                   <Font size="17.0" />
