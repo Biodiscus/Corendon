@@ -300,6 +300,10 @@ public class EmployeeController extends Controller {
 
     private void openHelp() {
         helpController = new HelpFunctionController();
+        helpController.setControllerDeleteHandler((obj)->{
+            removeController(helpController);
+            helpController=null;
+        });
         addController(helpController);
     }
 

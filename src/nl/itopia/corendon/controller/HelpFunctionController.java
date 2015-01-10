@@ -9,15 +9,13 @@ import nl.itopia.corendon.mvc.Controller;
  * @author Stefan de Groot
  */
 public class HelpFunctionController extends Controller {
-
-   
     @FXML private Button exitButton;
     
     public HelpFunctionController() {
         
         registerFXML("gui/help_function.fxml");
         
-       exitButton.setOnAction(this::cancelHandler);
+        exitButton.setOnAction(this::cancelHandler);
     }
     
     public void cancelHandler(ActionEvent e){
