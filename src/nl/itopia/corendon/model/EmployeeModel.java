@@ -8,7 +8,9 @@ import java.util.List;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.data.table.TableUser;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
 
@@ -250,9 +252,10 @@ public class EmployeeModel {
     }
 
     /**
-     * Insert new employee into database
+     * Insert new employee into database,
+     * when it's inserted the reference ID will be set to the last inserted ID.
      *
-     * @param employee
+     * @param employee Employee
      */
     public void createEmployee(Employee employee) {
 
@@ -269,8 +272,15 @@ public class EmployeeModel {
         );
 
         try {
-            Log.display(finalQuery);
             dbmanager.insertQuery(finalQuery);
+            // After inserting the item, get the last added employee
+            // This way we can set the correct ID to the new employee
+            ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
+            if(result.next()) {
+                employee.setID(result.getInt(1));
+            } else {
+                // ERROR!
+            }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
