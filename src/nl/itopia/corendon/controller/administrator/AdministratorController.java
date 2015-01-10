@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
@@ -25,12 +26,12 @@ import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 
+import javax.swing.*;
+
 /**
  * @author Erik
  */
 public class AdministratorController extends Controller {
-
-    //private AdministratorView view;
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
 
@@ -46,7 +47,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn<Employee, String> lastnameTable;
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -56,6 +57,7 @@ public class AdministratorController extends Controller {
     private int deleteUserId;
     private TableUser user;
     private HelpFunctionController helpController;
+    private final Timer timer;
 
     public AdministratorController() {
 
@@ -80,14 +82,11 @@ public class AdministratorController extends Controller {
         logfilesbutton.setOnAction(this::logHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        refreshButton.setOnAction(this::refreshHandler);
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
         deleteuserButton.setDisable(true);
-
-        // Make a new thread that will receive the tableData from the database
-        Thread dataThread = new Thread(() -> receiveData());
-        dataThread.start();
 
         // Table headings
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -98,6 +97,15 @@ public class AdministratorController extends Controller {
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
 
         this.tableActions();
+
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+
+
+        // Make a new thread that will recieve the tableData from the database
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
+        dataThread.start();
     }
 
     private void showLoadingIcon() {
@@ -108,6 +116,14 @@ public class AdministratorController extends Controller {
         iconPane.setPrefWidth(userTable.getPrefWidth());
         iconPane.setPrefHeight(userTable.getPrefHeight());
         userAnchorpane.getChildren().add(iconPane);
+    }
+
+    private void refreshHandler(ActionEvent e) {
+        refreshButton.setDisable(true);
+
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
+        dataThread.start();
     }
 
     // Fired when the log button is clicked
@@ -206,6 +222,7 @@ public class AdministratorController extends Controller {
         Platform.runLater(() -> {
             userTable.setItems(tableData);
             userAnchorpane.getChildren().remove(iconPane);
+            refreshButton.setDisable(false);
         });
     }
 

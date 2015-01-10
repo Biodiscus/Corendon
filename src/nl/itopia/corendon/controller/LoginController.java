@@ -48,11 +48,15 @@ public class LoginController extends Controller {
     private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
+        } else if(event.getCode()==KeyCode.ENTER) {
+            loginAction();
         }
     }
     
     private void buttonEnterPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER) {
+        if(event.getCode()==KeyCode.ESCAPE) {
+            passwordField.clear();
+        } else if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
     }

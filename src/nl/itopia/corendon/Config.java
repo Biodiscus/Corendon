@@ -4,7 +4,9 @@ package nl.itopia.corendon;
  * @author Kueter
  */
 public class Config {
-    
+    // General
+    public static final int DATA_REFRESH_INTERVAL = 300000; // 5 Minutes (5 * 60 * 1000)
+
     // Database
     public static final String DB_HOST = "sql4.freesqldatabase.com";
     public static final String DB_NAME = "sql458254";

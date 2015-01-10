@@ -17,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
@@ -36,6 +37,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import nl.itopia.corendon.model.EmployeeModel;
 
+import javax.swing.*;
+import javax.swing.Timer;
+
 /**
  * © 2014, Biodiscus.net robin
  */
@@ -43,7 +47,7 @@ public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
     @FXML private BarChart barDiagram;
 
-    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton, refreshButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private Label userName, userIDLoggedInPerson;
@@ -55,8 +59,8 @@ public class ManagerController extends Controller {
     private Chart currentChart;
     private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
     private XYChart.Series<String, Integer> foundBarSeries, lostBarSeries, resolvedBarSeries;
-    private boolean helpFunctionOpened;
     private HelpFunctionController helpController;
+    private final Timer timer;
 
     public ManagerController() {
         
@@ -79,8 +83,8 @@ public class ManagerController extends Controller {
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
-        helpFunctionOpened = false;
-        
+        refreshButton.setOnAction(this::refreshHandler);
+
         currentChart = lineDiagram;
         
         // TODO: Set the datePicker1 to something else
@@ -115,8 +119,12 @@ public class ManagerController extends Controller {
         resolvedBarSeries = new XYChart.Series<>();
         resolvedBarSeries.setName("Found");
 
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(() -> receiveData());
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
         dataThread.start();
     }
 
@@ -298,6 +306,7 @@ public class ManagerController extends Controller {
             // Update the line diagram with our tableData
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
             barDiagram.getData().addAll(foundBarSeries, lostBarSeries, resolvedBarSeries);
+            refreshButton.setDisable(false);
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
@@ -332,6 +341,14 @@ public class ManagerController extends Controller {
         iconPane.setPickOnBounds(false); // Needed to click trough transparent panes
         iconPane.getChildren().add(spinningIcon);
         view.fxmlPane.getChildren().add(iconPane);
+    }
+
+    private void refreshHandler(ActionEvent e) {
+        refreshButton.setDisable(true);
+
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
+        dataThread.start();
     }
 
     private void openHelp() {

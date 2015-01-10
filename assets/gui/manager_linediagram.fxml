@@ -65,7 +65,7 @@
                   <Font size="11.0" />
                </font></Button>
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
-			<Button fx:id="refreshButton" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
+			<Button fx:id="refreshButton" layoutX="825.0" layoutY="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" disable="true"/>
             <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
                <font>
                   <Font size="18.0" />
@@ -111,7 +111,6 @@
                 </yAxis>
             </BarChart>
 
-            
             <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
 			<Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
          </children>
