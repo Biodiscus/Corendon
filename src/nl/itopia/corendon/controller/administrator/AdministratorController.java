@@ -25,6 +25,7 @@ import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Log;
 
 import javax.swing.*;
 
@@ -54,8 +55,6 @@ public class AdministratorController extends Controller {
 
     @FXML private Label userName, userIDLoggedInPerson;
 
-    private int deleteUserId;
-    private TableUser user;
     private HelpFunctionController helpController;
     private final Timer timer;
 
@@ -64,14 +63,14 @@ public class AdministratorController extends Controller {
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
 
-        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        employeeModel = EmployeeModel.getDefault();
+
         userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
         userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
 
-        employeeModel = EmployeeModel.getDefault();
 
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
@@ -120,6 +119,7 @@ public class AdministratorController extends Controller {
 
     private void refreshHandler(ActionEvent e) {
         refreshButton.setDisable(true);
+        tableData.clear();
 
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);
@@ -141,15 +141,6 @@ public class AdministratorController extends Controller {
             deleteuserButton.setDisable(false);
 
             edituserButton.setOnAction(this::editEmployee);
-
-            // Get the object for the selected user in the table
-            this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-
-            if (this.deleteUserId != 0) {
-                this.deleteUserId = user.getUserID();
-                // Trigger click on button and run delete method
-                deleteuserButton.setOnAction(this::deleteEmployee);
-            }
         });
     }
 
@@ -185,7 +176,6 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void editEmployee(ActionEvent event) {
-
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         addController(new EditUserController(user.getUserID()));
     }
@@ -196,13 +186,9 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void deleteEmployee(ActionEvent event) {
-
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         employeeModel.deleteEmployee(user.getUserID());
         tableData.remove(user);
-
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.deleteEmployee(this.deleteUserId);
     }
 
     private void receiveData() {
