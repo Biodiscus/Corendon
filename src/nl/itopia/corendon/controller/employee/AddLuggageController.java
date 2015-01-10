@@ -134,12 +134,6 @@ public class AddLuggageController extends Controller {
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
 
-        // For the dimmensions, only allow numbers
-//        widthInputfield.textProperty().addListener(new NumberInputListener(widthInputfield));
-//        heightInputfield.textProperty().addListener(new NumberInputListener(heightInputfield));
-//        depthInputfield.textProperty().addListener(new NumberInputListener(depthInputfield));
-
-
         // Set the imageScrollpane content
         imageScrollContent = new VBox();
         imageScrollContent.setSpacing(10);

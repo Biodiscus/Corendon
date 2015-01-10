@@ -128,10 +128,17 @@ public class SearchLuggageController extends Controller {
         
         Color color = colorModel.getColor(colorName);
         Airport airport = airportModel.getAirport(airportName);
-        Brand brand = brandModel.getBrand(brandInputfield.getValue().toString());
-        SearchModel searchmodel = SearchModel.getDefault();
+        Brand brand;
 
-        Log.display(color, airport, brand);
+        // Check if the brand input value is null, if get the 'None' brand.
+        // Otherwise get the correct brand
+        if(brandInputfield.getValue() == null) {
+            brand = brandModel.getBrand("None");
+        } else {
+            brand = brandModel.getBrand(brandInputfield.getValue().toString());
+        }
+
+        SearchModel searchmodel = SearchModel.getDefault();
 
         Luggage luggage = new Luggage();
         
