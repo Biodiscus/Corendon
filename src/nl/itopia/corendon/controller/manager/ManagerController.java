@@ -36,6 +36,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import nl.itopia.corendon.model.EmployeeModel;
+import nl.itopia.corendon.utils.Log;
 
 import javax.swing.*;
 import javax.swing.Timer;
@@ -111,13 +112,13 @@ public class ManagerController extends Controller {
         lostSeries.setName("Lost");
 
         lostBarSeries = new XYChart.Series<>();
-        lostBarSeries.setName("Found");
+        lostBarSeries.setName("Lost");
 
         resolvedSeries = new XYChart.Series<>();
         resolvedSeries.setName("Resolved");
 
         resolvedBarSeries = new XYChart.Series<>();
-        resolvedBarSeries.setName("Found");
+        resolvedBarSeries.setName("Resolved");
 
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
         timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
@@ -159,21 +160,20 @@ public class ManagerController extends Controller {
     private void showLuggage(boolean found, boolean lost, boolean resolved) {
         ObservableList<XYChart.Series> lineSeries = lineDiagram.getData();
         ObservableList<XYChart.Series> barSeries = barDiagram.getData();
-
+        Log.display(lostBarSeries.getData(), barSeries);
 
         if (found) {
             // If the chartSeries is not in the chart, add it
             if (!lineSeries.contains(foundSeries)) {
                 lineSeries.add(foundSeries);
             }
-
-//            if(!barSeries.contains(foundSeries)) {
-//                barSeries.add(foundSeries);
-//            }
+            if(!barSeries.contains(foundBarSeries)) {
+                barSeries.add(foundBarSeries);
+            }
 
         } else {
             lineDiagram.getData().remove(foundSeries);
-//            barDiagram.getData().remove(foundSeries);
+            barDiagram.getData().remove(foundBarSeries);
         }
 
         if (lost) {
@@ -182,12 +182,12 @@ public class ManagerController extends Controller {
                 lineSeries.add(lostSeries);
             }
 
-//            if(!barSeries.contains(lostSeries)) {
-//                barSeries.add(lostSeries);
-//            }
+            if(!barSeries.contains(lostBarSeries)) {
+                barSeries.add(lostBarSeries);
+            }
         } else {
             lineDiagram.getData().remove(lostSeries);
-//            barDiagram.getData().remove(lostSeries);
+            barDiagram.getData().remove(lostBarSeries);
         }
 
         if (resolved) {
@@ -196,12 +196,12 @@ public class ManagerController extends Controller {
                 lineSeries.add(resolvedSeries);
             }
 
-//            if(!barSeries.contains(resolvedSeries)) {
-//                barSeries.add(resolvedSeries);
-//            }
+            if(!barSeries.contains(resolvedBarSeries)) {
+                barSeries.add(resolvedBarSeries);
+            }
         } else {
             lineDiagram.getData().remove(resolvedSeries);
-//            barDiagram.getData().remove(resolvedSeries);
+            barDiagram.getData().remove(resolvedBarSeries);
         }
     }
 
