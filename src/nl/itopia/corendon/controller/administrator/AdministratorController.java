@@ -48,7 +48,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn<Employee, String> lastnameTable;
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -75,6 +75,7 @@ public class AdministratorController extends Controller {
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
+        detailsuserButton.setOnAction(this::detailsEmployee);
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
@@ -86,6 +87,7 @@ public class AdministratorController extends Controller {
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
         deleteuserButton.setDisable(true);
+        detailsuserButton.setDisable(true);
 
         // Table headings
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -139,6 +141,7 @@ public class AdministratorController extends Controller {
 
             edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
+            detailsuserButton.setDisable(false);
 
             edituserButton.setOnAction(this::editEmployee);
         });
@@ -178,6 +181,11 @@ public class AdministratorController extends Controller {
     public void editEmployee(ActionEvent event) {
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         addController(new EditUserController(user.getUserID()));
+    }
+    
+    public void detailsEmployee(ActionEvent event) {
+        TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
+        addController(new DetailUserController(user.getUserID()));
     }
 
     /**
