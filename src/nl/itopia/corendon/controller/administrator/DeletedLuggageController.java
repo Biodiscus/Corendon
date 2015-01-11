@@ -41,6 +41,7 @@ public class DeletedLuggageController extends Controller {
     public List<Luggage> luggageList;
 
     @FXML private TableColumn <Luggage,String>ID;
+    @FXML private TableColumn <Luggage,String>Label;
     @FXML private TableColumn <Luggage,String>Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
@@ -82,6 +83,7 @@ public class DeletedLuggageController extends Controller {
 
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Label.setCellValueFactory(new PropertyValueFactory<>("label"));
         Brand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         Dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
         Color.setCellValueFactory(new PropertyValueFactory<>("color"));
