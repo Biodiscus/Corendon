@@ -129,6 +129,7 @@ public class EmployeeController extends Controller {
 
     private void refreshHandler(ActionEvent e) {
         refreshButton.setDisable(true);
+        tableData.clear();
 
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);
