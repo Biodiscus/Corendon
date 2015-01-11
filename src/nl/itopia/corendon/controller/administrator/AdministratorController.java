@@ -56,7 +56,7 @@ public class AdministratorController extends Controller {
     @FXML private Label userName, userIDLoggedInPerson;
 
     private HelpFunctionController helpController;
-    private final Timer timer;
+    //private final Timer timer;
 
     public AdministratorController() {
 
@@ -100,7 +100,7 @@ public class AdministratorController extends Controller {
         this.tableActions();
 
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
-        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+        //timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
 
 
         // Make a new thread that will recieve the tableData from the database
@@ -120,12 +120,12 @@ public class AdministratorController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        refreshButton.setDisable(true);
-        tableData.clear();
-
-        Thread dataThread = new Thread(this::receiveData);
-        dataThread.setDaemon(true);
-        dataThread.start();
+        //refreshButton.setDisable(true);
+        //tableData.clear();
+        changeController(new AdministratorController());
+        //Thread dataThread2 = new Thread(this::receiveData);
+        //dataThread2.setDaemon(true);
+        //dataThread2.start();
     }
 
     // Fired when the log button is clicked
