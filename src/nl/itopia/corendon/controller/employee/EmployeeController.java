@@ -131,7 +131,7 @@ public class EmployeeController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        refreshButton.setDisable(true);
+        Platform.runLater(()->refreshButton.setDisable(true));
 
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);

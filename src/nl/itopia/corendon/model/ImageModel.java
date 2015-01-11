@@ -29,7 +29,7 @@ public class ImageModel {
 
     }
 
-    // http://www.codejava.net/java-se/networking/ftp/upload-files-to-ftp-IMAGE_SERVER-using-urlconnection-class
+    // http://www.codejava.net/java-se/networking/ftp/upload-files-to-ftp-FTP_IMAGE_SERVER-using-urlconnection-class
     /**
      * Uploads an image from the given file, this will be called:
      *
@@ -53,7 +53,7 @@ public class ImageModel {
 
         String ftpURL = "ftp://%s:%s@%s/%s;type=i";
 
-        ftpURL = String.format(ftpURL, Config.IMAGE_USER, Config.IMAGE_PASSWORD, Config.IMAGE_SERVER, uploadPath);
+        ftpURL = String.format(ftpURL, Config.IMAGE_USER, Config.IMAGE_PASSWORD, Config.FTP_IMAGE_SERVER, uploadPath);
         Log.display("FtpURL", ftpURL);
 
         URL url = new URL(ftpURL);
@@ -71,7 +71,7 @@ public class ImageModel {
         input.close();
         output.close();
 
-        return Config.IMAGE_SERVER +uploadPath;
+        return Config.UPLOAD_SERVER +uploadPath;
     }
 
     public void deleteImage(int id) {
