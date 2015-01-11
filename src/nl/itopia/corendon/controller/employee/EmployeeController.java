@@ -294,10 +294,9 @@ public class EmployeeController extends Controller {
     }
 
     private void quickFilterFound(ActionEvent e) {
-
-        tableData.clear();
-
         luggageList = luggageModel.getAllFoundLuggage();
+
+
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
                 luggage.label,
@@ -313,10 +312,8 @@ public class EmployeeController extends Controller {
     }
 
     private void quickFilterLost(ActionEvent e) {
-
-        tableData.clear();
-
         luggageList = luggageModel.getAllLostLuggage();
+        tableData.clear();
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
                 luggage.label,
@@ -333,10 +330,8 @@ public class EmployeeController extends Controller {
     }
 
     private void quickFilterResolved(ActionEvent e) {
-
-        tableData.clear();
-
         luggageList = luggageModel.getAllResolvedLuggage();
+        tableData.clear();
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
                 luggage.label,
@@ -353,6 +348,7 @@ public class EmployeeController extends Controller {
 
     private void quickFilterAll(ActionEvent e) {
         luggageList = luggageModel.getAllLuggage();
+        tableData.clear();
         for (Luggage luggage : luggageList) {
             // If the luggage object is not yet in the table, add it.
             TableLuggage luggageTable = new TableLuggage(
