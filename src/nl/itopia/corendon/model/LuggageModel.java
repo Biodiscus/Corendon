@@ -259,7 +259,7 @@ public class LuggageModel {
     public boolean labelExists(String label) {
         int numRecords = 0;
         try {
-            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "'");
+            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "' AND deleted='0'");
             if (result.next()) {
                 String labelCounter = result.getString("labelcounter");
                 numRecords = Integer.parseInt(labelCounter);
