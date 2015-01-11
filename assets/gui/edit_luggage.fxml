@@ -45,8 +45,8 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="browseButton" layoutX="448.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="81.0" text="Browse" />
-            <Button fx:id="addButton" layoutX="529.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="45.0" text="Add" />
+
+            <Button fx:id="browseButton" layoutX="488.0" layoutY="276.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="88.0" text="Browse" />
             <Label layoutX="40.0" layoutY="321.0" prefHeight="59.0" prefWidth="117.0" text="Brand:">
                <font>
                   <Font size="17.0" />
