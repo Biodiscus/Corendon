@@ -78,7 +78,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="weightInputfield" layoutX="184.0" layoutY="448.0" prefHeight="33.0" prefWidth="388.0" promptText="Weight" />
+			<Label layoutX="532.0" layoutY="434.0" prefHeight="59.0" prefWidth="50.0" text="KG">
+               <font>
+                  <Font size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="weightInputfield" layoutX="184.0" layoutY="448.0" prefHeight="33.0" prefWidth="338.0" promptText="Weight" />
             <Label layoutX="40.0" layoutY="480.0" prefHeight="59.0" prefWidth="117.0" text="Notes:">
                <font>
                   <Font size="17.0" />
