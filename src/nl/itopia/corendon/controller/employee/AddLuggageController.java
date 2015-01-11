@@ -257,11 +257,11 @@ public class AddLuggageController extends Controller {
             ChooseItem airport = foundonAirportdropdown.getValue();
             ChooseItem color = colorDropdown.getValue();
             ChooseItem brand = brandInput.getValue();
-
+            ChooseItem foundLost = lostOrFounddropdown.getValue();
 
             Luggage luggage = new Luggage();
             luggage.color = ColorModel.getDefault().getColor(color.getKey());
-            luggage.status = StatusModel.getDefault().getStatus(1);
+            luggage.status = statusModel.getStatus(foundLost.getKey());
             luggage.employee = employeeModel.currentEmployee;
             luggage.customer = CustomerModel.getDefault().getCustomer(2);
             luggage.airport = airportModel.getAirport(airport.getKey());

@@ -29,7 +29,6 @@ public class Luggage {
         this.id = id;
     }
 
-    // TODO: If we create a new Luggage we don't need to set the ID, but if it's inserted we need to recieve the ID and set it to luggage!
     public Luggage() {
         id = -1;
     }
