@@ -115,6 +115,12 @@ public class CreateUserController extends Controller {
         // Check if firstname is correct size
         if (firstName.length() < 3) {
             
+            Validation.errorMessage(firstnameInputfield, "Firstname is too short.");
+            errorCount++;
+        }
+        
+        if (firstName.length() == 0) {
+            
             Validation.errorMessage(firstnameInputfield, "Firstname is required.");
             errorCount++;
         }
@@ -122,16 +128,28 @@ public class CreateUserController extends Controller {
         // Check if firstname is correct size
         if (lastName.length() < 3) {
             
-            Validation.errorMessage(firstnameInputfield, "Firstname is required.");
+            Validation.errorMessage(lastnameInputfield, "Firstname is too short.");
+            errorCount++;
+        }
+        
+        if (lastName.length() == 0) {
+            
+            Validation.errorMessage(lastnameInputfield, "Firstname is required.");
             errorCount++;
         }
         
         // Check if username is the correct size
         if (userName.length() < 3) {
+            Validation.errorMessage(usernameInputfield, "Firstname is too short.");
             errorCount++;
         }
         
-        System.out.println("Error count"+ errorCount);
+        if (userName.length() == 0) {
+            Validation.errorMessage(usernameInputfield, "Firstname is required.");
+            errorCount++;
+        }
+        
+        System.out.println("Error count: "+ errorCount);
         
         if(errorCount == 0) {
  
