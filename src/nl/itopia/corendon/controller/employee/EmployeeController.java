@@ -140,22 +140,20 @@ public class EmployeeController extends Controller {
 
     private void receiveData() {
         luggageList = luggageModel.getAllLuggage();
+        tableData.clear();
         for (Luggage luggage : luggageList) {
-            // If the luggage object is not yet in the table, add it.
-            if (!isLuggageAlreadyInTable(luggage.getID())) {
-                TableLuggage luggageTable = new TableLuggage(
-                        luggage.getID(),
-                        luggage.label,
-                        luggage.dimensions,
-                        luggage.notes,
-                        luggage.airport.getName(),
-                        luggage.brand.getName(),
-                        luggage.color.getHex(),
-                        luggage.status.getName()
-                );
+            TableLuggage luggageTable = new TableLuggage(
+                    luggage.getID(),
+                    luggage.label,
+                    luggage.dimensions,
+                    luggage.notes,
+                    luggage.airport.getName(),
+                    luggage.brand.getName(),
+                    luggage.color.getHex(),
+                    luggage.status.getName()
+            );
 
-                tableData.add(luggageTable);
-            }
+            tableData.add(luggageTable);
         }
 
         Platform.runLater(() -> {
@@ -168,22 +166,6 @@ public class EmployeeController extends Controller {
         if (!timer.isRunning()) {
             timer.start();
         }
-    }
-
-    /**
-     * Check if a given luggage id is already in the table
-     *
-     * @param id
-     * @return
-     */
-    private boolean isLuggageAlreadyInTable(int id) {
-        for (TableLuggage luggage : tableData) {
-            if (luggage.getId() == id) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     private void searchHandler(ActionEvent e) {
@@ -373,20 +355,18 @@ public class EmployeeController extends Controller {
         luggageList = luggageModel.getAllLuggage();
         for (Luggage luggage : luggageList) {
             // If the luggage object is not yet in the table, add it.
-            if (!isLuggageAlreadyInTable(luggage.getID())) {
-                TableLuggage luggageTable = new TableLuggage(
-                        luggage.getID(),
-                        luggage.label,
-                        luggage.dimensions,
-                        luggage.notes,
-                        luggage.airport.getName(),
-                        luggage.brand.getName(),
-                        luggage.color.getHex(),
-                        luggage.status.getName()
-                );
+            TableLuggage luggageTable = new TableLuggage(
+                    luggage.getID(),
+                    luggage.label,
+                    luggage.dimensions,
+                    luggage.notes,
+                    luggage.airport.getName(),
+                    luggage.brand.getName(),
+                    luggage.color.getHex(),
+                    luggage.status.getName()
+            );
 
-                tableData.add(luggageTable);
-            }
+            tableData.add(luggageTable);
         }
     }
 
