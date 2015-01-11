@@ -21,7 +21,7 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Found on airport:">
+            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Airport:">
                <font>
                   <Font size="17.0" />
                </font>
