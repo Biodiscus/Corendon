@@ -79,7 +79,7 @@ public class LoginController extends Controller {
         String userName = usernameField.getText();
         String password = passwordField.getText();
 
-        // Check if values aren't empty
+        // Check if values isn't empty
         if(userName.isEmpty() || password.isEmpty()) {
             // Show error if values are empty
             if(userName.isEmpty()) {

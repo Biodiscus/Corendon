@@ -5,12 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
-import nl.itopia.corendon.data.LogAction;
-import nl.itopia.corendon.data.table.TableUser;
-import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
 

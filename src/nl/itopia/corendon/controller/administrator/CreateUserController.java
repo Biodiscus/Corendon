@@ -81,14 +81,11 @@ public class CreateUserController extends Controller {
         String notes = notesInputfield.getText();
  
         String salt = Hashing.generateSaltString();
-        
-        // To-do validator class
  
         // Check if username already exists
         Employee userNameModel = employeemodel.getEmployee(userName);
 
         if(userNameModel != null) {
-            
             Validation.errorMessage(usernameInputfield, "Username already exsists.");
             errorCount++;
         }
@@ -106,33 +103,28 @@ public class CreateUserController extends Controller {
         
         // Check if the password is the correct size
         if (password.length() < 6) {
-            
             Validation.errorMessage(passwordInputfield, "Minimum password length is 6 characters.");
             errorCount++;
         }
         
         // Check if firstname is correct size
         if (firstName.length() < 3) {
-            
             Validation.errorMessage(firstnameInputfield, "Firstname is too short.");
             errorCount++;
         }
         
         if (firstName.length() == 0) {
-            
             Validation.errorMessage(firstnameInputfield, "Firstname is required.");
             errorCount++;
         }
         
         // Check if firstname is correct size
         if (lastName.length() < 3) {
-            
             Validation.errorMessage(lastnameInputfield, "Firstname is too short.");
             errorCount++;
         }
         
         if (lastName.length() == 0) {
-            
             Validation.errorMessage(lastnameInputfield, "Firstname is required.");
             errorCount++;
         }

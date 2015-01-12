@@ -1,5 +1,6 @@
 package nl.itopia.corendon.controller.administrator;
 
+import nl.itopia.corendon.controller.ChangePasswordController;
 import java.util.List;
 
 import javafx.application.Platform;
@@ -17,7 +18,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
@@ -25,14 +25,12 @@ import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
-
-import javax.swing.*;
 
 /**
  * @author Erik
  */
 public class AdministratorController extends Controller {
+    
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
 
@@ -48,7 +46,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn<Employee, String> lastnameTable;
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, changePasswordButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -71,7 +69,6 @@ public class AdministratorController extends Controller {
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
 
-
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
@@ -80,6 +77,7 @@ public class AdministratorController extends Controller {
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         logfilesbutton.setOnAction(this::logHandler);
+        changePasswordButton.setOnAction(this::changePassword);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         refreshButton.setOnAction(this::refreshHandler);
@@ -101,7 +99,6 @@ public class AdministratorController extends Controller {
 
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
         //timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
-
 
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(this::receiveData);
@@ -127,6 +124,11 @@ public class AdministratorController extends Controller {
         //dataThread2.setDaemon(true);
         //dataThread2.start();
     }
+    
+    private void changePassword(ActionEvent e) {
+        
+        addController( new ChangePasswordController() );
+    }
 
     // Fired when the log button is clicked
     private void logHandler(ActionEvent e) {
@@ -137,6 +139,7 @@ public class AdministratorController extends Controller {
      * Actions for selected row (edit, delete)
      */
     public void tableActions() {
+        
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
             edituserButton.setDisable(false);

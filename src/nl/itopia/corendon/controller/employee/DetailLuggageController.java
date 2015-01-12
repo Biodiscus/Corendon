@@ -27,13 +27,10 @@ import static nl.itopia.corendon.pdf.LuggageReportPDF.generateLuggageReportPDF;
  */
 public class DetailLuggageController extends Controller {
 
-    @FXML
-    private Label showFoundonairport, showLabel, showColor, showBrand, showWeight,
+    @FXML private Label showFoundonairport, showLabel, showColor, showBrand, showWeight,
             showHeight, showNotes, showWidth, showDepth;
-    @FXML
-    private Button printdetailsButton, cancelButton, markasfoundButton, editButton, deleteButton;
-    @FXML
-    private ScrollPane imageScrollpane;
+    @FXML private Button printdetailsButton, cancelButton, markasfoundButton, editButton, deleteButton;
+    @FXML  private ScrollPane imageScrollpane;
     private VBox imageScrollContent;
 
     private ImageModel imageModel;

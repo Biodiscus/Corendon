@@ -29,29 +29,25 @@ import nl.itopia.corendon.data.table.TableLuggage;
 import nl.itopia.corendon.model.EmployeeModel;
 
 import javax.swing.*;
+import nl.itopia.corendon.controller.ChangePasswordController;
 
 /**
  * AUTHOR: IGOR
  */
 public class EmployeeController extends Controller {
 
-    @FXML
-    private TableView luggageInfo;
-    @FXML
-    private AnchorPane LuggageTable;
+    @FXML private TableView luggageInfo;
+    @FXML private AnchorPane LuggageTable;
 
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
-    @FXML
-    private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
-    @FXML
-    private Label userName, userIDLoggedInPerson;
+    @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML private Label userName, userIDLoggedInPerson;
 
-    @FXML
-    private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
             logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
-            refreshButton;
+            refreshButton, changePasswordButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -89,6 +85,7 @@ public class EmployeeController extends Controller {
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
         allLuggagebutton.setOnAction(this::quickFilterAll);
+        changePasswordButton.setOnAction(this::changePassword);
         refreshButton.setOnAction(this::refreshHandler);
         view.fxmlPane.setOnKeyReleased(this::keypressHandler);
 
@@ -128,6 +125,11 @@ public class EmployeeController extends Controller {
         iconPane.setPrefWidth(luggageInfo.getPrefWidth());
         iconPane.setPrefHeight(luggageInfo.getPrefHeight());
         LuggageTable.getChildren().add(iconPane);
+    }
+    
+    private void changePassword(ActionEvent e) {
+        
+        addController( new ChangePasswordController() );
     }
 
     private void refreshHandler(ActionEvent e) {

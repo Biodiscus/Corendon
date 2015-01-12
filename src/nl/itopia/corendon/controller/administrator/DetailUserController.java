@@ -38,13 +38,13 @@ public class DetailUserController extends Controller {
         editButton.setOnAction(this::editEmployee);
         cancelButton.setOnAction(this::cancelHandler);
         
-        
         showUserID.setText(Integer.toString(currentEmployee.id));
         showUsername.setText(currentEmployee.username);
         showFirstname.setText(currentEmployee.firstName);
         showLastname.setText(currentEmployee.lastName);
         showRole.setText(currentEmployee.role.getName());
         showAirport.setText(currentEmployee.airport.getName());
+        showContactdetails.setText(currentEmployee.contactDetails);
         showNotes.setText(currentEmployee.notes);
     }
     

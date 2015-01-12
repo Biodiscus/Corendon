@@ -14,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.Config;
@@ -38,8 +37,8 @@ import javafx.stage.FileChooser;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.utils.Log;
 
-import javax.swing.*;
 import javax.swing.Timer;
+import nl.itopia.corendon.controller.ChangePasswordController;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -48,7 +47,7 @@ public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
     @FXML private BarChart barDiagram;
 
-    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton, refreshButton;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton, changePasswordButton, refreshButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
     @FXML private Label userName, userIDLoggedInPerson;
@@ -84,6 +83,7 @@ public class ManagerController extends Controller {
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        changePasswordButton.setOnAction(this::changePassword);
         refreshButton.setOnAction(this::refreshHandler);
 
         currentChart = lineDiagram;
@@ -334,6 +334,7 @@ public class ManagerController extends Controller {
     }
 
     private void showLoadingIcon() {
+        
         // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -349,6 +350,11 @@ public class ManagerController extends Controller {
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);
         dataThread.start();
+    }
+    
+    private void changePassword(ActionEvent e) {
+        
+        addController( new ChangePasswordController() );
     }
 
     private void openHelp() {
