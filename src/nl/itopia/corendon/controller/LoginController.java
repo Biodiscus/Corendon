@@ -1,6 +1,5 @@
 package nl.itopia.corendon.controller;
 
-//import java.awt.event.KeyEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
@@ -83,7 +82,6 @@ public class LoginController extends Controller {
                 
                 Validation.errorMessage(usernameField, "Please enter a username");
             }
-
             if(password.isEmpty()) {
                 
                 Validation.errorMessage(passwordField, "Please enter a password");

@@ -27,7 +27,6 @@ public class CreateUserController extends Controller {
     @FXML private TextField usernameInputfield, firstnameInputfield, lastnameInputfield, passwordInputfield, repeatpasswordInputfield,
             contactdetailsInputfield, notesInputfield;
     @FXML private ChoiceBox<ChooseItem> roleDropdownmenu, airportDropdownmenu;
- 
     @FXML private Button addButton, cancelButton;
     //private ChoiceBox<ChooseItem> roleDropdownmenu = new ChoiceBox<>();
  

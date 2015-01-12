@@ -3,6 +3,7 @@ package nl.itopia.corendon.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -14,12 +15,16 @@ import nl.itopia.corendon.mvc.Controller;
  */
 public class InfoController extends Controller {
     
+    @FXML private Label headerTitle;
     @FXML private AnchorPane contentHolder;
     @FXML private Button exitButton;
     
     public InfoController() {
         
+        // Set view
         registerFXML("gui/help_function.fxml");
+        
+        headerTitle.setText("Change password");
 
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();

@@ -15,6 +15,7 @@ public class HelpFunctionController extends Controller {
     
     public HelpFunctionController() {
         
+        // Set view
         registerFXML("gui/help_function.fxml");
         
        exitButton.setOnAction(this::cancelHandler);
