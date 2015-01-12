@@ -55,7 +55,7 @@ public class DetailLuggageController extends Controller {
         showLabel.setText(luggage.label);
         showColor.setText(luggage.color.getHex());
         showBrand.setText(luggage.brand.getName());
-        showWeight.setText(luggage.weight);
+        showWeight.setText(luggage.weight + " KG");
         showNotes.setText(luggage.notes);
 
         String[] dimensions = luggage.getDimensions();

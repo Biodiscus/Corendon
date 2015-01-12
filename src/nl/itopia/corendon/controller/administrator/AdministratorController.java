@@ -17,6 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
@@ -24,13 +25,14 @@ import nl.itopia.corendon.data.table.TableUser;
 import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Log;
+
+import javax.swing.*;
 
 /**
  * @author Erik
  */
 public class AdministratorController extends Controller {
-
-    //private AdministratorView view;
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
 
@@ -46,47 +48,46 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn<Employee, String> lastnameTable;
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton;
+    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
 
-    @FXML private Label userName, userID;
+    @FXML private Label userName, userIDLoggedInPerson;
 
-    private int deleteUserId;
-    private TableUser user;
     private HelpFunctionController helpController;
+    //private final Timer timer;
 
     public AdministratorController() {
 
         // Set view
         registerFXML("gui/Overview_administrator.fxml");
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        employeeModel = EmployeeModel.getDefault();
+
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
 
-        employeeModel = EmployeeModel.getDefault();
 
         allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
+        detailsuserButton.setOnAction(this::detailsEmployee);
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButton.setOnAction(this::logoutHandler);
         helpButton.setOnAction(this::helpHandler);
         logfilesbutton.setOnAction(this::logHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        refreshButton.setOnAction(this::refreshHandler);
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
         edituserButton.setDisable(true);
         deleteuserButton.setDisable(true);
-
-        // Make a new thread that will receive the tableData from the database
-        Thread dataThread = new Thread(() -> receiveData());
-        dataThread.start();
+        detailsuserButton.setDisable(true);
 
         // Table headings
         userIDtable.setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -97,10 +98,18 @@ public class AdministratorController extends Controller {
         airportTable.setCellValueFactory(new PropertyValueFactory<>("airport"));
 
         this.tableActions();
+
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        //timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+
+
+        // Make a new thread that will recieve the tableData from the database
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
+        dataThread.start();
     }
 
     private void showLoadingIcon() {
-        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -110,9 +119,17 @@ public class AdministratorController extends Controller {
         userAnchorpane.getChildren().add(iconPane);
     }
 
+    private void refreshHandler(ActionEvent e) {
+        //refreshButton.setDisable(true);
+        //tableData.clear();
+        changeController(new AdministratorController());
+        //Thread dataThread2 = new Thread(this::receiveData);
+        //dataThread2.setDaemon(true);
+        //dataThread2.start();
+    }
+
     // Fired when the log button is clicked
     private void logHandler(ActionEvent e) {
-        
         changeController(new LogController());
     }
 
@@ -120,22 +137,13 @@ public class AdministratorController extends Controller {
      * Actions for selected row (edit, delete)
      */
     public void tableActions() {
-        
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
             edituserButton.setDisable(false);
             deleteuserButton.setDisable(false);
+            detailsuserButton.setDisable(false);
 
             edituserButton.setOnAction(this::editEmployee);
-
-            // Get the object for the selected user in the table
-            this.user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-
-            if (this.deleteUserId != 0) {
-                this.deleteUserId = user.getUserID();
-                // Trigger click on button and run delete method
-                deleteuserButton.setOnAction(this::deleteEmployee);
-            }
         });
     }
 
@@ -171,10 +179,14 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void editEmployee(ActionEvent event) {
-
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-        //addController( new EditUserController(user.getUserID()) );
         addController(new EditUserController(user.getUserID()));
+    }
+    
+    public void detailsEmployee(ActionEvent event) {
+        TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
+        System.out.println(user.getUserID());
+        addController(new DetailUserController(user.getUserID()));
     }
 
     /**
@@ -183,15 +195,9 @@ public class AdministratorController extends Controller {
      * @param event
      */
     public void deleteEmployee(ActionEvent event) {
-
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
         employeeModel.deleteEmployee(user.getUserID());
         tableData.remove(user);
-
-        EmployeeModel employeemodel = EmployeeModel.getDefault();
-        employeemodel.deleteEmployee(this.deleteUserId);
-        //data.remove(this.user);
-        //initializeTable();
     }
 
     private void receiveData() {
@@ -211,6 +217,7 @@ public class AdministratorController extends Controller {
         Platform.runLater(() -> {
             userTable.setItems(tableData);
             userAnchorpane.getChildren().remove(iconPane);
+            refreshButton.setDisable(false);
         });
     }
 
@@ -236,6 +243,10 @@ public class AdministratorController extends Controller {
     
     private void openHelp() {
         helpController = new HelpFunctionController();
+        helpController.setControllerDeleteHandler((obj)->{
+            removeController(helpController);
+            helpController=null;
+        });
         addController(helpController);
     }
     

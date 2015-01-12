@@ -1,6 +1,6 @@
 package nl.itopia.corendon.model;
 
-import nl.itopia.corendon.data.Luggage;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.data.Picture;
 import nl.itopia.corendon.utils.FileUtil;
 import nl.itopia.corendon.utils.Log;
@@ -29,7 +29,7 @@ public class ImageModel {
 
     }
 
-    // http://www.codejava.net/java-se/networking/ftp/upload-files-to-ftp-server-using-urlconnection-class
+    // http://www.codejava.net/java-se/networking/ftp/upload-files-to-ftp-FTP_IMAGE_SERVER-using-urlconnection-class
     /**
      * Uploads an image from the given file, this will be called:
      *
@@ -41,11 +41,6 @@ public class ImageModel {
      */
     public String uploadImage(File file) throws IOException {
         // Make a FTP connnection
-        // TODO: Config this
-        String server = "biodiscus.net";
-        String user = "corendon%40biodiscus.net";
-        String password = "PSckX6R4fl";
-
         String filePath = file.getPath();
 
         String randomFileName = FileUtil.randomFileName();
@@ -58,7 +53,7 @@ public class ImageModel {
 
         String ftpURL = "ftp://%s:%s@%s/%s;type=i";
 
-        ftpURL = String.format(ftpURL, user, password, server, uploadPath);
+        ftpURL = String.format(ftpURL, Config.IMAGE_USER, Config.IMAGE_PASSWORD, Config.FTP_IMAGE_SERVER, uploadPath);
         Log.display("FtpURL", ftpURL);
 
         URL url = new URL(ftpURL);
@@ -76,7 +71,7 @@ public class ImageModel {
         input.close();
         output.close();
 
-        return "http://"+server+"/image_upload/"+uploadPath;
+        return Config.UPLOAD_SERVER +uploadPath;
     }
 
     public void deleteImage(int id) {

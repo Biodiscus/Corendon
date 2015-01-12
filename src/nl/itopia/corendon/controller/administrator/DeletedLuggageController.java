@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,6 +20,7 @@ import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.table.TableLuggage;
+import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.Log;
@@ -34,11 +36,12 @@ public class DeletedLuggageController extends Controller {
     
     @FXML private Button revertLuggageButton, helpButton, logoutButton, deleteLuggageButton, overviewbutton, logfilesbutton;
     @FXML private TableView logInfo;
-
+    @FXML private Label userName, userIDLoggedInPerson;
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
     @FXML private TableColumn <Luggage,String>ID;
+    @FXML private TableColumn <Luggage,String>Label;
     @FXML private TableColumn <Luggage,String>Brand;
     @FXML private TableColumn <Luggage,String>Dimensions;
     @FXML private TableColumn <Luggage,String>Color;
@@ -59,6 +62,9 @@ public class DeletedLuggageController extends Controller {
 
         luggageModel = LuggageModel.getDefault();
 
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
         
@@ -77,6 +83,7 @@ public class DeletedLuggageController extends Controller {
 
         // Create columns and set their datatype for building the Luggage Table
         ID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        Label.setCellValueFactory(new PropertyValueFactory<>("label"));
         Brand.setCellValueFactory(new PropertyValueFactory<>("brand"));
         Dimensions.setCellValueFactory(new PropertyValueFactory<>("dimensions"));
         Color.setCellValueFactory(new PropertyValueFactory<>("color"));
@@ -94,7 +101,6 @@ public class DeletedLuggageController extends Controller {
     }
 
     private void showLoadingIcon() {
-        
         // Show a spinning icon to indicate to the user that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 

@@ -21,7 +21,7 @@
             <Insets right="2.0" />
          </opaqueInsets>
          <children>
-            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Found on airport:">
+            <Label layoutX="40.0" layoutY="67.0" prefHeight="59.0" prefWidth="134.0" text="Airport:">
                <font>
                   <Font size="17.0" />
                </font>
@@ -44,7 +44,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="brandInputfield" layoutX="184.0" layoutY="273.0" prefHeight="33.0" prefWidth="388.0" promptText="Brands" />
+            <ComboBox fx:id="brandInputfield" editable="true" layoutX="184.0" layoutY="273.0" prefHeight="33.0" prefWidth="388.0" promptText="Brand" />
             <TextField fx:id="heightInputfield" layoutX="184.0" layoutY="327.0" prefHeight="33.0" prefWidth="107.0" promptText="Height" />
             <Label layoutX="40.0" layoutY="313.0" prefHeight="59.0" prefWidth="117.0" text="Dimensions:">
                <font>

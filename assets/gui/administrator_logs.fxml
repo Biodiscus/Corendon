@@ -17,7 +17,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color: #BB1D14;" />
+            <Label prefHeight="107.0" prefWidth="1366.0" style="-fx-background-color: #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../img/Corendon-logo-groot3.png" />
@@ -26,37 +26,48 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
-			             <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-                 <font>
-                     <Font size="19.0" />
-                 </font>
-             </Text>
-             <Label fx:id="showUserID" layoutX="980.0" layoutY="26.0" prefHeight="28.0" prefWidth="244.0" textFill="WHITE">
-                 <font>
-                     <Font size="13.0" />
-                 </font>
-             </Label>
-             <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-                 <font>
-                     <Font size="18.0" />
-                 </font>
-             </Text>
-             <Label fx:id="userName" alignment="TOP_LEFT" layoutX="1055.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" textFill="WHITE">
-                 <font>
-                     <Font size="13.0" />
-                 </font>
-             </Label>
-            <Button fx:id="helpButton" layoutX="1227.0" layoutY="16.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="106.0" text="?">
+			<HBox layoutX="826.0" layoutY="31.0">
+               <children>
+                   <Label layoutX="947.0" layoutY="28.0" prefHeight="28.0" prefWidth="51.0" text="User:" textFill="WHITE">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                   </Label>
+                  <Label fx:id="userIDLoggedInPerson" prefHeight="28.0" prefWidth="339.0" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="826.0" layoutY="61.0">
+               <children>
+                   <Label layoutX="1017.0" layoutY="61.0" prefHeight="27.0" prefWidth="128.0" text="Welcome back:" textFill="WHITE">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                   </Label>
+                  <Label fx:id="userName" prefHeight="27.0" prefWidth="263.0" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button fx:id="helpButton" layoutX="1228.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="?">
                <font>
-                  <Font size="13.0" />
+                  <Font size="11.0" />
                </font></Button>
-            <Button fx:id="changePasswordButton" layoutX="1227.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Change password">
+            <Button fx:id="changePasswordButton" layoutX="1228.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Change password">
                <font>
                   <Font size="11.0" />
                </font>
             </Button>
-            <Button fx:id="logoutButton" layoutX="1227.0" layoutY="74.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Logout" />
-            <Button fx:id="deletedLuggageButton" layoutX="338.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
+            <Button fx:id="logoutButton" layoutX="1228.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Logout">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
+            <Button fx:id="deletedLuggageButton" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
             <Button fx:id="filterButton" layoutX="119.0" layoutY="368.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="131.0" text="Filter" />
             <Text layoutX="42.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="120.19921875">
                <font>
@@ -83,8 +94,8 @@
                    </TableView>
                 </children>
              </AnchorPane>
-            <Button fx:id="logfilesbutton" disable="true" layoutX="191.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
-            <Button fx:id="overviewbutton" layoutX="44.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
+            <Button fx:id="logfilesbutton" disable="true" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
+            <Button fx:id="overviewbutton" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />

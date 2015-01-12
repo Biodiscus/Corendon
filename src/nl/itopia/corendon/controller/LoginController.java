@@ -48,11 +48,15 @@ public class LoginController extends Controller {
     private void usernameFieldKeyPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ESCAPE) {
             usernameField.clear();
+        } else if(event.getCode()==KeyCode.ENTER) {
+            loginAction();
         }
     }
     
     private void buttonEnterPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER) {
+        if(event.getCode()==KeyCode.ESCAPE) {
+            passwordField.clear();
+        } else if(event.getCode()==KeyCode.ENTER) {
             loginAction();
         }
     }
@@ -113,7 +117,7 @@ public class LoginController extends Controller {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText(null);
-            alert.setContentText("We couldn't log you in as: "+ userName);
+            alert.setContentText("We couldn't log you in as: "+userName);
             alert.showAndWait();
         }
     }
@@ -166,6 +170,10 @@ public class LoginController extends Controller {
 
     private void openHelp() {
         helpController = new HelpFunctionController();
+        helpController.setControllerDeleteHandler((obj)->{
+            removeController(helpController);
+            helpController=null;
+        });
         addController(helpController);
     }
 }

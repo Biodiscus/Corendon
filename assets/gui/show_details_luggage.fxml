@@ -26,12 +26,12 @@
             <Button fx:id="markasfoundButton" layoutX="796.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Resolved" />
             <Button fx:id="editButton" layoutX="19.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Edit" />
             <Button fx:id="deleteButton" layoutX="189.0" layoutY="68.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="143.0" text="Delete" />
-            <Label layoutX="25.0" layoutY="119.0" text="Found on airport:">
+            <Label layoutX="25.0" layoutY="119.0" text="Airport:">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="showFoundonairport" alignment="TOP_LEFT" layoutX="168.0" layoutY="119.0" prefHeight="33.0" prefWidth="388.0">
+            <Label fx:id="showFoundonairport" alignment="TOP_LEFT" layoutX="168.0" layoutY="116.0" prefHeight="33.0" prefWidth="388.0">
                <font>
                   <Font size="17.0" />
                </font>

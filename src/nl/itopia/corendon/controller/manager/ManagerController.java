@@ -14,8 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
@@ -34,6 +36,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import nl.itopia.corendon.model.EmployeeModel;
+import nl.itopia.corendon.utils.Log;
+
+import javax.swing.*;
+import javax.swing.Timer;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -42,10 +48,10 @@ public class ManagerController extends Controller {
     @FXML private LineChart lineDiagram;
     @FXML private BarChart barDiagram;
 
-    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton;
+    @FXML private Button filterButton, helpButton, logoutButton, printstatisticsButton, lineDiagrambutton, barDiagrambutton,logfilesbutton, refreshButton;
     @FXML private CheckBox foundLuggagecheckbox, lostLuggagecheckbox, resolvedLuggagecheckbox;
     @FXML private DatePicker datepicker1, datepicker2;
-    @FXML private Label userName, userID;
+    @FXML private Label userName, userIDLoggedInPerson;
     private LuggageModel luggageModel;
 
     private ImageView spinningIcon;
@@ -54,16 +60,17 @@ public class ManagerController extends Controller {
     private Chart currentChart;
     private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
     private XYChart.Series<String, Integer> foundBarSeries, lostBarSeries, resolvedBarSeries;
-    private boolean helpFunctionOpened;
     private HelpFunctionController helpController;
+    private final Timer timer;
 
     public ManagerController() {
         
         // Set view
         registerFXML("gui/manager_linediagram.fxml");
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
         luggageModel = LuggageModel.getDefault();
 
@@ -77,8 +84,8 @@ public class ManagerController extends Controller {
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
-        helpFunctionOpened = false;
-        
+        refreshButton.setOnAction(this::refreshHandler);
+
         currentChart = lineDiagram;
         
         // TODO: Set the datePicker1 to something else
@@ -105,16 +112,20 @@ public class ManagerController extends Controller {
         lostSeries.setName("Lost");
 
         lostBarSeries = new XYChart.Series<>();
-        lostBarSeries.setName("Found");
+        lostBarSeries.setName("Lost");
 
         resolvedSeries = new XYChart.Series<>();
         resolvedSeries.setName("Resolved");
 
         resolvedBarSeries = new XYChart.Series<>();
-        resolvedBarSeries.setName("Found");
+        resolvedBarSeries.setName("Resolved");
+
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
 
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(() -> receiveData());
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
         dataThread.start();
     }
 
@@ -149,21 +160,20 @@ public class ManagerController extends Controller {
     private void showLuggage(boolean found, boolean lost, boolean resolved) {
         ObservableList<XYChart.Series> lineSeries = lineDiagram.getData();
         ObservableList<XYChart.Series> barSeries = barDiagram.getData();
-
+        Log.display(lostBarSeries.getData(), barSeries);
 
         if (found) {
             // If the chartSeries is not in the chart, add it
             if (!lineSeries.contains(foundSeries)) {
                 lineSeries.add(foundSeries);
             }
-
-//            if(!barSeries.contains(foundSeries)) {
-//                barSeries.add(foundSeries);
-//            }
+            if(!barSeries.contains(foundBarSeries)) {
+                barSeries.add(foundBarSeries);
+            }
 
         } else {
             lineDiagram.getData().remove(foundSeries);
-//            barDiagram.getData().remove(foundSeries);
+            barDiagram.getData().remove(foundBarSeries);
         }
 
         if (lost) {
@@ -172,12 +182,12 @@ public class ManagerController extends Controller {
                 lineSeries.add(lostSeries);
             }
 
-//            if(!barSeries.contains(lostSeries)) {
-//                barSeries.add(lostSeries);
-//            }
+            if(!barSeries.contains(lostBarSeries)) {
+                barSeries.add(lostBarSeries);
+            }
         } else {
             lineDiagram.getData().remove(lostSeries);
-//            barDiagram.getData().remove(lostSeries);
+            barDiagram.getData().remove(lostBarSeries);
         }
 
         if (resolved) {
@@ -186,16 +196,16 @@ public class ManagerController extends Controller {
                 lineSeries.add(resolvedSeries);
             }
 
-//            if(!barSeries.contains(resolvedSeries)) {
-//                barSeries.add(resolvedSeries);
-//            }
+            if(!barSeries.contains(resolvedBarSeries)) {
+                barSeries.add(resolvedBarSeries);
+            }
         } else {
             lineDiagram.getData().remove(resolvedSeries);
-//            barDiagram.getData().remove(resolvedSeries);
+            barDiagram.getData().remove(resolvedBarSeries);
         }
     }
 
-    // We will call this function in a new thread, so the user can still click buttons
+    // We will call this function in a new thread, so the IMAGE_USER can still click buttons
     private void receiveData() {
         StatusModel status = StatusModel.getDefault();
         Status foundStatus = status.getStatus("Found");
@@ -296,6 +306,7 @@ public class ManagerController extends Controller {
             // Update the line diagram with our tableData
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
             barDiagram.getData().addAll(foundBarSeries, lostBarSeries, resolvedBarSeries);
+            refreshButton.setDisable(false);
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
@@ -323,7 +334,7 @@ public class ManagerController extends Controller {
     }
 
     private void showLoadingIcon() {
-        // Show a spinning icon to indicate to the user that we are getting the tableData
+        // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
         spinningIcon = new ImageView("img/loader.gif");
 
         iconPane = new StackPane();
@@ -332,8 +343,20 @@ public class ManagerController extends Controller {
         view.fxmlPane.getChildren().add(iconPane);
     }
 
+    private void refreshHandler(ActionEvent e) {
+        refreshButton.setDisable(true);
+
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
+        dataThread.start();
+    }
+
     private void openHelp() {
         helpController = new HelpFunctionController();
+        helpController.setControllerDeleteHandler((obj)->{
+            removeController(helpController);
+            helpController=null;
+        });
         addController(helpController);
     }
 

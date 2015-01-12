@@ -8,7 +8,9 @@ import java.util.List;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.data.LogAction;
 import nl.itopia.corendon.data.table.TableUser;
+import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
 import nl.itopia.corendon.utils.Log;
 
@@ -21,7 +23,7 @@ public class EmployeeModel {
     private static final EmployeeModel _default = new EmployeeModel();
 
     // The current employee that is logged in
-    public static Employee currentEmployee;
+    public Employee currentEmployee;
 
 
     private EmployeeModel() {
@@ -144,7 +146,7 @@ public class EmployeeModel {
     public Employee login(Employee employee) {
         if (checkPassword(employee)) {
             Log.display("Password correct");
-            /* user exists and password is corect. Return the full employee */
+            /* User exists and password is corect. Return the full employee */
             String employeeIdQuery = "SELECT id FROM employee WHERE username = '" + employee.username + "' AND  password = '" + employee.password + "'";
 
             int employeeId = 0;
@@ -160,7 +162,7 @@ public class EmployeeModel {
 
             return getEmployee(employeeId);
         } else {
-            /* password is incorect or the user doesn't exists return null */ 
+            /* password is incorect or the username doesn't exists return null */
             /* @TODO Clean the employee object up */
             return null;
         }
@@ -168,7 +170,7 @@ public class EmployeeModel {
 
     private boolean checkPassword(Employee employee) {
         if (userExists(employee)) {
-            /* user exists, convert plain password to sha256 and attach it to the model */
+            /* username exists, convert plain password to sha256 and attach it to the model */
             String salt = getSalt(employee);
             String finalPass = Hashing.sha256(employee.password + salt);
             employee.password = finalPass;
@@ -250,9 +252,10 @@ public class EmployeeModel {
     }
 
     /**
-     * Insert new employee into database
+     * Insert new employee into database,
+     * when it's inserted the reference ID will be set to the last inserted ID.
      *
-     * @param employee
+     * @param employee Employee
      */
     public void createEmployee(Employee employee) {
 
@@ -269,8 +272,15 @@ public class EmployeeModel {
         );
 
         try {
-            Log.display(finalQuery);
             dbmanager.insertQuery(finalQuery);
+            // After inserting the item, get the last added employee
+            // This way we can set the correct ID to the new employee
+            ResultSet result = dbmanager.doQuery("SELECT LAST_INSERT_ID()");
+            if(result.next()) {
+                employee.setID(result.getInt(1));
+            } else {
+                // ERROR!
+            }
         } catch (SQLException e) {
             Log.display("SQLEXCEPTION", e.getErrorCode(), e.getSQLState(), e.getMessage());
         }
@@ -299,7 +309,7 @@ public class EmployeeModel {
     }
 
     /**
-     * Hard delete user from database
+     * Hard delete username from database
      *
      * @param userID
      */

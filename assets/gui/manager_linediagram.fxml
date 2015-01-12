@@ -13,7 +13,7 @@
    <children>
       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #FEDFA2;">
          <children>
-            <Button fx:id="lineDiagrambutton" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
+            <Button fx:id="lineDiagrambutton" disable="true" layoutX="46.0" layoutY="172.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Line diagram" />
             <Label prefHeight="107.0" prefWidth="1373.0" style="-fx-background-color:  #BB1D14;" />
             <ImageView fx:id="logo" fitHeight="128.0" fitWidth="347.0" layoutX="11.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -23,8 +23,49 @@
                   <Rectangle2D />
                </viewport>
             </ImageView>
+			 <HBox layoutX="826.0" layoutY="31.0">
+               <children>
+                   <Label layoutX="947.0" layoutY="28.0" prefHeight="28.0" prefWidth="51.0" text="User:" textFill="WHITE">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                   </Label>
+                  <Label fx:id="userIDLoggedInPerson" prefHeight="28.0" prefWidth="339.0" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="826.0" layoutY="61.0">
+               <children>
+                   <Label layoutX="1017.0" layoutY="61.0" prefHeight="27.0" prefWidth="128.0" text="Welcome back:" textFill="WHITE">
+                       <font>
+                           <Font size="18.0" />
+                       </font>
+                   </Label>
+                  <Label fx:id="userName" prefHeight="27.0" prefWidth="263.0" textFill="WHITE">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Button fx:id="helpButton" layoutX="1228.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="?">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
+            <Button fx:id="changePasswordButton" layoutX="1228.0" layoutY="40.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Change password">
+               <font>
+                  <Font size="11.0" />
+               </font>
+            </Button>
+            <Button fx:id="logoutButton" layoutX="1228.0" layoutY="67.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Logout">
+               <font>
+                  <Font size="11.0" />
+               </font></Button>
             <Button fx:id="barDiagrambutton" layoutX="46.0" layoutY="217.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Bar diagram" />
-			<Button fx:id="refreshButton" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
+			<Button fx:id="refreshButton" layoutX="825.0" layoutY="160.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" disable="true"/>
             <Text layoutX="977.0" layoutY="211.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Look at statistics in the period:" wrappingWidth="314.8658447265625">
                <font>
                   <Font size="18.0" />
@@ -52,40 +93,6 @@
                   <Font size="19.0" />
                </font>
             </CheckBox>
-                         <Text fill="WHITE" layoutX="930.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User:" wrappingWidth="88.0">
-                 <font>
-                     <Font size="19.0" />
-                 </font>
-             </Text>
-             <Label fx:id="userID" layoutX="980.0" layoutY="26.0" prefHeight="28.0" prefWidth="244.0" textFill="WHITE">
-                 <font>
-                     <Font size="13.0" />
-                 </font>
-             </Label>
-             <Text fill="WHITE" layoutX="930.0" layoutY="78.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome back:">
-                 <font>
-                     <Font size="18.0" />
-                 </font>
-             </Text>
-             <Label fx:id="userName" alignment="TOP_LEFT" layoutX="1055.0" layoutY="64.0" prefHeight="25.0" prefWidth="162.0" textFill="WHITE">
-                 <font>
-                     <Font size="13.0" />
-                 </font>
-             </Label>
-            <Button fx:id="helpButton" layoutX="1227.0" layoutY="16.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="106.0" text="?">
-               <font>
-                  <Font size="13.0" />
-               </font></Button>
-            <Button fx:id="changePasswordButton" layoutX="1227.0" layoutY="47.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Change password">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </Button>
-            <Button fx:id="logoutButton" layoutX="1227.0" layoutY="74.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Logout" />
-               <!--<font>-->
-                  <!--<Font size="19.0" />-->
-               <!--</font>-->
-            <!--</Button>-->
             <LineChart fx:id="lineDiagram" animated="false" layoutX="360.0" layoutY="205.0" style="-fx-background-color: white;">
               <xAxis>
                 <DateAxis side="BOTTOM" />
@@ -104,7 +111,6 @@
                 </yAxis>
             </BarChart>
 
-            
             <Button fx:id="tableButton" layoutX="46.0" layoutY="262.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Table" />
 			<Button fx:id="printstatisticsButton" layoutX="50.0" layoutY="562.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Print statistics" />
          </children>

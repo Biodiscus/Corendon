@@ -9,6 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.util.StringConverter;
 import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
+import nl.itopia.corendon.components.NumberTextField;
 import nl.itopia.corendon.components.PictureView;
 import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.value.ObservableValue;
 import nl.itopia.corendon.controller.CustomerController;
+import nl.itopia.corendon.utils.Log;
 
 
 /**
@@ -28,8 +30,8 @@ import nl.itopia.corendon.controller.CustomerController;
 public class AddLuggageController extends Controller {
     
     @FXML private Button addButton, cancelButton, browseButton;
-    @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
-                            notesInputfield, widthInputfield, depthInputfield;
+    @FXML private TextField labelInputfield, fileInputfield, weightInputfield, notesInputfield;
+    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield;
     @FXML private ComboBox<ChooseItem> brandInput;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown, lostOrFounddropdown;
     @FXML private ScrollPane imageScrollpane;
@@ -65,7 +67,6 @@ public class AddLuggageController extends Controller {
         
         imagesToUpload = new ArrayList<>();
 
-        // Set the Airports in the foundonAirportdropdown
         List<Airport> airports = airportModel.getAirports();
         for(Airport airport : airports) {
             ChooseItem c = airportModel.airportToChoose(airport);
@@ -120,9 +121,16 @@ public class AddLuggageController extends Controller {
                         break;
                     }
                 }
+
+                // If the item doesn't exist, create a new one with it's id set to 0
+                if(item == null) {
+                    item = new ChooseItem(-1, string);
+                }
+
                 return item;
             }
         });
+
         // Give the brand input our combobox listener
         comboBoxListener = new AutoCompleteComboBoxListener(brandInput);
 
@@ -145,7 +153,6 @@ public class AddLuggageController extends Controller {
      * Handle label actions
      */
     private void labelHandler() {
-        
         String labelNr = labelInputfield.getText();
         
         if(null != labelNr && !labelNr.isEmpty()) {
@@ -162,7 +169,6 @@ public class AddLuggageController extends Controller {
      * Disable all input fields
      */
     private void deactivateFields() {
-        
         fileInputfield.setDisable(true);
         brandInput.setDisable(true);
         heightInputfield.setDisable(true);
@@ -180,7 +186,6 @@ public class AddLuggageController extends Controller {
      * @param e 
      */
     private void browseHandler(ActionEvent e) {
-        
         FileChooser chooser = new FileChooser();
 
         // Configure the file chooser
@@ -206,7 +211,6 @@ public class AddLuggageController extends Controller {
     }
 
     private void pictureDeleteHandler(Object object) {
-        
         PictureView picture = (PictureView) object;
 
         // Loop to our current images
@@ -231,7 +235,7 @@ public class AddLuggageController extends Controller {
      * @param e ActionEvent
      */
     private void addHandler(ActionEvent e) {
-        
+
         if(labelExists) {
             /* label exists, show customer controller to fill the rest in */
             String label  = labelInputfield.getText();
@@ -250,15 +254,14 @@ public class AddLuggageController extends Controller {
             });
             
         } else {
-            // TODO: Should we reference the Color or Airport in the ChooseItem?
             ChooseItem airport = foundonAirportdropdown.getValue();
             ChooseItem color = colorDropdown.getValue();
             ChooseItem brand = brandInput.getValue();
-
+            ChooseItem foundLost = lostOrFounddropdown.getValue();
 
             Luggage luggage = new Luggage();
             luggage.color = ColorModel.getDefault().getColor(color.getKey());
-            luggage.status = StatusModel.getDefault().getStatus(1);
+            luggage.status = statusModel.getStatus(foundLost.getKey());
             luggage.employee = employeeModel.currentEmployee;
             luggage.customer = CustomerModel.getDefault().getCustomer(2);
             luggage.airport = airportModel.getAirport(airport.getKey());
@@ -275,7 +278,13 @@ public class AddLuggageController extends Controller {
             luggage.label = labelInputfield.getText();
             luggage.notes = notesInputfield.getText();
             luggage.weight = weightInputfield.getText();
-            luggage.brand = new Brand(brand.getKey(), brand.toString());
+
+            if(brand != null) {
+                luggage.brand = brandModel.handleBrandInput(brand.toString());
+            } else {
+                // If no brand is selected, get the 'None' brand,
+                luggage.brand = brandModel.getBrand("None");
+            }
 
             long currentTimeStamp = DateUtil.getCurrentTimeStamp();
 

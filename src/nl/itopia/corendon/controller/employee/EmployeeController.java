@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
@@ -19,6 +20,7 @@ import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.input.KeyCode;
@@ -26,21 +28,28 @@ import javafx.scene.input.KeyEvent;
 import nl.itopia.corendon.data.table.TableLuggage;
 import nl.itopia.corendon.model.EmployeeModel;
 
+import javax.swing.*;
+
 /**
  * AUTHOR: IGOR
  */
 public class EmployeeController extends Controller {
 
-    @FXML private TableView luggageInfo;
-    @FXML private AnchorPane LuggageTable;
+    @FXML
+    private TableView luggageInfo;
+    @FXML
+    private AnchorPane LuggageTable;
 
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
 
-    @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
-    @FXML private Label userName, userID;
+    @FXML
+    private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML
+    private Label userName, userIDLoggedInPerson;
 
-    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
+    @FXML
+    private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
             logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
             refreshButton;
 
@@ -50,17 +59,22 @@ public class EmployeeController extends Controller {
     private LuggageModel luggageModel;
     private HelpFunctionController helpController;
 
+    // Used for refreshing the content every so often
+    private final Timer timer;
+
     public EmployeeController() {
-        
+        tableData = FXCollections.observableArrayList();
+
         // Set view
         registerFXML("gui/Overzichtkoffers.fxml");
 
         luggageModel = LuggageModel.getDefault();
-        // Show a spinning icon to indicate to the user that we are getting the tableData
 
-        userID.setText(Integer.toString(EmployeeModel.currentEmployee.id));
-        userName.setText(EmployeeModel.currentEmployee.firstName + " " + EmployeeModel.currentEmployee.lastName);
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
+        userIDLoggedInPerson.setText("" + employeeModel.currentEmployee.id);
+        userName.setText(employeeModel.currentEmployee.firstName + " " + employeeModel.currentEmployee.lastName);
 
+        // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
         showLoadingIcon();
 
         //Create buttons
@@ -69,12 +83,12 @@ public class EmployeeController extends Controller {
         deleteLuggagebutton.setOnAction(this::deleteHandler);
         searchLuggagebutton.setOnAction(this::searchHandler);
         detailsLuggagebutton.setOnAction(this::detailsHandler);
-        foundLuggagebutton.setOnAction(this::QuickFilterFound);
-        lostLuggagebutton.setOnAction(this::QuickFilterLost);
-        resolvedLuggagebutton.setOnAction(this::QuickFilterResolved);
+        foundLuggagebutton.setOnAction(this::quickFilterFound);
+        lostLuggagebutton.setOnAction(this::quickFilterLost);
+        resolvedLuggagebutton.setOnAction(this::quickFilterResolved);
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
-        allLuggagebutton.setOnAction(this::refreshHandler);
+        allLuggagebutton.setOnAction(this::quickFilterAll);
         refreshButton.setOnAction(this::refreshHandler);
         view.fxmlPane.setOnKeyReleased(this::keypressHandler);
 
@@ -95,18 +109,18 @@ public class EmployeeController extends Controller {
             detailsLuggagebutton.setDisable(false);
         });
 
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e) -> refreshHandler(null));
+
         // Make a new thread that will recieve the tableData from the database
-        Thread dataThread = new Thread(() -> receiveData());
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
         dataThread.start();
     }
 
     private void showLoadingIcon() {
-
         // Show a spinning icon to indicate to the user that we are getting the tableData
-        //Image image = new Image("img/loader.gif", 24, 16.5, true, false);
         Image image = new Image("img/loader.gif", 64, 65, true, false);
-        //ImageView v = new ImageView(image);
-        //StackPane.setAlignment(v, Pos.CENTER_LEFT);
         spinningIcon = new ImageView(image);
         spinningIcon = new ImageView("img/loader.gif");
 
@@ -117,19 +131,16 @@ public class EmployeeController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        refreshButton.setDisable(true);
-        tableData.clear();
-        showLoadingIcon();
+        Platform.runLater(()->refreshButton.setDisable(true));
 
-        Thread dataThread = new Thread(() -> {
-            receiveData();
-        });
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
         dataThread.start();
     }
 
     private void receiveData() {
         luggageList = luggageModel.getAllLuggage();
-        tableData = FXCollections.observableArrayList();
+        tableData.clear();
         for (Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
                     luggage.getID(),
@@ -151,6 +162,10 @@ public class EmployeeController extends Controller {
             refreshButton.setDisable(false);
             LuggageTable.getChildren().remove(iconPane);
         });
+
+        if (!timer.isRunning()) {
+            timer.start();
+        }
     }
 
     private void searchHandler(ActionEvent e) {
@@ -164,7 +179,7 @@ public class EmployeeController extends Controller {
             if (null != searchList && searchList.size() >= 1) {
                 /* delete all records from the table view */
                 tableData.clear();
-                /* the search query has atleast one record, continue to fill the table view */
+                /* the search query has at least one record, continue to fill the table view */
                 for (Luggage luggage : searchList) {
                     TableLuggage luggageTable = new TableLuggage(luggage.getID(), luggage.label, luggage.dimensions,
                             luggage.notes, luggage.airport.getName(), luggage.brand.getName(), luggage.color.getHex(),
@@ -205,8 +220,6 @@ public class EmployeeController extends Controller {
             tableData.add(tableLuggage);
         });
         addController(addLuggage);
-        
-        addLuggage.setControllerDeleteHandler((o) -> {  refreshHandler(null);   });        
     }
 
     private void detailsHandler(ActionEvent e) {
@@ -273,14 +286,17 @@ public class EmployeeController extends Controller {
 
     private void openHelp() {
         helpController = new HelpFunctionController();
+        helpController.setControllerDeleteHandler((obj) -> {
+            removeController(helpController);
+            helpController = null;
+        });
         addController(helpController);
     }
 
-    private void QuickFilterFound(ActionEvent e) {
-        
-        tableData.clear();
-
+    private void quickFilterFound(ActionEvent e) {
         luggageList = luggageModel.getAllFoundLuggage();
+
+
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
                 luggage.label,
@@ -295,31 +311,27 @@ public class EmployeeController extends Controller {
         });
     }
 
-    private void QuickFilterLost(ActionEvent e) {
-        
-        tableData.clear();
-
+    private void quickFilterLost(ActionEvent e) {
         luggageList = luggageModel.getAllLostLuggage();
-        luggageList.stream().map((luggage) -> new TableLuggage(
-                luggage.getID(),
-                luggage.label,
-                luggage.dimensions,
-                luggage.notes,
-                luggage.airport.getName(),
-                luggage.brand.getName(),
-                luggage.color.getHex(),
-                luggage.status.getName()
-        )).forEach((luggageTable) -> {
-            tableData.add(luggageTable);
-        });
-
-    }
-
-    private void QuickFilterResolved(ActionEvent e) {
-        
         tableData.clear();
+        luggageList.stream().map((luggage) -> new TableLuggage(
+                luggage.getID(),
+                luggage.label,
+                luggage.dimensions,
+                luggage.notes,
+                luggage.airport.getName(),
+                luggage.brand.getName(),
+                luggage.color.getHex(),
+                luggage.status.getName()
+        )).forEach((luggageTable) -> {
+            tableData.add(luggageTable);
+        });
 
+    }
+
+    private void quickFilterResolved(ActionEvent e) {
         luggageList = luggageModel.getAllResolvedLuggage();
+        tableData.clear();
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
                 luggage.label,
@@ -333,4 +345,25 @@ public class EmployeeController extends Controller {
             tableData.add(luggageTable);
         });
     }
+
+    private void quickFilterAll(ActionEvent e) {
+        luggageList = luggageModel.getAllLuggage();
+        tableData.clear();
+        for (Luggage luggage : luggageList) {
+            // If the luggage object is not yet in the table, add it.
+            TableLuggage luggageTable = new TableLuggage(
+                    luggage.getID(),
+                    luggage.label,
+                    luggage.dimensions,
+                    luggage.notes,
+                    luggage.airport.getName(),
+                    luggage.brand.getName(),
+                    luggage.color.getHex(),
+                    luggage.status.getName()
+            );
+
+            tableData.add(luggageTable);
+        }
+    }
+
 }

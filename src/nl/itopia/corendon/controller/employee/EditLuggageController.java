@@ -16,6 +16,7 @@ import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +48,7 @@ public class EditLuggageController extends Controller {
 
     // Deleted pictures is used so when the programs edits the suitcases we can loop trough the array and remove the relation
     private List<Picture> deletedPictures, currentPictures;
-    private List<File> addedPictures;
+    private List<File> imagesToUpload;
 
     public EditLuggageController(int luggageID) {
         this(LuggageModel.getDefault().getLuggage(luggageID));
@@ -60,7 +61,7 @@ public class EditLuggageController extends Controller {
         currentLuggage = luggage;
 
         deletedPictures = new ArrayList<>();
-        addedPictures = new ArrayList<>();
+        imagesToUpload = new ArrayList<>();
 
         luggageModel = LuggageModel.getDefault();
         airportModel = AirportModel.getDefault();
@@ -158,8 +159,7 @@ public class EditLuggageController extends Controller {
 
         cancelButton.setOnAction(this::cancelHandler);
         editButton.setOnAction(this::editHandler);
-//        browseButton.setOnAction(this::browseHandler);
-        browseButton.setDisable(true);
+        browseButton.setOnAction(this::browseHandler);
     }
 
     private void addImageToContent(File file) {
@@ -170,6 +170,11 @@ public class EditLuggageController extends Controller {
         imageScrollContent.getChildren().add(pictureView);
     }
 
+    /**
+     * Handler for file upload
+     *
+     * @param e
+     */
     private void browseHandler(ActionEvent e) {
         FileChooser chooser = new FileChooser();
 
@@ -186,8 +191,12 @@ public class EditLuggageController extends Controller {
         // TODO: error when it's not an image
         if(file != null) {
             // We set the preserverRatio to true, so we don't have to fill in a height
-            addImageToContent(file);
-            addedPictures.add(file);
+            double width = imageScrollpane.getWidth() - 50;
+            PictureView pictureView = new PictureView(file.toURI().toString(), width, 0, true);
+            pictureView.setOnDelete(this::pictureDeleteHandler);
+            pictureView.setEditable(true);
+            imageScrollContent.getChildren().add(pictureView);
+            imagesToUpload.add(file);
         }
     }
 
@@ -218,7 +227,7 @@ public class EditLuggageController extends Controller {
         luggage.color = ColorModel.getDefault().getColor(color.getKey());
         luggage.status = StatusModel.getDefault().getStatus(1);
 
-        // This won't work if no user is logged in!
+        // This won't work if no IMAGE_USER is logged in!
         luggage.employee = EmployeeModel.getDefault().currentEmployee;
         //luggage.employee = EmployeeModel.getDefault().getEmployee(0);
 
@@ -248,6 +257,16 @@ public class EditLuggageController extends Controller {
         // Loop trough the deleted pictures and delete those from the database
         for(Picture pic : deletedPictures) {
             imageModel.deleteImage(pic.getID());
+        }
+
+        // Upload the images
+        for(File img : imagesToUpload) {
+            try {
+                String path = imageModel.uploadImage(img);
+                imageModel.insertImage(path, luggage.getID());
+            } catch (IOException ioE) {
+                ioE.printStackTrace();
+            }
         }
 
         currentLuggage = luggage;

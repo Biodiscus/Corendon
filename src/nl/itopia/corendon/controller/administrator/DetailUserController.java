@@ -4,43 +4,48 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
+import nl.itopia.corendon.data.Employee;
+import nl.itopia.corendon.model.EmployeeModel;
+import nl.itopia.corendon.model.ImageModel;
 import nl.itopia.corendon.mvc.Controller;
+
 /**
  *
- * @author Kueter
+ * @author Kueter/ Erik
  */
 public class DetailUserController extends Controller {
     
     @FXML private Label showUserID, showUsername, showFirstname, showLastname, showOnlinestatus, showAccountstatus, showRole, showAirport, showContactdetails, showNotes;
     @FXML private Button editButton, cancelButton;
-    @FXML private TableView userTable;
-    @FXML  private TableColumn<Employee, String> userIDtable;
-    @FXML private TableColumn<Employee, String> usernameTable;
-    @FXML private TableColumn<Employee, String> firstnameTable;
-    @FXML private TableColumn<Employee, String> lastnameTable;
-    @FXML private TableColumn<Employee, String> roleTable;
-    @FXML private TableColumn<Employee, String> airportTable;
     
     private TableUser user;
+    private ImageModel imageModel;
+    private Employee currentEmployee;
+    private int userId;
     
-    public DetailUserController(TableUser user) {
+    public DetailUserController(int userId) {
         
+        this.userId = userId;
+        
+        // Set view
         registerFXML("gui/show_details_user.fxml");
-        
-        this.user = user;
+        EmployeeModel employeemodel = EmployeeModel.getDefault();
+        currentEmployee = employeemodel.getEmployee(userId);
+
+        imageModel = ImageModel.getDefault();
         
         editButton.setOnAction(this::editEmployee);
         cancelButton.setOnAction(this::cancelHandler);
         
-        showUserID.setText(Integer.toString(user.getUserID()));
-        showUsername.setText(user.getUserName());
-        showFirstname.setText(user.getFirstName());
-        showLastname.setText(user.getLastName());
-        showRole.setText(user.getRole());
+        
+        showUserID.setText(Integer.toString(currentEmployee.id));
+        showUsername.setText(currentEmployee.username);
+        showFirstname.setText(currentEmployee.firstName);
+        showLastname.setText(currentEmployee.lastName);
+        showRole.setText(currentEmployee.role.getName());
+        showAirport.setText(currentEmployee.airport.getName());
+        showNotes.setText(currentEmployee.notes);
     }
     
     /**
@@ -48,7 +53,7 @@ public class DetailUserController extends Controller {
      */
     public void editEmployee(ActionEvent event) {
 
-        addController( new EditUserController(this.user.getUserID()) );
+        addController( new EditUserController(currentEmployee.id) );
     }
     
     protected void cancelHandler(ActionEvent e) {

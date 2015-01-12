@@ -39,12 +39,16 @@ public class LuggageModel {
         logModel = LogModel.getDefault();
     }
 
-    // Sets the current luggage id, to the inserted ID
+    /**
+     * Adds a new luggage in the database,
+     * when it's inserted the reference ID will be set to the last inserted ID.
+     * @param luggage Luggage
+     */
     public void addLuggage(Luggage luggage) {
         int color_id = luggage.color.getID();
         int status_id = luggage.status.getID();
         int employee_id = luggage.employee.getID();
-        int client_id = luggage.customer.getID(); // TODO: In the database this is called client instead of customer
+        int client_id = luggage.customer.getID();
         int airport_id = luggage.airport.getID();
         int brand_id = luggage.brand.getID();
 
@@ -69,7 +73,7 @@ public class LuggageModel {
             if(result.next()) {
                 luggage.setID(result.getInt(1));
 
-                // Add a new action of an user adding the luggage
+                // Add a new action of an username adding the luggage
                 LogAction log = new LogAction(-1);
                 log.date = DateUtil.getCurrentTimeStamp();
                 log.action = actionModel.getAction("Added luggage");
@@ -106,7 +110,7 @@ public class LuggageModel {
         try {
             dbmanager.updateQuery(finalQuery);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Edited luggage");
@@ -163,7 +167,6 @@ public class LuggageModel {
         int airportID = result.getInt("airport_id");
         int brandID = result.getInt("brand_id");
 
-
         luggage.brand = brandModel.getBrand(brandID);
         luggage.customer = customerModel.getCustomer(customerID);
         luggage.color = colorModel.getColor(colorID);
@@ -190,7 +193,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Deleted luggage");
@@ -208,7 +211,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-            // Add a new action of an user editing the luggage
+            // Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Deleted luggage");
@@ -226,7 +229,7 @@ public class LuggageModel {
             dbmanager.updateQuery(deleteQuery);
             Luggage luggage = getLuggage(id);
 
-//             Add a new action of an user editing the luggage
+//             Add a new action of an username editing the luggage
             LogAction log = new LogAction(-1);
             log.date = DateUtil.getCurrentTimeStamp();
             log.action = actionModel.getAction("Permanent deleted luggage");
@@ -256,7 +259,7 @@ public class LuggageModel {
     public boolean labelExists(String label) {
         int numRecords = 0;
         try {
-            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "'");
+            ResultSet result = dbmanager.doQuery("SELECT count(*) as labelcounter FROM luggage WHERE label = '" + label + "' AND deleted='0'");
             if (result.next()) {
                 String labelCounter = result.getString("labelcounter");
                 numRecords = Integer.parseInt(labelCounter);
