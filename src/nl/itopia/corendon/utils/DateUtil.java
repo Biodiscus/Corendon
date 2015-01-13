@@ -18,6 +18,12 @@ public class DateUtil {
         return f.format(date);
     }
 
+    /**
+     * Convert a unix timestamp to a Date object. The date object works with milliseconds while unix timestamps are
+     * in seconds.
+     * @param stamp long
+     * @return Date
+     */
     public static Date timestampToDate(long stamp) {
         return new Date(stamp * 1000);
     }

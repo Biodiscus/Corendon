@@ -160,7 +160,7 @@ public class ManagerController extends Controller {
     private void showLuggage(boolean found, boolean lost, boolean resolved) {
         ObservableList<XYChart.Series> lineSeries = lineDiagram.getData();
         ObservableList<XYChart.Series> barSeries = barDiagram.getData();
-        Log.display(lostBarSeries.getData(), barSeries);
+//        Log.display(lostBarSeries.getData(), barSeries);
 
         if (found) {
             // If the chartSeries is not in the chart, add it
@@ -221,21 +221,32 @@ public class ManagerController extends Controller {
         List<Luggage> luggages = luggageModel.getAllLuggage();
 
         for (Luggage luggage : luggages) {
-            long uxt = luggage.createDate;
+            long uxt = luggage.createDate; // Unix time stamp
+            String statusName = luggage.status.getName();
             ChartData contains = null;
-            for (ChartData d : foundDates) {
-                String date1 = DateUtil.formatDate("MMM yy", uxt);
-                String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
-                if (date1.equals(date2)) {
-                    contains = d;
-                    break;
+//            Log.display(luggage.status.getName());
+            // If the luggage status is Found
+            if(statusName.equals(foundStatus.getName())) {
+                for (ChartData d : foundDates) {
+                    // Format the unix timestamps
+                    String date1 = DateUtil.formatDate("MMM yy", uxt);
+                    String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                    // If the first date matches the second one, the date is already in our array
+                    // Increment it with 1 later on
+                    if (date1.equals(date2)) {
+                        contains = d;
+                        break;
+                    }
                 }
             }
-
-            if (contains == null) {
+            // If the luggage status is Lost
+            if (statusName.equals(lostStatus.getName())) {
                 for (ChartData d : lostDates) {
+                    // Format the unix timestamps
                     String date1 = DateUtil.formatDate("MMM yy", uxt);
                     String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                    // If the first date matches the second one, the date is already in our array
+                    // Increment it with 1 later on
                     if (date1.equals(date2)) {
                         contains = d;
                         break;
@@ -243,10 +254,14 @@ public class ManagerController extends Controller {
                 }
             }
 
-            if (contains == null) {
+            // If the luggage status is Resolved
+            if (statusName.equals(resolvedStatus.getName())) {
                 for (ChartData d : resolvedDates) {
+                    // Format the unix timestamps
                     String date1 = DateUtil.formatDate("MMM yy", uxt);
                     String date2 = DateUtil.formatDate("MMM yy", d.timestamp);
+                    // If the first date matches the second one, the date is already in our array
+                    // Increment it with 1 later on
                     if (date1.equals(date2)) {
                         contains = d;
                         break;
@@ -255,7 +270,7 @@ public class ManagerController extends Controller {
             }
 
             if (contains == null) {
-                String statusName = luggage.status.getName();
+                // If we didn't find a match, create one
                 if (foundStatus.getName().equals(statusName)) {
                     foundDates.add(new ChartData(uxt, 1));
                 } else if (lostStatus.getName().equals(statusName)) {
@@ -264,41 +279,53 @@ public class ManagerController extends Controller {
                     resolvedDates.add(new ChartData(uxt, 1));
                 }
             } else {
+                // We found a match, increment the count
                 contains.count++;
             }
         }
 
-        //TODO: Refactor
 
+        // The line diagram and bar diagram both need different data.
+        // The line diagram works with a Date.
+        // The bar diagram works with a String
         for (ChartData data : foundDates) {
             int count = data.count;
+            // Create a new Date object from the unix timestamp
+            // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            foundSeries.getData().add(pointData);
+            foundSeries.getData().add(pointData); // Add it to an array created for Found luggage in the Line Diagram
 
+            // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
-            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
-            foundBarSeries.getData().add(testData);
+            XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
+            foundBarSeries.getData().add(barData); // Add it to an array created for Found luggage in the Bar Diagram
         }
         for (ChartData data : lostDates) {
             int count = data.count;
+            // Create a new Date object from the unix timestamp
+            // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            lostSeries.getData().add(pointData);
+            lostSeries.getData().add(pointData); // Add it to an array created for Lost luggage in the Line Diagram
 
+            // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
-            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
-            lostBarSeries.getData().add(testData);
+            XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
+            lostBarSeries.getData().add(barData); // Add it to an array created for Lost luggage in the Bar Diagram
         }
         for (ChartData data : resolvedDates) {
             int count = data.count;
+            // Create a new Date object from the unix timestamp
+            // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            resolvedSeries.getData().add(pointData);
+            resolvedSeries.getData().add(pointData); // Add it to an array created for Resolved luggage in the Line Diagram
 
+            // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
-            XYChart.Data<String, Integer> testData = new XYChart.Data<>(dateFormat, count);
-            resolvedBarSeries.getData().add(testData);
+            XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
+            resolvedBarSeries.getData().add(barData); // Add it to an array created for Resolved luggage in the Bar Diagram
         }
 
         // Notify the javafx thread to run this next command
@@ -354,7 +381,7 @@ public class ManagerController extends Controller {
     
     private void changePassword(ActionEvent e) {
         
-        addController( new ChangePasswordController() );
+        addController(new ChangePasswordController());
     }
 
     private void openHelp() {
