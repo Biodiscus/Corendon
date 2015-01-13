@@ -83,7 +83,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <TextField fx:id="weightInputfield" layoutX="184.0" layoutY="448.0" prefHeight="33.0" prefWidth="338.0" promptText="Weight" />
+            <NumberTextField fx:id="weightInputfield" layoutX="184.0" layoutY="448.0" prefHeight="33.0" prefWidth="338.0" promptText="Weight" />
             <Label layoutX="40.0" layoutY="480.0" prefHeight="59.0" prefWidth="117.0" text="Notes:">
                <font>
                   <Font size="17.0" />

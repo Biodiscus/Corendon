@@ -26,9 +26,9 @@ import nl.itopia.corendon.components.NumberTextField;
  */
 public class EditLuggageController extends Controller {
     
-    @FXML private TextField labelInputfield, fileInputfield,notesInputfield,weightInputfield;
+    @FXML private TextField labelInputfield, fileInputfield,notesInputfield;
     
-    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield;
+    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield, weightInputfield;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown;
     @FXML private ScrollPane imageScrollpane;
     @FXML private Button cancelButton, editButton, browseButton;
