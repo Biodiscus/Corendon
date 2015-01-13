@@ -2,6 +2,7 @@ package nl.itopia.corendon.controller.manager;
 
 import java.io.File;
 
+import com.sun.javafx.tk.Toolkit;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -63,9 +64,13 @@ public class ManagerController extends Controller {
     private final Timer timer;
 
     public ManagerController() {
-        
         // Set view
         registerFXML("gui/manager_linediagram.fxml");
+
+//        lineDiagram.setAnimated(false);
+//        lineDiagram.setCreateSymbols(true);
+//
+//        barDiagram.setAnimated(false);
 
         EmployeeModel employeeModel = EmployeeModel.getDefault();
         userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
@@ -90,38 +95,39 @@ public class ManagerController extends Controller {
         
         // TODO: Set the datePicker1 to something else
         datepicker1.setValue(LocalDate.of(1970, 1, 1));
+        datepicker1.setOnAction(this::datePickerHandler);
+
         // Set the datePicker2 to today date
         datepicker2.setValue(LocalDate.now());
+        datepicker2.setOnAction(this::datePickerHandler);
 
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
 
-        iconPane = new StackPane();
-        iconPane.setPickOnBounds(false);
-        iconPane.getChildren().add(spinningIcon);
-        view.fxmlPane.getChildren().add(iconPane);
-
         // Initialize the Series, give them a name and give them a color
-        foundSeries = new XYChart.Series<>();
-        foundSeries.setName("Found");
-
-        foundBarSeries = new XYChart.Series<>();
-        foundBarSeries.setName("Found");
-
-        lostSeries = new XYChart.Series<>();
-        lostSeries.setName("Lost");
-
-        lostBarSeries = new XYChart.Series<>();
-        lostBarSeries.setName("Lost");
-
-        resolvedSeries = new XYChart.Series<>();
-        resolvedSeries.setName("Resolved");
-
-        resolvedBarSeries = new XYChart.Series<>();
-        resolvedBarSeries.setName("Resolved");
+//        foundSeries = new XYChart.Series<>();
+//        foundSeries.setName("Found");
+//
+//        foundBarSeries = new XYChart.Series<>();
+//        foundBarSeries.setName("Found");
+//
+//        lostSeries = new XYChart.Series<>();
+//        lostSeries.setName("Lost");
+//
+//        lostBarSeries = new XYChart.Series<>();
+//        lostBarSeries.setName("Lost");
+//
+//        resolvedSeries = new XYChart.Series<>();
+//        resolvedSeries.setName("Resolved");
+//
+//        resolvedBarSeries = new XYChart.Series<>();
+//        resolvedBarSeries.setName("Resolved");
 
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
-        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e) -> refreshHandler(null));
+        timer.start();
+        // Tell the stylesheet that there should be an image on the button
+        refreshButton.setId("button_refresh");
 
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(this::receiveData);
@@ -129,7 +135,15 @@ public class ManagerController extends Controller {
         dataThread.start();
     }
 
-    
+    // When the datepickers received a action event
+    private void datePickerHandler(ActionEvent event) {
+//        Log.display(event.getSource());
+//        DatePicker source = (DatePicker)event.getSource();
+
+        // Simulate the refresh button
+        refreshHandler(null);
+    }
+
     // Fired when lineDiagrambutton is clicked
     private void lineDiagramHandler(ActionEvent e) {
         lineDiagrambutton.setDisable(true);
@@ -154,13 +168,13 @@ public class ManagerController extends Controller {
         boolean found = foundLuggagecheckbox.isSelected();
         boolean lost = lostLuggagecheckbox.isSelected();
         boolean resolved = resolvedLuggagecheckbox.isSelected();
+
         showLuggage(found, lost, resolved);
     }
 
     private void showLuggage(boolean found, boolean lost, boolean resolved) {
         ObservableList<XYChart.Series> lineSeries = lineDiagram.getData();
         ObservableList<XYChart.Series> barSeries = barDiagram.getData();
-//        Log.display(lostBarSeries.getData(), barSeries);
 
         if (found) {
             // If the chartSeries is not in the chart, add it
@@ -205,8 +219,36 @@ public class ManagerController extends Controller {
         }
     }
 
-    // We will call this function in a new thread, so the IMAGE_USER can still click buttons
     private void receiveData() {
+        // The Date object is in milliseconds, toEpochDay() is in seconds
+        Date date1 = DateUtil.localDateToDate(datepicker1.getValue());
+        Date date2 = DateUtil.localDateToDate(datepicker2.getValue());
+
+        // The first date will stay on 0:00:00, the second date will be set to the end of the day 23:59:59
+        date2 = DateUtil.getEndOfDTheDay(date2);
+        receiveData(date1, date2);
+    }
+
+    /**
+     * This function will be mosly called in a different thread, so the user can still interact with the scene
+     * Supply a start and end date.
+     * @param start
+     * @param end
+     */
+    private void receiveData(Date start, Date end) {
+        // Disable the input until we have added everything to the UI
+        // We need to run this in the JavaFX thread
+        Platform.runLater(()->{
+            datepicker1.setDisable(true);
+            datepicker2.setDisable(true);
+            foundLuggagecheckbox.setDisable(true);
+            lostLuggagecheckbox.setDisable(true);
+            resolvedLuggagecheckbox.setDisable(true);
+        });
+
+        long startTimeStamp = DateUtil.dateToTimestamp(start);
+        long endTimeStamp = DateUtil.dateToTimestamp(end);
+
         StatusModel status = StatusModel.getDefault();
         Status foundStatus = status.getStatus("Found");
         Status lostStatus = status.getStatus("Lost");
@@ -220,11 +262,44 @@ public class ManagerController extends Controller {
         // If the date is set, add one to the count
         List<Luggage> luggages = luggageModel.getAllLuggage();
 
+        Platform.runLater(()->{
+            // Clear the old table data
+            lineDiagram.getData().clear();
+            barDiagram.getData().clear();
+        });
+
+        // There is a bug with the XYChart. Series where clearing sometimes doesn't work.
+        // Because this is sometimes, it can't be trusted. So create a new series
+        // Initialize the Series, give them a name and give them a color
+        foundSeries = new XYChart.Series<>();
+        foundSeries.setName("Found");
+
+        foundBarSeries = new XYChart.Series<>();
+        foundBarSeries.setName("Found");
+
+        lostSeries = new XYChart.Series<>();
+        lostSeries.setName("Lost");
+
+        lostBarSeries = new XYChart.Series<>();
+        lostBarSeries.setName("Lost");
+
+        resolvedSeries = new XYChart.Series<>();
+        resolvedSeries.setName("Resolved");
+
+        resolvedBarSeries = new XYChart.Series<>();
+        resolvedBarSeries.setName("Resolved");
+
         for (Luggage luggage : luggages) {
             long uxt = luggage.createDate; // Unix time stamp
+            // If the unix timestamp is outside of the given period
+            // Continue to the next luggage
+            if(!(uxt >= startTimeStamp && uxt <= endTimeStamp)) {
+                continue;
+            }
+
             String statusName = luggage.status.getName();
             ChartData contains = null;
-//            Log.display(luggage.status.getName());
+
             // If the luggage status is Found
             if(statusName.equals(foundStatus.getName())) {
                 for (ChartData d : foundDates) {
@@ -270,6 +345,7 @@ public class ManagerController extends Controller {
             }
 
             if (contains == null) {
+
                 // If we didn't find a match, create one
                 if (foundStatus.getName().equals(statusName)) {
                     foundDates.add(new ChartData(uxt, 1));
@@ -294,12 +370,16 @@ public class ManagerController extends Controller {
             // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            foundSeries.getData().add(pointData); // Add it to an array created for Found luggage in the Line Diagram
 
             // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
             XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
-            foundBarSeries.getData().add(barData); // Add it to an array created for Found luggage in the Bar Diagram
+
+            // Be sure to use the javafx thread
+            Platform.runLater(()->{
+                foundSeries.getData().add(pointData); // Add it to an array created for Found luggage in the Line Diagram
+                foundBarSeries.getData().add(barData); // Add it to an array created for Found luggage in the Bar Diagramar Diagram
+            });
         }
         for (ChartData data : lostDates) {
             int count = data.count;
@@ -307,12 +387,16 @@ public class ManagerController extends Controller {
             // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            lostSeries.getData().add(pointData); // Add it to an array created for Lost luggage in the Line Diagram
 
             // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
             XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
-            lostBarSeries.getData().add(barData); // Add it to an array created for Lost luggage in the Bar Diagram
+
+            // Be sure to use the javafx thread
+            Platform.runLater(()->{
+                lostSeries.getData().add(pointData); // Add it to an array created for Lost luggage in the Line Diagram
+                lostBarSeries.getData().add(barData); // Add it to an array created for Lost luggage in the Bar Diagram
+            });
         }
         for (ChartData data : resolvedDates) {
             int count = data.count;
@@ -320,20 +404,34 @@ public class ManagerController extends Controller {
             // The Date object works with milliseconds, so we need to convert the unix timestamp to milliseconds
             Date date = DateUtil.timestampToDate(data.timestamp);
             XYChart.Data<Date, Integer> pointData = new XYChart.Data<>(date, count);
-            resolvedSeries.getData().add(pointData); // Add it to an array created for Resolved luggage in the Line Diagram
 
             // Format the date
             String dateFormat = DateUtil.formatDate("MMM yy", data.timestamp);
             XYChart.Data<String, Integer> barData = new XYChart.Data<>(dateFormat, count);
-            resolvedBarSeries.getData().add(barData); // Add it to an array created for Resolved luggage in the Bar Diagram
+
+            // Be sure to use the javafx thread
+            Platform.runLater(()->{
+                resolvedSeries.getData().add(pointData); // Add it to an array created for Resolved luggage in the Line Diagram
+                resolvedBarSeries.getData().add(barData); // Add it to an array created for Resolved luggage in the Bar Diagram
+            });
         }
 
         // Notify the javafx thread to run this next command
         Platform.runLater(() -> {
-            // Update the line diagram with our tableData
+            // Enable every filter component
+            datepicker1.setDisable(false);
+            datepicker2.setDisable(false);
+            foundLuggagecheckbox.setDisable(false);
+            lostLuggagecheckbox.setDisable(false);
+            resolvedLuggagecheckbox.setDisable(false);
+
+            // Enable the button, remove the loading icon
+            refreshButton.setDisable(false);
+            refreshButton.setId("button_refresh");
+
+            // Add the series to the diagram
             lineDiagram.getData().addAll(foundSeries, lostSeries, resolvedSeries);
             barDiagram.getData().addAll(foundBarSeries, lostBarSeries, resolvedBarSeries);
-            refreshButton.setDisable(false);
 
             // Remove the spinning icon
             view.fxmlPane.getChildren().remove(iconPane);
@@ -372,7 +470,10 @@ public class ManagerController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        refreshButton.setDisable(true);
+        Platform.runLater(() -> {
+            refreshButton.setDisable(true);
+            refreshButton.setId("button_refresh_animate");
+        });
 
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);
