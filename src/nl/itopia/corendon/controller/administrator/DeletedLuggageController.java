@@ -16,6 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
@@ -24,6 +25,8 @@ import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.Log;
+
+import javax.swing.*;
 
 /**
  *
@@ -34,7 +37,7 @@ public class DeletedLuggageController extends Controller {
     @FXML private TableView luggageInfo;
     @FXML private AnchorPane LuggageTable;
     
-    @FXML private Button revertLuggageButton, helpButton, logoutButton, deleteLuggageButton, overviewbutton, logfilesbutton;
+    @FXML private Button revertLuggageButton, helpButton, logoutButton, deleteLuggageButton, overviewbutton, logfilesbutton, refreshButton;
     @FXML private TableView logInfo;
     @FXML private Label userName, userIDLoggedInPerson;
     public ObservableList<TableLuggage> tableData;
@@ -53,10 +56,12 @@ public class DeletedLuggageController extends Controller {
     private ImageView spinningIcon;
     private StackPane iconPane;
     private HelpFunctionController helpController;
+    private final Timer timer;
 
     
     public DeletedLuggageController() {
-        
+        tableData = FXCollections.observableArrayList();
+
         // Set view
         registerFXML("gui/deleted_luggage_admin.fxml");
 
@@ -75,7 +80,7 @@ public class DeletedLuggageController extends Controller {
         revertLuggageButton.setOnAction(this::revertHandler);
         deleteLuggageButton.setOnAction(this::deleteHandler);
         helpButton.setOnAction(this::helpHandler);
-
+        refreshButton.setOnAction(this::refreshHandler);
         view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         
         revertLuggageButton.setDisable(true);
@@ -95,8 +100,25 @@ public class DeletedLuggageController extends Controller {
             revertLuggageButton.setDisable(false);
             deleteLuggageButton.setDisable(false);
         });
+
+        // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+        timer.start();
+        refreshButton.setId("button_refresh");
         
         Thread dataThread = new Thread(()-> receiveData());
+        dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
+        dataThread.start();
+    }
+
+    private void refreshHandler(ActionEvent e) {
+        Platform.runLater(() -> {
+            refreshButton.setDisable(true);
+            refreshButton.setId("button_refresh_animate");
+        });
+
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
         dataThread.start();
     }
 
@@ -112,7 +134,7 @@ public class DeletedLuggageController extends Controller {
     
     private void receiveData() {
         luggageList = luggageModel.getAllDeletedLuggage();
-        tableData = FXCollections.observableArrayList();
+        tableData.clear();
 
         for(Luggage luggage : luggageList) {
             TableLuggage luggageTable = new TableLuggage(
@@ -132,7 +154,9 @@ public class DeletedLuggageController extends Controller {
         Platform.runLater(() -> {
             luggageInfo.setItems(tableData);
             LuggageTable.getChildren().remove(iconPane);
-            Log.display("Attempting to delete iconPane");
+
+            refreshButton.setDisable(false);
+            refreshButton.setId("button_refresh");
         });
     }
     

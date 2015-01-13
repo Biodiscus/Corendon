@@ -20,3 +20,13 @@ Button:hover {
     -fx-background-color: #428C2B;
 }
 
+#button_refresh {
+    -fx-background-image: url("../img/refresh.png");
+    -fx-background-position: center;
+}
+
+#button_refresh_animate {
+    -fx-background-image: url("../img/loader_2.gif");
+    -fx-background-position: center;
+    -fx-background-repeat: stretch;
+}

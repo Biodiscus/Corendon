@@ -1,8 +1,8 @@
 package nl.itopia.corendon.controller.administrator;
 
+import nl.itopia.corendon.Config;
 import nl.itopia.corendon.controller.ChangePasswordController;
 import java.util.List;
-
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,17 +26,16 @@ import nl.itopia.corendon.model.DatabaseManager;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 
+import javax.swing.Timer;
+
 /**
  * @author Erik
  */
 public class AdministratorController extends Controller {
-    
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
 
     public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();
-
-    public final List<Employee> employeeList = EmployeeModel.getDefault().getEmployees();
 
     @FXML private AnchorPane userAnchorpane;
     @FXML private TableView userTable;
@@ -54,7 +53,7 @@ public class AdministratorController extends Controller {
     @FXML private Label userName, userIDLoggedInPerson;
 
     private HelpFunctionController helpController;
-    //private final Timer timer;
+    private final Timer timer;
 
     public AdministratorController() {
 
@@ -98,7 +97,9 @@ public class AdministratorController extends Controller {
         this.tableActions();
 
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
-        //timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+        timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e)->refreshHandler(null));
+        timer.start();
+        refreshButton.setId("button_refresh");
 
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(this::receiveData);
@@ -117,12 +118,14 @@ public class AdministratorController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        //refreshButton.setDisable(true);
-        //tableData.clear();
-        changeController(new AdministratorController());
-        //Thread dataThread2 = new Thread(this::receiveData);
-        //dataThread2.setDaemon(true);
-        //dataThread2.start();
+        Platform.runLater(() -> {
+            refreshButton.setDisable(true);
+            refreshButton.setId("button_refresh_animate");
+        });
+
+        Thread dataThread = new Thread(this::receiveData);
+        dataThread.setDaemon(true);
+        dataThread.start();
     }
     
     private void changePassword(ActionEvent e) {
@@ -139,7 +142,6 @@ public class AdministratorController extends Controller {
      * Actions for selected row (edit, delete)
      */
     public void tableActions() {
-        
         userTable.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
 
             edituserButton.setDisable(false);
@@ -188,7 +190,6 @@ public class AdministratorController extends Controller {
     
     public void detailsEmployee(ActionEvent event) {
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-        System.out.println(user.getUserID());
         addController(new DetailUserController(user.getUserID()));
     }
 
@@ -204,23 +205,26 @@ public class AdministratorController extends Controller {
     }
 
     private void receiveData() {
+        List<Employee> employeeList = employeeModel.getEmployees();
+
+        tableData.clear();
 
         for (Employee employee : employeeList) {
-
             if (!employee.account_status.equals("deleted")) {
-
                 String role = employee.role.getName();
                 String airport = employee.airport.getName();
 
                 TableUser user = new TableUser(employee.id, employee.username, employee.firstName, employee.lastName, role, airport);
-                this.tableData.add(user);
+                tableData.add(user);
             }
         }
 
         Platform.runLater(() -> {
             userTable.setItems(tableData);
             userAnchorpane.getChildren().remove(iconPane);
+
             refreshButton.setDisable(false);
+            refreshButton.setId("button_refresh");
         });
     }
 

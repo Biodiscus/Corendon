@@ -69,7 +69,7 @@
                </font></Button>
             <Button id="addLuggagebutton" fx:id="revertLuggageButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Revert luggage" />
             <Button id="editLuggagebutton" fx:id="deleteLuggageButton" layoutX="43.0" layoutY="226.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Delete luggage" />
-            <Button fx:id="refreshButton" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;" />
+            <Button fx:id="refreshButton" disable="true" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0"/>
             <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
             <Button fx:id="overviewbutton" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
             <AnchorPane fx:id="LuggageTable" layoutX="414.0" layoutY="172.0" prefHeight="466.0" prefWidth="920.0">

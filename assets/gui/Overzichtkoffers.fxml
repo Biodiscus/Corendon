@@ -93,7 +93,7 @@
                </children>
             </AnchorPane>
             <Button fx:id="detailsLuggagebutton" layoutX="43.0" layoutY="548.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Details luggage" />
-            <Button fx:id="refreshButton" disable="true" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url(&quot;img/refresh.png&quot;); -fx-background-position: center;"/>
+            <Button fx:id="refreshButton" disable="true" layoutX="1298.0" layoutY="125.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0"/>
             <Button fx:id="foundLuggagebutton" layoutX="43.0" layoutY="265.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text=" Found luggage" />
          </children>
          <opaqueInsets>
