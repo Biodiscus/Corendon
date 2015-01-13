@@ -15,6 +15,7 @@ import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.RoleModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.Hashing;
+import nl.itopia.corendon.utils.Validation;
 
 /**
  * @author wieskueter.com
@@ -28,7 +29,7 @@ public class EditUserController extends Controller {
 
     public Employee employee, newEmployee;
     public int userId;
-  
+    public boolean canceled = false;
     private final List<Role> roleList;
     private final List<Airport> airportList;
     
@@ -54,7 +55,7 @@ public class EditUserController extends Controller {
         }
         
         roleDropdownmenu.getSelectionModel().select(employee.role.getID()-1);
-        airportDropdownmenu.getSelectionModel().select(employee.airport.getID()-1);
+        airportDropdownmenu.getSelectionModel().select(employee.airport.getID());
         
         // Set field data from object being edited
         usernameInputfield.setText(employee.username);
@@ -68,23 +69,78 @@ public class EditUserController extends Controller {
     }
 
     private void cancelHandler(ActionEvent event) {
+        canceled = true;
         removeController(this);
     }
     
     private void editHandler(ActionEvent event) {
         
         int errorCount = 0;
+        EmployeeModel employeeModel = EmployeeModel.getDefault();
         
         // Password stuff
         String password = passwordInputfield.getText();
         String repeatPassword = repeatpasswordInputfield.getText();
+        String userName  = usernameInputfield.getText();
+        String firstName  = firstnameInputfield.getText();
+        String lastName = lastnameInputfield.getText();
+        String contactDetails = contactdetailsInputfield.getText();
+        String notes = notesInputfield.getText();        
         String salt = Hashing.generateSaltString();
         
-        System.out.println(password);
+        int userRoleId = roleDropdownmenu.getValue().getKey();
+        String userRoleName = roleDropdownmenu.getSelectionModel().getSelectedItem().toString();
         
-        int userRole = roleDropdownmenu.getValue().getKey();
+        int airportId = airportDropdownmenu.getValue().getKey();
+        String airportName = airportDropdownmenu.getSelectionModel().getSelectedItem().toString();
         
         this.newEmployee = new Employee(this.userId);
+        
+        /* update the username temporary so when can check if the user already exists */
+        String tempUsername = employee.username;
+        boolean userNameChanged = (!tempUsername.equals(userName));
+        employee.username = userName;
+        
+        /* check if username already exists and check if the username is changed by the user */
+        if(employeeModel.userExists(employee) && userNameChanged) {
+            Validation.errorMessage(usernameInputfield, "Username already exsists.");
+            errorCount++;
+        }
+        
+        // Check if passwords match
+        if (!password.equals(repeatPassword)) {
+            
+            passwordInputfield.setText("");
+            repeatpasswordInputfield.setText("");
+            
+            Validation.errorMessage(passwordInputfield, "Passwords doesn't match.");
+            Validation.errorMessage(repeatpasswordInputfield, "Passwords doesn't match.");
+            errorCount++;
+        }
+        
+        // Check if the password is the correct size
+        if (password.length() < 6 && !password.isEmpty()) {
+            Validation.errorMessage(passwordInputfield, "Minimum password length is 6 characters.");
+            errorCount++;
+        }
+        
+        // Check if firstname is correct size
+        if (firstName.length() == 0) {
+            Validation.errorMessage(firstnameInputfield, "Firstname is required.");
+            errorCount++;
+        }
+        
+        
+        if (lastName.length() == 0) {
+            Validation.errorMessage(lastnameInputfield, "Lastname is required.");
+            errorCount++;
+        }
+        
+        if (userName.length() == 0) {
+            Validation.errorMessage(usernameInputfield, "Username is required.");
+            errorCount++;
+        }
+        
         
         if(password.length() < 6) {
             
@@ -97,19 +153,25 @@ public class EditUserController extends Controller {
         }
         
         if(errorCount == 0) {
-            
-            this.newEmployee.username = usernameInputfield.getText();
-            this.newEmployee.firstName = firstnameInputfield.getText();
-            this.newEmployee.lastName = lastnameInputfield.getText();
-            this.newEmployee.role = new Role(userRole, "none");
+
+            this.newEmployee.username = userName;
+            this.newEmployee.firstName = firstName;
+            this.newEmployee.lastName = lastName;
+            this.newEmployee.role = new Role(userRoleId, userRoleName);
             this.newEmployee.password = password;
             this.newEmployee.salt = salt;
-            this.newEmployee.contactDetails = contactdetailsInputfield.getText();
-            this.newEmployee.notes = notesInputfield.getText();
-
+            this.newEmployee.contactDetails = contactDetails;
+            this.newEmployee.notes = notes;
+            this.newEmployee.airport = new Airport(airportId,0, airportName);
             EmployeeModel employeemodel = EmployeeModel.getDefault();
             employeemodel.editEmployee(this.newEmployee);
             removeController(this);
         }
     }
+    
+    @Override
+    protected Object destroyReturn() {
+        /* canceled callback, when you cancel the dialog it returns true. Else the dialog is naturally closed and returns the employee object */
+        return (canceled) ? true : newEmployee;
+    }    
 }
