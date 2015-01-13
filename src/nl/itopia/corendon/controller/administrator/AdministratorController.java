@@ -51,16 +51,9 @@ public class AdministratorController extends Controller {
 
     private ImageView spinningIcon;
     private StackPane iconPane;
-<<<<<<< HEAD
     
     //private final Timer timer;
-=======
-
-    @FXML private Label userName, userIDLoggedInPerson;
-
-    private HelpFunctionController helpController;
     private final Timer timer;
->>>>>>> 5540ecea03ad9f84ff473801153bed3702e28052
 
     public AdministratorController() {
 

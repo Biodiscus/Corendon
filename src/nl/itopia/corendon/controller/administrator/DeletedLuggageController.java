@@ -16,19 +16,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-<<<<<<< HEAD
 import nl.itopia.corendon.controller.InfoController;
-=======
 import nl.itopia.corendon.Config;
-import nl.itopia.corendon.controller.HelpFunctionController;
->>>>>>> 5540ecea03ad9f84ff473801153bed3702e28052
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.table.TableLuggage;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
 
 import javax.swing.*;
 
@@ -59,13 +54,8 @@ public class DeletedLuggageController extends Controller {
     private LuggageModel luggageModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
-<<<<<<< HEAD
     private InfoController infoController;
-=======
-    private HelpFunctionController helpController;
     private final Timer timer;
-
->>>>>>> 5540ecea03ad9f84ff473801153bed3702e28052
     
     public DeletedLuggageController() {
         tableData = FXCollections.observableArrayList();
@@ -89,11 +79,9 @@ public class DeletedLuggageController extends Controller {
         deleteLuggageButton.setOnAction(this::deleteHandler);
         view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         helpButton.setOnAction(this::helpHandler);
-<<<<<<< HEAD
-=======
         refreshButton.setOnAction(this::refreshHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
->>>>>>> 5540ecea03ad9f84ff473801153bed3702e28052
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+        helpButton.setOnAction(this::helpHandler);
         
         revertLuggageButton.setDisable(true);
         deleteLuggageButton.setDisable(true);
