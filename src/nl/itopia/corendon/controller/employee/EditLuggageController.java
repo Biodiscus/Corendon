@@ -181,9 +181,9 @@ public class EditLuggageController extends Controller {
         // Configure the file chooser
         chooser.setTitle("Select image");
         chooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All images", "*.*"),
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png")
+            new FileChooser.ExtensionFilter("All images", "*.*"),
+            new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+            new FileChooser.ExtensionFilter("PNG", "*.png")
         );
 
         File file = chooser.showOpenDialog(view.getScene().getWindow());
@@ -213,7 +213,6 @@ public class EditLuggageController extends Controller {
                 break;
             }
         }
-
         imageScrollContent.getChildren().remove(picture);
     }
 
@@ -235,10 +234,10 @@ public class EditLuggageController extends Controller {
         luggage.airport = airportModel.getAirport(airport.getKey());
 
         String[] dimensions = {
-                widthInputfield.getText(),
-                heightInputfield.getText(),
-                depthInputfield.getText(),
-                "cm"
+            widthInputfield.getText(),
+            heightInputfield.getText(),
+            depthInputfield.getText(),
+            "cm"
         };
 
         luggage.setDimensions(dimensions);
@@ -271,7 +270,6 @@ public class EditLuggageController extends Controller {
 
         currentLuggage = luggage;
         luggageModel.editLuggage(luggage);
-
 
 //        Pane parent = (Pane)getView().getParent();
 //        addController(new DetailLuggageController(luggage), parent);

@@ -13,14 +13,13 @@ import nl.itopia.corendon.data.Status;
 import nl.itopia.corendon.model.LuggageModel;
 import static nl.itopia.corendon.pdf.LuggageResolvedPDF.generateLuggageResolvedPDF;
 
-
 /**
  * © 2014, Biodiscus.net robin
  */
 public class CustomerController extends Controller {
     
     @FXML private TextField firstnameInputfield, lastnameInputfield, addressInputfield, zipcodeInputfield,
-                            countryInputfield, emailInputfield, phoneInputfield, stateInputfield;
+        countryInputfield, emailInputfield, phoneInputfield, stateInputfield;
     @FXML private Button cancelButton, printdetailsButton;
 
     private Luggage currentLuggage;
@@ -57,8 +56,7 @@ public class CustomerController extends Controller {
         // customer.country.name = countryInputfield.getText();
         customer.zipcode = zipcodeInputfield.getText();
         customer.phone = phoneInputfield.getText();
-        customer.state = stateInputfield.getText();        
-
+        customer.state = stateInputfield.getText();
 
         generateLuggageResolvedPDF(pdf, currentLuggage, customer);
         System.out.println("PDF OF CUSTOMER SAVED");

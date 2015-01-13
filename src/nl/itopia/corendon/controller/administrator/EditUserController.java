@@ -96,6 +96,9 @@ public class EditUserController extends Controller {
             password = Hashing.sha256(password + salt);
         }
         
+        /**
+         * If there are no errors, edit the user
+         */
         if(errorCount == 0) {
             
             this.newEmployee.username = usernameInputfield.getText();

@@ -57,6 +57,7 @@ public class MainController extends Controller {
     public void handle(ActionEvent e) {
         Log.display("Button clicked", e);
     }
+    
 
 //    @Override
 //    public View getView() {

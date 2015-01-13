@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import nl.itopia.corendon.controller.administrator.AdministratorController;
 import nl.itopia.corendon.controller.employee.EmployeeController;
-import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.manager.ManagerController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.model.EmployeeModel;
@@ -28,7 +27,7 @@ public class LoginController extends Controller {
     @FXML private Button forgottenPasswordbutton, helpButton;
     @FXML private TextField passwordField;
     
-    private HelpFunctionController helpController;
+    private InfoController infoController;
     
     public LoginController(){
         
@@ -46,9 +45,9 @@ public class LoginController extends Controller {
     }
     
     private void usernameFieldKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ESCAPE) {
+        if(event.getCode() == KeyCode.ESCAPE) {
             usernameField.clear();
-        } else if(event.getCode()==KeyCode.ENTER) {
+        } else if(event.getCode() == KeyCode.ENTER) {
             loginAction();
         }
     }
@@ -56,16 +55,16 @@ public class LoginController extends Controller {
     private void buttonEnterPressed(KeyEvent event) {
         if(event.getCode()==KeyCode.ESCAPE) {
             passwordField.clear();
-        } else if(event.getCode()==KeyCode.ENTER) {
+        } else if(event.getCode() == KeyCode.ENTER) {
             loginAction();
         }
     }
     
     private void passwordFieldKeyPressed(KeyEvent event) {
-        if(event.getCode()==KeyCode.ENTER) {
+        if(event.getCode() == KeyCode.ENTER) {
             loginAction();
         }
-        if(event.getCode()==KeyCode.ESCAPE) {
+        if(event.getCode() == KeyCode.ESCAPE) {
             passwordField.clear();
         }
     }
@@ -83,11 +82,9 @@ public class LoginController extends Controller {
         if(userName.isEmpty() || password.isEmpty()) {
             // Show error if values are empty
             if(userName.isEmpty()) {
-                
                 Validation.errorMessage(usernameField, "Please enter a username");
             }
             if(password.isEmpty()) {
-                
                 Validation.errorMessage(passwordField, "Please enter a password");
             }
         } else {
@@ -125,7 +122,6 @@ public class LoginController extends Controller {
     private void redirectEmployee(Employee employee) {
         
         /* User is logged in, redirect user to the right controller by role name */
-
         switch (employee.role.getName()) {
             case "Administrator":
                 changeController(new AdministratorController());
@@ -143,37 +139,42 @@ public class LoginController extends Controller {
     
     private void resetPassword(ActionEvent e) {
         // Show login reset screen
-        addController(new InfoController());
+        addController(new InfoController("Reset Password", "test"));
     }
     
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
     private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
         if(e.getEventType() == KeyEvent.KEY_RELEASED) {
             if (e.getCode() == KeyCode.F1) {
                 // If it's already openend, close it
-                if (helpController == null) {
+                if (infoController == null) {
                     openHelp();
                 } else {
-                    removeController(helpController);
-                    helpController = null;
+                    removeController(infoController);
+                    infoController = null;
                 }
             } 
         }
     }
     
     private void helpHandler(ActionEvent e) {
-        if(helpController == null) {
+        if(infoController == null) {
             openHelp();
         }
         //opens help function
     }
 
     private void openHelp() {
-        helpController = new HelpFunctionController();
-        helpController.setControllerDeleteHandler((obj)->{
-            removeController(helpController);
-            helpController=null;
+        infoController = new InfoController("Reset Password", "test");
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
         });
-        addController(helpController);
+        addController(infoController);
     }
 }

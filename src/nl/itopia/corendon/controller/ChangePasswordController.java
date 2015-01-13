@@ -41,15 +41,14 @@ public class ChangePasswordController extends Controller {
         String salt = Hashing.generateSaltString();
 
         this.newEmployee = employeemodel.currentEmployee;
-        
-        if( employeemodel.currentEmployee.password.equals(oldPasswordHashed) && password.length() > 6) {
+      
+        if( !password.equals(repeatPassword) ) {
+            Validation.errorMessage(newPasswordInputfield, "Password don't match.");
+            Validation.errorMessage(repeatPasswordInputfield, "Password don't match.");
+            errorCount++;
+        }
             
-            if( !password.equals(repeatPassword) ) {
-                Validation.errorMessage(newPasswordInputfield, "Password don't match.");
-                Validation.errorMessage(repeatPasswordInputfield, "Password don't match.");
-                errorCount++;
-            }
-        } else {
+        if( employeemodel.currentEmployee.password.equals(oldPasswordHashed) && password.length() > 6) {
             errorCount++;
         }
         

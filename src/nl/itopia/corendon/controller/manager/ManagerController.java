@@ -17,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.Config;
-import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.Status;
@@ -39,6 +38,7 @@ import nl.itopia.corendon.utils.Log;
 
 import javax.swing.Timer;
 import nl.itopia.corendon.controller.ChangePasswordController;
+import nl.itopia.corendon.controller.InfoController;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -59,7 +59,7 @@ public class ManagerController extends Controller {
     private Chart currentChart;
     private XYChart.Series<Date, Integer> foundSeries, lostSeries, resolvedSeries;
     private XYChart.Series<String, Integer> foundBarSeries, lostBarSeries, resolvedBarSeries;
-    private HelpFunctionController helpController;
+    private InfoController infoController;
     private final Timer timer;
 
     public ManagerController() {
@@ -77,12 +77,12 @@ public class ManagerController extends Controller {
         lostLuggagecheckbox.setOnAction(this::filterHandle);
         resolvedLuggagecheckbox.setOnAction(this::filterHandle);
         logoutButton.setOnAction(this::logoutHandler);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         helpButton.setOnAction(this::helpHandler);
 
         printstatisticsButton.setOnAction(this::printStatisticsHandler);
         lineDiagrambutton.setOnAction(this::lineDiagramHandler);
         barDiagrambutton.setOnAction(this::barDiagramHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         changePasswordButton.setOnAction(this::changePassword);
         refreshButton.setOnAction(this::refreshHandler);
 
@@ -313,26 +313,6 @@ public class ManagerController extends Controller {
         });
     }
 
-    private void f1HelpFunction(KeyEvent e) {
-        //opens helpfunction with the f1 key
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            // If it's already openend, close it
-            if(helpController == null) {
-                openHelp();
-            } else {
-                removeController(helpController);
-                helpController = null;
-            }
-        }
-    }
-
-    private void helpHandler(ActionEvent e) {
-        if(helpController == null) {
-            openHelp();
-        }
-        //opens help function
-    }
-
     private void showLoadingIcon() {
         
         // Show a spinning icon to indicate to the IMAGE_USER that we are getting the tableData
@@ -357,15 +337,6 @@ public class ManagerController extends Controller {
         addController( new ChangePasswordController() );
     }
 
-    private void openHelp() {
-        helpController = new HelpFunctionController();
-        helpController.setControllerDeleteHandler((obj)->{
-            removeController(helpController);
-            helpController=null;
-        });
-        addController(helpController);
-    }
-
     private void logoutHandler(ActionEvent e) {
         changeController(new LoginController());
     }
@@ -379,10 +350,45 @@ public class ManagerController extends Controller {
 
         File pdf = fileChooser.showSaveDialog(view.getScene().getWindow());
 
-
         if (pdf != null) {
             ManagerStatisticsPDF.generateManagerReportPDF(pdf, currentChart);
             System.out.println("PDF OF MANAGER REPORT SAVED");
         }
+    }
+    
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
+    private void keypressHandler(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (infoController == null) {
+                    openHelp();
+                } else {
+                    removeController(infoController);
+                    infoController = null;
+                }
+            } 
+        }
+    }
+    
+    private void helpHandler(ActionEvent e) {
+        if(infoController == null) {
+            openHelp();
+        }
+        //opens help function
+    }
+
+    private void openHelp() {
+        infoController = new InfoController("Reset Password", "test");
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
+        });
+        addController(infoController);
     }
 }

@@ -18,13 +18,18 @@ public class InfoController extends Controller {
     @FXML private Label headerTitle;
     @FXML private AnchorPane contentHolder;
     @FXML private Button exitButton;
+    private String url;
+    private String title;
     
-    public InfoController() {
+    public InfoController(String title, String url) {
+        
+        this.title = title;
+        this.url = url;
         
         // Set view
         registerFXML("gui/help_function.fxml");
         
-        headerTitle.setText("Change password");
+        headerTitle.setText(this.title);
 
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
@@ -35,7 +40,7 @@ public class InfoController extends Controller {
         contentHolder.setRightAnchor(browser, 0.0);
         
         contentHolder.getChildren().add(browser);
-        webEngine.load("http://wieskueter.com");
+        webEngine.load(this.url);
         
         exitButton.setOnAction(this::cancelHandler);
     }

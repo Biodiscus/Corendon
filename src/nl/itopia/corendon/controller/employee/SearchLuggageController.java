@@ -13,7 +13,6 @@ import nl.itopia.corendon.components.AutoCompleteComboBoxListener;
 import nl.itopia.corendon.data.*;
 import nl.itopia.corendon.model.*;
 import nl.itopia.corendon.mvc.Controller;
-import nl.itopia.corendon.utils.Log;
 
 /**
  * @author Jeroentje
@@ -92,7 +91,6 @@ public class SearchLuggageController extends Controller {
                 if(item == null) {
                     item = new ChooseItem(-1, string);
                 }
-
                 return item;
             }
         });
@@ -111,10 +109,10 @@ public class SearchLuggageController extends Controller {
     public void searchHandler(ActionEvent e) {
         String label, notes, weight, colorName, airportName;
         String[] dimensions = {
-                widthInputfield.getText(),
-                heightInputfield.getText(),
-                depthInputfield.getText(),
-                "cm"
+            widthInputfield.getText(),
+            heightInputfield.getText(),
+            depthInputfield.getText(),
+            "cm"
         };
         
         LocalDate beginDate = datepicker1.getValue();

@@ -169,11 +169,6 @@ public class CreateUserController extends Controller {
         }
     }
  
-    @Override
-    protected Object destroyReturn() {
-        return createdEmployee;
-    }
- 
     private void cancelHandler(ActionEvent e) {
         removeController(this);
     }

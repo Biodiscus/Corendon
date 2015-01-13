@@ -16,7 +16,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import nl.itopia.corendon.controller.HelpFunctionController;
+import nl.itopia.corendon.controller.InfoController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.data.table.TableLuggage;
@@ -52,8 +52,7 @@ public class DeletedLuggageController extends Controller {
     private LuggageModel luggageModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
-    private HelpFunctionController helpController;
-
+    private InfoController infoController;
     
     public DeletedLuggageController() {
         
@@ -74,9 +73,8 @@ public class DeletedLuggageController extends Controller {
         logfilesbutton.setOnAction(this::logHandler);
         revertLuggageButton.setOnAction(this::revertHandler);
         deleteLuggageButton.setOnAction(this::deleteHandler);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         helpButton.setOnAction(this::helpHandler);
-
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
         
         revertLuggageButton.setDisable(true);
         deleteLuggageButton.setDisable(true);
@@ -159,29 +157,40 @@ public class DeletedLuggageController extends Controller {
         tableData.remove(luggage);
     }
     
-    private void f1HelpFunction(KeyEvent e) {
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
+    private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            // If it's already openend, close it
-            if(helpController == null) {
-                openHelp();
-            } else {
-                removeController(helpController);
-                helpController = null;
-            }
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (infoController == null) {
+                    openHelp();
+                } else {
+                    removeController(infoController);
+                    infoController = null;
+                }
+            } 
         }
     }
     
-   private void helpHandler(ActionEvent e) {
-        if(helpController == null) {
+    private void helpHandler(ActionEvent e) {
+        if(infoController == null) {
             openHelp();
         }
         //opens help function
     }
-    
+
     private void openHelp() {
-        helpController = new HelpFunctionController();
-        addController(helpController);
+        infoController = new InfoController("Reset Password", "test");
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
+        });
+        addController(infoController);
     }
     
     private void logoutHandler(ActionEvent e) {

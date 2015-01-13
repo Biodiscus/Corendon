@@ -18,7 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import nl.itopia.corendon.controller.HelpFunctionController;
+import nl.itopia.corendon.controller.InfoController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.data.table.TableUser;
@@ -33,6 +33,7 @@ public class AdministratorController extends Controller {
     
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
+    private InfoController infoController;
 
     public final ObservableList<TableUser> tableData = FXCollections.observableArrayList();
 
@@ -40,20 +41,18 @@ public class AdministratorController extends Controller {
 
     @FXML private AnchorPane userAnchorpane;
     @FXML private TableView userTable;
-    @FXML  private TableColumn<Employee, String> userIDtable;
+    @FXML private TableColumn<Employee, String> userIDtable;
     @FXML private TableColumn<Employee, String> usernameTable;
     @FXML private TableColumn<Employee, String> firstnameTable;
     @FXML private TableColumn<Employee, String> lastnameTable;
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
+    @FXML private Label userName, userIDLoggedInPerson;
     @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, changePasswordButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
-
-    @FXML private Label userName, userIDLoggedInPerson;
-
-    private HelpFunctionController helpController;
+    
     //private final Timer timer;
 
     public AdministratorController() {
@@ -75,11 +74,10 @@ public class AdministratorController extends Controller {
         detailsuserButton.setOnAction(this::detailsEmployee);
         deleteuserButton.setOnAction(this::deleteEmployee);
         logoutButton.setOnAction(this::logoutHandler);
-        helpButton.setOnAction(this::helpHandler);
         logfilesbutton.setOnAction(this::logHandler);
         changePasswordButton.setOnAction(this::changePassword);
-        deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
-        view.fxmlPane.setOnKeyReleased(this::f1HelpFunction);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+        helpButton.setOnAction(this::helpHandler);
         refreshButton.setOnAction(this::refreshHandler);
 
         // As long as we don't have any user selected delete and edit user shouldn't be enabled
@@ -126,7 +124,6 @@ public class AdministratorController extends Controller {
     }
     
     private void changePassword(ActionEvent e) {
-        
         addController( new ChangePasswordController() );
     }
 
@@ -224,33 +221,40 @@ public class AdministratorController extends Controller {
         });
     }
 
-    private void f1HelpFunction(KeyEvent e) {
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
+    private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
-        if(e.getCode() == KeyCode.F1 && e.getEventType() == KeyEvent.KEY_RELEASED) {
-            // If it's already openend, close it
-            if(helpController == null) {
-                openHelp();
-            } else {
-                removeController(helpController);
-                helpController = null;
-            }
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (infoController == null) {
+                    openHelp();
+                } else {
+                    removeController(infoController);
+                    infoController = null;
+                }
+            } 
+        }
+    }
+    
+    private void helpHandler(ActionEvent e) {
+        if(infoController == null) {
+            // Open help function
+            openHelp();
         }
     }
 
-    private void helpHandler(ActionEvent e) {
-        if(helpController == null) {
-            openHelp();
-        }
-        //opens help function
-    }
-    
     private void openHelp() {
-        helpController = new HelpFunctionController();
-        helpController.setControllerDeleteHandler((obj)->{
-            removeController(helpController);
-            helpController=null;
+        infoController = new InfoController("Administrator Info", "http://www.corendon.com/admin");
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
         });
-        addController(helpController);
+        addController(infoController);
     }
     
     private void deletedLuggageHandler(ActionEvent e) {

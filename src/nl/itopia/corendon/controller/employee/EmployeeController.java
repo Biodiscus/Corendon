@@ -13,7 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import nl.itopia.corendon.Config;
-import nl.itopia.corendon.controller.HelpFunctionController;
 import nl.itopia.corendon.controller.LoginController;
 import nl.itopia.corendon.data.Luggage;
 import nl.itopia.corendon.model.LuggageModel;
@@ -30,30 +29,29 @@ import nl.itopia.corendon.model.EmployeeModel;
 
 import javax.swing.*;
 import nl.itopia.corendon.controller.ChangePasswordController;
+import nl.itopia.corendon.controller.InfoController;
 
 /**
  * AUTHOR: IGOR
  */
 public class EmployeeController extends Controller {
 
-    @FXML private TableView luggageInfo;
-    @FXML private AnchorPane LuggageTable;
-
     public ObservableList<TableLuggage> tableData;
     public List<Luggage> luggageList;
-
-    @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
-    @FXML private Label userName, userIDLoggedInPerson;
-
-    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
-            logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
-            refreshButton, changePasswordButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
 
     private LuggageModel luggageModel;
-    private HelpFunctionController helpController;
+    private InfoController infoController;
+    
+    @FXML private TableView luggageInfo;
+    @FXML private AnchorPane LuggageTable;
+    @FXML private TableColumn<Luggage, String> ID, Brand, Dimensions, Color, Airport, Status, Notes, Label;
+    @FXML private Label userName, userIDLoggedInPerson;
+    @FXML private Button addLuggagebutton, editLuggagebutton, deleteLuggagebutton, searchLuggagebutton, helpButton,
+            logoutButton, detailsLuggagebutton, allLuggagebutton, foundLuggagebutton, lostLuggagebutton, resolvedLuggagebutton,
+            refreshButton, changePasswordButton;
 
     // Used for refreshing the content every so often
     private final Timer timer;
@@ -82,12 +80,12 @@ public class EmployeeController extends Controller {
         foundLuggagebutton.setOnAction(this::quickFilterFound);
         lostLuggagebutton.setOnAction(this::quickFilterLost);
         resolvedLuggagebutton.setOnAction(this::quickFilterResolved);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         helpButton.setOnAction(this::helpHandler);
         logoutButton.setOnAction(this::logoutHandler);
         allLuggagebutton.setOnAction(this::quickFilterAll);
         changePasswordButton.setOnAction(this::changePassword);
         refreshButton.setOnAction(this::refreshHandler);
-        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
 
         // Set the luggage specific buttons disabled
         // Create columns and set their datatype for building the Luggage Table
@@ -258,46 +256,44 @@ public class EmployeeController extends Controller {
         tableData.remove(luggage);
     }
 
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
     private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
-        if (e.getEventType() == KeyEvent.KEY_RELEASED) {
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
             if (e.getCode() == KeyCode.F1) {
                 // If it's already openend, close it
-                if (helpController == null) {
+                if (infoController == null) {
                     openHelp();
                 } else {
-                    removeController(helpController);
-                    helpController = null;
+                    removeController(infoController);
+                    infoController = null;
                 }
-            } else if (e.getCode() == KeyCode.F5) {
-                // If the refreshButton is disabled we can't refresh
-                if (!refreshButton.isDisabled()) {
-                    // We don't need to pass an event
-                    refreshHandler(null);
-                }
-            }
+            } 
         }
     }
-
+    
     private void helpHandler(ActionEvent e) {
-        if (helpController == null) {
+        if(infoController == null) {
             openHelp();
         }
         //opens help function
     }
 
     private void openHelp() {
-        helpController = new HelpFunctionController();
-        helpController.setControllerDeleteHandler((obj) -> {
-            removeController(helpController);
-            helpController = null;
+        infoController = new InfoController("Reset Password", "test");
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
         });
-        addController(helpController);
+        addController(infoController);
     }
 
     private void quickFilterFound(ActionEvent e) {
         luggageList = luggageModel.getAllFoundLuggage();
-
 
         luggageList.stream().map((luggage) -> new TableLuggage(
                 luggage.getID(),
@@ -328,7 +324,6 @@ public class EmployeeController extends Controller {
         )).forEach((luggageTable) -> {
             tableData.add(luggageTable);
         });
-
     }
 
     private void quickFilterResolved(ActionEvent e) {

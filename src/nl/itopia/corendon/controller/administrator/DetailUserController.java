@@ -30,6 +30,7 @@ public class DetailUserController extends Controller {
         
         // Set view
         registerFXML("gui/show_details_user.fxml");
+        
         EmployeeModel employeemodel = EmployeeModel.getDefault();
         currentEmployee = employeemodel.getEmployee(userId);
 
@@ -44,6 +45,7 @@ public class DetailUserController extends Controller {
         showLastname.setText(currentEmployee.lastName);
         showRole.setText(currentEmployee.role.getName());
         showAirport.setText(currentEmployee.airport.getName());
+        showAccountstatus.setText(currentEmployee.account_status);
         showContactdetails.setText(currentEmployee.contactDetails);
         showNotes.setText(currentEmployee.notes);
     }

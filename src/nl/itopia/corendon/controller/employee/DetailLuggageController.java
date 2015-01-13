@@ -74,10 +74,10 @@ public class DetailLuggageController extends Controller {
         printdetailsButton.setOnAction(this::printHandler);
         cancelButton.setOnAction(this::cancelHandler);
         markasfoundButton.setOnAction(this::markHandler);
-//        markasfoundButton.setOnAction(this::markHandler);
-//        editButton.setOnAction(this::editHandler);
-//        deleteButton.setOnAction(this::deleteHandler);
-//        printdetailsButton.setDisable(true);
+        // markasfoundButton.setOnAction(this::markHandler);
+        // editButton.setOnAction(this::editHandler);
+        // deleteButton.setOnAction(this::deleteHandler);
+        // printdetailsButton.setDisable(true);
         editButton.setDisable(true);
         deleteButton.setDisable(true);
     }
@@ -87,7 +87,8 @@ public class DetailLuggageController extends Controller {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select location to save PDF.");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+                new FileChooser.ExtensionFilter("PDF", "*.pdf")
+        );
         
         File file = fileChooser.showSaveDialog(view.getScene().getWindow());
         

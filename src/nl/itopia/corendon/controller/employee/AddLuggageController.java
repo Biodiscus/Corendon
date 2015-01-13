@@ -21,8 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javafx.beans.value.ObservableValue;
 import nl.itopia.corendon.controller.CustomerController;
-import nl.itopia.corendon.utils.Log;
-
 
 /**
  * © 2014, Biodiscus.net Robin
