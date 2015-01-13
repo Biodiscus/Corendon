@@ -185,7 +185,30 @@ public class AdministratorController extends Controller {
      */
     public void editEmployee(ActionEvent event) {
         TableUser user = (TableUser) userTable.getSelectionModel().getSelectedItem();
-        addController(new EditUserController(user.getUserID()));
+        int selectedIndex = userTable.getSelectionModel().getSelectedIndex();
+        EditUserController editUserController =new EditUserController(user.getUserID());
+        
+        editUserController.setControllerDeleteHandler((obj) -> {
+            boolean isBoolean = (obj instanceof Boolean);
+            /* check if dialog is canceled */
+            if(!isBoolean) {
+                /* object is not a boolean, so it means that the dialog is naturally closed */
+                // The editUserController will return a Employee
+                Employee employee = (Employee) obj;
+                TableUser editedUser = new TableUser(
+                        employee.getID(),
+                        employee.username,
+                        employee.firstName,
+                        employee.lastName,
+                        employee.role.getName(),
+                        employee.airport.getName()
+                );
+                tableData.remove(selectedIndex);
+                tableData.add(selectedIndex,editedUser);
+            }
+        });
+        
+        addController(editUserController);
     }
     
     public void detailsEmployee(ActionEvent event) {
