@@ -28,8 +28,8 @@ import nl.itopia.corendon.controller.CustomerController;
 public class AddLuggageController extends Controller {
     
     @FXML private Button addButton, cancelButton, browseButton;
-    @FXML private TextField labelInputfield, fileInputfield, weightInputfield, notesInputfield;
-    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield;
+    @FXML private TextField labelInputfield, fileInputfield, notesInputfield;
+    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield, weightInputfield;
     @FXML private ComboBox<ChooseItem> brandInput;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown, lostOrFounddropdown;
     @FXML private ScrollPane imageScrollpane;

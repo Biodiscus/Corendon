@@ -19,15 +19,16 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import nl.itopia.corendon.components.NumberTextField;
 
 /**
  * © 2014, Biodiscus.net Robin
  */
 public class EditLuggageController extends Controller {
     
-    @FXML private TextField labelInputfield, fileInputfield, heightInputfield, weightInputfield,
-            notesInputfield, widthInputfield, depthInputfield;
-
+    @FXML private TextField labelInputfield, fileInputfield,notesInputfield;
+    
+    @FXML private NumberTextField heightInputfield, widthInputfield, depthInputfield, weightInputfield;
     @FXML private ChoiceBox<ChooseItem> foundonAirportdropdown, colorDropdown;
     @FXML private ScrollPane imageScrollpane;
     @FXML private Button cancelButton, editButton, browseButton;
@@ -76,7 +77,7 @@ public class EditLuggageController extends Controller {
         widthInputfield.setText(dimensions[0]);
         heightInputfield.setText(dimensions[1]);
         depthInputfield.setText(dimensions[2]);
-
+        
         weightInputfield.setText(luggage.weight);
         
         // Fill the brand input with the brands in the system

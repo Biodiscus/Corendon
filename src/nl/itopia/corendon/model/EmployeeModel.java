@@ -195,7 +195,7 @@ public class EmployeeModel {
         }
     }
 
-    private boolean userExists(Employee employee) {
+    public boolean userExists(Employee employee) {
 
         String checkUser = "SELECT COUNT(*) AS usercounter FROM employee WHERE username = '" + employee.username + "'";
 
@@ -285,16 +285,19 @@ public class EmployeeModel {
     public void editEmployee(Employee employee) {
         
         String editQuery = "UPDATE employee SET "
-                + "username = '"+ employee.username +"', "
-                + "password = '"+ employee.password +"', "
-                + "salt = '"+ employee.salt +"', "
-                + "first_name = '"+ employee.firstName +"', "
+                + "username = '"+ employee.username +"', ";
+                if(null != employee.password ) {
+                    /* checking if password is blank or not.When the password is not blank, update the old password with the new one */
+                    editQuery += "password = '%s', salt = '%s', ";
+                    editQuery = String.format(editQuery, employee.password, employee.salt);
+                }
+                editQuery += "first_name = '"+ employee.firstName +"', "
                 + "last_name = '"+ employee.lastName +"', "
                 + "role_id = "+ employee.role.getID() +", "
                 + "contact_details = '"+ employee.contactDetails +"', "
-                + "notes = '"+ employee.notes +"' "
-                //+ "airports_id = 1" 
-                + "WHERE id = "+ employee.id;
+                + "notes = '"+ employee.notes +"', "
+                + "airports_id = " + employee.airport.getID()
+                + " WHERE id = "+ employee.id;
         
         Log.display(editQuery);
        try {

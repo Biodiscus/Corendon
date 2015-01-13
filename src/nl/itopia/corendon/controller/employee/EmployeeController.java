@@ -107,6 +107,9 @@ public class EmployeeController extends Controller {
         // Create a timer with a certain interval, every time it ticks refresh the entire to receive new data
         timer = new Timer(Config.DATA_REFRESH_INTERVAL, (e) -> refreshHandler(null));
 
+        // Tell the stylesheet that there should be an image on the button
+        refreshButton.setId("button_refresh");
+
         // Make a new thread that will recieve the tableData from the database
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true); // If for some reason the program quits, let the threads get destroyed with the main thread
@@ -131,7 +134,10 @@ public class EmployeeController extends Controller {
     }
 
     private void refreshHandler(ActionEvent e) {
-        Platform.runLater(()->refreshButton.setDisable(true));
+        Platform.runLater(()->{
+            refreshButton.setDisable(true);
+            refreshButton.setId("button_refresh_animate");
+        });
 
         Thread dataThread = new Thread(this::receiveData);
         dataThread.setDaemon(true);
@@ -160,6 +166,7 @@ public class EmployeeController extends Controller {
             luggageInfo.setItems(tableData);
             // Enable the button, remove the loading icon
             refreshButton.setDisable(false);
+            refreshButton.setId("button_refresh");
             LuggageTable.getChildren().remove(iconPane);
         });
 

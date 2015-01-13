@@ -108,35 +108,25 @@ public class CreateUserController extends Controller {
         }
         
         // Check if firstname is correct size
-        if (firstName.length() < 3) {
-            Validation.errorMessage(firstnameInputfield, "Firstname is too short.");
-            errorCount++;
-        }
-        
         if (firstName.length() == 0) {
-            Validation.errorMessage(firstnameInputfield, "Firstname is required.");
+            Validation.errorMessage(firstnameInputfield, "First name is required.");
             errorCount++;
         }
         
         // Check if firstname is correct size
-        if (lastName.length() < 3) {
-            Validation.errorMessage(lastnameInputfield, "Firstname is too short.");
-            errorCount++;
-        }
-        
         if (lastName.length() == 0) {
-            Validation.errorMessage(lastnameInputfield, "Firstname is required.");
+            Validation.errorMessage(lastnameInputfield, "Last name is required.");
             errorCount++;
         }
         
         // Check if username is the correct size
         if (userName.length() < 3) {
-            Validation.errorMessage(usernameInputfield, "Firstname is too short.");
+            Validation.errorMessage(usernameInputfield, "Username is too short.");
             errorCount++;
         }
         
         if (userName.length() == 0) {
-            Validation.errorMessage(usernameInputfield, "Firstname is required.");
+            Validation.errorMessage(usernameInputfield, "Username is required.");
             errorCount++;
         }
         
