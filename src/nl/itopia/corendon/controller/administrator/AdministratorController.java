@@ -47,7 +47,7 @@ public class AdministratorController extends Controller {
     @FXML private TableColumn<Employee, String> roleTable;
     @FXML private TableColumn<Employee, String> airportTable;
     @FXML private Label userName, userIDLoggedInPerson;
-    @FXML private Button allusersButton, adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, changePasswordButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
+    @FXML private Button /*allusersButton, */adduserButton, deleteuserButton, edituserButton, detailsuserButton, logoutButton, changePasswordButton, helpButton, logfilesbutton, deletedLuggageButton, refreshButton;
 
     private ImageView spinningIcon;
     private StackPane iconPane;
@@ -68,7 +68,7 @@ public class AdministratorController extends Controller {
         // Show a spinning icon to indicate to the user that we are getting the tableData
         showLoadingIcon();
 
-        allusersButton.setOnAction(this::allUsers);
+//        allusersButton.setOnAction(this::allUsers);
         adduserButton.setOnAction(this::createNewEmployee);
         edituserButton.setOnAction(this::editEmployee);
         detailsuserButton.setOnAction(this::detailsEmployee);
