@@ -40,6 +40,7 @@ import nl.itopia.corendon.utils.Log;
 import javax.swing.Timer;
 import nl.itopia.corendon.controller.ChangePasswordController;
 import nl.itopia.corendon.controller.InfoController;
+import nl.itopia.corendon.utils.IO;
 
 /**
  * © 2014, Biodiscus.net robin
@@ -511,7 +512,7 @@ public class ManagerController extends Controller {
     }
 
     private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
+        infoController = new InfoController("Manager information", IO.get("help/manager.htm").toString());
         
         infoController.setControllerDeleteHandler((obj)->{
             removeController(infoController);

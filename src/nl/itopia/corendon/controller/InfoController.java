@@ -8,6 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.Log;
 
 /**
  *
@@ -20,6 +21,7 @@ public class InfoController extends Controller {
     @FXML private Button exitButton;
     private String url;
     private String title;
+    private boolean openStatus = false;
     
     public InfoController(String title, String url) {
         
@@ -28,21 +30,41 @@ public class InfoController extends Controller {
         
         // Set view
         registerFXML("gui/help_function.fxml");
-        
+
+        //view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+
         headerTitle.setText(this.title);
 
         final WebView browser = new WebView();
         final WebEngine webEngine = browser.getEngine();
-        
+
         contentHolder.setTopAnchor(browser, 0.0);
         contentHolder.setBottomAnchor(browser, 0.0);
         contentHolder.setLeftAnchor(browser, 0.0);
         contentHolder.setRightAnchor(browser, 0.0);
-        
+
         contentHolder.getChildren().add(browser);
         webEngine.load(this.url);
-        
+
         exitButton.setOnAction(this::cancelHandler);
+    }
+    
+    public void openWindow() {
+        
+        if(this.getOpenStatus() == false) {
+            
+            Log.display("Controller should change here but it doesn't work :C");
+            //changeController(new InfoController("Reset Password", "test"));
+            this.setOpenStatus(true);
+        }
+    }
+    
+    public void setOpenStatus(boolean openStatus) {
+        this.openStatus = openStatus;
+    }
+    
+    public boolean getOpenStatus() {
+        return this.openStatus;
     }
     
     public void cancelHandler(ActionEvent e){

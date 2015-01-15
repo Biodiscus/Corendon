@@ -27,6 +27,7 @@ import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
 
 import javax.swing.Timer;
+import nl.itopia.corendon.utils.IO;
 
 /**
  * @author Erik
@@ -276,7 +277,7 @@ public class AdministratorController extends Controller {
     }
 
     private void openHelp() {
-        infoController = new InfoController("Administrator Info", "http://www.corendon.com/admin");
+        infoController = new InfoController("Admin information", IO.get("help/admin.htm").toString());
         
         infoController.setControllerDeleteHandler((obj)->{
             removeController(infoController);

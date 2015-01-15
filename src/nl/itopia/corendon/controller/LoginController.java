@@ -171,8 +171,7 @@ public class LoginController extends Controller {
 
     private void openHelp() {
         
-        System.out.println(IO.get("help/login.html"));
-        //infoController = new InfoController("Reset Password", ));
+        infoController = new InfoController("Reset Password", IO.get("help/login.htm").toString());
         
         infoController.setControllerDeleteHandler((obj)->{
             removeController(infoController);

@@ -55,12 +55,14 @@ public class LogController extends Controller {
     private EmployeeModel employeeModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
-    private InfoController infoController;
+    private InfoController infoController = new InfoController("Reset Password", "test");
 
     public LogController() {
         
         // Set view
         registerFXML("gui/administrator_logs.fxml");
+        
+        //InfoController infoController = new InfoController("Reset Password", "test");
 
         EmployeeModel employeeModel = EmployeeModel.getDefault();
         userIDLoggedInPerson.setText(""+employeeModel.currentEmployee.id);
@@ -69,13 +71,15 @@ public class LogController extends Controller {
         logModel = LogModel.getDefault();
         employeeModel = EmployeeModel.getDefault();
         
+        //helpButton.setOnAction(this::openHelp);
+        view.fxmlPane.setOnKeyReleased(this::openHelp);
+        
         logoutButton.setOnAction(this::logoutHandler);
-        helpButton.setOnAction(this::helpHandler);
         overviewbutton.setOnAction(this::overviewHandler);
         deletedLuggageButton.setOnAction(this::deletedLuggageHandler);
         filterButton.setOnAction(this::filterHandler);
-        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
-        helpButton.setOnAction(this::helpHandler);
+        //view.fxmlPane.setOnKeyReleased(this::keypressHandler);
+        //helpButton.setOnAction(this::helpHandler);
         // TODO: Implement print
         // printstatisticsButton.setOnAction(this::printStatisticsHandler);
 
@@ -155,40 +159,26 @@ public class LogController extends Controller {
         dataThread.start();        
     }
     
-    /**
-     * Open F1 InfoWindow
-     * @param e 
-     */
-    private void keypressHandler(KeyEvent e) {
-        //opens helpfunction with the f1 key
-        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
-            if (e.getCode() == KeyCode.F1) {
-                // If it's already openend, close it
-                if (infoController == null) {
-                    openHelp();
-                } else {
-                    removeController(infoController);
-                    infoController = null;
-                }
-            } 
-        }
-    }
-    
-    private void helpHandler(ActionEvent e) {
-        if(infoController == null) {
-            openHelp();
-        }
-        //opens help function
-    }
 
-    private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
+    
+    //Help function
+    /*private void openHelp(ActionEvent e) {
         
-        infoController.setControllerDeleteHandler((obj)->{
-            removeController(infoController);
-            infoController = null;
-        });
-        addController(infoController);
+        //InfoController ic = new InfoController("Reset Password", "test");
+        
+        if( infoController.getOpenStatus() == true ) {
+            addController(infoController);
+            infoController.setOpenStatus(true);
+        }
+        System.out.println("Openening help....");
+    }*/
+    
+    private void openHelp(KeyEvent e) {
+        infoController.openWindow();
+        /*if(infoController.getOpenStatus() == true ) {
+            //addController(infoController);
+            infoController.setOpenStatus(false);
+        }*/
     }
     
     private void logoutHandler(ActionEvent e) {
