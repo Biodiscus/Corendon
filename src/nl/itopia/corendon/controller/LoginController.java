@@ -13,6 +13,7 @@ import nl.itopia.corendon.controller.manager.ManagerController;
 import nl.itopia.corendon.data.Employee;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.mvc.Controller;
+import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Log;
 import nl.itopia.corendon.utils.Validation;
 
@@ -169,7 +170,9 @@ public class LoginController extends Controller {
     }
 
     private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
+        
+        System.out.println(IO.get("help/login.html"));
+        //infoController = new InfoController("Reset Password", ));
         
         infoController.setControllerDeleteHandler((obj)->{
             removeController(infoController);
