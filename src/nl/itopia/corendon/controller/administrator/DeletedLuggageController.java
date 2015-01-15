@@ -26,6 +26,7 @@ import nl.itopia.corendon.model.LuggageModel;
 import nl.itopia.corendon.mvc.Controller;
 
 import javax.swing.*;
+import nl.itopia.corendon.utils.IO;
 
 /**
  *
@@ -185,7 +186,7 @@ public class DeletedLuggageController extends Controller {
     
     /**
      * Open F1 InfoWindow
-     * @param e 
+     * @param e
      */
     private void keypressHandler(KeyEvent e) {
         //opens helpfunction with the f1 key
@@ -198,21 +199,20 @@ public class DeletedLuggageController extends Controller {
                     removeController(infoController);
                     infoController = null;
                 }
-            } 
+            }
         }
     }
-    
+
     private void helpHandler(ActionEvent e) {
         if(infoController == null) {
             openHelp();
         }
         //opens help function
     }
-
+    
     private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
-        
-        infoController.setControllerDeleteHandler((obj)->{
+        infoController = new InfoController("Admin information", IO.get("help/admin.htm").toString());
+        infoController.setControllerDeleteHandler((obj) -> {
             removeController(infoController);
             infoController = null;
         });

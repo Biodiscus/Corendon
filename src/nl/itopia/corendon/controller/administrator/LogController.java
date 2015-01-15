@@ -172,7 +172,10 @@ public class LogController extends Controller {
             infoController.setOpenStatus(true);
         }
         System.out.println("Openening help....");
-    }*/ /**
+    }*/ 
+    
+    
+    /**
      * Open F1 InfoWindow
      * @param e
      */
@@ -199,7 +202,7 @@ public class LogController extends Controller {
     }
     
     private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
+        infoController = new InfoController("Admin information", IO.get("help/admin.htm").toString());
         infoController.setControllerDeleteHandler((obj) -> {
             removeController(infoController);
             infoController = null;

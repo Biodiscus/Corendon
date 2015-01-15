@@ -33,6 +33,7 @@ import nl.itopia.corendon.utils.IO;
  * @author Erik
  */
 public class AdministratorController extends Controller {
+    
     private EmployeeModel employeeModel;
     private DatabaseManager dbManager;
     private InfoController infoController;

@@ -30,6 +30,7 @@ import nl.itopia.corendon.model.EmployeeModel;
 import javax.swing.*;
 import nl.itopia.corendon.controller.ChangePasswordController;
 import nl.itopia.corendon.controller.InfoController;
+import nl.itopia.corendon.utils.IO;
 
 /**
  * AUTHOR: IGOR
@@ -263,42 +264,6 @@ public class EmployeeController extends Controller {
         tableData.remove(luggage);
     }
 
-    /**
-     * Open F1 InfoWindow
-     * @param e 
-     */
-    private void keypressHandler(KeyEvent e) {
-        //opens helpfunction with the f1 key
-        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
-            if (e.getCode() == KeyCode.F1) {
-                // If it's already openend, close it
-                if (infoController == null) {
-                    openHelp();
-                } else {
-                    removeController(infoController);
-                    infoController = null;
-                }
-            } 
-        }
-    }
-    
-    private void helpHandler(ActionEvent e) {
-        if(infoController == null) {
-            openHelp();
-        }
-        //opens help function
-    }
-
-    private void openHelp() {
-        infoController = new InfoController("Reset Password", "test");
-        
-        infoController.setControllerDeleteHandler((obj)->{
-            removeController(infoController);
-            infoController = null;
-        });
-        addController(infoController);
-    }
-
     private void quickFilterFound(ActionEvent e) {
         luggageList = luggageModel.getAllFoundLuggage();
 
@@ -370,4 +335,41 @@ public class EmployeeController extends Controller {
         }
     }
 
+    
+    
+    /**
+     * Open F1 InfoWindow
+     * @param e 
+     */
+    private void keypressHandler(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (infoController == null) {
+                    openHelp();
+                } else {
+                    removeController(infoController);
+                    infoController = null;
+                }
+            } 
+        }
+    }
+    
+    private void helpHandler(ActionEvent e) {
+        if(infoController == null) {
+            // Open help function
+            openHelp();
+        }
+    }
+
+    private void openHelp() {
+        infoController = new InfoController("Employee information", IO.get("help/employee.htm").toString());
+        
+        infoController.setControllerDeleteHandler((obj)->{
+            removeController(infoController);
+            infoController = null;
+        });
+        addController(infoController);
+    }
 }

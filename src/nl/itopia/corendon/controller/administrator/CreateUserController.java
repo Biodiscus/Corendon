@@ -7,6 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import nl.itopia.corendon.controller.InfoController;
 import nl.itopia.corendon.data.Airport;
 import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.Employee;
@@ -17,6 +20,7 @@ import nl.itopia.corendon.model.RoleModel;
 import nl.itopia.corendon.mvc.Controller;
 import nl.itopia.corendon.utils.DateUtil;
 import nl.itopia.corendon.utils.Hashing;
+import nl.itopia.corendon.utils.IO;
 import nl.itopia.corendon.utils.Validation;
  
 /**
@@ -158,7 +162,7 @@ public class CreateUserController extends Controller {
             removeController(this);
         }
     }
- 
+    
     private void cancelHandler(ActionEvent e) {
         removeController(this);
     }
