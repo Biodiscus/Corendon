@@ -30,6 +30,7 @@ import nl.itopia.corendon.data.ChooseItem;
 import nl.itopia.corendon.data.table.TableLog;
 import nl.itopia.corendon.model.EmployeeModel;
 import nl.itopia.corendon.utils.DateUtil;
+import nl.itopia.corendon.utils.IO;
 
 /**
  * @author Jeroentje
@@ -55,7 +56,7 @@ public class LogController extends Controller {
     private EmployeeModel employeeModel;
     private ImageView spinningIcon;
     private StackPane iconPane;
-    private InfoController infoController = new InfoController("Reset Password", "test");
+    private InfoController infoController;
 
     public LogController() {
         
@@ -71,8 +72,8 @@ public class LogController extends Controller {
         logModel = LogModel.getDefault();
         employeeModel = EmployeeModel.getDefault();
         
-        //helpButton.setOnAction(this::openHelp);
-        view.fxmlPane.setOnKeyReleased(this::openHelp);
+        helpButton.setOnAction(this::helpHandler);
+        view.fxmlPane.setOnKeyReleased(this::keypressHandler);
         
         logoutButton.setOnAction(this::logoutHandler);
         overviewbutton.setOnAction(this::overviewHandler);
@@ -171,14 +172,39 @@ public class LogController extends Controller {
             infoController.setOpenStatus(true);
         }
         System.out.println("Openening help....");
-    }*/
+    }*/ /**
+     * Open F1 InfoWindow
+     * @param e
+     */
+    private void keypressHandler(KeyEvent e) {
+        //opens helpfunction with the f1 key
+        if(e.getEventType() == KeyEvent.KEY_RELEASED) {
+            if (e.getCode() == KeyCode.F1) {
+                // If it's already openend, close it
+                if (infoController == null) {
+                    openHelp();
+                } else {
+                    removeController(infoController);
+                    infoController = null;
+                }
+            }
+        }
+    }
+
+    private void helpHandler(ActionEvent e) {
+        if(infoController == null) {
+            openHelp();
+        }
+        //opens help function
+    }
     
-    private void openHelp(KeyEvent e) {
-        infoController.openWindow();
-        /*if(infoController.getOpenStatus() == true ) {
-            //addController(infoController);
-            infoController.setOpenStatus(false);
-        }*/
+    private void openHelp() {
+        infoController = new InfoController("Reset Password", "test");
+        infoController.setControllerDeleteHandler((obj) -> {
+            removeController(infoController);
+            infoController = null;
+        });
+        addController(infoController);
     }
     
     private void logoutHandler(ActionEvent e) {
