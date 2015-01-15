@@ -150,9 +150,9 @@ public class AdministratorController extends Controller {
         });
     }
 
-    public void allUsers(ActionEvent event) {
-        changeController(new AdministratorController());
-    }
+//    public void allUsers(ActionEvent event) {
+//        changeController(new AdministratorController());
+//    }
 
     public void createNewEmployee(ActionEvent event) {
 

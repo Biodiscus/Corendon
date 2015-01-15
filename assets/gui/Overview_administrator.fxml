@@ -67,11 +67,9 @@
                <font>
                   <Font size="11.0" />
                </font></Button>
-            <Button id="foundLuggagebutton" fx:id="allusersButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="All users" />
-            <Button id="lostLuggagebutton" fx:id="searchusersButton" layoutX="43.0" layoutY="226.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Search user" />
-            <Button id="addLuggagebutton" fx:id="adduserButton" layoutX="43.0" layoutY="457.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add user" />
-            <Button id="editLuggagebutton" fx:id="edituserButton" layoutX="43.0" layoutY="502.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit user" />
-            <Button id="deleteLuggagebutton" fx:id="deleteuserButton" layoutX="43.0" layoutY="592.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete user" />
+            <Button id="addLuggagebutton" fx:id="adduserButton" layoutX="43.0" layoutY="181.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Add user" />
+            <Button id="editLuggagebutton" fx:id="edituserButton" layoutX="43.0" layoutY="226.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Edit user" />
+            <Button id="deleteLuggagebutton" fx:id="deleteuserButton" layoutX="43.0" layoutY="316.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="  Delete user" />
             <AnchorPane fx:id="userAnchorpane" layoutX="430.0" layoutY="181.0" prefHeight="457.0" prefWidth="773.0">
                <children>
                   <TableView id="luggageInfo" fx:id="userTable" prefHeight="458.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -86,11 +84,11 @@
                   </TableView>
                </children>
             </AnchorPane>
-             <Button fx:id="refreshButton" disable="true" layoutX="1168.0" layoutY="134.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0"/>
+             <Button fx:id="refreshButton" disable="true" layoutX="1168.0" layoutY="134.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="35.0" />
             <Button fx:id="logfilesbutton" layoutX="188.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Logfiles" />
             <Button fx:id="overviewbutton" disable="true" layoutX="41.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Overview" />
             <Button fx:id="deletedLuggageButton" layoutX="334.0" layoutY="58.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="140.0" text="Deleted luggage" />
-            <Button id="detailsLuggagebutton" fx:id="detailsuserButton" layoutX="43.0" layoutY="547.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Details user" />
+            <Button id="detailsLuggagebutton" fx:id="detailsuserButton" layoutX="43.0" layoutY="271.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="283.0" text="Details user" />
          </children>
          <opaqueInsets>
             <Insets right="2.0" />
