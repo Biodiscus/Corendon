@@ -6,10 +6,12 @@ import javafx.scene.shape.Rectangle;
 import nl.itopia.corendon.mvc.View;
 
 /**
+ * The DialogBackground will create a blakish background, when adding a controller this class will be used as a background.
+ *
  * © 2014, Biodiscus.net Robin
  */
 public class DialogBackground extends View {
-    
+
     public DialogBackground(Scene scene) {
         double width = scene.getWidth();
         double height = scene.getHeight();

@@ -16,7 +16,7 @@ import java.net.URL;
  * © Biodiscus.net 2014, Robin
  */
 public abstract class Controller {
-    
+
     private MVC mvc;
     protected View view;
 
@@ -24,19 +24,31 @@ public abstract class Controller {
 
     public Controller() {}
 
+    /**
+     * Register a FXML View. The FXML view will be added to a new View.
+     * @param path String
+     */
     public void registerFXML(String path) {
         registerFXML(path, new View());
     }
 
+    /**
+     * Register a FXML View. The FXML view will be added to the View.
+     * @param path String
+     * @param view View
+     */
     public void registerFXML(String path, View view) {
         this.view = view;
 
+        // Get the URL inside the JAR
         URL url = IO.get(path);
         try {
-            view.fxmlPane = new Pane();
+            // Load the FXML file
             FXMLLoader loader = new FXMLLoader(url);
             loader.setController(this);
             view.fxmlPane = loader.load();
+
+            // Add it to the view
             view.getChildren().add(view.fxmlPane);
         } catch (IOException e) {
             Log.display("IOEXCEPTION", e.getMessage());
@@ -44,18 +56,36 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Set the current MVC engine, this way we can change the controller in a controller
+     * @param mvc MVC
+     */
     public final void setMVCEngine(MVC mvc) {
         this.mvc = mvc;
     }
 
+    /**
+     * Change the current controller to the new one
+     * @param controller Controller
+     */
     public final void changeController(Controller controller) {
         mvc.setController(controller);
     }
-    
+
+    /**
+     * Adds a new controller to the scene. If no root is given, the Controller will be added to the current controller
+     * (The one that called this function)
+     * @param controller Controller
+     */
     public final void addController(Controller controller) {
         addController(controller, getView());
     }
 
+    /**
+     * Adds a new controller to the scene. If no root is given, the Controller will be added to the current controller
+     * (The one that called this function)
+     * @param controller Controller
+     */
     public final void addController(Controller controller, Pane root) {
         // If the root is null, change the controller instead
         if(root == null) {
@@ -74,8 +104,13 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * Removes the given controller. If a controller delete handler is set, fire it.
+     * Override destroyReturn() to specify what object will be return upon deletion.
+     * @param controller
+     */
     public final void removeController(Controller controller) {
-        
+
         Pane parent = (Pane)controller.getView().getParent();
         // TODO: When the root in addController is null, it should do something else.
         if(parent != null) {
@@ -94,15 +129,29 @@ public abstract class Controller {
         }
     }
 
+    /**
+     * When creating the class, the programs allows for a ObjectDelete handler.
+     * This will send an object to the set handler, with a object from the method destroyReturn()
+     * @param handler
+     */
     public void setControllerDeleteHandler(ObjectDelete handler) {
         this.controllerDeleteHandler = handler;
     }
 
     // Override this function to give the destroy handler an object to return
+
+    /**
+     * Override the destroyReturn function to specify what object to send with the handler when destroyed.
+     * @return
+     */
     protected Object destroyReturn() {
         return null;
     }
 
+    /**
+     * Get the view associated with the controller
+     * @return
+     */
     public View getView() {
         return view;
     }
